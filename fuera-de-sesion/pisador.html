@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Tipo de Pisador · Fuera de sesión · Lic. Fabián Sierra</title>
+<meta name="description" content="¿Qué tipo de pisador de caca de perro sos? Un cuestionario sin validación científica. Resultados sin garantía. Algo igual te va a quedar dando vueltas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --line:#D8D4C9;--line-soft:#E5E2D9;
+    --accent:#942322;--accent-deep:#741A19;--accent-light:#c47a78;
+    --surface-a:#1E1F23;--surface-b:#141518;
+    --maxw:860px;--pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#17181C;scroll-behavior:smooth;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#17181C;color:var(--bone);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(23,24,28,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.98rem;color:var(--bone)}
+  .brand span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .nav-back{display:flex;align-items:center;gap:.5rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color .2s}
+  .nav-back:hover{color:var(--accent-light)}
+  .nav-back svg{width:14px;height:14px;flex-shrink:0}
+
+  .prog-wrap{height:2px;background:rgba(255,255,255,.08);position:sticky;top:68px;z-index:49}
+  .prog-fill{height:100%;background:var(--accent);width:0%;transition:width .35s var(--ease)}
+
+  .hero{background:#17181C;border-top:1px solid rgba(255,255,255,.06);padding-top:clamp(3rem,7vw,5.5rem);padding-bottom:clamp(3rem,7vw,5rem);position:relative;overflow:hidden}
+  .hero-num{position:absolute;right:-2%;top:50%;transform:translateY(-55%);font-size:clamp(10rem,28vw,22rem);font-weight:900;letter-spacing:-.05em;color:var(--bone);opacity:.03;pointer-events:none;line-height:1;-webkit-user-select:none;user-select:none}
+  .hero .wrap{position:relative;z-index:1}
+  .hero-eyebrow{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:1.1rem;display:flex;align-items:center;gap:.7rem}
+  .hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent-light);display:block;flex-shrink:0}
+  .hero h1{font-weight:800;letter-spacing:-.032em;line-height:1.02;font-size:clamp(2.2rem,6vw,4rem);margin-bottom:1.4rem;color:var(--bone)}
+  .hero-sub{color:rgba(243,241,236,.55);font-size:clamp(.95rem,1.7vw,1.1rem);line-height:1.72;max-width:52ch;font-weight:300;font-style:italic;border-left:2px solid rgba(255,255,255,.12);padding-left:1.1rem;margin-bottom:2rem}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem 2rem;padding-top:1.8rem;border-top:1px solid rgba(255,255,255,.08)}
+  @media(min-width:580px){.hero-meta{grid-template-columns:repeat(3,1fr)}}
+  .hero-meta .k{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:.9rem;font-weight:500;margin-top:.2rem;color:var(--bone)}
+
+  main{background:#17181C;padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(3rem,7vw,6rem)}
+
+  .name-block{border:1px solid rgba(255,255,255,.1);background:var(--surface-a);padding:clamp(1.4rem,3vw,2rem);margin-bottom:2rem;border-left:3px solid var(--accent)}
+  .name-block label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.65rem;font-weight:500}
+  .name-block input[type=text]{width:100%;border:none;border-bottom:2px solid rgba(255,255,255,.15);background:transparent;font-family:"Archivo",sans-serif;font-size:1.08rem;font-weight:500;color:var(--bone);padding:.4rem 0;outline:none;transition:border-color .25s}
+  .name-block input[type=text]:focus{border-bottom-color:var(--accent)}
+  .name-block input[type=text]::placeholder{color:var(--muted);font-weight:300;font-size:.96rem}
+  .name-block.field-error{border-left-color:var(--accent-light)}
+  .name-block.field-error input[type=text]{border-bottom-color:var(--accent-light)}
+
+  .section-label{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:1px solid rgba(255,255,255,.06)}
+
+  .pregunta-block{margin-bottom:2.5rem;scroll-margin-top:120px}
+  .pregunta-momento{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:.5rem}
+  .pregunta-texto{font-size:clamp(1rem,2vw,1.2rem);font-weight:600;color:var(--bone);margin-bottom:1.2rem;line-height:1.35;letter-spacing:-.01em}
+
+  .opciones{display:flex;flex-direction:column;gap:.6rem}
+  .opcion{display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;border:1px solid rgba(255,255,255,.08);background:var(--surface-a);cursor:pointer;transition:border-color .2s var(--ease),background .2s var(--ease);border-radius:2px}
+  .opcion:hover{border-color:rgba(255,255,255,.2);background:#25262a}
+  .opcion.selected{border-color:var(--accent-light);background:#201a1a}
+  .opcion-radio{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s}
+  .opcion.selected .opcion-radio{border-color:var(--accent-light);background:var(--accent-light)}
+  .opcion.selected .opcion-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
+  .opcion-texto{font-size:.95rem;color:rgba(243,241,236,.7);font-weight:300;line-height:1.55;transition:color .2s}
+  .opcion.selected .opcion-texto{color:var(--bone)}
+  .pregunta-block.field-error .opciones{outline:1px solid var(--accent-light);outline-offset:4px;border-radius:2px}
+
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9rem;letter-spacing:.005em;padding:.82rem 1.6rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .3s var(--ease);cursor:pointer;font-family:"Archivo",sans-serif}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(148,35,34,.4)}
+  .btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(255,255,255,.2)}
+  .btn-ghost:hover{background:rgba(255,255,255,.06);transform:none;box-shadow:none}
+  .btn-block{display:block;width:100%;justify-content:center;margin-top:1.6rem;text-align:center}
+
+  .disclaimer{background:var(--surface-b);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.1);padding:1rem 1.3rem;margin-bottom:2rem;font-size:.82rem;color:rgba(243,241,236,.35);font-weight:300;line-height:1.65}
+
+  /* RESULTADO */
+  .resultado{display:none;padding-top:clamp(2rem,4vw,3rem)}
+  .resultado-eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+  .resultado-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent-light);display:block;flex-shrink:0}
+  .resultado-nombre{font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.03em;color:var(--bone);margin-bottom:2.5rem;line-height:1.15}
+
+  /* CARTAS CON VOLTEO */
+  .cartas-wrap{display:flex;align-items:flex-end;gap:2.5rem;margin-bottom:3rem;flex-wrap:wrap}
+
+  .carta-contenedor{perspective:1000px;cursor:pointer;flex-shrink:0}
+  .carta-contenedor.principal{width:220px}
+  .carta-contenedor.secundaria{width:150px;opacity:.8}
+
+  .carta-inner{position:relative;width:100%;transform-style:preserve-3d;transition:transform .8s var(--ease)}
+  .carta-contenedor.principal .carta-inner{min-height:340px}
+  .carta-contenedor.secundaria .carta-inner{min-height:245px}
+  .carta-inner.volteada{transform:rotateY(180deg)}
+
+  .carta-frente{
+    position:absolute;inset:0;
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .carta-reverso{
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+    border-radius:8px;
+  }
+  .carta-frente img{width:100%;height:100%;object-fit:cover;display:block}
+
+  .carta-reverso{
+    background:#1a1510;
+    transform:rotateY(180deg);
+    border:1px solid rgba(243,241,236,.15);
+    display:flex;flex-direction:column;
+    padding:1.4rem 1.1rem;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .carta-contenedor.principal .carta-reverso{padding:1.8rem 1.4rem}
+
+  .carta-reverso-texto{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:.82rem;
+    font-weight:300;
+    color:rgba(243,241,236,.85);
+    line-height:1.9;
+    text-align:center;
+  }
+  .carta-contenedor.principal .carta-reverso-texto{font-size:1rem;line-height:1.85}
+  .carta-reverso-texto p{margin-bottom:.9rem}
+  .carta-reverso-texto p:last-child{margin-bottom:0;font-style:italic;color:var(--bone)}
+
+  .carta-reverso-ornamento{
+    text-align:center;
+    font-size:.65rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:rgba(243,241,236,.2);
+    margin-bottom:1rem;
+    padding-bottom:.8rem;
+    border-bottom:1px solid rgba(243,241,236,.1);
+  }
+  .carta-reverso-ornamento-bottom{
+    text-align:center;
+    font-size:.65rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:rgba(243,241,236,.2);
+    margin-top:1rem;
+    padding-top:.8rem;
+    border-top:1px solid rgba(243,241,236,.1);
+  }
+
+  .carta-label{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.8rem;text-align:center}
+  .carta-hint{font-size:.62rem;color:rgba(243,241,236,.25);text-align:center;margin-top:.3rem}
+
+  @media(max-width:520px){
+    .carta-contenedor.principal{width:180px}
+    .carta-contenedor.secundaria{width:120px}
+    .cartas-wrap{gap:1.5rem}
+    .carta-contenedor.principal .carta-reverso-texto{font-size:.88rem}
+  }
+
+  .cta-strip{background:var(--surface-a);border-top:1px solid rgba(255,255,255,.06);margin-top:clamp(3rem,6vw,5rem)}
+  .cta-strip .wrap{padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(2.5rem,5vw,4rem);display:flex;flex-direction:column;gap:1.5rem;align-items:flex-start}
+  @media(min-width:720px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-eyebrow{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.8rem}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.3rem,2.5vw,1.8rem);letter-spacing:-.02em;line-height:1.2;max-width:28ch;color:var(--bone)}
+
+  footer{background:var(--surface-b);color:rgba(243,241,236,.3);border-top:1px solid rgba(255,255,255,.04)}
+  .foot-inner{padding:clamp(1.5rem,3vw,2.5rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:var(--bone);font-weight:700;font-size:.92rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.6rem;letter-spacing:.12em;color:var(--accent-light);text-transform:uppercase;margin-top:.4rem}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.04);padding:1rem var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between}
+  .foot-bottom span{font-size:.66rem;color:rgba(243,241,236,.2);letter-spacing:.04em}
+
+  @media(max-width:420px){.hero h1{font-size:2rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com" target="_blank">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <a class="nav-back" href="esto-no-es-un-test.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Esto no es un test
+    </a>
+  </div>
+</header>
+
+<div class="prog-wrap"><div class="prog-fill" id="progFill"></div></div>
+
+<section class="hero">
+  <div class="hero-num">01</div>
+  <div class="wrap">
+    <p class="hero-eyebrow">Esto no es un test</p>
+    <h1>¿Qué tipo de pisador de caca de perro sos?</h1>
+    <p class="hero-sub">Preguntas sin validación científica. Resultados sin garantía. Algo igual te va a quedar dando vueltas.</p>
+    <div class="hero-meta">
+      <div><p class="k">Formato</p><p class="v">6 preguntas</p></div>
+      <div><p class="k">Duración</p><p class="v">2 minutos</p></div>
+      <div><p class="k">Validación</p><p class="v">Ninguna</p></div>
+    </div>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <div class="name-block" id="nameBlock">
+    <label for="nombreInput">Tu nombre <span style="color:var(--accent-light)">*</span></label>
+    <input type="text" id="nombreInput" placeholder="Cómo te llamás" autocomplete="given-name">
+  </div>
+
+  <div id="formArea">
+    <p class="section-label">Respondé las siguientes situaciones</p>
+
+    <div class="pregunta-block" id="p1">
+      <p class="pregunta-momento">Antes</p>
+      <p class="pregunta-texto">Cuando caminás por la calle, ¿cómo va tu mirada?</p>
+      <div class="opciones">
+        <div class="opcion" data-valor="M" onclick="seleccionar(this,1)"><div class="opcion-radio"></div><span class="opcion-texto">Al frente. Lo que pase abajo no es mi departamento.</span></div>
+        <div class="opcion" data-valor="T" onclick="seleccionar(this,1)"><div class="opcion-radio"></div><span class="opcion-texto">Donde el teléfono me lleve.</span></div>
+        <div class="opcion" data-valor="N" onclick="seleccionar(this,1)"><div class="opcion-radio"></div><span class="opcion-texto">Escaneando el piso como si la vida dependiera de eso. Porque a veces depende.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p2">
+      <p class="pregunta-momento">Antes</p>
+      <p class="pregunta-texto">¿En qué estás pensando cuando caminás?</p>
+      <div class="opciones">
+        <div class="opcion" data-valor="M" onclick="seleccionar(this,2)"><div class="opcion-radio"></div><span class="opcion-texto">En lo que hay. El ruido de la calle, el aire, nada en particular.</span></div>
+        <div class="opcion" data-valor="F" onclick="seleccionar(this,2)"><div class="opcion-radio"></div><span class="opcion-texto">En la conversación que tuve hace tres días y recién ahora sé cómo tendría que haber terminado.</span></div>
+        <div class="opcion" data-valor="T" onclick="seleccionar(this,2)"><div class="opcion-radio"></div><span class="opcion-texto">En si alguien me está mirando.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p3">
+      <p class="pregunta-momento">Durante</p>
+      <p class="pregunta-texto">¿Cómo te dás cuenta de que pisaste?</p>
+      <div class="opciones">
+        <div class="opcion" data-valor="M" onclick="seleccionar(this,3)"><div class="opcion-radio"></div><span class="opcion-texto">El sonido. Inconfundible. El cuerpo lo sabe antes que la cabeza.</span></div>
+        <div class="opcion" data-valor="N" onclick="seleccionar(this,3)"><div class="opcion-radio"></div><span class="opcion-texto">Lo sentí pero negocié un segundo: "capaz fue otra cosa."</span></div>
+        <div class="opcion" data-valor="C" onclick="seleccionar(this,3)"><div class="opcion-radio"></div><span class="opcion-texto">Me di cuenta por la cara de alguien que me estaba mirando.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p4">
+      <p class="pregunta-momento">Durante</p>
+      <p class="pregunta-texto">¿Qué hacés en los tres segundos después?</p>
+      <div class="opciones">
+        <div class="opcion" data-valor="F" onclick="seleccionar(this,4)"><div class="opcion-radio"></div><span class="opcion-texto">Evalúo el daño, identifico al responsable y proceso las implicancias legales.</span></div>
+        <div class="opcion" data-valor="T" onclick="seleccionar(this,4)"><div class="opcion-radio"></div><span class="opcion-texto">Miro alrededor para ver si alguien lo vio.</span></div>
+        <div class="opcion" data-valor="C" onclick="seleccionar(this,4)"><div class="opcion-radio"></div><span class="opcion-texto">Me quedo un momento paralizado calculando cuánto de esto voy a tener que contar después.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p5">
+      <p class="pregunta-momento">Después</p>
+      <p class="pregunta-texto">¿Cómo resolvés el zapato?</p>
+      <div class="opciones">
+        <div class="opcion" data-valor="M" onclick="seleccionar(this,5)"><div class="opcion-radio"></div><span class="opcion-texto">Con lo primero que encontrás. Sin drama. Ya está.</span></div>
+        <div class="opcion" data-valor="F" onclick="seleccionar(this,5)"><div class="opcion-radio"></div><span class="opcion-texto">Con lo que haya. Pasto, cordón, dignidad. Lo que funcione.</span></div>
+        <div class="opcion" data-valor="T" onclick="seleccionar(this,5)"><div class="opcion-radio"></div><span class="opcion-texto">Mientras limpiás ya estás viendo quién te puede estar mirando.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p6">
+      <p class="pregunta-momento">Después</p>
+      <p class="pregunta-texto">¿Cuánto tiempo ocupa esto en tu cabeza después de resolverlo?</p>
+      <div class="opciones">
+        <div class="opcion" data-valor="C" onclick="seleccionar(this,6)"><div class="opcion-radio"></div><span class="opcion-texto">El tiempo suficiente para que se convierta en algo que vale la pena contar.</span></div>
+        <div class="opcion" data-valor="M" onclick="seleccionar(this,6)"><div class="opcion-radio"></div><span class="opcion-texto">Nada. Ya pasó. Siguiente.</span></div>
+        <div class="opcion" data-valor="N" onclick="seleccionar(this,6)"><div class="opcion-radio"></div><span class="opcion-texto">Un rato. Estás convencido de que con otro zapato no hubiera pasado.</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      Este cuestionario no tiene validación empírica, muestra representativa ni alfa de Cronbach. Los resultados son orientativos en el sentido más amplio y generoso de la palabra. Si algo te resuena, es tuyo. Si no, tampoco es culpa nuestra.
+    </div>
+
+    <button class="btn btn-block" onclick="calcularResultado()">Ver mi resultado</button>
+  </div>
+
+  <div class="resultado" id="resultado">
+    <p class="resultado-eyebrow">Tu perfil pisador</p>
+    <p class="resultado-nombre" id="resultNombre"></p>
+
+    <div class="cartas-wrap" id="cartasWrap"></div>
+
+    <button class="btn btn-ghost" style="margin-top:1rem" onclick="reiniciar()">Volver a empezar</button>
+  </div>
+
+</div>
+</main>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <p class="cta-eyebrow">Más allá del zapato</p>
+      <h3>Si algo de esto te generó preguntas de verdad, hay un espacio para eso.</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Hice%20el%20cuestionario%20del%20pisador%20y%20me%20gustar%C3%ADa%20coordinar%20una%20consulta." target="_blank" rel="noopener">
+      Coordinar consulta
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <span style="font-size:.76rem;color:rgba(243,241,236,.2)">Sin validación empírica · Sin derivación · Con intención</span>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Fuera de sesión</span>
+  </div>
+</footer>
+
+<script>
+var respuestas = {};
+
+var arquetipos = {
+  M: { nombre: 'El Monje', imagen: 'carta-monje.png' },
+  F: { nombre: 'El Fiscal de Guardia', imagen: 'carta-fiscal.png' },
+  N: { nombre: 'El Negociador', imagen: 'carta-negociador.png' },
+  T: { nombre: 'El que Necesita Testigos', imagen: 'carta-testigos.png' },
+  C: { nombre: 'El que ya Sabe Cómo lo Va a Contar', imagen: 'carta-cronista.png' }
+};
+
+var devoluciones = {
+  'M+C': '<p>Pisaste, limpiaste con lo que había, y seguiste caminando. Diez minutos después se lo estabas contando a alguien como si hubiera sido la escena de una película. Con pausa dramática y todo.</p><p>La combinación de El Monje y El que ya Sabe Cómo lo Va a Contar es, sin dudas, una de las más sofisticadas del espectro pisador. No sufriste. No maldijiste. No buscaste al culpable ni miraste alrededor para ver si alguien te había visto. Simplemente procesaste, archivaste, y seguiste. El mundo no se enteró de que algo había pasado hasta que vos decidiste que era el momento.</p><p>Porque eso es lo tuyo. No contás las cosas cuando pasan, las contás cuando saben mejor. Tenés un archivo mental impecable y un criterio muy afinado para el timing. La caca fue tuya pero la historia terminó siendo de todos, y encima te quedaste con los aplausos.</p><p>¿Las historias que contás serían todavía mejores si hubieras estado un poco más en la escena cuando pasaron?</p>',
+  'M+F': '<p>Pisaste, limpiaste con lo que había, y seguiste caminando. Sin drama, sin palabras, sin escena. Caso cerrado.</p><p>La combinación de El Monje y El Fiscal de Guardia es, estadísticamente, una de las más contradictorias del espectro pisador. Porque por fuera sos la calma personificada. Limpiaste, seguiste, nadie supo nada. Pero por dentro ya tenías identificado al responsable, el antecedente, el agravante, y la pena correspondiente.</p><p>Sos de esas personas que procesan en silencio pero no perdonan en silencio. La serenidad que mostrás no es paz, es protocolo. Y el protocolo incluye una lista interna de quién tiene la culpa de cada cosa que sale mal, perfectamente ordenada y actualizada.</p><p>¿La caca del perro ya tiene dueño en tu cabeza, o todavía está en investigación?</p>',
+  'M+N': '<p>Pisaste, evaluaste el daño con una calma que francamente intimida, limpiaste, y seguiste. Nadie diría que algo había pasado.</p><p>La combinación de El Monje y El Negociador es la del estoico que antes de aceptar la realidad le da una segunda oportunidad. Porque sí, limpiaste y seguiste. Pero hubo un momento, breve, en que te preguntaste si realmente había sido tanto. Si capaz con ignorarlo alcanzaba. Si el zapato no se limpiaría solo con el tiempo.</p><p>Sos de las personas que parecen tener todo bajo control porque en general lo tienen. Pero ese instante de negociación con la evidencia aparece en más áreas de tu vida de lo que te gustaría admitir.</p><p>¿Cuántas veces por semana negociás con algo que ya sabés cómo termina?</p>',
+  'M+T': '<p>Pisaste, limpiaste, y seguiste. Impecable. Nadie lo vio, nadie lo supo, y eso estuvo bien.</p><p>La combinación de El Monje y El que Necesita Testigos es la más silenciosa de todas, y también la más interesante. Porque tenés una capacidad real para estar solo con lo que pasa. No necesitás que nadie lo valide. Pero hay algo en vos que de vez en cuando mira alrededor y se pregunta si no hubiera estado bueno que alguien viera lo bien que lo manejaste.</p><p>No necesitás aplausos. Pero tampoco te caerían mal.</p><p>¿Cuántas cosas hacés bien sin que nadie se entere, y cuántas de esas te gustaría que alguien hubiera visto aunque sea una vez?</p>',
+  'F+M': '<p>Pisaste, identificaste al culpable en aproximadamente tres segundos, y después limpiaste con una eficiencia que sorprendió hasta a vos mismo.</p><p>La combinación del Fiscal de Guardia y El Monje es la del que tiene muy claro quién tiene la culpa pero no pierde el tiempo en el drama. Procesaste la indignación, la archivaste, y seguiste. Eso requiere una disciplina que la mayoría no tiene.</p><p>El tema es que la indignación archivada no desaparece. Va a un lugar muy ordenado de tu cabeza donde hay otras indignaciones igual de justificadas, igual de archivadas, esperando el momento oportuno.</p><p>¿Cuántas causas tenés abiertas ahí adentro que ya nadie más recuerda?</p>',
+  'F+C': '<p>Pisaste, encontraste al culpable, y antes de terminar de limpiar ya sabías cómo ibas a contar la historia. Con nombre, apellido, y circunstancias agravantes.</p><p>La combinación del Fiscal de Guardia y El que ya Sabe Cómo lo Va a Contar es devastadora en el mejor sentido. No solo identificás al responsable, sino que tenés el talento para construir un relato donde quede muy claro, sin que nadie te acuse de exagerar, exactamente qué pasó y por qué no fue tu culpa.</p><p>Sos de esas personas con las que nadie quiere quedar mal porque saben que la versión que va a circular después va a ser muy detallada y muy convincente.</p><p>¿Alguna vez te preguntaste qué versión de vos circula en las historias que cuentan los demás?</p>',
+  'F+N': '<p>Pisaste, y en los tres segundos siguientes hiciste dos cosas al mismo tiempo: encontraste al culpable y te preguntaste si realmente había sido tan grave.</p><p>La combinación del Fiscal de Guardia y El Negociador es la del que tiene muy claro quién tiene la culpa pero también sabe cuándo conviene soltar. A veces la indignación inicial se negocia hacia abajo cuando los costos de sostenerla son más altos que los beneficios.</p><p>Eso es pragmatismo. O madurez. O las dos cosas. El problema es que a veces negociás hacia abajo cosas que merecían más tiempo en el estrado.</p><p>¿Cuántas veces perdonaste rápido porque era más fácil que sostener la causa?</p>',
+  'F+T': '<p>Pisaste, y lo primero que hiciste fue mirar alrededor. No para ver si alguien te había visto a vos, sino para ver si había alguien que pudiera confirmar que la caca estaba ahí antes de que llegaras.</p><p>La combinación del Fiscal de Guardia y El que Necesita Testigos es la del que necesita que la injusticia sea pública. No alcanza con saber que tenés razón. Tiene que haber registro. Testigos. Pruebas. Alguien que pueda dar fe de que vos no tuviste nada que ver.</p><p>Sos de las personas que mandan capturas de pantalla por las dudas. Y las dudas siempre llegan.</p><p>¿Cuándo fue la última vez que te bastó con saber que tenías razón sin necesitar que nadie más lo supiera?</p>',
+  'N+M': '<p>Pisaste, dudaste, y después limpiaste con una tranquilidad que solo se consigue después de haber aceptado la realidad de a poco.</p><p>La combinación del Negociador y El Monje es la del que llega a la paz pero se toma su tiempo. No sos de los que procesan en el acto. Necesitás un momento para que la evidencia se acomode. Pero una vez que lo hace, soltás con una facilidad que le costaría mucho a otros.</p><p>El truco está en ese momento de negociación. Que a veces dura tres segundos y a veces dura tres años.</p><p>¿Sabés cuándo estás negociando con algo que ya tiene respuesta, o siempre te sorprende cuando finalmente la aceptás?</p>',
+  'N+F': '<p>Pisaste, y tu cabeza hizo las dos cosas al mismo tiempo: "capaz no fue tanto" y "pero si fue, hay un responsable". Las dos hipótesis corriendo en paralelo, esperando ver cuál ganaba.</p><p>La combinación del Negociador y El Fiscal de Guardia es la del detective que también es abogado defensor. Investigás con rigor pero también sabés construir el caso contrario. Eso te hace muy bueno para ver todos los ángulos, y a veces te hace muy difícil tomar una posición y quedarte en ella.</p><p>La gente que te conoce sabe que podés argumentar cualquier cosa desde cualquier lado. Lo que no siempre saben es cuál es realmente el tuyo.</p><p>¿Vos lo sabés?</p>',
+  'N+C': '<p>Pisaste, pasaste unos segundos procesando si realmente había pasado lo que había pasado, y cuando confirmaste que sí, lo primero que pensaste fue en cómo lo ibas a contar.</p><p>La combinación del Negociador y El que ya Sabe Cómo lo Va a Contar es la del que convierte la duda en parte del relato. No contás "pisé caca", contás "por un momento pensé que capaz no había sido caca, pero era caca". Ese detalle es el que hace reír. Sos de las personas que hacen de su propia confusión el mejor chiste.</p><p>El problema, si es que hay uno, es que a veces la negociación previa al relato descarta cosas que merecían tomarse más en serio antes de volverse graciosas.</p><p>¿Cuántas veces convertiste algo en chiste antes de terminar de entender qué había pasado?</p>',
+  'N+T': '<p>Pisaste, y tu primera reacción fue mirar alrededor. No para pedir ayuda, sino para ver si alguien más había visto lo que vos todavía no estabas seguro de haber visto.</p><p>La combinación del Negociador y El que Necesita Testigos es la del que usa la mirada ajena para confirmar la propia realidad. Si nadie reaccionó, capaz no fue para tanto. Si alguien hizo una mueca, entonces sí, fue.</p><p>Sos de las personas que calibran sus propias reacciones según las de los demás. Eso te hace muy adaptable socialmente y a veces te hace no saber muy bien qué pensás hasta que alguien más reacciona primero.</p><p>¿Cuántas opiniones tuyas son realmente tuyas?</p>',
+  'C+M': '<p>Pisaste, y mientras limpiabas con lo que había, sin drama y sin escena, ya estabas editando el relato en tu cabeza. La economía de medios es parte del estilo.</p><p>La combinación del que ya Sabe Cómo lo Va a Contar y El Monje es la del narrador que no necesita audiencia inmediata. Guardás la historia para el momento justo. No la contás en caliente, la dejás reposar. Y cuando finalmente sale, sale perfecta.</p><p>Eso requiere una paciencia y un control que la mayoría no tiene. También requiere estar muy cómodo con las cosas que solo vos sabés, al menos por ahora.</p><p>¿Cuántas historias tenés guardadas esperando el momento justo que todavía no llegó?</p>',
+  'C+F': '<p>Pisaste, y en el mismo movimiento identificaste al culpable y empezaste a construir el relato. Para cuando terminaste de limpiar, ya tenías un caso sólido y una historia que lo dejaba muy claro sin que pareciera que estabas acusando a nadie.</p><p>La combinación del que ya Sabe Cómo lo Va a Contar y El Fiscal de Guardia es la más sofisticada del espectro pisador. Porque no necesitás acusar directamente. Contás lo que pasó con tanto detalle y tanto timing que la conclusión la saca el que escucha. Y la conclusión siempre es la misma que la tuya.</p><p>Sos de las personas con las que es muy difícil quedar mal en público sin darse cuenta.</p><p>¿Alguna vez usaste una historia para decir algo que no querías decir directamente?</p>',
+  'C+N': '<p>Pisaste, dudaste un segundo si había sido tanto, confirmaste que sí, y ahí empezó el trabajo de edición. Porque la duda también entra en el relato. Es parte del chiste.</p><p>La combinación del que ya Sabe Cómo lo Va a Contar y El Negociador es la del narrador que incluye sus propias contradicciones en la historia. No te presentás como alguien que tuvo todo claro desde el principio. Te presentás como alguien que dudó, procesó, y llegó a una conclusión, y eso hace el relato mucho más humano y mucho más gracioso.</p><p>El detalle es que a veces la duda que convertís en recurso narrativo era una duda real que merecía más tiempo del que le diste.</p><p>¿Cuántas veces cerraste algo rápido para poder empezar a contarlo?</p>',
+  'C+T': '<p>Pisaste, miraste alrededor para ver si alguien lo había visto, y cuando confirmaste que sí, algo en vos se alivió. Porque una historia sin testigos es una historia que tenés que sostener solo.</p><p>La combinación del que ya Sabe Cómo lo Va a Contar y El que Necesita Testigos es la del narrador que necesita cómplices. No te basta con contar lo que pasó, necesitás que haya alguien que pueda confirmar. "Preguntale a fulanito, él estaba." Eso le da peso al relato y vos lo sabés.</p><p>Sos de las personas que construyen historias colectivas. Lo que a veces significa que la versión que circula tiene varios autores y ya nadie sabe bien cuál era la original.</p><p>¿La historia que contás de lo que pasó es lo que pasó, o es lo que acordaron que había pasado?</p>',
+  'T+M': '<p>Pisaste, miraste alrededor con una urgencia que sorprendió hasta a vos mismo, y cuando confirmaste que nadie había visto nada, limpiaste en silencio y seguiste. Como si nada.</p><p>La combinación del que Necesita Testigos y El Monje es la más contradictoria de todas. Porque en el momento de la crisis necesitás que alguien lo vea. Pero si nadie lo ve, tenés la capacidad de procesar solo y seguir como si no hubiera pasado. Dos sistemas completamente distintos corriendo en el mismo cuerpo.</p><p>Lo que eso dice de vos es que sabés estar solo con las cosas, pero preferís no tener que hacerlo.</p><p>¿Cuántas cosas estás procesando solo ahora mismo que preferirías no tener que procesar solo?</p>',
+  'T+F': '<p>Pisaste, miraste alrededor, y cuando encontraste a alguien que había visto, lo primero que hiciste fue asegurarte de que quedara claro que la caca no era tuya. El testigo también es prueba.</p><p>La combinación del que Necesita Testigos y El Fiscal de Guardia es la del que necesita audiencia para el juicio. No alcanza con saber quién tiene la culpa. Tiene que haber alguien presente que pueda dar fe de que vos no tuviste nada que ver. La inocencia sin testigos es muy difícil de sostener.</p><p>Sos de las personas que cuando algo sale mal, lo primero que hacen es reconstruir la secuencia de eventos en voz alta, con alguien al lado. No para procesar, sino para que quede registrado.</p><p>¿Cuándo fue la última vez que aceptaste responsabilidad por algo sin explicar primero el contexto?</p>',
+  'T+N': '<p>Pisaste, miraste alrededor, y cuando viste que había gente, negociaste con vos mismo muy rápido: "no fue para tanto, pero igual que lo vean manejar bien".</p><p>La combinación del que Necesita Testigos y El Negociador es la del que regula sus reacciones según la audiencia. Si hay gente mirando, el umbral de "no fue para tanto" sube considerablemente. Porque lo que está en juego no es la caca, es la imagen.</p><p>Sos de las personas que se conocen bastante bien pero que se conocen todavía mejor cuando nadie está mirando.</p><p>¿Qué harías distinto si supieras que nadie te está viendo?</p>',
+  'T+C': '<p>Pisaste, miraste alrededor para ver si alguien lo había visto, y cuando confirmaste que sí, algo hizo clic. Porque ahora la historia tiene testigos, y los testigos son los mejores cómplices.</p><p>La combinación del que Necesita Testigos y El que ya Sabe Cómo lo Va a Contar es la más social de todas. No solo necesitás que alguien lo vea, necesitás que alguien lo recuerde. Que pueda decir "yo estaba ahí". Sos de las personas que construyen momentos compartidos con la misma energía con que otros construyen argumentos o planes.</p><p>El mundo para vos es una serie de escenas que valen más cuando hay alguien más en el cuadro.</p><p>¿Cuándo fue la última vez que algo te importó de verdad sin que hubiera nadie para compartirlo?</p>'
+};
+
+function seleccionar(el, pregunta) {
+  var bloque = document.getElementById('p' + pregunta);
+  var opciones = bloque.querySelectorAll('.opcion');
+  for (var i = 0; i < opciones.length; i++) {
+    opciones[i].classList.remove('selected');
+  }
+  el.classList.add('selected');
+  respuestas[pregunta] = el.getAttribute('data-valor');
+  bloque.classList.remove('field-error');
+  actualizarProgreso();
+}
+
+function actualizarProgreso() {
+  var total = 6;
+  var completadas = Object.keys(respuestas).length;
+  document.getElementById('progFill').style.width = ((completadas / total) * 100) + '%';
+}
+
+function crearCarta(clave, tamano, devolucionHTML) {
+  var arq = arquetipos[clave];
+  var contenedor = document.createElement('div');
+  contenedor.className = 'carta-contenedor ' + tamano;
+
+  var inner = document.createElement('div');
+  inner.className = 'carta-inner';
+
+  var frente = document.createElement('div');
+  frente.className = 'carta-frente';
+  var img = document.createElement('img');
+  img.src = arq.imagen;
+  img.alt = arq.nombre;
+  frente.appendChild(img);
+
+  var reverso = document.createElement('div');
+  reverso.className = 'carta-reverso';
+
+  var orn = document.createElement('div');
+  orn.className = 'carta-reverso-ornamento';
+  orn.textContent = arq.nombre;
+  reverso.appendChild(orn);
+
+  var texto = document.createElement('div');
+  texto.className = 'carta-reverso-texto';
+
+  if (tamano === 'principal' && devolucionHTML) {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString('<div>' + devolucionHTML + '</div>', 'text/html');
+    var parrafos = doc.querySelectorAll('p');
+    var mitad = Math.ceil(parrafos.length / 2);
+    var fragmento = '';
+    for (var j = 0; j < mitad; j++) {
+      fragmento += parrafos[j].outerHTML;
+    }
+    texto.innerHTML = fragmento;
+  } else if (tamano === 'secundaria' && devolucionHTML) {
+    var parser2 = new DOMParser();
+    var doc2 = parser2.parseFromString('<div>' + devolucionHTML + '</div>', 'text/html');
+    var parrafos2 = doc2.querySelectorAll('p');
+    var mitad2 = Math.ceil(parrafos2.length / 2);
+    var fragmento2 = '';
+    for (var k = mitad2; k < parrafos2.length; k++) {
+      fragmento2 += parrafos2[k].outerHTML;
+    }
+    texto.innerHTML = fragmento2;
+  }
+
+  reverso.appendChild(texto);
+  var ornB = document.createElement('div');
+  ornB.className = 'carta-reverso-ornamento-bottom';
+  ornB.textContent = 'Lic. Fabian Sierra';
+  reverso.appendChild(ornB);
+
+  inner.appendChild(frente);
+  inner.appendChild(reverso);
+  contenedor.appendChild(inner);
+
+  var label = document.createElement('p');
+  label.className = 'carta-label';
+  label.textContent = tamano === 'principal' ? arq.nombre : arq.nombre;
+  contenedor.appendChild(label);
+
+  var hint = document.createElement('p');
+  hint.className = 'carta-hint';
+  hint.textContent = tamano === 'principal' ? 'Tocá para leer tu perfil' : 'Rasgo secundario';
+  contenedor.appendChild(hint);
+
+  contenedor.onclick = function() {
+    inner.classList.toggle('volteada');
+    if (inner.classList.contains('volteada')) {
+      hint.textContent = 'Tocá para volver';
+    } else {
+      hint.textContent = tamano === 'principal' ? 'Tocá para leer tu perfil' : 'Rasgo secundario';
+    }
+  };
+
+  return contenedor;
+}
+
+function calcularResultado() {
+  var nombre = document.getElementById('nombreInput').value.trim();
+  var nameBlock = document.getElementById('nameBlock');
+
+  if (!nombre) {
+    nameBlock.classList.add('field-error');
+    nameBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  nameBlock.classList.remove('field-error');
+
+  var errores = false;
+  for (var i = 1; i <= 6; i++) {
+    if (!respuestas[i]) {
+      document.getElementById('p' + i).classList.add('field-error');
+      if (!errores) {
+        document.getElementById('p' + i).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        errores = true;
+      }
+    }
+  }
+  if (errores) return;
+
+  var conteo = { M: 0, F: 0, N: 0, T: 0, C: 0 };
+  for (var p in respuestas) {
+    conteo[respuestas[p]]++;
+  }
+
+  var orden = Object.keys(conteo).sort(function(a, b) {
+    return conteo[b] - conteo[a];
+  });
+
+  var principal = orden[0];
+  var secundario = orden[1];
+  var clave = principal + '+' + secundario;
+  var devolucion = devoluciones[clave] || '';
+
+  var nombreResultado = arquetipos[principal].nombre + ' con rasgos de ' + arquetipos[secundario].nombre;
+  document.getElementById('resultNombre').textContent = nombre + ', sos ' + nombreResultado + '.';
+
+  var cartasWrap = document.getElementById('cartasWrap');
+  cartasWrap.innerHTML = '';
+  cartasWrap.appendChild(crearCarta(principal, 'principal', devolucion));
+  cartasWrap.appendChild(crearCarta(secundario, 'secundaria', devolucion));
+
+  document.getElementById('formArea').style.display = 'none';
+  document.getElementById('resultado').style.display = 'block';
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function reiniciar() {
+  respuestas = {};
+  var opciones = document.querySelectorAll('.opcion');
+  for (var i = 0; i < opciones.length; i++) {
+    opciones[i].classList.remove('selected');
+  }
+  document.getElementById('nombreInput').value = '';
+  document.getElementById('formArea').style.display = 'block';
+  document.getElementById('resultado').style.display = 'none';
+  document.getElementById('progFill').style.width = '0%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

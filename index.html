@@ -330,6 +330,21 @@
     *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
     .reveal{opacity:1;transform:none}
   }
+
+  /* FUERA DE SESION ISLA */
+  .fds-isla{background:#17181C;padding:clamp(3.5rem,7vw,6rem) 0;position:relative;overflow:hidden}
+  .fds-isla::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.06;background-image:linear-gradient(rgba(243,241,236,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(243,241,236,.5) 1px,transparent 1px);background-size:min(11vw,88px) min(11vw,88px)}
+  .fds-isla .wrap{position:relative;z-index:1;display:flex;flex-direction:column;gap:2rem;align-items:flex-start}
+  @media(min-width:760px){.fds-isla .wrap{flex-direction:row;align-items:center;justify-content:space-between;gap:3rem}}
+  .fds-isla-eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#c47a78;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+  .fds-isla-eyebrow::before{content:'';width:20px;height:1px;background:#c47a78;display:block;flex-shrink:0}
+  .fds-isla h3{font-weight:800;font-size:clamp(1.8rem,3.5vw,2.8rem);letter-spacing:-.03em;line-height:1.05;color:#F3F1EC;margin-bottom:1.2rem}
+  .fds-isla-copy{font-size:clamp(.95rem,1.6vw,1.08rem);color:rgba(243,241,236,.5);font-weight:300;line-height:1.72;max-width:44ch}
+  .fds-isla-copy em{color:rgba(243,241,236,.75);font-style:italic}
+  .btn-fds{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.88rem;padding:.8rem 1.5rem;border-radius:2px;background:transparent;color:#F3F1EC;border:1px solid rgba(243,241,236,.3);transition:border-color .25s,background .25s;cursor:pointer;white-space:nowrap;font-family:"Archivo",sans-serif;flex-shrink:0}
+  .btn-fds:hover{border-color:#F3F1EC;background:rgba(243,241,236,.06)}
+  .btn-fds svg{width:15px;height:15px;transition:transform .25s var(--ease)}
+  .btn-fds:hover svg{transform:translateX(3px)}
 </style>
 </head>
 <body>
@@ -345,6 +360,7 @@
       <a href="#enfoque">El Enfoque</a>
       <a href="#servicios">Servicios</a>
       <a href="/evaluaciones/" target="_blank">Evaluaciones</a>
+      <a href="/fuera-de-sesion/" target="_blank">Fuera de sesión</a>
       <a href="#modalidades">Modalidades</a>
       <a href="#trayectoria">Trayectoria</a>
       <a href="#faq">Preguntas frecuentes</a>
@@ -605,6 +621,22 @@
   </div>
 </section>
 
+
+<!-- FUERA DE SESION -->
+<section class="fds-isla reveal">
+  <div class="wrap">
+    <div>
+      <p class="fds-isla-eyebrow">Fuera de sesión</p>
+      <h3>Fuera de sesión</h3>
+      <p class="fds-isla-copy">No todo lo que vale la pena medir tiene alfa de Cronbach.<br><em>Ni todo lo que vale la pena ver tiene subtítulos.</em></p>
+    </div>
+    <a class="btn-fds" href="/fuera-de-sesion/">
+      Entrar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section class="block" id="faq">
   <div class="wrap">
@@ -647,6 +679,8 @@
       <div class="ft">Evaluaciones</div>
       <a href="/evaluaciones/">Ver cuestionarios gratuitos</a>
       <p style="margin-top:.4rem;font-size:.84rem">14 instrumentos validados · Resultado inmediato</p>
+      <a href="/fuera-de-sesion/" style="margin-top:1rem">Fuera de sesión</a>
+      <p style="margin-top:.4rem;font-size:.84rem">Cuestionarios sin validación · Prescripciones</p>
     </div>
   </div>
   <div class="wrap foot-bottom">
