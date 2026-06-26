@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Esto no es un test · Fuera de sesión · Lic. Fabián Sierra</title>
+<meta name="description" content="Cuestionarios sin validación científica. Resultados sin garantía. Algo igual te va a quedar dando vueltas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --line:#D8D4C9;
+    --accent:#942322;--accent-deep:#741A19;--accent-light:#c47a78;
+    --surface-a:#1E1F23;--surface-b:#141518;
+    --maxw:860px;--pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#17181C;scroll-behavior:smooth;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#17181C;color:var(--bone);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(23,24,28,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.96rem;color:var(--bone)}
+  .brand span{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.16rem}
+  .nav-back{display:flex;align-items:center;gap:.5rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color .2s}
+  .nav-back:hover{color:var(--accent-light)}
+  .nav-back svg{width:14px;height:14px;flex-shrink:0}
+
+  .hero{background:#17181C;border-top:1px solid rgba(255,255,255,.06);padding-top:clamp(3.5rem,8vw,6rem);padding-bottom:clamp(2.5rem,5vw,4rem);position:relative;overflow:hidden}
+  .hero-num{position:absolute;right:-2%;top:50%;transform:translateY(-55%);font-size:clamp(10rem,28vw,22rem);font-weight:900;letter-spacing:-.05em;color:var(--bone);opacity:.03;pointer-events:none;line-height:1;-webkit-user-select:none;user-select:none}
+  .hero .wrap{position:relative;z-index:1}
+  .hero-eyebrow{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:1.1rem;display:flex;align-items:center;gap:.7rem}
+  .hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent-light);display:block;flex-shrink:0}
+  .hero h1{font-weight:800;letter-spacing:-.032em;line-height:1.02;font-size:clamp(2.5rem,7vw,5rem);margin-bottom:1.5rem;color:var(--bone)}
+  .hero-sub{font-size:clamp(.95rem,1.7vw,1.1rem);color:rgba(243,241,236,.45);font-weight:300;line-height:1.72;max-width:52ch;border-left:2px solid rgba(255,255,255,.1);padding-left:1.1rem;font-style:italic}
+
+  .nota-intro{background:var(--surface-a);border-left:3px solid rgba(255,255,255,.1);padding:1.2rem 1.5rem;margin:clamp(2rem,4vw,3rem) 0;font-size:.9rem;color:rgba(243,241,236,.4);font-weight:300;line-height:1.7}
+  .nota-intro strong{font-weight:600;color:rgba(243,241,236,.6)}
+
+  .instrumentos{border-top:1px solid rgba(255,255,255,.08)}
+
+  .instrumento{
+    display:block;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    padding:clamp(1.4rem,3vw,2rem) 0;
+    transition:background .2s var(--ease),padding-left .2s var(--ease);
+    cursor:pointer;
+    position:relative;
+  }
+  .instrumento:hover{background:var(--surface-a);padding-left:.6rem;margin-left:-.6rem;margin-right:-.6rem;padding-right:.6rem}
+
+  .instrumento-inner{display:flex;align-items:flex-start;gap:1.5rem;justify-content:space-between}
+  .instrumento-left{flex:1;min-width:0}
+  .instrumento-tag{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:.5rem}
+  .instrumento h3{font-weight:700;font-size:clamp(1.1rem,2.2vw,1.4rem);letter-spacing:-.015em;line-height:1.18;margin-bottom:.6rem;color:var(--bone)}
+  .instrumento-desc{font-size:.9rem;color:rgba(243,241,236,.4);font-weight:300;line-height:1.65;max-width:54ch}
+
+  .instrumento-right{flex-shrink:0;text-align:right;padding-top:.2rem}
+  .instrumento-meta{margin-bottom:.9rem}
+  .instrumento-meta .mk{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.15rem}
+  .instrumento-meta .mv{font-size:.8rem;font-weight:500;color:rgba(243,241,236,.6)}
+
+  .instrumento-cta{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.8rem;color:var(--accent-light);letter-spacing:.02em;white-space:nowrap;transition:gap .25s var(--ease)}
+  .instrumento:hover .instrumento-cta{gap:.8rem}
+  .instrumento-cta svg{width:14px;height:14px;transition:transform .25s var(--ease)}
+  .instrumento:hover .instrumento-cta svg{transform:translateX(3px)}
+
+  @media(max-width:520px){
+    .instrumento-inner{flex-direction:column;gap:1rem}
+    .instrumento-right{text-align:left;display:flex;align-items:center;gap:1.5rem}
+    .instrumento-meta{margin-bottom:0}
+  }
+
+  .cta-strip{background:var(--surface-a);border-top:1px solid rgba(255,255,255,.06);margin-top:clamp(3rem,6vw,5rem)}
+  .cta-strip .wrap{padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(2.5rem,5vw,4rem);display:flex;flex-direction:column;gap:1.5rem;align-items:flex-start}
+  @media(min-width:720px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-eyebrow{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.8rem}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.4rem,2.8vw,2rem);letter-spacing:-.02em;line-height:1.15;max-width:24ch;color:var(--bone)}
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.88rem;padding:.8rem 1.5rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s,transform .25s,box-shadow .3s;cursor:pointer;font-family:"Archivo",sans-serif;white-space:nowrap}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(148,35,34,.45)}
+
+  footer{background:var(--surface-b);color:rgba(243,241,236,.25);border-top:1px solid rgba(255,255,255,.04)}
+  .foot-inner{padding:clamp(1.5rem,3vw,2.5rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:var(--bone);font-weight:700;font-size:.92rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.6rem;letter-spacing:.12em;color:var(--accent-light);text-transform:uppercase;margin-top:.4rem}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.04);padding:1rem var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between}
+  .foot-bottom span{font-size:.66rem;color:rgba(243,241,236,.15);letter-spacing:.04em}
+
+  @media(max-width:420px){.hero h1{font-size:2.2rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com" target="_blank">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <a class="nav-back" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Fuera de sesión
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-num">01</div>
+  <div class="wrap">
+    <p class="hero-eyebrow">Sección 01</p>
+    <h1>Esto no es<br>un test</h1>
+    <p class="hero-sub">Preguntas sin validación científica. Resultados sin garantía. Algo igual te va a quedar dando vueltas.</p>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <div class="nota-intro">
+    Cada cuestionario tarda entre 2 y 5 minutos. El resultado es inmediato. <strong>No tiene validación empírica, muestra representativa ni alfa de Cronbach.</strong> Si algo te resuena, es tuyo. Si no, tampoco es culpa nuestra.
+  </div>
+
+  <div class="instrumentos">
+
+    <a class="instrumento" href="pisador.html">
+      <div class="instrumento-inner">
+        <div class="instrumento-left">
+          <p class="instrumento-tag">Conducta bajo presión</p>
+          <h3>¿Qué tipo de pisador de caca de perro sos?</h3>
+          <p class="instrumento-desc">Antes, durante y después. Seis preguntas sobre cómo reaccionás cuando algo inesperado te pasa en la calle. El resultado incluye tu arquetipo principal y secundario, con cartas de tarot y todo.</p>
+        </div>
+        <div class="instrumento-right">
+          <div class="instrumento-meta">
+            <span class="mk">Formato</span>
+            <span class="mv">6 preguntas · 2 min</span>
+          </div>
+          <span class="instrumento-cta">
+            Responder
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+</main>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <p class="cta-eyebrow">Más allá del cuestionario</p>
+      <h3>Si algo de esto te generó preguntas de verdad, hay un espacio para eso.</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Entr%C3%A9%20a%20Fuera%20de%20sesi%C3%B3n%20y%20me%20gustar%C3%ADa%20coordinar%20una%20consulta." target="_blank" rel="noopener">
+      Coordinar consulta
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <span style="font-size:.76rem;color:rgba(243,241,236,.2)">Sin validación empírica · Sin derivación · Con intención</span>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Fuera de sesión</span>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
