@@ -13,9 +13,11 @@
 <meta property="og:site_name" content="Lic. Fabián Sierra — Psicología y Rendimiento">
 <meta property="og:title" content="Lic. Fabián Sierra — Psicología y Rendimiento">
 <meta property="og:description" content="Un espacio de consulta y trabajo psicoterapéutico adaptado a tus objetivos. Psicoterapia clínica y entrenamiento mental desde la psicología científica. Montevideo, San José y virtual.">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Lic. Fabián Sierra — Psicología y Rendimiento">
-<meta name="twitter:description" content="Psicoterapia clínica y entrenamiento mental de alto rendimiento. Montevideo, San José y virtual.">
+<meta property="og:image" content="https://fabiansierra.com/fabian.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://fabiansierra.com/fabian.jpg">
+<meta name="twitter:image" content="https://fabiansierra.com/fabian.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -291,8 +293,14 @@
   .foot-bottom{border-top:1px solid #2a2b30;padding:1.5rem 0;display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;justify-content:space-between;align-items:center}
   .foot-bottom span{font-size:.7rem;color:#76777d;letter-spacing:.05em}
 
-  /* WA FLOAT */
-  .wa-float{position:fixed;right:clamp(1rem,3vw,2rem);bottom:clamp(1rem,3vw,2rem);z-index:60;width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -8px rgba(148,35,34,.5);transition:transform .3s var(--ease),background .25s;opacity:0;transform:translateY(20px) scale(.8);pointer-events:none}
+  /* PRECIO EXPANDIBLE */
+  .precio-toggle{background:none;border:none;cursor:pointer;font-family:"Archivo",sans-serif;font-size:.78rem;color:var(--muted);padding:.6rem 0 0;display:flex;align-items:center;gap:.4rem;transition:color .2s}
+  .precio-toggle:hover{color:var(--accent)}
+  .precio-toggle svg{width:12px;height:12px;transition:transform .3s var(--ease)}
+  .precio-toggle.open svg{transform:rotate(180deg)}
+  .precio-panel{overflow:hidden;max-height:0;transition:max-height .35s var(--ease)}
+  .precio-panel.open{max-height:60px}
+  .precio-val{font-size:.9rem;color:var(--ink-soft);padding:.5rem 0 .2rem;line-height:1.5}width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -8px rgba(148,35,34,.5);transition:transform .3s var(--ease),background .25s;opacity:0;transform:translateY(20px) scale(.8);pointer-events:none}
   .wa-float.show{opacity:1;transform:none;pointer-events:auto}
   .wa-float:hover{transform:translateY(-3px) scale(1.05);background:var(--accent-deep)}
   .wa-float svg{width:28px;height:28px;fill:#fff}
@@ -446,6 +454,11 @@
           <div><dt>Especialidad</dt><dd>Ansiedad, estrés crónico, emociones difíciles y transiciones vitales o académicas que se sienten paralizantes.</dd></div>
           <div><dt>Objetivo</dt><dd><b>Que puedas distinguir entre lo que tu mente dice y lo que querés hacer con tu vida.</b> Y que lo segundo empiece a pesar más — incluso en los días difíciles.</dd></div>
         </dl>
+        <button class="precio-toggle" onclick="togglePrecio(this)" aria-expanded="false">
+          Consulta de honorarios
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="precio-panel"><p class="precio-val">$2.000 por sesión (pesos uruguayos). Transferencia bancaria previa. Factura profesional.</p></div>
       </div>
       <div class="line-card" id="rendimiento">
         <div class="tag">Alto rendimiento</div>
@@ -456,6 +469,11 @@
           <div><dt>Especialidad</dt><dd>Control de la atención y el foco, gestión del error, establecimiento de metas medibles, tolerancia a la frustración y rutinas de ejecución estables.</dd></div>
           <div><dt>Objetivo</dt><dd><b>Que tu potencial se convierta en consistencia real</b> cuando más importa — no solo cuando el contexto es favorable.</dd></div>
         </dl>
+        <button class="precio-toggle" onclick="togglePrecio(this)" aria-expanded="false">
+          Consulta de honorarios
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="precio-panel"><p class="precio-val">$3.000 por sesión (pesos uruguayos). Transferencia bancaria previa. Factura profesional.</p></div>
         <p class="line-note">¿Representás a un club o empresa? <a href="#faq">Consultá por programas institucionales →</a></p>
       </div>
     </div>
@@ -492,6 +510,7 @@
         <p>El proceso apunta a que te lleves recursos propios en el menor tiempo posible. No trabajo con estructuras eternas.</p>
       </div>
     </div>
+    <p class="modos-nota reveal" style="margin-top:2rem">¿Preferís explorar antes de dar el paso? <a href="/evaluaciones/" style="color:var(--accent);font-weight:600">Las evaluaciones gratuitas son un buen lugar para empezar →</a></p>
   </div>
 </section>
 
@@ -554,12 +573,16 @@
       <div class="trayectoria-col reveal" data-d="2">
         <h4>Inserción y Recorrido en el Campo</h4>
         <div class="exp-item">
-          <div class="exp-header"><span class="dot"></span><span class="exp-title">Preparación Mental en Alta Competencia</span></div>
-          <p class="exp-institution">Trabajo con planteles y deportistas de Primera División y divisiones juveniles del fútbol profesional uruguayo — Centro Atlético Fénix, Albion Football Club e intercambios con clubes profesionales de la región. Atención particular a futbolistas profesionales, deportistas de otras disciplinas, músicos, médicos, empresarios, inversores y artistas. La misma metodología de gestión de la presión y consistencia bajo exigencia se aplica de forma transversal en todos estos contextos.</p>
+          <div class="exp-header"><span class="dot"></span><span class="exp-title">Fútbol Profesional — Primera División y Juveniles</span></div>
+          <p class="exp-institution">Preparación mental con planteles del Centro Atlético Fénix, Albion Football Club e intercambios con clubes profesionales de la región. Trabajo en gestión de la presión, foco competitivo y consistencia en contextos de máxima exigencia.</p>
+        </div>
+        <div class="exp-item">
+          <div class="exp-header"><span class="dot"></span><span class="exp-title">Otras Disciplinas — Atención Particular</span></div>
+          <p class="exp-institution">Futbolistas profesionales en proceso individual, deportistas de otras disciplinas, músicos profesionales, médicos especialistas, empresarios, inversores y artistas. La misma metodología de rendimiento bajo presión aplicada a cada contexto de alta exigencia.</p>
         </div>
         <div class="exp-item">
           <div class="exp-header"><span class="dot"></span><span class="exp-title">Departamento Clínico Institucional</span></div>
-          <p class="exp-institution">Abordaje, seguimiento individual y gestión de la salud mental institucional en la Mutual Uruguaya de Futbolistas Profesionales.</p>
+          <p class="exp-institution">Entrenamiento mental y talleres con futbolistas profesionales en la Mutual Uruguaya de Futbolistas Profesionales.</p>
         </div>
         <div class="exp-item">
           <div class="exp-header"><span class="dot"></span><span class="exp-title">Actividad Docente Universitaria</span></div>
@@ -630,6 +653,13 @@
 </a>
 
 <script>
+function togglePrecio(btn) {
+  var panel = btn.nextElementSibling;
+  var open = btn.classList.toggle('open');
+  btn.setAttribute('aria-expanded', String(open));
+  panel.classList.toggle('open', open);
+}
+
 var WA = "https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Me%20contacto%20desde%20la%20web%20para%20hacerle%20una%20consulta%20sobre%20los%20procesos%20de%20atenci%C3%B3n.";
 
 /* FAQ */
