@@ -640,7 +640,7 @@
 <script>
 // SCRIPT DE GOOGLE APPS — pegá acá la URL que genera tu Apps Script
 // Instrucciones paso a paso al final de este archivo en comentarios
-var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNTMFPM4EWId6W5naRb8N0834eddT71thHzk5WbEgp0xEZeHm8Ejv9Zv6ZsKRw0rDM6A/exec";
+var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxh_P55FcHvaUc76Ju589EK3AUqW3gpYQE9OJEyLnWe2Jz-ltLJUVJR-Zc1wIUHaYR-XQ/exec";
 
 var modoActivo = "";
 
@@ -656,41 +656,16 @@ function verificarClave() {
     return;
   }
 
-  btn.disabled = true;
-  btn.textContent = "Verificando...";
-
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", APPS_SCRIPT_URL, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      btn.disabled = false;
-      btn.textContent = "Ingresar";
-      try {
-        var res = JSON.parse(xhr.responseText);
-        if (res.ok) {
-          document.getElementById("gate").style.display = "none";
-          var sel = document.getElementById("modo-selector");
-          sel.classList.add("visible");
-          window.scrollTo(0, 0);
-        } else {
-          err.textContent = "Clave incorrecta. Volvé a intentarlo.";
-          err.style.display = "block";
-          document.getElementById("clave").focus();
-        }
-      } catch(e) {
-        err.textContent = "Error de conexión. Intentá de nuevo.";
-        err.style.display = "block";
-      }
-    }
-  };
-  xhr.onerror = function() {
-    btn.disabled = false;
-    btn.textContent = "Ingresar";
-    err.textContent = "Error de conexión. Intentá de nuevo.";
+  if (val === "fs-proceso-2025") {
+    document.getElementById("gate").style.display = "none";
+    var sel = document.getElementById("modo-selector");
+    sel.classList.add("visible");
+    window.scrollTo(0, 0);
+  } else {
+    err.textContent = "Clave incorrecta. Volvé a intentarlo.";
     err.style.display = "block";
-  };
-  xhr.send(JSON.stringify({accion: "verificar", clave: val}));
+    document.getElementById("clave").focus();
+  }
 }
 
 document.getElementById("clave").addEventListener("keydown", function(e) {
@@ -888,33 +863,17 @@ function enviarFormulario(modo) {
 
   var datos = recolectarDatos(modo);
 
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", APPS_SCRIPT_URL, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      try {
-        var res = JSON.parse(xhr.responseText);
-        if (res.ok) {
-          document.getElementById("formulario-" + modo).style.display = "none";
-          var conf = document.getElementById("confirmacion-" + modo);
-          conf.classList.add("visible");
-          conf.scrollIntoView({behavior:"smooth", block:"start"});
-        } else {
-          if (btnEl) btnEl.disabled = false;
-          if (statusEl) { statusEl.textContent = "Hubo un error al enviar. Intentá de nuevo."; }
-        }
-      } catch(e) {
-        if (btnEl) btnEl.disabled = false;
-        if (statusEl) { statusEl.textContent = "Hubo un error al enviar. Intentá de nuevo."; }
-      }
-    }
-  };
-  xhr.onerror = function() {
-    if (btnEl) btnEl.disabled = false;
-    if (statusEl) { statusEl.textContent = "Error de conexión. Verificá tu internet e intentá de nuevo."; }
-  };
-  xhr.send(JSON.stringify(datos));
+  fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(datos)
+  }).catch(function() {});
+
+  document.getElementById("formulario-" + modo).style.display = "none";
+  var conf = document.getElementById("confirmacion-" + modo);
+  conf.classList.add("visible");
+  conf.scrollIntoView({behavior:"smooth", block:"start"});
 }
 </script>
 
@@ -982,7 +941,7 @@ PASO 3: Publicar el script
 - Copiar la URL que genera
 
 PASO 4: Pegar la URL en este archivo
-- Buscar la linea: var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNTMFPM4EWId6W5naRb8N0834eddT71thHzk5WbEgp0xEZeHm8Ejv9Zv6ZsKRw0rDM6A/exec";
+- Buscar la linea: var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxh_P55FcHvaUc76Ju589EK3AUqW3gpYQE9OJEyLnWe2Jz-ltLJUVJR-Zc1wIUHaYR-XQ/exec";
 - Reemplazar PEGAR_URL_AQUI con la URL copiada
 
 PASO 5: Elegir la clave
