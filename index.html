@@ -85,6 +85,24 @@
   .btn svg{width:15px;height:15px;flex:0 0 auto}
   .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
   .btn-ghost:hover{background:var(--ink);color:var(--bone);box-shadow:none}
+  .btn-evals{background:var(--bone-deep);color:var(--accent);border:1px solid var(--accent)}
+  .btn-evals:hover{background:var(--accent);color:#fff;box-shadow:0 12px 28px -10px rgba(148,35,34,.3)}
+
+  /* EVALUACIONES HERO CARD */
+  .evals-hero-card{
+    display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+    margin-top:2rem;padding:1.1rem 1.4rem;
+    background:var(--bone-deep);border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:2px;max-width:560px;
+    transition:border-color .25s,background .25s,transform .25s var(--ease);
+  }
+  .evals-hero-card:hover{border-color:var(--accent);background:#EAE7DE;transform:translateY(-1px)}
+  .evals-hero-card-left{display:flex;flex-direction:column;gap:.3rem}
+  .evals-hero-tag{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .evals-hero-title{font-size:.95rem;font-weight:500;color:var(--ink);line-height:1.4}
+  .evals-hero-sub{font-size:.75rem;color:var(--muted);font-weight:400;margin-top:.15rem}
+  .evals-hero-cta{display:flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:700;color:var(--accent);white-space:nowrap;flex-shrink:0;transition:gap .25s var(--ease)}
+  .evals-hero-card:hover .evals-hero-cta{gap:.7rem}
   .menu-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:8px}
   .menu-toggle span{width:24px;height:2px;background:var(--ink);transition:.3s var(--ease)}
 
@@ -344,6 +362,16 @@
       </a>
       <a class="btn btn-ghost" href="#servicios">Ver líneas de trabajo</a>
     </div>
+    <a class="evals-hero-card reveal" data-d="4" href="/evaluaciones/" target="_blank">
+      <div class="evals-hero-card-left">
+        <span class="evals-hero-title">Cuestionarios psicológicos validados sobre distintas áreas de tu vida</span>
+        <span class="evals-hero-sub">Resultado inmediato · Sin registro</span>
+      </div>
+      <span class="evals-hero-cta">
+        Ver evaluaciones
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:14px;height:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
     <div class="hero-meta reveal" data-d="4">
       <div class="item"><span class="k">Marco</span><span class="v">Psicología basada en evidencia</span></div>
       <div class="item"><span class="k">Presencial</span><span class="v">Montevideo · San José</span></div>
@@ -467,19 +495,6 @@
   </div>
 </section>
 
-<!-- EVALUACIONES (boton entre secciones) -->
-<div style="background:var(--bone);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(2rem,4vw,3rem) var(--pad)">
-  <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem">
-    <p style="font-size:clamp(1rem,1.8vw,1.2rem);color:var(--ink-soft);max-width:52ch;line-height:1.6">
-      ¿Querés explorar antes de consultar? Tengo 14 cuestionarios psicológicos validados, sin registro y con resultado inmediato.
-    </p>
-    <a href="/evaluaciones/" class="btn btn-ghost" style="white-space:nowrap;flex-shrink:0">
-      Ver evaluaciones gratuitas
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:15px;height:15px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
-  </div>
-</div>
-
 <!-- MODALIDADES -->
 <section class="block" id="modalidades">
   <div class="wrap">
@@ -502,6 +517,7 @@
       </div>
     </div>
     <p class="modos-nota reveal"><b>Régimen Particular:</b> Ejercicio profesional libre e independiente. Gestión administrativa directa y emisión de factura oficial.</p>
+    <p class="modos-nota reveal" style="margin-top:.8rem"><b>¿Residís fuera de Uruguay?</b> La modalidad virtual está diseñada especialmente para quienes viven en el exterior y buscan un psicólogo uruguayo en español con formación consolidada. Agenda flexible, sin diferencia de horario que lo impida.</p>
   </div>
 </section>
 
@@ -539,15 +555,15 @@
         <h4>Inserción y Recorrido en el Campo</h4>
         <div class="exp-item">
           <div class="exp-header"><span class="dot"></span><span class="exp-title">Preparación Mental en Alta Competencia</span></div>
-          <p class="exp-institution">Entrenamiento y optimización de recursos cognitivos puestos a prueba en la máxima exigencia, con planteles de Primera División y divisiones juveniles del fútbol profesional uruguayo. Esta metodología la aplico de forma transversal en la preparación de músicos profesionales, médicos especialistas, ejecutivos y empresarios que requieren consistencia bajo presión.</p>
+          <p class="exp-institution">Trabajo con planteles y deportistas de Primera División y divisiones juveniles del fútbol profesional uruguayo — Centro Atlético Fénix, Albion Football Club e intercambios con clubes profesionales de la región. Atención particular a futbolistas profesionales, deportistas de otras disciplinas, músicos, médicos, empresarios, inversores y artistas. La misma metodología de gestión de la presión y consistencia bajo exigencia se aplica de forma transversal en todos estos contextos.</p>
         </div>
         <div class="exp-item">
           <div class="exp-header"><span class="dot"></span><span class="exp-title">Departamento Clínico Institucional</span></div>
-          <p class="exp-institution">Abordaje, seguimiento individual y gestión de la salud mental institucional en la mutual gremial que nuclea a los futbolistas profesionales del país.</p>
+          <p class="exp-institution">Abordaje, seguimiento individual y gestión de la salud mental institucional en la Mutual Uruguaya de Futbolistas Profesionales.</p>
         </div>
         <div class="exp-item">
           <div class="exp-header"><span class="dot"></span><span class="exp-title">Actividad Docente Universitaria</span></div>
-          <p class="exp-institution">Experiencia como educador y docente en programas de grado y de posgrado de universidades privadas uruguayas de referencia.</p>
+          <p class="exp-institution">Docente en programas de grado y posgrado en la Universidad Católica del Uruguay (UCU) y el Centro Latinoamericano de Economía Humana (CLAEH).</p>
         </div>
         <div class="exp-item">
           <div class="exp-header"><span class="dot"></span><span class="exp-title">Trayectoria y Evolución en el Campo</span></div>
