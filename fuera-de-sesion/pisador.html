@@ -120,8 +120,8 @@
     transform-style:preserve-3d;
     transition:transform .8s var(--ease);
   }
-  .carta-contenedor.principal .carta-inner{padding-bottom:163%}
-  .carta-contenedor.secundaria .carta-inner{padding-bottom:163%}
+  .carta-contenedor.principal .carta-inner{padding-bottom:175%}
+  .carta-contenedor.secundaria .carta-inner{padding-bottom:175%}
   .carta-inner.volteada{transform:rotateY(180deg)}
 
   .carta-frente{
@@ -131,7 +131,7 @@
     border-radius:10px;
     overflow:hidden;
   }
-  .carta-frente img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+  .carta-frente img{width:100%;height:100%;object-fit:contain;display:block;background:#1a150e}
   .carta-reverso{
     position:absolute;inset:0;
     -webkit-backface-visibility:hidden;
@@ -222,6 +222,18 @@
 
   /* DISCLAIMER FINAL */
   .disclaimer-final{margin-top:1.5rem;padding:1rem 1.3rem;border-left:2px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(243,241,236,.25);font-weight:300;line-height:1.7;font-style:italic}
+
+  /* PERFILES ARQUETIPOS */
+  .perfiles-section{margin-top:clamp(3rem,6vw,5rem);padding-top:clamp(2rem,4vw,3rem);border-top:1px solid rgba(255,255,255,.06)}
+  .perfiles-eyebrow{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;margin-bottom:2rem}
+  .perfil-item{display:grid;grid-template-columns:1fr;gap:1.5rem;padding:clamp(1.5rem,3vw,2rem) 0;border-bottom:1px solid rgba(255,255,255,.05)}
+  @media(min-width:640px){.perfil-item{grid-template-columns:160px 1fr;align-items:start}}
+  .perfil-item:last-child{border-bottom:none}
+  .perfil-carta-mini{width:100%;max-width:160px;border-radius:6px;overflow:hidden;opacity:.85}
+  .perfil-carta-mini img{width:100%;display:block}
+  .perfil-contenido{}
+  .perfil-nombre{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:.6rem}
+  .perfil-texto{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(1rem,1.6vw,1.1rem);font-weight:300;color:rgba(243,241,236,.65);line-height:1.85}
 </style>
 </head>
 <body>
@@ -343,6 +355,51 @@
   </div>
 
 
+
+  <div class="perfiles-section">
+    <p class="perfiles-eyebrow">Los cinco arquetipos</p>
+
+    <div class="perfil-item">
+      <div class="perfil-carta-mini"><img src="carta-monje.png" alt="El Monje"></div>
+      <div class="perfil-contenido">
+        <p class="perfil-nombre">III · El Monje</p>
+        <p class="perfil-texto">Hay personas que, cuando algo inesperado aparece en el camino, simplemente lo incorporan. Sin drama, sin expediente. El Monje pisó, limpió, siguió. No porque no sintió nada, sino porque tiene una relación con lo que no controla que la mayoría tarda años en construir. Está ahí, en el momento, con lo que hay. Lo que el Monje raramente se pregunta es si esa serenidad es presencia real o si es que aprendió, sin darse cuenta, a no quedarse demasiado tiempo en nada.</p>
+      </div>
+    </div>
+
+    <div class="perfil-item">
+      <div class="perfil-carta-mini"><img src="carta-fiscal.png" alt="El Fiscal de Guardia"></div>
+      <div class="perfil-contenido">
+        <p class="perfil-nombre">I · El Fiscal de Guardia</p>
+        <p class="perfil-texto">Existen personas cuya mente, ante cualquier evento, abre automáticamente una investigación. El Fiscal no reacciona ante la caca, la procesa. Reconstruye la cadena causal, identifica responsabilidades y archiva el expediente. Esa claridad para ver quién tiene la culpa es una capacidad real, y en los momentos que importan puede ser una ventaja enorme. El detalle es que los archivos se acumulan, y mientras el Fiscal está construyendo el caso, a veces ya pasó lo que valía la pena vivir.</p>
+      </div>
+    </div>
+
+    <div class="perfil-item">
+      <div class="perfil-carta-mini"><img src="carta-negociador.png" alt="El Negociador"></div>
+      <div class="perfil-contenido">
+        <p class="perfil-nombre">II · El Negociador</p>
+        <p class="perfil-texto">Entre lo que pasó y aceptar que pasó, existe un intervalo. El Negociador lo conoce bien porque vive ahí. No niega la evidencia, pero necesita un momento. Quizás fue otra cosa. Quizás con otro zapato no hubiera pasado. Esa capacidad de ver todos los ángulos antes de decidir es genuina y útil. Lo que el Negociador todavía está explorando es la diferencia entre tomarse el tiempo necesario y usar el tiempo para no tener que llegar a ningún lado.</p>
+      </div>
+    </div>
+
+    <div class="perfil-item">
+      <div class="perfil-carta-mini"><img src="carta-testigos.png" alt="El que Necesita Testigos"></div>
+      <div class="perfil-contenido">
+        <p class="perfil-nombre">IV · El que Necesita Testigos</p>
+        <p class="perfil-texto">Este arquetipo no está completo sin el otro. No porque le falte algo, sino porque su forma natural de procesar el mundo es con otros. Pisar caca en soledad es, para este arquetipo, una experiencia a medias. Esa capacidad de construir momentos compartidos, de hacer que las cosas importen colectivamente, es una habilidad social que no todo el mundo tiene. Lo que todavía está aprendiendo es que algunas experiencias no necesitan testigos para haber sido reales, y que estar solo con lo que pasa no siempre es lo mismo que estar perdido.</p>
+      </div>
+    </div>
+
+    <div class="perfil-item">
+      <div class="perfil-carta-mini"><img src="carta-cronista.png" alt="El que ya Sabe Cómo lo Va a Contar"></div>
+      <div class="perfil-contenido">
+        <p class="perfil-nombre">V · El que ya Sabe Cómo lo Va a Contar</p>
+        <p class="perfil-texto">Antes de que el zapato toque el suelo, la mente ya está en otro tiempo verbal. Este arquetipo convierte la experiencia en relato con una velocidad que tiene tanto de talento como de distancia. Sabe qué detalle poner, cuándo hacer la pausa, cómo hacer que algo que le pasó a él le importe a todos. La caca fue suya. La historia ya es de todos. Lo que a veces queda en el medio es la pregunta de si estuvo del todo ahí cuando pasó, o si ya estaba en la siguiente escena antes de terminar esta.</p>
+      </div>
+    </div>
+
+  </div>
   <div class="ficha-section" id="ficha-tecnica">
     <p class="ficha-eyebrow">Ficha técnica</p>
 
