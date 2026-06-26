@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>Espacio de trabajo · Lic. Fabián Sierra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;--paper:#FBFAF7;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --line:#D8D4C9;--line-soft:#E5E2D9;
+    --accent:#942322;--accent-deep:#741A19;
+    --maxw:720px;--pad:clamp(1.25rem,5vw,3rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --danger:#7A1A1A;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#F3F1EC;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#F3F1EC;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(243,241,236,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.96rem}
+  .brand span{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .nav-tag{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:right}
+
+  #gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem var(--pad)}
+  .gate-box{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--accent);padding:clamp(2rem,5vw,3rem);max-width:440px;width:100%}
+  .gate-eyebrow{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1.2rem}
+  .gate-box h2{font-weight:700;font-size:clamp(1.3rem,3vw,1.7rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:.8rem}
+  .gate-box p{font-size:.88rem;color:var(--muted);font-weight:300;line-height:1.65;margin-bottom:1.8rem}
+  .gate-label{display:block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.55rem}
+  .gate-input{width:100%;border:none;border-bottom:2px solid var(--line);background:transparent;font-family:"Archivo",sans-serif;font-size:1rem;font-weight:500;color:var(--ink);padding:.45rem 0;outline:none;transition:border-color .25s;letter-spacing:.12em}
+  .gate-input:focus{border-bottom-color:var(--accent)}
+  .gate-err{background:#FBF0F0;border:1px solid #E8BFBF;color:var(--danger);padding:.65rem 1rem;font-size:.83rem;margin-top:1rem;display:none;font-weight:500}
+
+  #modo-selector{display:none;min-height:100vh;align-items:center;justify-content:center;padding:2rem var(--pad)}
+  #modo-selector.visible{display:flex}
+  .modo-box{max-width:500px;width:100%}
+  .modo-box .gate-eyebrow{margin-bottom:1.4rem}
+  .modo-box h2{font-weight:700;font-size:clamp(1.3rem,3vw,1.7rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:.7rem}
+  .modo-box p{font-size:.88rem;color:var(--muted);font-weight:300;line-height:1.65;margin-bottom:2rem}
+  .modo-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+  @media(max-width:620px){.modo-cards{grid-template-columns:1fr}}
+  .modo-card{background:var(--paper);border:1px solid var(--line);padding:1.6rem 1.4rem;cursor:pointer;transition:border-color .2s var(--ease),transform .2s var(--ease);text-align:left}
+  .modo-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .modo-card-tag{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.6rem}
+  .modo-card h3{font-weight:700;font-size:1.05rem;letter-spacing:-.015em;margin-bottom:.5rem;color:var(--ink)}
+  .modo-card p{font-size:.82rem;color:var(--muted);font-weight:300;line-height:1.55}
+
+  #app{display:none}
+
+  .hero{background:#F3F1EC;border-top:1px solid var(--line);padding-top:clamp(3rem,7vw,5rem);padding-bottom:clamp(2.5rem,5vw,4rem);position:relative}
+  .hero .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.4;z-index:0;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:min(11vw,88px) min(11vw,88px);-webkit-mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%);mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%)}
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem}
+  .hero h1{font-weight:700;letter-spacing:-.028em;line-height:1.06;font-size:clamp(2rem,5.5vw,3.4rem);margin-bottom:1.3rem}
+  .hero-intro{color:var(--ink-soft);font-size:clamp(.9rem,1.8vw,1rem);line-height:1.78;max-width:58ch;font-weight:300;font-style:italic;border-left:2px solid var(--line);padding-left:1.2rem}
+
+  main{background:#F3F1EC;padding-top:clamp(2rem,4vw,3.5rem);padding-bottom:clamp(4rem,8vw,7rem)}
+  .bloque{margin-bottom:3rem;padding-top:2rem;border-top:1px solid var(--line)}
+  .bloque:first-child{border-top:none;padding-top:0}
+  .bloque-eyebrow{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.55rem}
+  .bloque h2{font-weight:700;font-size:clamp(1.2rem,2.8vw,1.55rem);letter-spacing:-.02em;line-height:1.12;margin-bottom:.7rem}
+  .bloque-comment{font-size:.88rem;color:var(--muted);font-weight:300;line-height:1.68;margin-bottom:1.8rem;font-style:italic}
+
+  .bloque-proceso{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--accent);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:3rem}
+  .bloque-proceso .bloque-eyebrow{margin-bottom:.55rem}
+  .bloque-proceso h2{font-weight:700;font-size:clamp(1.2rem,2.8vw,1.55rem);letter-spacing:-.02em;line-height:1.12;margin-bottom:.9rem}
+  .bloque-proceso .bloque-comment{margin-bottom:1.8rem}
+
+  .campo{margin-bottom:1.6rem}
+  .campo-label{display:block;font-size:.95rem;font-weight:600;color:var(--ink);line-height:1.45;margin-bottom:.7rem}
+  .campo-label .opt{font-weight:300;font-style:italic;color:var(--muted);font-size:.82rem}
+  .campo input[type=text],
+  .campo input[type=date],
+  .campo input[type=number],
+  .campo input[type=tel],
+  .campo textarea{width:100%;border:none;border-bottom:2px solid var(--line);background:transparent;font-family:"Archivo",sans-serif;font-size:.97rem;font-weight:400;color:var(--ink);padding:.45rem 0;outline:none;transition:border-color .25s;-webkit-appearance:none;border-radius:0}
+  .campo input:focus,.campo textarea:focus{border-bottom-color:var(--accent)}
+  .campo input::placeholder,.campo textarea::placeholder{color:var(--muted);font-weight:300;font-size:.9rem}
+  .campo textarea{height:110px;line-height:1.6;resize:vertical}
+  .campo-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:500px){.campo-row{grid-template-columns:1fr}}
+
+  .check-group{display:flex;flex-direction:column;gap:.55rem;margin-top:.4rem}
+  .check-item{display:flex;align-items:center;gap:.75rem;cursor:pointer;font-size:.93rem;font-weight:400;color:var(--ink-soft)}
+  .check-item input[type=checkbox],
+  .check-item input[type=radio]{-webkit-appearance:none;width:18px;height:18px;border:2px solid var(--line);background:var(--bone);cursor:pointer;transition:all .15s;flex-shrink:0;border-radius:2px}
+  .check-item input[type=radio]{border-radius:50%}
+  .check-item input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
+  .check-item input[type=radio]:checked{background:var(--accent);border-color:var(--accent)}
+  .check-item input[type=checkbox]:checked::after{content:'';display:block;width:10px;height:6px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px);margin:2px auto 0}
+
+  .sub-campo{margin-top:.9rem;padding-left:1.4rem;border-left:2px solid var(--line-soft);display:none}
+  .sub-campo.visible{display:block}
+
+  #bloque-rendimiento-nuevo{display:none;padding-top:2rem;border-top:1px solid var(--line)}
+  #bloque-rendimiento-nuevo.visible{display:block}
+  #bloque-rendimiento-act{display:none;padding-top:2rem;border-top:1px solid var(--line)}
+  #bloque-rendimiento-act.visible{display:block}
+
+  .rend-trigger{background:var(--paper);border:1px solid var(--line);padding:clamp(1.4rem,3vw,2rem);margin-bottom:1.5rem}
+  .rend-trigger p{font-size:.97rem;font-weight:500;color:var(--ink);line-height:1.55;margin-bottom:1.3rem}
+  .rend-btns{display:flex;gap:.9rem;flex-wrap:wrap}
+
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.88rem;letter-spacing:.005em;padding:.75rem 1.5rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s var(--ease),transform .2s var(--ease),box-shadow .3s var(--ease);cursor:pointer;font-family:"Archivo",sans-serif}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(148,35,34,.4)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{background:var(--bone-deep);box-shadow:none;transform:none}
+  .btn-block{display:block;width:100%;justify-content:center;text-align:center}
+  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+  .form-err{background:#FBF0F0;border:1px solid #E8BFBF;color:var(--danger);padding:.75rem 1.1rem;font-size:.85rem;margin-top:1.2rem;display:none;font-weight:500}
+  .send-status{font-size:.85rem;color:var(--muted);margin-top:1rem;display:none;font-weight:300}
+
+  .confirmacion-wrap{display:none;padding:4rem var(--pad);min-height:60vh;align-items:center;justify-content:center}
+  .confirmacion-wrap.visible{display:flex}
+  .confirm-box{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--accent);padding:clamp(2rem,5vw,3rem);max-width:500px;width:100%}
+  .confirm-box .confirm-eye{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1rem}
+  .confirm-box h2{font-weight:700;font-size:clamp(1.4rem,3vw,1.9rem);letter-spacing:-.02em;margin-bottom:1rem}
+  .confirm-box p{font-size:.95rem;color:var(--muted);font-weight:300;line-height:1.7}
+
+  .likert-grupo{margin-bottom:2rem}
+  .likert-pregunta{font-size:.95rem;font-weight:600;color:var(--ink);line-height:1.45;margin-bottom:1rem}
+  .likert-escala{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem}
+  .likert-opt{text-align:center}
+  .likert-opt input[type=radio]{display:none}
+  .likert-opt label{display:flex;flex-direction:column;align-items:center;gap:.4rem;cursor:pointer}
+  .likert-circulo{width:42px;height:42px;border-radius:50%;border:2px solid var(--line);background:var(--bone);display:flex;align-items:center;justify-content:center;font-size:.88rem;font-weight:600;color:var(--muted);transition:all .15s;margin:0 auto}
+  .likert-opt input[type=radio]:checked + label .likert-circulo{background:var(--accent);border-color:var(--accent);color:#fff;transform:scale(1.1)}
+  .likert-opt label:hover .likert-circulo{border-color:var(--accent);color:var(--accent)}
+  .likert-anclajes{display:flex;justify-content:space-between;margin-top:.4rem}
+  .likert-anclaje{font-size:.62rem;color:var(--muted);max-width:80px;line-height:1.3}
+  .likert-anclaje-der{text-align:right}
+  @media(max-width:440px){.likert-circulo{width:36px;height:36px;font-size:.78rem}.hero h1{font-size:1.85rem}}
+
+  footer{background:var(--ink);color:#b7b8bd;border-top:1px solid #2a2b30}
+  .foot-inner{padding:clamp(1.5rem,3vw,2rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:#fff;font-weight:700;font-size:.92rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.6rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-top:.4rem}
+  .foot-bottom{border-top:1px solid #2a2b30;padding:1rem var(--pad);max-width:var(--maxw);margin:0 auto}
+  .foot-bottom span{font-size:.66rem;color:#76777d;letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-eyebrow">Acceso restringido</div>
+    <h2>Formulario de trabajo</h2>
+    <p>Este espacio es de uso exclusivo para personas que trabajan con Lic. Fabián Sierra. Ingresá la clave que te fue compartida para continuar.</p>
+    <label class="gate-label" for="clave">Clave de acceso</label>
+    <input class="gate-input" type="password" id="clave" autocomplete="off" placeholder="........">
+    <div class="gate-err" id="gate-err">Clave incorrecta. Volvé a intentarlo.</div>
+    <button class="btn" style="margin-top:1.6rem;width:100%;justify-content:center" onclick="verificarClave()">Ingresar</button>
+  </div>
+</div>
+
+<!-- SELECTOR DE MODO -->
+<div id="modo-selector">
+  <div class="modo-box">
+    <div class="gate-eyebrow">Bienvenido/a</div>
+    <h2>¿Qué formulario necesitás completar?</h2>
+    <p>Elegí la opción que corresponda a tu situación.</p>
+    <div class="modo-cards">
+      <div class="modo-card" onclick="mostrarFormulario('nuevo')">
+        <div class="modo-card-tag">Primera vez</div>
+        <h3>Nuevo paciente</h3>
+        <p>Estamos comenzando a trabajar juntos y es la primera vez que completás este formulario.</p>
+      </div>
+      <div class="modo-card" onclick="mostrarFormulario('actualizacion')">
+        <div class="modo-card-tag">Seguimiento</div>
+        <h3>Actualización</h3>
+        <p>Ya estamos trabajando juntos y querés actualizar tu información o revisar cómo viene el proceso.</p>
+      </div>
+      <div class="modo-card" onclick="mostrarFormulario('cierre')">
+        <div class="modo-card-tag">Cierre</div>
+        <h3>Evaluación de cierre</h3>
+        <p>Estamos terminando o terminamos el proceso y querés dejar un registro de cómo fue.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com" target="_blank">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <span class="nav-tag" id="nav-tag-modo">Formulario de trabajo</span>
+  </div>
+</header>
+
+<!-- ===== NUEVO PACIENTE ===== -->
+<div id="form-nuevo">
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow">Nuevo paciente</div>
+    <h1>Contame<br>tu situacion</h1>
+    <p class="hero-intro">Ya nos conocemos. Este formulario me ayuda a tener un registro claro de tu situación antes de que arranquemos el trabajo en profundidad. No hace falta que sea exhaustivo ni perfecto. Compartí lo que te parezca relevante, con tus palabras.</p>
+  </div>
+</section>
+<main>
+  <div class="wrap">
+    <div id="formulario-nuevo">
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Bloque 1 de 5</div>
+        <h2>Datos personales</h2>
+        <p class="bloque-comment">Algunos datos de base que necesito tener registrados.</p>
+        <div class="campo"><label class="campo-label" for="n-nombre">Nombre completo</label><input type="text" id="n-nombre" placeholder="Tu nombre y apellido"></div>
+        <div class="campo-row">
+          <div class="campo"><label class="campo-label" for="n-fnacimiento">Fecha de nacimiento</label><input type="date" id="n-fnacimiento"></div>
+          <div class="campo"><label class="campo-label" for="n-documento">Documento</label><input type="text" id="n-documento" placeholder="CI / Pasaporte"></div>
+        </div>
+        <div class="campo-row">
+          <div class="campo"><label class="campo-label" for="n-telefono">Teléfono</label><input type="tel" id="n-telefono" placeholder="+598 09X XXX XXX"></div>
+          <div class="campo"><label class="campo-label" for="n-ocupacion">Ocupación</label><input type="text" id="n-ocupacion" placeholder="Tu actividad principal"></div>
+        </div>
+        <div class="campo">
+          <label class="campo-label">¿Con quién vivís?</label>
+          <div class="check-group">
+            <label class="check-item"><input type="checkbox" id="n-cv-solo"> Solo/a</label>
+            <label class="check-item"><input type="checkbox" id="n-cv-pareja"> Pareja</label>
+            <label class="check-item"><input type="checkbox" id="n-cv-hijos" onchange="toggleSub('n-sub-hijos', this.checked)"> Hijos/as</label>
+            <div class="sub-campo" id="n-sub-hijos"><label class="campo-label" for="n-hijos-num">Cuántos</label><input type="number" id="n-hijos-num" placeholder="2" min="1" style="max-width:100px"></div>
+            <label class="check-item"><input type="checkbox" id="n-cv-padres"> Padre/Madre</label>
+            <label class="check-item"><input type="checkbox" id="n-cv-hermanos"> Hermanos/as</label>
+            <label class="check-item"><input type="checkbox" id="n-cv-otros" onchange="toggleSub('n-sub-otros', this.checked)"> Otros</label>
+            <div class="sub-campo" id="n-sub-otros"><label class="campo-label" for="n-otros-txt">Quiénes</label><input type="text" id="n-otros-txt" placeholder="Amigo/a, roommate..."></div>
+          </div>
+        </div>
+        <div class="campo"><label class="campo-label" for="n-convivencia-extra">Algo más sobre tu convivencia <span class="opt">(opcional)</span></label><textarea id="n-convivencia-extra" placeholder="Cualquier cosa que te parezca relevante..."></textarea></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Bloque 2 de 5</div>
+        <h2>Lo que te trae</h2>
+        <p class="bloque-comment">Ya hablamos algo de esto. Ahora te pido que lo pongas en palabras escritas, a tu ritmo. A veces escribirlo abre cosas distintas a decirlo.</p>
+        <div class="campo"><label class="campo-label" for="n-motivo">¿Cómo pondrías en palabras lo que te trajo a consulta, ahora que tuvimos un primer encuentro?</label><textarea id="n-motivo" placeholder="Con tus palabras, sin apuro..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="n-desde-cuando">¿Desde cuándo aproximadamente está pasando esto?</label><input type="text" id="n-desde-cuando" placeholder="Hace un mes, desde el año pasado..."></div>
+        <div class="campo"><label class="campo-label" for="n-impacto">¿Cómo está afectando tu vida cotidiana?</label><textarea id="n-impacto" placeholder="Tu trabajo, tus relaciones, tus actividades..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="n-expectativa">¿Qué te gustaría que fuera diferente en tu vida a partir de este proceso?</label><textarea id="n-expectativa" placeholder="No tiene que ser preciso..."></textarea></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Bloque 3 de 5</div>
+        <h2>Salud y antecedentes</h2>
+        <p class="bloque-comment">Solo compartí lo que consideres relevante. Nada de esto es obligatorio.</p>
+        <div class="campo">
+          <label class="campo-label">¿Estás tomando algún medicamento actualmente?</label>
+          <div class="check-group" style="flex-direction:row;gap:1.5rem;margin-bottom:.2rem">
+            <label class="check-item"><input type="radio" name="n-medicacion" value="si" onchange="toggleSub('n-sub-medicacion', this.value === 'si')"> Sí</label>
+            <label class="check-item"><input type="radio" name="n-medicacion" value="no" onchange="toggleSub('n-sub-medicacion', false)"> No</label>
+          </div>
+          <div class="sub-campo" id="n-sub-medicacion"><label class="campo-label" for="n-medicacion-cual">Cuál/es</label><input type="text" id="n-medicacion-cual" placeholder="Nombre del medicamento..."></div>
+        </div>
+        <div class="campo">
+          <label class="campo-label">¿Consultaste antes con algún psicólogo u otro profesional de salud mental?</label>
+          <div class="check-group" style="flex-direction:row;gap:1.5rem;margin-bottom:.2rem">
+            <label class="check-item"><input type="radio" name="n-consulta-previa" value="si" onchange="toggleSub('n-sub-consulta-previa', this.value === 'si')"> Sí</label>
+            <label class="check-item"><input type="radio" name="n-consulta-previa" value="no" onchange="toggleSub('n-sub-consulta-previa', false)"> No</label>
+          </div>
+          <div class="sub-campo" id="n-sub-consulta-previa"><label class="campo-label" for="n-consulta-previa-detalle">Cuándo y por qué</label><textarea id="n-consulta-previa-detalle" placeholder="Contame brevemente..."></textarea></div>
+        </div>
+        <div class="campo"><label class="campo-label" for="n-salud-fisica">¿Hay algo de tu salud física que consideres relevante? <span class="opt">(opcional)</span></label><textarea id="n-salud-fisica" placeholder="Enfermedades crónicas, cirugías recientes, lesiones..."></textarea></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Bloque 4 de 5</div>
+        <h2>Tu vida</h2>
+        <p class="bloque-comment">El malestar nunca ocurre en el vacío. Entender cómo es tu vida cotidiana me da una imagen mucho más completa de lo que está pasando.</p>
+        <div class="campo"><label class="campo-label" for="n-situacion-laboral">¿Cómo está tu situación laboral o académica en este momento?</label><textarea id="n-situacion-laboral" placeholder="Qué hacés, cómo está yendo, cómo te sentís al respecto..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="n-vinculos">¿Cómo son tus vínculos cercanos ahora — familia, pareja, amigos?</label><textarea id="n-vinculos" placeholder="Contame cómo están esas relaciones..."></textarea></div>
+        <div class="campo">
+          <label class="campo-label">¿Tenés personas con quienes podás contar cuando las cosas se ponen difíciles?</label>
+          <div class="check-group" style="flex-direction:row;gap:1.5rem;margin-bottom:.2rem">
+            <label class="check-item"><input type="radio" name="n-red-apoyo" value="si" onchange="toggleSub('n-sub-red-apoyo', this.value === 'si')"> Sí</label>
+            <label class="check-item"><input type="radio" name="n-red-apoyo" value="no" onchange="toggleSub('n-sub-red-apoyo', false)"> No</label>
+          </div>
+          <div class="sub-campo" id="n-sub-red-apoyo"><label class="campo-label" for="n-red-apoyo-quien">Si querés, contá un poco</label><textarea id="n-red-apoyo-quien" placeholder="Quiénes son, cómo te ayudan..."></textarea></div>
+        </div>
+        <div class="campo"><label class="campo-label" for="n-funcionando-bien">¿Hay algo que sientas que está funcionando bien, a pesar de lo que te trajo a consulta? <span class="opt">(opcional)</span></label><textarea id="n-funcionando-bien" placeholder="No tiene que ser nada grande..."></textarea></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Bloque 5 de 5</div>
+        <h2>Lo que importa</h2>
+        <p class="bloque-comment">Más allá de lo que está difícil, quiero saber qué es lo que vale para vos. Ahí es donde vamos a trabajar.</p>
+        <div class="campo"><label class="campo-label" for="n-lo-importante">¿Qué cosas, personas o actividades son más importantes en tu vida?</label><textarea id="n-lo-importante" placeholder="Lo que genuinamente importa, no lo que debería importar..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="n-dejaste-de-hacer">¿Hay algo que hayas dejado de hacer, o que estés haciendo menos, desde que empezaron estas dificultades?</label><textarea id="n-dejaste-de-hacer" placeholder="Actividades, vínculos, cosas que antes te hacían bien..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="n-si-mejorara">Si las cosas mejoraran, ¿qué sería diferente en tu vida cotidiana?</label><textarea id="n-si-mejorara" placeholder="Concretamente, ¿qué harías diferente?..."></textarea></div>
+      </div>
+
+      <div class="rend-trigger">
+        <p>¿Tu consulta tiene que ver con el rendimiento — deportivo, artístico, profesional u otro contexto de alta exigencia?</p>
+        <div class="rend-btns">
+          <button class="btn" onclick="mostrarRendimiento('nuevo')">Sí, completar esta sección</button>
+          <button class="btn btn-ghost" onclick="enviarFormulario('nuevo')">No, enviar formulario</button>
+        </div>
+      </div>
+
+      <div class="bloque" id="bloque-rendimiento-nuevo">
+        <div class="bloque-eyebrow">Bloque opcional</div>
+        <h2>Rendimiento</h2>
+        <p class="bloque-comment">Para quienes llegan por motivos vinculados a su desempeño — deporte, artes, medicina, negocios u otro contexto de alta exigencia.</p>
+        <div class="campo"><label class="campo-label" for="n-rend-disciplina">¿En qué área o disciplina te desempeñás?</label><input type="text" id="n-rend-disciplina" placeholder="Fútbol, música, medicina, negocios..."></div>
+        <div class="campo"><label class="campo-label" for="n-rend-exigencia">¿Cómo describirías el nivel de exigencia o responsabilidad de tu actividad actualmente?</label><textarea id="n-rend-exigencia" placeholder="Contexto, presión, demandas..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="n-rend-tiempo">¿Cuánto tiempo llevás en este contexto?</label><input type="text" id="n-rend-tiempo" placeholder="3 años, desde que era chico..."></div>
+        <div class="campo"><label class="campo-label" for="n-rend-motivo">¿Qué te trae a consulta en relación a tu rendimiento?</label><textarea id="n-rend-motivo" placeholder="Qué está pasando en tu actividad..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="n-rend-evento">¿Hay alguna instancia importante próxima que quieras mencionar? <span class="opt">(opcional)</span></label><textarea id="n-rend-evento" placeholder="Competencia, presentación, evento..."></textarea></div>
+        <div class="campo">
+          <label class="campo-label">¿Trabajás con algún equipo de apoyo vinculado a tu actividad?</label>
+          <div class="check-group" style="flex-direction:row;gap:1.5rem;margin-bottom:.2rem">
+            <label class="check-item"><input type="radio" name="n-equipo-apoyo" value="si" onchange="toggleSub('n-sub-equipo-apoyo', this.value === 'si')"> Sí</label>
+            <label class="check-item"><input type="radio" name="n-equipo-apoyo" value="no" onchange="toggleSub('n-sub-equipo-apoyo', false)"> No</label>
+          </div>
+          <div class="sub-campo" id="n-sub-equipo-apoyo"><label class="campo-label" for="n-equipo-apoyo-quien">Quiénes</label><input type="text" id="n-equipo-apoyo-quien" placeholder="Entrenador, nutricionista, médico..."></div>
+        </div>
+        <div style="margin-top:1rem">
+          <button class="btn btn-block" id="btn-enviar-nuevo-rend" onclick="enviarFormulario('nuevo')">Enviar formulario</button>
+          <p class="send-status" id="status-nuevo"></p>
+        </div>
+      </div>
+
+      <div class="form-err" id="form-err-nuevo">Por favor completá al menos tu nombre y el motivo de consulta antes de enviar.</div>
+      <div style="margin-top:1rem" id="btn-enviar-nuevo-wrap" style="display:none"></div>
+
+    </div>
+    <div class="confirmacion-wrap" id="confirmacion-nuevo">
+      <div class="confirm-box">
+        <div class="confirm-eye">Formulario recibido</div>
+        <h2>Gracias.</h2>
+        <p>Recibí tu información y nos vemos pronto.</p>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- ===== ACTUALIZACION ===== -->
+<div id="form-actualizacion" style="display:none">
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow">Seguimiento</div>
+    <h1>Como estas<br>ahora</h1>
+    <p class="hero-intro">Las cosas cambian. Este formulario es una oportunidad para actualizarme sobre tu situación y, al final, para que puedas decirme algo sobre cómo estás viviendo el trabajo que venimos haciendo juntos.</p>
+  </div>
+</section>
+<main>
+  <div class="wrap">
+    <div id="formulario-actualizacion">
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Bloque 1 de 5</div>
+        <h2>Datos personales</h2>
+        <p class="bloque-comment">Actualizá lo que haya cambiado.</p>
+        <div class="campo"><label class="campo-label" for="a-nombre">Nombre completo</label><input type="text" id="a-nombre" placeholder="Tu nombre y apellido"></div>
+        <div class="campo-row">
+          <div class="campo"><label class="campo-label" for="a-telefono">Teléfono</label><input type="tel" id="a-telefono" placeholder="+598 09X XXX XXX"></div>
+          <div class="campo"><label class="campo-label" for="a-ocupacion">Ocupación</label><input type="text" id="a-ocupacion" placeholder="Tu actividad principal"></div>
+        </div>
+        <div class="campo">
+          <label class="campo-label">¿Con quién vivís?</label>
+          <div class="check-group">
+            <label class="check-item"><input type="checkbox" id="a-cv-solo"> Solo/a</label>
+            <label class="check-item"><input type="checkbox" id="a-cv-pareja"> Pareja</label>
+            <label class="check-item"><input type="checkbox" id="a-cv-hijos" onchange="toggleSub('a-sub-hijos', this.checked)"> Hijos/as</label>
+            <div class="sub-campo" id="a-sub-hijos"><label class="campo-label" for="a-hijos-num">Cuántos</label><input type="number" id="a-hijos-num" placeholder="2" min="1" style="max-width:100px"></div>
+            <label class="check-item"><input type="checkbox" id="a-cv-padres"> Padre/Madre</label>
+            <label class="check-item"><input type="checkbox" id="a-cv-hermanos"> Hermanos/as</label>
+            <label class="check-item"><input type="checkbox" id="a-cv-otros" onchange="toggleSub('a-sub-otros', this.checked)"> Otros</label>
+            <div class="sub-campo" id="a-sub-otros"><label class="campo-label" for="a-otros-txt">Quiénes</label><input type="text" id="a-otros-txt" placeholder="Amigo/a, roommate..."></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Bloque 2 de 5</div>
+        <h2>Lo que está pasando</h2>
+        <p class="bloque-comment">¿Cómo está la situación que te trajo a consulta? ¿Cambió algo, se movió algo, apareció algo nuevo?</p>
+        <div class="campo"><label class="campo-label" for="a-situacion-actual">¿Cómo está lo que te trajo a consulta en este momento?</label><textarea id="a-situacion-actual" placeholder="Igual, peor, mejor, distinto..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="a-cambios">¿Hubo algún cambio en tu vida desde que empezamos a trabajar juntos?</label><textarea id="a-cambios" placeholder="Eventos, decisiones, situaciones nuevas..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="a-impacto">¿Cómo está afectando tu vida cotidiana lo que está pasando ahora?</label><textarea id="a-impacto" placeholder="Tu trabajo, tus relaciones, tus actividades..."></textarea></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Bloque 3 de 5</div>
+        <h2>Salud</h2>
+        <p class="bloque-comment">Actualizá lo que haya cambiado en relación a tu salud.</p>
+        <div class="campo">
+          <label class="campo-label">¿Estás tomando algún medicamento actualmente?</label>
+          <div class="check-group" style="flex-direction:row;gap:1.5rem;margin-bottom:.2rem">
+            <label class="check-item"><input type="radio" name="a-medicacion" value="si" onchange="toggleSub('a-sub-medicacion', this.value === 'si')"> Sí</label>
+            <label class="check-item"><input type="radio" name="a-medicacion" value="no" onchange="toggleSub('a-sub-medicacion', false)"> No</label>
+          </div>
+          <div class="sub-campo" id="a-sub-medicacion"><label class="campo-label" for="a-medicacion-cual">Cuál/es</label><input type="text" id="a-medicacion-cual" placeholder="Nombre del medicamento..."></div>
+        </div>
+        <div class="campo"><label class="campo-label" for="a-salud-fisica">¿Hay algo de tu salud física que sea relevante mencionar? <span class="opt">(opcional)</span></label><textarea id="a-salud-fisica" placeholder="Algo nuevo, algo que cambió..."></textarea></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Bloque 4 de 5</div>
+        <h2>Tu vida ahora</h2>
+        <p class="bloque-comment">Un pantallazo de cómo están las cosas en este momento.</p>
+        <div class="campo"><label class="campo-label" for="a-situacion-laboral">¿Cómo está tu situación laboral o académica?</label><textarea id="a-situacion-laboral" placeholder="Qué está pasando en ese frente..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="a-vinculos">¿Cómo están tus vínculos cercanos — familia, pareja, amigos?</label><textarea id="a-vinculos" placeholder="Cómo están esas relaciones ahora..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="a-lo-importante">¿Hay algo que se haya vuelto más o menos importante para vos desde que empezamos? <span class="opt">(opcional)</span></label><textarea id="a-lo-importante" placeholder="Algo que cambió de lugar en tu escala de prioridades..."></textarea></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Bloque 5 de 5</div>
+        <h2>Lo que importa</h2>
+        <p class="bloque-comment">¿Cómo está lo que más vale para vos?</p>
+        <div class="campo"><label class="campo-label" for="a-valores">¿Qué cosas, personas o actividades siguen siendo las más importantes en tu vida?</label><textarea id="a-valores" placeholder="Lo que genuinamente importa ahora..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="a-haciendo-mas">¿Hay algo que estés haciendo más, o que hayas retomado, desde que empezamos a trabajar?</label><textarea id="a-haciendo-mas" placeholder="Actividades, vínculos, cosas que habías dejado..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="a-si-mejorara">¿Qué sería diferente en tu vida cotidiana si las cosas siguieran mejorando?</label><textarea id="a-si-mejorara" placeholder="Concretamente, ¿qué harías diferente?..."></textarea></div>
+      </div>
+
+      <div class="rend-trigger">
+        <p>¿Hay algo relacionado con tu rendimiento — deportivo, artístico, profesional u otro contexto de alta exigencia — que quieras actualizar?</p>
+        <div class="rend-btns">
+          <button class="btn" onclick="mostrarRendimiento('act')">Sí, actualizar esa sección</button>
+          <button class="btn btn-ghost" onclick="scrollAProceso()">No, continuar</button>
+        </div>
+      </div>
+
+      <div class="bloque" id="bloque-rendimiento-act">
+        <div class="bloque-eyebrow">Rendimiento (actualización)</div>
+        <h2>Cómo está tu actividad</h2>
+        <p class="bloque-comment">Contame cómo está el contexto de rendimiento en este momento.</p>
+        <div class="campo"><label class="campo-label" for="a-rend-disciplina">¿En qué área o disciplina te desempeñás?</label><input type="text" id="a-rend-disciplina" placeholder="Fútbol, música, medicina..."></div>
+        <div class="campo"><label class="campo-label" for="a-rend-actualidad">¿Cómo está tu rendimiento o tu actividad en este momento?</label><textarea id="a-rend-actualidad" placeholder="Qué cambió, qué sigue igual, qué está bien o difícil..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="a-rend-evento">¿Hay alguna instancia importante próxima? <span class="opt">(opcional)</span></label><textarea id="a-rend-evento" placeholder="Competencia, presentación, evento..."></textarea></div>
+        <div class="campo">
+          <label class="campo-label">¿Seguís trabajando con algún equipo de apoyo vinculado a tu actividad?</label>
+          <div class="check-group" style="flex-direction:row;gap:1.5rem;margin-bottom:.2rem">
+            <label class="check-item"><input type="radio" name="a-equipo-apoyo" value="si" onchange="toggleSub('a-sub-equipo-apoyo', this.value === 'si')"> Sí</label>
+            <label class="check-item"><input type="radio" name="a-equipo-apoyo" value="no" onchange="toggleSub('a-sub-equipo-apoyo', false)"> No</label>
+          </div>
+          <div class="sub-campo" id="a-sub-equipo-apoyo"><label class="campo-label" for="a-equipo-apoyo-quien">Quiénes</label><input type="text" id="a-equipo-apoyo-quien" placeholder="Entrenador, nutricionista, médico..."></div>
+        </div>
+      </div>
+
+      <div class="bloque-proceso" id="bloque-proceso">
+        <div class="bloque-eyebrow">Para terminar</div>
+        <h2>El trabajo que venimos haciendo</h2>
+        <p class="bloque-comment">Esta sección es un espacio para que puedas decir, con honestidad y sin filtro, cómo estás viviendo el trabajo que venimos realizando juntos. No hay respuestas correctas ni incorrectas. Lo que escribas acá me ayuda a entender cómo estás transitando el proceso desde adentro, y a ajustar lo que sea necesario para que este espacio sea verdaderamente tuyo.</p>
+        <div class="campo"><label class="campo-label" for="p-como-va">¿Cómo describirías el proceso hasta ahora, con tus palabras?</label><textarea id="p-como-va" placeholder="Sin apuro, como quieras..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="p-cambio">¿Hay algo que sientas que cambió desde que empezamos a trabajar juntos, aunque sea pequeño?</label><textarea id="p-cambio" placeholder="No tiene que ser nada grande ni definitivo..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="p-sigue-igual">¿Hay algo que sientas que sigue igual y que esperabas que estuviera diferente?</label><textarea id="p-sigue-igual" placeholder="Esto es importante. Decilo si es así..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="p-sin-espacio">¿Hay algo que no estemos tocando en el trabajo y que sentís que debería tener más espacio?</label><textarea id="p-sin-espacio" placeholder="Algo que quedó afuera, algo que no se ha dicho..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="p-continuar">¿Cómo te sentís con respecto a continuar?</label><textarea id="p-continuar" placeholder="Lo que genuinamente sentís..."></textarea></div>
+        <div style="margin-top:1.8rem">
+          <button class="btn btn-block" id="btn-enviar-act" onclick="enviarFormulario('actualizacion')">Enviar formulario</button>
+          <p class="send-status" id="status-actualizacion"></p>
+        </div>
+      </div>
+
+      <div class="form-err" id="form-err-actualizacion">Por favor completá al menos tu nombre antes de enviar.</div>
+
+    </div>
+    <div class="confirmacion-wrap" id="confirmacion-actualizacion">
+      <div class="confirm-box">
+        <div class="confirm-eye">Formulario recibido</div>
+        <h2>Gracias.</h2>
+        <p>Recibí tu información y nos vemos pronto.</p>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- ===== CIERRE ===== -->
+<div id="form-cierre" style="display:none">
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow">Evaluación de cierre</div>
+    <h1>Como fue<br>este camino</h1>
+    <p class="hero-intro">Este formulario es una oportunidad para mirar hacia atrás y hacer un registro de cómo viviste el proceso. No hay respuestas correctas. Lo que escribas acá me ayuda a entender cómo transitaste este trabajo desde adentro, y es también un espacio para vos.</p>
+  </div>
+</section>
+<main>
+  <div class="wrap">
+    <div id="formulario-cierre">
+
+      <div class="bloque">
+        <div class="campo"><label class="campo-label" for="c-nombre">Nombre completo</label><input type="text" id="c-nombre" placeholder="Tu nombre y apellido"></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Para empezar</div>
+        <h2>Motivo de cierre</h2>
+        <p class="bloque-comment">¿Cómo describirías el momento en que terminó o está terminando este proceso?</p>
+        <div class="check-group">
+          <label class="check-item"><input type="radio" name="c-motivo-cierre" value="acordado"> Cierre acordado — llegamos juntos a un punto de cierre natural</label>
+          <label class="check-item"><input type="radio" name="c-motivo-cierre" value="decision-personal"> Decisión personal de pausar o terminar</label>
+          <label class="check-item"><input type="radio" name="c-motivo-cierre" value="razones-externas"> Razones externas — económicas, de tiempo, traslado u otras</label>
+          <label class="check-item"><input type="radio" name="c-motivo-cierre" value="otro" onchange="toggleSub('c-sub-motivo-otro', this.value === 'otro')"> Otro</label>
+        </div>
+        <div class="sub-campo" id="c-sub-motivo-otro"><label class="campo-label" for="c-motivo-otro-texto">Contame brevemente</label><input type="text" id="c-motivo-otro-texto" placeholder="..."></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">El proceso</div>
+        <h2>Algunas preguntas rápidas</h2>
+        <p class="bloque-comment">Del 1 al 5, donde 1 es nada y 5 es mucho.</p>
+        <div class="likert-grupo">
+          <div class="likert-pregunta">¿En qué medida sentís que algo cambió en tu vida a partir de este proceso?</div>
+          <div class="likert-escala">
+            <div class="likert-opt"><input type="radio" name="c-l1" id="c-l1-1" value="1"><label for="c-l1-1"><div class="likert-circulo">1</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l1" id="c-l1-2" value="2"><label for="c-l1-2"><div class="likert-circulo">2</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l1" id="c-l1-3" value="3"><label for="c-l1-3"><div class="likert-circulo">3</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l1" id="c-l1-4" value="4"><label for="c-l1-4"><div class="likert-circulo">4</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l1" id="c-l1-5" value="5"><label for="c-l1-5"><div class="likert-circulo">5</div></label></div>
+          </div>
+          <div class="likert-anclajes"><span class="likert-anclaje">Nada</span><span class="likert-anclaje likert-anclaje-der">Mucho</span></div>
+        </div>
+        <div class="likert-grupo">
+          <div class="likert-pregunta">¿En qué medida sentís que tenés herramientas o recursos nuevos para enfrentar lo que se te presenta?</div>
+          <div class="likert-escala">
+            <div class="likert-opt"><input type="radio" name="c-l2" id="c-l2-1" value="1"><label for="c-l2-1"><div class="likert-circulo">1</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l2" id="c-l2-2" value="2"><label for="c-l2-2"><div class="likert-circulo">2</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l2" id="c-l2-3" value="3"><label for="c-l2-3"><div class="likert-circulo">3</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l2" id="c-l2-4" value="4"><label for="c-l2-4"><div class="likert-circulo">4</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l2" id="c-l2-5" value="5"><label for="c-l2-5"><div class="likert-circulo">5</div></label></div>
+          </div>
+          <div class="likert-anclajes"><span class="likert-anclaje">Nada</span><span class="likert-anclaje likert-anclaje-der">Mucho</span></div>
+        </div>
+        <div class="likert-grupo">
+          <div class="likert-pregunta">¿En qué medida sentís que este espacio fue útil para vos?</div>
+          <div class="likert-escala">
+            <div class="likert-opt"><input type="radio" name="c-l3" id="c-l3-1" value="1"><label for="c-l3-1"><div class="likert-circulo">1</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l3" id="c-l3-2" value="2"><label for="c-l3-2"><div class="likert-circulo">2</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l3" id="c-l3-3" value="3"><label for="c-l3-3"><div class="likert-circulo">3</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l3" id="c-l3-4" value="4"><label for="c-l3-4"><div class="likert-circulo">4</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l3" id="c-l3-5" value="5"><label for="c-l3-5"><div class="likert-circulo">5</div></label></div>
+          </div>
+          <div class="likert-anclajes"><span class="likert-anclaje">Nada</span><span class="likert-anclaje likert-anclaje-der">Mucho</span></div>
+        </div>
+        <div class="likert-grupo">
+          <div class="likert-pregunta">¿En qué medida sentís que pudiste hablar de lo que realmente querías hablar?</div>
+          <div class="likert-escala">
+            <div class="likert-opt"><input type="radio" name="c-l4" id="c-l4-1" value="1"><label for="c-l4-1"><div class="likert-circulo">1</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l4" id="c-l4-2" value="2"><label for="c-l4-2"><div class="likert-circulo">2</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l4" id="c-l4-3" value="3"><label for="c-l4-3"><div class="likert-circulo">3</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l4" id="c-l4-4" value="4"><label for="c-l4-4"><div class="likert-circulo">4</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l4" id="c-l4-5" value="5"><label for="c-l4-5"><div class="likert-circulo">5</div></label></div>
+          </div>
+          <div class="likert-anclajes"><span class="likert-anclaje">Nada</span><span class="likert-anclaje likert-anclaje-der">Mucho</span></div>
+        </div>
+        <div class="likert-grupo">
+          <div class="likert-pregunta">¿En qué medida te sentiste acompañado/a durante el proceso?</div>
+          <div class="likert-escala">
+            <div class="likert-opt"><input type="radio" name="c-l5" id="c-l5-1" value="1"><label for="c-l5-1"><div class="likert-circulo">1</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l5" id="c-l5-2" value="2"><label for="c-l5-2"><div class="likert-circulo">2</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l5" id="c-l5-3" value="3"><label for="c-l5-3"><div class="likert-circulo">3</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l5" id="c-l5-4" value="4"><label for="c-l5-4"><div class="likert-circulo">4</div></label></div>
+            <div class="likert-opt"><input type="radio" name="c-l5" id="c-l5-5" value="5"><label for="c-l5-5"><div class="likert-circulo">5</div></label></div>
+          </div>
+          <div class="likert-anclajes"><span class="likert-anclaje">Nada</span><span class="likert-anclaje likert-anclaje-der">Mucho</span></div>
+        </div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Con tus palabras</div>
+        <h2>Lo que no cabe en un número</h2>
+        <p class="bloque-comment">Tomá el tiempo que necesites. No hay extensión correcta.</p>
+        <div class="campo"><label class="campo-label" for="c-que-cambio">¿Qué cambió en vos desde que empezamos? No lo que debería haber cambiado, sino lo que genuinamente notás diferente.</label><textarea id="c-que-cambio" placeholder="Con tus palabras..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="c-que-te-llevas">¿Qué te llevás? ¿Qué perspectivas o aprendizajes sentís que son tuyos ahora?</label><textarea id="c-que-te-llevas" placeholder="Lo que se queda con vos..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="c-pendiente">¿Hay algo que quede pendiente, algo que sepas que sigue siendo trabajo tuyo hacia adelante?</label><textarea id="c-pendiente" placeholder="Sin presión, solo si hay algo..."></textarea></div>
+        <div class="campo"><label class="campo-label" for="c-le-dirias">Si alguien cercano a vos estuviera dudando en consultar con un psicólogo, ¿qué le dirías?</label><textarea id="c-le-dirias" placeholder="Lo que le dirías con honestidad..."></textarea></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-eyebrow">Opcional</div>
+        <h2>Para decirme algo</h2>
+        <p class="bloque-comment">Si hay algo que quieras decirme sobre el trabajo que hicimos juntos y que no hayas podido decir en sesión, este es el espacio.</p>
+        <div class="campo"><label class="campo-label" for="c-para-fabian">¿Hay algo que quieras decirme a mí, sobre el trabajo que hicimos juntos, que no hayas podido decir en sesión? <span class="opt">(opcional)</span></label><textarea id="c-para-fabian" placeholder="Lo que sea, sin filtro..."></textarea></div>
+      </div>
+
+      <div class="bloque-proceso">
+        <div class="bloque-eyebrow">Para cerrar</div>
+        <h2>Una última pregunta</h2>
+        <p class="bloque-comment">Para terminar, y de manera completamente opcional:</p>
+        <div class="campo"><label class="campo-label" for="c-accion">¿Hay alguna acción, aunque sea pequeña, que quieras comprometerte a realizar esta semana, algo que exprese lo que trabajamos juntos y que te acerque a la vida que querés vivir? <span class="opt">(opcional)</span></label><textarea id="c-accion" placeholder="Algo concreto, aunque sea chiquito..."></textarea></div>
+        <div style="margin-top:1.8rem">
+          <button class="btn btn-block" id="btn-enviar-cierre" onclick="enviarFormulario('cierre')">Enviar formulario</button>
+          <p class="send-status" id="status-cierre"></p>
+        </div>
+      </div>
+
+      <div class="form-err" id="form-err-cierre">Por favor completá tu nombre antes de enviar.</div>
+
+    </div>
+    <div class="confirmacion-wrap" id="confirmacion-cierre">
+      <div class="confirm-box">
+        <div class="confirm-eye">Formulario recibido</div>
+        <h2>Gracias.</h2>
+        <p>Recibí tu evaluación. Fue un honor acompañarte en este proceso.</p>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Psicología Clínica y Rendimiento</div>
+    </div>
+    <span style="font-size:.72rem;color:#76777d">fabiansierra.com</span>
+  </div>
+  <div class="foot-bottom">
+    <span>Este formulario es confidencial y para uso exclusivo de pacientes del Lic. Sierra.</span>
+  </div>
+</footer>
+
+</div><!-- /app -->
+
+<script>
+// SCRIPT DE GOOGLE APPS — pegá acá la URL que genera tu Apps Script
+// Instrucciones paso a paso al final de este archivo en comentarios
+var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4133PSaRXIl9nltOHgjIleux3P8YcNTt7Jt0lDJ3Wa16HuUTmvHLI3nUkdp9OyeQ/exec";
+
+var modoActivo = "";
+
+// VERIFICACION DE CLAVE — ahora ocurre en el servidor, no en el navegador
+function verificarClave() {
+  var val = document.getElementById("clave").value.trim();
+  var err = document.getElementById("gate-err");
+  var btn = document.querySelector("#gate .btn");
+
+  if (!val) {
+    err.textContent = "Ingresá la clave para continuar.";
+    err.style.display = "block";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Verificando...";
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", APPS_SCRIPT_URL, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      btn.disabled = false;
+      btn.textContent = "Ingresar";
+      try {
+        var res = JSON.parse(xhr.responseText);
+        if (res.ok) {
+          document.getElementById("gate").style.display = "none";
+          var sel = document.getElementById("modo-selector");
+          sel.classList.add("visible");
+          window.scrollTo(0, 0);
+        } else {
+          err.textContent = "Clave incorrecta. Volvé a intentarlo.";
+          err.style.display = "block";
+          document.getElementById("clave").focus();
+        }
+      } catch(e) {
+        err.textContent = "Error de conexión. Intentá de nuevo.";
+        err.style.display = "block";
+      }
+    }
+  };
+  xhr.onerror = function() {
+    btn.disabled = false;
+    btn.textContent = "Ingresar";
+    err.textContent = "Error de conexión. Intentá de nuevo.";
+    err.style.display = "block";
+  };
+  xhr.send(JSON.stringify({accion: "verificar", clave: val}));
+}
+
+document.getElementById("clave").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") { verificarClave(); }
+});
+
+// MODO
+function mostrarFormulario(modo) {
+  modoActivo = modo;
+  document.getElementById("modo-selector").classList.remove("visible");
+  document.getElementById("modo-selector").style.display = "none";
+  document.getElementById("app").style.display = "block";
+  document.getElementById("form-nuevo").style.display = "none";
+  document.getElementById("form-actualizacion").style.display = "none";
+  document.getElementById("form-cierre").style.display = "none";
+  if (modo === "nuevo") {
+    document.getElementById("form-nuevo").style.display = "block";
+    document.getElementById("nav-tag-modo").textContent = "Nuevo paciente";
+  } else if (modo === "actualizacion") {
+    document.getElementById("form-actualizacion").style.display = "block";
+    document.getElementById("nav-tag-modo").textContent = "Actualizacion";
+  } else {
+    document.getElementById("form-cierre").style.display = "block";
+    document.getElementById("nav-tag-modo").textContent = "Evaluacion de cierre";
+  }
+  window.scrollTo(0, 0);
+}
+
+// SUB-CAMPOS
+function toggleSub(id, show) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  if (show) el.classList.add("visible");
+  else el.classList.remove("visible");
+}
+
+// RENDIMIENTO
+function mostrarRendimiento(modo) {
+  var id = (modo === "nuevo") ? "bloque-rendimiento-nuevo" : "bloque-rendimiento-act";
+  var bloque = document.getElementById(id);
+  bloque.classList.add("visible");
+  bloque.style.display = "block";
+  setTimeout(function() { bloque.scrollIntoView({behavior:"smooth", block:"start"}); }, 100);
+}
+
+// SCROLL A PROCESO
+function scrollAProceso() {
+  var el = document.getElementById("bloque-proceso");
+  if (el) setTimeout(function() { el.scrollIntoView({behavior:"smooth", block:"start"}); }, 80);
+}
+
+// RECOLECTAR DATOS DEL FORMULARIO
+function recolectarDatos(modo) {
+  var datos = {modo: modo, fecha: new Date().toLocaleString("es-UY", {timeZone:"America/Montevideo"})};
+
+  function v(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  }
+  function r(name) {
+    var sel = document.querySelector('input[name="' + name + '"]:checked');
+    return sel ? sel.value : "";
+  }
+  function cb(id) {
+    var el = document.getElementById(id);
+    return (el && el.checked) ? "Si" : "";
+  }
+
+  if (modo === "nuevo") {
+    datos.nombre = v("n-nombre");
+    datos.fecha_nacimiento = v("n-fnacimiento");
+    datos.documento = v("n-documento");
+    datos.telefono = v("n-telefono");
+    datos.ocupacion = v("n-ocupacion");
+    datos.convivencia = [cb("n-cv-solo") ? "Solo/a" : "", cb("n-cv-pareja") ? "Pareja" : "", cb("n-cv-hijos") ? "Hijos (" + v("n-hijos-num") + ")" : "", cb("n-cv-padres") ? "Padre/Madre" : "", cb("n-cv-hermanos") ? "Hermanos/as" : "", cb("n-cv-otros") ? "Otros: " + v("n-otros-txt") : ""].filter(Boolean).join(", ");
+    datos.convivencia_extra = v("n-convivencia-extra");
+    datos.motivo = v("n-motivo");
+    datos.desde_cuando = v("n-desde-cuando");
+    datos.impacto = v("n-impacto");
+    datos.expectativa = v("n-expectativa");
+    datos.medicacion = r("n-medicacion");
+    datos.medicacion_cual = v("n-medicacion-cual");
+    datos.consulta_previa = r("n-consulta-previa");
+    datos.consulta_previa_detalle = v("n-consulta-previa-detalle");
+    datos.salud_fisica = v("n-salud-fisica");
+    datos.situacion_laboral = v("n-situacion-laboral");
+    datos.vinculos = v("n-vinculos");
+    datos.red_apoyo = r("n-red-apoyo");
+    datos.red_apoyo_quien = v("n-red-apoyo-quien");
+    datos.funcionando_bien = v("n-funcionando-bien");
+    datos.lo_importante = v("n-lo-importante");
+    datos.dejaste_de_hacer = v("n-dejaste-de-hacer");
+    datos.si_mejorara = v("n-si-mejorara");
+    datos.rend_disciplina = v("n-rend-disciplina");
+    datos.rend_exigencia = v("n-rend-exigencia");
+    datos.rend_tiempo = v("n-rend-tiempo");
+    datos.rend_motivo = v("n-rend-motivo");
+    datos.rend_evento = v("n-rend-evento");
+    datos.equipo_apoyo = r("n-equipo-apoyo");
+    datos.equipo_apoyo_quien = v("n-equipo-apoyo-quien");
+
+  } else if (modo === "actualizacion") {
+    datos.nombre = v("a-nombre");
+    datos.telefono = v("a-telefono");
+    datos.ocupacion = v("a-ocupacion");
+    datos.convivencia = [cb("a-cv-solo") ? "Solo/a" : "", cb("a-cv-pareja") ? "Pareja" : "", cb("a-cv-hijos") ? "Hijos (" + v("a-hijos-num") + ")" : "", cb("a-cv-padres") ? "Padre/Madre" : "", cb("a-cv-hermanos") ? "Hermanos/as" : "", cb("a-cv-otros") ? "Otros: " + v("a-otros-txt") : ""].filter(Boolean).join(", ");
+    datos.situacion_actual = v("a-situacion-actual");
+    datos.cambios = v("a-cambios");
+    datos.impacto = v("a-impacto");
+    datos.medicacion = r("a-medicacion");
+    datos.medicacion_cual = v("a-medicacion-cual");
+    datos.salud_fisica = v("a-salud-fisica");
+    datos.situacion_laboral = v("a-situacion-laboral");
+    datos.vinculos = v("a-vinculos");
+    datos.lo_importante = v("a-lo-importante");
+    datos.valores = v("a-valores");
+    datos.haciendo_mas = v("a-haciendo-mas");
+    datos.si_mejorara = v("a-si-mejorara");
+    datos.rend_disciplina = v("a-rend-disciplina");
+    datos.rend_actualidad = v("a-rend-actualidad");
+    datos.rend_evento = v("a-rend-evento");
+    datos.equipo_apoyo = r("a-equipo-apoyo");
+    datos.equipo_apoyo_quien = v("a-equipo-apoyo-quien");
+    datos.proceso_como_va = v("p-como-va");
+    datos.proceso_cambio = v("p-cambio");
+    datos.proceso_sigue_igual = v("p-sigue-igual");
+    datos.proceso_sin_espacio = v("p-sin-espacio");
+    datos.proceso_continuar = v("p-continuar");
+
+  } else {
+    datos.nombre = v("c-nombre");
+    datos.motivo_cierre = r("c-motivo-cierre");
+    datos.motivo_cierre_otro = v("c-motivo-otro-texto");
+    datos.l1_cambio_vida = r("c-l1");
+    datos.l2_herramientas = r("c-l2");
+    datos.l3_utilidad = r("c-l3");
+    datos.l4_pudo_hablar = r("c-l4");
+    datos.l5_acompanamiento = r("c-l5");
+    datos.que_cambio = v("c-que-cambio");
+    datos.que_te_llevas = v("c-que-te-llevas");
+    datos.pendiente = v("c-pendiente");
+    datos.le_dirias = v("c-le-dirias");
+    datos.para_fabian = v("c-para-fabian");
+    datos.accion = v("c-accion");
+  }
+
+  return datos;
+}
+
+// ENVIO
+function enviarFormulario(modo) {
+  var nombre = "";
+  var motivo = "";
+  var errEl = null;
+  var statusEl = null;
+  var btnEl = null;
+
+  if (modo === "nuevo") {
+    nombre = document.getElementById("n-nombre").value.trim();
+    motivo = document.getElementById("n-motivo").value.trim();
+    errEl = document.getElementById("form-err-nuevo");
+    statusEl = document.getElementById("status-nuevo");
+    btnEl = document.getElementById("btn-enviar-nuevo-rend");
+    if (!nombre || !motivo) {
+      errEl.style.display = "block";
+      if (!nombre) document.getElementById("n-nombre").scrollIntoView({behavior:"smooth", block:"center"});
+      else document.getElementById("n-motivo").scrollIntoView({behavior:"smooth", block:"center"});
+      return;
+    }
+  } else if (modo === "actualizacion") {
+    nombre = document.getElementById("a-nombre").value.trim();
+    errEl = document.getElementById("form-err-actualizacion");
+    statusEl = document.getElementById("status-actualizacion");
+    btnEl = document.getElementById("btn-enviar-act");
+    if (!nombre) {
+      errEl.style.display = "block";
+      document.getElementById("a-nombre").scrollIntoView({behavior:"smooth", block:"center"});
+      return;
+    }
+  } else {
+    nombre = document.getElementById("c-nombre").value.trim();
+    errEl = document.getElementById("form-err-cierre");
+    statusEl = document.getElementById("status-cierre");
+    btnEl = document.getElementById("btn-enviar-cierre");
+    if (!nombre) {
+      errEl.style.display = "block";
+      document.getElementById("c-nombre").scrollIntoView({behavior:"smooth", block:"center"});
+      return;
+    }
+  }
+
+  errEl.style.display = "none";
+  if (btnEl) btnEl.disabled = true;
+  if (statusEl) { statusEl.textContent = "Enviando..."; statusEl.style.display = "block"; }
+
+  var datos = recolectarDatos(modo);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", APPS_SCRIPT_URL, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      try {
+        var res = JSON.parse(xhr.responseText);
+        if (res.ok) {
+          document.getElementById("formulario-" + modo).style.display = "none";
+          var conf = document.getElementById("confirmacion-" + modo);
+          conf.classList.add("visible");
+          conf.scrollIntoView({behavior:"smooth", block:"start"});
+        } else {
+          if (btnEl) btnEl.disabled = false;
+          if (statusEl) { statusEl.textContent = "Hubo un error al enviar. Intentá de nuevo."; }
+        }
+      } catch(e) {
+        if (btnEl) btnEl.disabled = false;
+        if (statusEl) { statusEl.textContent = "Hubo un error al enviar. Intentá de nuevo."; }
+      }
+    }
+  };
+  xhr.onerror = function() {
+    if (btnEl) btnEl.disabled = false;
+    if (statusEl) { statusEl.textContent = "Error de conexión. Verificá tu internet e intentá de nuevo."; }
+  };
+  xhr.send(JSON.stringify(datos));
+}
+</script>
+
+<!--
+=================================================================
+INSTRUCCIONES PARA CONECTAR CON GOOGLE SHEETS (leer una sola vez)
+=================================================================
+
+PASO 1: Crear el Google Sheet
+- Ir a sheets.google.com
+- Crear una planilla nueva
+- Crear tres pestañas llamadas exactamente: nuevo | actualizacion | cierre
+- Copiar el ID de la URL (la parte larga entre /d/ y /edit)
+
+PASO 2: Crear el Apps Script
+- En el Sheet: Extensiones > Apps Script
+- Borrar todo el contenido y pegar este codigo:
+
+---------------------------------------------------------------
+var CLAVE = "ELEGIR_CLAVE_SEGURA";
+var SHEET_ID = "PEGAR_ID_DEL_SHEET_AQUI";
+
+function doPost(e) {
+  try {
+    var datos = JSON.parse(e.postData.contents);
+    var res = ContentService.createTextOutput();
+    res.setMimeType(ContentService.MimeType.JSON);
+
+    if (datos.accion === "verificar") {
+      res.setContent(JSON.stringify({ok: datos.clave === CLAVE}));
+      return res;
+    }
+
+    var ss = SpreadsheetApp.openById(SHEET_ID);
+    var sheet = ss.getSheetByName(datos.modo);
+    if (!sheet) {
+      res.setContent(JSON.stringify({ok: false, error: "Hoja no encontrada"}));
+      return res;
+    }
+
+    var keys = Object.keys(datos);
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(keys);
+    }
+    var row = keys.map(function(k) { return datos[k]; });
+    sheet.appendRow(row);
+
+    res.setContent(JSON.stringify({ok: true}));
+    return res;
+  } catch(err) {
+    var r = ContentService.createTextOutput();
+    r.setMimeType(ContentService.MimeType.JSON);
+    r.setContent(JSON.stringify({ok: false, error: err.toString()}));
+    return r;
+  }
+}
+---------------------------------------------------------------
+
+PASO 3: Publicar el script
+- En Apps Script: Implementar > Nueva implementacion
+- Tipo: Aplicacion web
+- Ejecutar como: Yo
+- Acceso: Cualquier persona
+- Hacer clic en Implementar
+- Copiar la URL que genera
+
+PASO 4: Pegar la URL en este archivo
+- Buscar la linea: var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4133PSaRXIl9nltOHgjIleux3P8YcNTt7Jt0lDJ3Wa16HuUTmvHLI3nUkdp9OyeQ/exec";
+- Reemplazar PEGAR_URL_AQUI con la URL copiada
+
+PASO 5: Elegir la clave
+- En el codigo del Apps Script, reemplazar ELEGIR_CLAVE_SEGURA
+  por la clave que quieras usar (puede ser la misma de antes u otra)
+- La clave SOLO vive en el script de Google, nunca en este archivo HTML
+
+=================================================================
+-->
+</body>
+</html>

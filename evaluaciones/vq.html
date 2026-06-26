@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Vivir según Valores (VQ) · Lic. Fabián Sierra</title>
+<meta name="description" content="Cuestionario VQ de valores y acción comprometida. Smout et al. (2014), versión española Ruiz et al. Lic. Fabián Sierra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;--paper:#FBFAF7;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --line:#D8D4C9;--line-soft:#E5E2D9;
+    --accent:#942322;--accent-deep:#741A19;
+    --maxw:860px;--pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --success:#1F5C3A;--warning:#7A5A0E;--danger:#7A1A1A;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#F3F1EC;scroll-behavior:smooth;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#F3F1EC;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(243,241,236,.82);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .4s var(--ease),background .4s var(--ease)}
+  header.scrolled{border-bottom:1px solid var(--line);background:rgba(243,241,236,.94)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.98rem}
+  .brand span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .nav-tag{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+  .prog-wrap{height:2px;background:var(--line-soft);position:sticky;top:68px;z-index:49}
+  .prog-fill{height:100%;background:var(--accent);width:0%;transition:width .35s var(--ease)}
+
+  .hero{background:#F3F1EC;border-top:1px solid var(--line);padding-top:clamp(3rem,7vw,5.5rem);padding-bottom:clamp(3rem,7vw,5rem);position:relative}
+  .hero .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.45;z-index:0;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:min(11vw,88px) min(11vw,88px);-webkit-mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%);mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%)}
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1.2rem}
+  .eyebrow .num{color:var(--accent);font-weight:500}
+  .hero h1{font-weight:700;letter-spacing:-.028em;line-height:1.04;font-size:clamp(2.2rem,6vw,4rem);margin-bottom:1.4rem}
+  .hero-sub{color:var(--ink-soft);font-size:clamp(1rem,1.8vw,1.15rem);line-height:1.68;max-width:58ch;margin-bottom:2rem}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem 2rem;padding-top:1.8rem;border-top:1px solid var(--line)}
+  @media(min-width:580px){.hero-meta{grid-template-columns:repeat(4,1fr)}}
+  .hero-meta .k{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:.9rem;font-weight:500;margin-top:.2rem}
+
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9rem;letter-spacing:.005em;padding:.82rem 1.6rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .3s var(--ease);cursor:pointer;font-family:"Archivo",sans-serif}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(148,35,34,.4)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--bone);box-shadow:none;transform:none}
+  .btn-block{display:block;width:100%;justify-content:center;margin-top:1.6rem}
+
+  main{background:#F3F1EC;padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(3rem,7vw,6rem)}
+
+  .sec-tag{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-bottom:.9rem;margin-bottom:1.1rem;border-bottom:1px solid var(--line)}
+  .ficha-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .ficha-body{font-size:.93rem;color:var(--ink-soft);font-weight:300;line-height:1.75}
+  .ficha-body strong{font-weight:600;color:var(--ink)}
+  .ficha-body p+p{margin-top:.8rem}
+  .ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.5rem;margin-top:.9rem;font-size:.84rem;color:var(--ink-soft);border-top:1px solid var(--line-soft);padding-top:.9rem}
+  .ficha-grid dt{font-weight:600;color:var(--ink-soft)}
+  .ficha-grid dd{font-weight:300}
+  @media(max-width:480px){.ficha-grid{grid-template-columns:1fr}}
+  .nota-honesta{background:#FBF8ED;border-left:3px solid var(--warning);padding:1rem 1.3rem;margin-top:1rem;font-size:.82rem;color:var(--ink-soft);font-weight:300;line-height:1.65}
+  .nota-honesta strong{color:var(--ink);font-weight:600}
+  .nota-honesta+.nota-honesta{margin-top:.8rem}
+
+  .name-block{border:1px solid var(--line);background:var(--paper);padding:clamp(1.4rem,3vw,2rem);margin-bottom:2rem;border-left:3px solid var(--accent);scroll-margin-top:140px}
+  .name-block label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.65rem;font-weight:500}
+  .name-block .req{color:var(--accent)}
+  .name-block input[type=text]{width:100%;border:none;border-bottom:2px solid var(--line);background:transparent;font-family:"Archivo",sans-serif;font-size:1.08rem;font-weight:500;color:var(--ink);padding:.4rem 0;outline:none;transition:border-color .25s}
+  .name-block input[type=text]:focus{border-bottom-color:var(--accent)}
+  .name-block input[type=text]::placeholder{color:var(--muted);font-weight:300;font-size:.96rem}
+  .name-block.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .name-block.field-error input[type=text]{border-bottom-color:var(--danger)}
+
+  .consigna-block{margin-bottom:2.5rem;border-top:1px solid var(--line);padding-top:1.6rem}
+  .consigna-block h2{font-weight:700;letter-spacing:-.022em;line-height:1.1;font-size:clamp(1.3rem,3vw,1.8rem);margin-bottom:.9rem}
+  .consigna{background:var(--bone-deep);border-left:2px solid var(--line);padding:.85rem 1.2rem;font-size:.93rem;line-height:1.7;color:var(--muted);font-style:italic}
+
+  .scale-ref{border:1px solid var(--line);background:var(--paper);padding:1rem 1.4rem;margin-bottom:2rem}
+  .scale-ref-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:.7rem}
+  .scale-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.2rem;text-align:center}
+  .scale-num{font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.2rem}
+  .scale-txt{font-size:.55rem;color:var(--muted);line-height:1.25;padding:0 .05rem}
+
+  .item-card{background:var(--paper);border:1px solid var(--line);border-left:3px solid transparent;padding:1.3rem 1.5rem;margin-bottom:.6rem;transition:border-left-color .2s var(--ease)}
+  .item-card.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .item-num{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.45rem}
+  .item-text{font-size:.97rem;font-weight:500;color:var(--ink);margin-bottom:1rem;line-height:1.5}
+
+  .radio-group{display:grid;grid-template-columns:repeat(7,1fr);gap:.2rem}
+  .radio-opt{text-align:center}
+  .radio-opt input[type=radio]{display:none}
+  .radio-opt label{display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:pointer}
+  .radio-circle{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:var(--bone);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:var(--muted);transition:all .15s;margin:0 auto}
+  .radio-opt input[type=radio]:checked + label .radio-circle{background:var(--accent);border-color:var(--accent);color:#fff;transform:scale(1.1)}
+  .radio-opt label:hover .radio-circle{border-color:var(--accent);color:var(--accent)}
+  .radio-anchor{font-size:.48rem;color:var(--muted);line-height:1.2;max-width:44px;text-align:center}
+
+  .submit-zone{text-align:center;margin-top:2.5rem}
+  .err-msg{background:#FBF0F0;border:1px solid #E8BFBF;color:var(--danger);padding:.75rem 1.1rem;font-size:.86rem;margin-top:1rem;display:none;font-weight:500}
+
+  .disclaimer-card{background:var(--ink);color:var(--bone);padding:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:1.5rem;border-left:3px solid var(--accent)}
+  .disclaimer-tag{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#9a9ba2;font-weight:600;margin-bottom:.9rem}
+  .disclaimer-card p{font-size:.92rem;font-weight:300;line-height:1.75;color:#dcdce0}
+  .disclaimer-card strong{font-weight:600;color:#fff}
+
+  #resultados{display:none;margin-top:4rem;border-top:1px solid var(--line);padding-top:3rem}
+  .res-eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1rem}
+  .res-eyebrow .num{color:var(--accent);font-weight:500}
+  .res-title{font-weight:700;letter-spacing:-.022em;line-height:1.08;font-size:clamp(1.6rem,4vw,2.6rem);margin-bottom:2rem}
+
+  .score-card{background:var(--ink);color:var(--bone);padding:clamp(2rem,4vw,3rem);margin-bottom:1.5rem}
+  .score-eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#9a9ba2;margin-bottom:.65rem}
+  .score-num{font-size:clamp(3.5rem,9vw,5.5rem);font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:.2rem}
+  .score-denom{font-size:.8rem;color:#9a9ba2;margin-bottom:1.2rem;font-weight:300}
+  .score-track{background:rgba(255,255,255,.12);height:3px;max-width:360px;margin:0 0 1.2rem;overflow:hidden}
+  .score-fill{height:100%;background:var(--accent);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+  .score-badge{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--bone);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .8rem;font-weight:600;margin-bottom:1rem}
+  .score-text{font-size:.95rem;font-weight:300;color:#c9cace;line-height:1.65;max-width:55ch}
+
+  .chart-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3.2vw,2.2rem);margin-bottom:1.5rem}
+  .chart-title{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1.6rem}
+  .hbar-row{margin-bottom:1.6rem}
+  .hbar-row:last-child{margin-bottom:0}
+  .hbar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
+  .hbar-name{font-size:.88rem;font-weight:600;color:var(--ink)}
+  .hbar-dir{font-size:.6rem;color:var(--muted);font-weight:400;margin-left:.4rem}
+  .hbar-score{font-size:.82rem;color:var(--muted);font-weight:500}
+  .hbar-score strong{color:var(--ink);font-weight:700}
+  .hbar-track{height:10px;background:var(--bone-deep);overflow:hidden}
+  .hbar-fill{height:100%;width:0%;transition:width 1.1s cubic-bezier(.4,0,.2,1)}
+  .hbar-fill-progreso{background:var(--accent)}
+  .hbar-fill-obstruccion{background:var(--ink-soft)}
+  .hbar-foot{display:flex;justify-content:space-between;margin-top:.35rem}
+  .hbar-foot span{font-size:.6rem;color:var(--muted);letter-spacing:.04em}
+
+  .subs-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:1.5rem}
+  @media(min-width:520px){.subs-grid{grid-template-columns:repeat(2,1fr)}}
+  .sub-card{background:var(--paper);padding:1.5rem 1.3rem;text-align:center}
+  .sub-card .sub-name{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.6rem}
+  .sub-card .sub-score{font-size:2rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:.3rem}
+  .sub-card .sub-denom{font-size:.7rem;color:var(--muted);margin-bottom:.6rem}
+  .sub-card .sub-badge{font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.2rem .5rem;display:inline-block}
+  .badge-bien{background:#EFF6F2;color:var(--success)}
+  .badge-moderado{background:#FBF8ED;color:var(--warning)}
+  .badge-dificultad{background:#FBF0F0;color:var(--danger)}
+  .sub-card .sub-dir{font-size:.58rem;color:var(--muted);margin-top:.4rem;display:block}
+
+  .informe-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .informe-body{font-size:.95rem;color:var(--ink-soft);font-weight:300;line-height:1.8}
+  .informe-body p+p{margin-top:.9rem}
+  .informe-body strong{font-weight:600;color:var(--ink)}
+  .informe-body em{font-style:italic}
+  .informe-body ul{margin:.6rem 0 .6rem 1.2rem}
+  .informe-body li{margin-bottom:.4rem}
+
+  .firma-box{text-align:center;padding:2rem 1.5rem;margin-top:2rem;border-top:1px solid var(--line)}
+  .firma-name{font-size:.98rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin-bottom:.2rem}
+  .firma-sub{font-size:.76rem;color:var(--muted);font-weight:300}
+
+  .cta-strip{border-top:1px solid var(--line);background:var(--ink);color:var(--bone);margin-top:3rem}
+  .cta-strip .wrap{padding-top:clamp(3rem,6vw,4.5rem);padding-bottom:clamp(3rem,6vw,4.5rem);display:flex;flex-direction:column;gap:1.6rem;align-items:flex-start}
+  @media(min-width:780px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;line-height:1.15;max-width:22ch}
+  .cta-strip .eyebrow{color:#9a9ba2;margin-bottom:1rem}
+
+  footer{background:var(--ink);color:#b7b8bd;border-top:1px solid #2a2b30}
+  .foot-inner{padding:clamp(2rem,4vw,3rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:#fff;font-weight:700;font-size:.98rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.66rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-top:.5rem}
+  .foot-bottom{border-top:1px solid #2a2b30;padding:1.3rem var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:center}
+  .foot-bottom span{font-size:.7rem;color:#76777d;letter-spacing:.05em}
+
+  @media(max-width:520px){.hero h1{font-size:2rem}.score-num{font-size:3rem}.radio-circle{width:26px;height:26px;font-size:.66rem}.radio-anchor{font-size:.43rem;max-width:34px}.ficha-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com" target="_blank">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <span class="nav-tag">Procesos Emocionales</span>
+  </div>
+</header>
+
+<div class="prog-wrap"><div class="prog-fill" id="progressBar"></div></div>
+
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">VQ</span> Procesos Emocionales</div>
+    <h1>Vivir según tus Valores</h1>
+    <p class="hero-sub">¿Cuánto estás avanzando en lo que realmente te importa — y cuánto te están frenando tus pensamientos y emociones? Este cuestionario mide las dos caras de la acción comprometida: el progreso hacia valores y la obstrucción que lo dificulta.</p>
+    <div class="hero-meta">
+      <div><span class="k">Ítems</span><span class="v">10 · Likert 0–6</span></div>
+      <div><span class="k">Área</span><span class="v">Procesos emocionales</span></div>
+      <div><span class="k">Tiempo</span><span class="v">2 min</span></div>
+      <div><span class="k">Uso</span><span class="v">Clínico exclusivo</span></div>
+    </div>
+    <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem">
+      <button class="btn" onclick="irAlFormulario()">Responder cuestionario</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('ficha-tecnica').scrollIntoView({behavior:'smooth',block:'start'})">Ver ficha técnica</button>
+    </div>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <div class="name-block" id="nameBlock">
+    <label for="nombrePaciente">Tu nombre <span class="req">*</span></label>
+    <input type="text" id="nombrePaciente" placeholder="Escribí tu nombre o cómo preferís que te llamemos" autocomplete="off" oninput="onAnswer()"/>
+  </div>
+
+  <div class="consigna-block">
+    <div class="eyebrow"><span class="num">01</span> Consigna</div>
+    <h2>Pensá en la última semana, incluyendo el día de hoy.</h2>
+    <p class="consigna">Indicá en qué medida cada afirmación fue verdad para vos durante ese período. No hay respuestas correctas ni incorrectas — respondé lo que mejor refleje lo que realmente viviste, no lo que te gustaría haber vivido.</p>
+  </div>
+
+  <div class="scale-ref">
+    <p class="scale-ref-label">Escala de respuesta</p>
+    <div class="scale-grid">
+      <div><div class="scale-num">0</div><div class="scale-txt">En absoluto verdad</div></div>
+      <div><div class="scale-num">1</div><div class="scale-txt"></div></div>
+      <div><div class="scale-num">2</div><div class="scale-txt"></div></div>
+      <div><div class="scale-num">3</div><div class="scale-txt">Algo verdad</div></div>
+      <div><div class="scale-num">4</div><div class="scale-txt"></div></div>
+      <div><div class="scale-num">5</div><div class="scale-txt"></div></div>
+      <div><div class="scale-num">6</div><div class="scale-txt">Completamente verdad</div></div>
+    </div>
+  </div>
+
+  <div id="itemsContainer"></div>
+
+  <div class="submit-zone">
+    <button class="btn" onclick="calcular()">Ver mis resultados</button>
+    <p class="err-msg" id="errMsg">Faltan campos por completar — revisá lo marcado en rojo.</p>
+  </div>
+
+  <section id="resultados">
+
+    <div class="res-eyebrow"><span class="num">02</span> Informe completo</div>
+    <h2 class="res-title" id="resTitle">Tus resultados</h2>
+
+    <div class="disclaimer-card">
+      <p class="disclaimer-tag">Antes de leer tu resultado</p>
+      <p>Este resultado refleja <strong>cómo fue la última semana</strong> en relación a tus valores — no un rasgo fijo ni una etiqueta permanente. La vida según valores fluctúa: hay semanas mejores y peores según el contexto, la carga, lo que estuvo en juego. Para una lectura más profunda, lo más certero sigue siendo el trabajo con un profesional que pueda contextualizar esto dentro de tu historia particular.</p>
+    </div>
+
+    <div class="score-card">
+      <p class="score-eyebrow">Progreso en Valores · VQ</p>
+      <div class="score-num" id="scoreNum">—</div>
+      <p class="score-denom">subescala Progreso · rango 0–30 · mayor = más avance hacia valores</p>
+      <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+      <div class="score-badge" id="scoreBadge"></div>
+      <p class="score-text" id="scoreText"></p>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">Perfil de valores (% del rango posible)</p>
+      <div id="hbarContainer"></div>
+    </div>
+
+    <div class="subs-grid" id="subsGrid"></div>
+
+    <div class="informe-card">
+      <p class="sec-tag">Análisis aplicado · Terapia de Aceptación y Compromiso (ACT)</p>
+      <div class="informe-body" id="informeIntegral"></div>
+    </div>
+
+    <div class="firma-box">
+      <p class="firma-name">Lic. Fabián Sierra</p>
+      <p class="firma-sub">Psicología Clínica &amp; Alto Rendimiento · fabiansierra.com</p>
+    </div>
+
+    <button class="btn btn-ghost btn-block" onclick="reiniciar()">Completar de nuevo</button>
+
+  </section>
+
+  <section id="ficha-tecnica" style="margin-top:4rem;border-top:1px solid var(--line);padding-top:2.5rem;scroll-margin-top:120px">
+    <p class="eyebrow"><span class="num">+</span> Ficha técnica</p>
+    <div class="ficha-card">
+      <p class="sec-tag">Sobre este instrumento</p>
+      <div class="ficha-body">
+        <p>El <strong>Cuestionario de Valores (VQ, Valuing Questionnaire)</strong> fue desarrollado por Smout, Davies, Burns y Christie (2014) para medir dos aspectos complementarios de la vida según valores en ACT: el <strong>Progreso</strong> (hasta qué punto la persona está actuando de acuerdo a lo que le importa, con perseverancia y sentido de propósito) y la <strong>Obstrucción</strong> (hasta qué punto pensamientos, emociones y experiencias internas difíciles están interfiriendo con esa acción valiosa). Es el instrumento de valores más psicométricamente robusto derivado del modelo ACT según revisiones sistemáticas recientes.</p>
+        <p>La versión española utilizada es la de Ruiz, Odriozola-González, Suárez-Falcón y Segura-Vargas (2022, PeerJ, 10, e12670), validada con una muestra de 846 participantes españoles y con equivalencia factorial demostrada con la versión colombiana del mismo grupo. Existe también una validación argentina (Quintero et al., 2024) con N=1596, que confirmó la misma estructura bifactorial y propiedades psicométricas.</p>
+        <p><strong>Una nota sobre el período de referencia:</strong> a diferencia del AAQ-II, el CFQ-7 y la MAAS — que evalúan tendencias generales — el VQ pregunta específicamente por <em>la última semana, incluyendo el día de hoy</em>. Esto lo hace más sensible al momento actual, pero también más variable entre mediciones: un resultado bajo en Progreso puede reflejar una semana difícil puntual, no necesariamente un patrón crónico.</p>
+        <dl class="ficha-grid">
+          <dt>Ítems</dt><dd>10 · escala Likert 0–6</dd>
+          <dt>Subescalas</dt><dd>Progreso (ítems 3,4,5,7,9) · Obstrucción (ítems 1,2,6,8,10)</dd>
+          <dt>Rango por subescala</dt><dd>0 a 30 puntos</dd>
+          <dt>Ítems invertidos</dt><dd>Ninguno</dd>
+          <dt>Fiabilidad Progreso</dt><dd>α=.83–.87</dd>
+          <dt>Fiabilidad Obstrucción</dt><dd>α=.82–.87</dd>
+        </dl>
+        <div class="nota-honesta">
+          <strong>Sobre los datos de referencia.</strong> Los promedios descriptivos publicados (Ruiz et al., ClinikLab Konrad Lorenz) sugieren: población no clínica ≈ Progreso 18–20, Obstrucción 10–12; población clínica ≈ Progreso 16–18, Obstrucción 15–17. Estos son promedios orientativos, no puntos de corte diagnósticos: una persona puede tener una semana de baja progresión por motivos completamente circunstanciales. El resultado siempre debe leerse en contexto.
+        </div>
+        <div class="nota-honesta">
+          <strong>Relación con el AAQ-II y el CFQ-7.</strong> El VQ y el AAQ-II/CFQ-7 miden procesos relacionados: la Obstrucción del VQ correlaciona con la evitación (AAQ-II) y la fusión cognitiva (CFQ-7), porque son justamente esos procesos los que obstruyen la acción valiosa. La diferencia es que el AAQ-II y el CFQ-7 miden el proceso psicológico en sí, mientras que el VQ mide su impacto concreto en la vida de la última semana.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="num">+</span> Profundizar el resultado</div>
+      <h3>¿Querés trabajar lo que mostró tu evaluación?</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Complet%C3%A9%20el%20VQ%20de%20valores%20y%20me%20gustar%C3%ADa%20coordinar%20una%20consulta." target="_blank" rel="noopener">
+      Coordinar consulta vía WhatsApp
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <span style="font-size:.8rem;color:#76777d">VQ · Smout et al. (2014) · Ruiz et al. (2022)</span>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Atención estrictamente particular</span>
+  </div>
+</footer>
+
+<script>
+var ITEMS = [
+  {n:1,  sub:'obs', txt:'Pasé un montón de tiempo pensando sobre el pasado o el futuro en vez de dedicarme a actividades que eran importantes para mí.'},
+  {n:2,  sub:'obs', txt:'Estuve básicamente en "piloto automático" la mayor parte del tiempo.'},
+  {n:3,  sub:'pro', txt:'Trabajé para conseguir mis metas incluso cuando no me sentía motivado/a.'},
+  {n:4,  sub:'pro', txt:'Estuve orgulloso/a de cómo viví mi vida.'},
+  {n:5,  sub:'pro', txt:'Hice progresos en las áreas de mi vida que más me importan.'},
+  {n:6,  sub:'obs', txt:'Los pensamientos, sentimientos y recuerdos difíciles se interpusieron en el camino de lo que quería hacer.'},
+  {n:7,  sub:'pro', txt:'Continué mejorando en ser el tipo de persona que deseo ser.'},
+  {n:8,  sub:'obs', txt:'Cuando las cosas no fueron según lo planeado, me di por vencido/a fácilmente.'},
+  {n:9,  sub:'pro', txt:'Me sentí como si tuviera un propósito en la vida.'},
+  {n:10, sub:'obs', txt:'Parecía como si estuviera comportándome de manera mecánica en vez de centrarme en lo que era importante para mí.'}
+];
+
+var ANCHORS = {0:'En absoluto verdad', 3:'Algo verdad', 6:'Completamente verdad'};
+
+function irAlFormulario() {
+  var el = document.getElementById('nameBlock');
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(function(){ document.getElementById('nombrePaciente').focus(); }, 450);
+}
+
+function buildItems() {
+  var c = document.getElementById('itemsContainer');
+  for (var i = 0; i < ITEMS.length; i++) {
+    var item = ITEMS[i];
+    var radios = '';
+    for (var v = 0; v <= 6; v++) {
+      var anchor = ANCHORS[v] ? ANCHORS[v] : '';
+      radios += '<div class="radio-opt">' +
+        '<input type="radio" name="item' + item.n + '" id="i' + item.n + 'v' + v + '" value="' + v + '" onchange="onAnswer()">' +
+        '<label for="i' + item.n + 'v' + v + '"><span class="radio-circle">' + v + '</span>' +
+        '<span class="radio-anchor">' + anchor + '</span></label>' +
+        '</div>';
+    }
+    c.insertAdjacentHTML('beforeend',
+      '<div class="item-card" id="card-' + item.n + '">' +
+      '<p class="item-num">Ítem ' + item.n + '</p>' +
+      '<p class="item-text">' + item.txt + '</p>' +
+      '<div class="radio-group">' + radios + '</div>' +
+      '</div>');
+  }
+}
+
+function onAnswer() { updateProgress(); }
+
+function getVal(n) {
+  var sel = document.querySelector('input[name="item' + n + '"]:checked');
+  return sel ? parseInt(sel.value) : null;
+}
+
+function getNombre() {
+  var v = document.getElementById('nombrePaciente').value;
+  return v ? v.trim() : '';
+}
+
+function updateProgress() {
+  var totalFields = ITEMS.length + 1;
+  var done = getNombre() ? 1 : 0;
+  for (var i = 0; i < ITEMS.length; i++) {
+    if (getVal(ITEMS[i].n) !== null) done++;
+  }
+  document.getElementById('progressBar').style.width = Math.round((done / totalFields) * 100) + '%';
+}
+
+function calcular() {
+  var nombre = getNombre();
+  var vals = [];
+  for (var i = 0; i < ITEMS.length; i++) vals.push(getVal(ITEMS[i].n));
+
+  var faltaNombre = !nombre;
+  var hasNull = false;
+  for (var i = 0; i < vals.length; i++) { if (vals[i] === null) hasNull = true; }
+
+  var nameBlock = document.getElementById('nameBlock');
+  nameBlock.classList.toggle('field-error', faltaNombre);
+  for (var i = 0; i < ITEMS.length; i++) {
+    var card = document.getElementById('card-' + ITEMS[i].n);
+    card.classList.toggle('field-error', vals[i] === null);
+  }
+
+  if (faltaNombre || hasNull) {
+    document.getElementById('errMsg').style.display = 'block';
+    if (faltaNombre) nameBlock.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  document.getElementById('errMsg').style.display = 'none';
+
+  var progreso = 0, obstruccion = 0;
+  for (var i = 0; i < ITEMS.length; i++) {
+    if (ITEMS[i].sub === 'pro') progreso += vals[i];
+    else obstruccion += vals[i];
+  }
+
+  document.getElementById('resTitle').textContent = 'Resultados de ' + nombre;
+  document.getElementById('scoreNum').textContent = progreso;
+
+  var pctPro = (progreso / 30) * 100;
+  setTimeout(function() { document.getElementById('scoreFill').style.width = pctPro + '%'; }, 120);
+
+  var nivelPro = clasificarProgreso(progreso);
+  document.getElementById('scoreBadge').textContent = nivelPro.etiqueta;
+  document.getElementById('scoreText').textContent = nivelPro.scoreText;
+
+  dibujarBarras(progreso, obstruccion);
+  dibujarSubs(progreso, obstruccion);
+
+  document.getElementById('informeIntegral').innerHTML = generarInforme(progreso, obstruccion, nombre);
+  document.getElementById('resultados').style.display = 'block';
+  document.getElementById('progressBar').style.width = '100%';
+  setTimeout(function() {
+    document.getElementById('resultados').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 200);
+}
+
+function clasificarProgreso(score) {
+  // Ref: no clinico promedio 18-20, clinico 16-18 (Ruiz et al.)
+  if (score >= 21) return {
+    clase: 'alto',
+    etiqueta: 'Progreso elevado',
+    scoreText: 'Esta semana avanzaste bastante en lo que te importa — con propósito, perseverancia y orgullo por cómo viviste.'
+  };
+  if (score >= 14) return {
+    clase: 'moderado',
+    etiqueta: 'Progreso moderado',
+    scoreText: 'Hubo avance hacia tus valores esta semana, aunque con menos intensidad o consistencia de lo que podrías haber querido.'
+  };
+  return {
+    clase: 'bajo',
+    etiqueta: 'Progreso reducido',
+    scoreText: 'Esta semana el avance hacia lo que te importa fue limitado — puede ser circunstancial o responder a un patrón más sostenido.'
+  };
+}
+
+function clasificarObstruccion(score) {
+  // Ref: no clinico promedio 10-12, clinico 15-17 (Ruiz et al.)
+  if (score <= 11) return {
+    clase: 'baja',
+    etiqueta: 'Obstrucción baja',
+    scoreText: 'Los pensamientos y emociones difíciles interfirieron poco en tu acción esta semana.'
+  };
+  if (score <= 16) return {
+    clase: 'moderada',
+    etiqueta: 'Obstrucción moderada',
+    scoreText: 'Hubo cierta interferencia de pensamientos y emociones en lo que querías hacer esta semana.'
+  };
+  return {
+    clase: 'alta',
+    etiqueta: 'Obstrucción elevada',
+    scoreText: 'Los pensamientos, emociones y experiencias difíciles estuvieron obstruyendo bastante la acción valiosa esta semana.'
+  };
+}
+
+function dibujarBarras(progreso, obstruccion) {
+  var c = document.getElementById('hbarContainer');
+  c.innerHTML = '';
+
+  var pctPro = Math.round((progreso / 30) * 100);
+  c.insertAdjacentHTML('beforeend',
+    '<div class="hbar-row">' +
+    '<div class="hbar-top"><span class="hbar-name">Progreso<span class="hbar-dir">— mayor es mejor</span></span>' +
+    '<span class="hbar-score"><strong>' + progreso + '</strong> / 30</span></div>' +
+    '<div class="hbar-track"><div class="hbar-fill hbar-fill-progreso" id="hbar-pro"></div></div>' +
+    '<div class="hbar-foot"><span>0</span><span>' + pctPro + '% del rango</span><span>30</span></div>' +
+    '</div>');
+
+  var pctObs = Math.round((obstruccion / 30) * 100);
+  c.insertAdjacentHTML('beforeend',
+    '<div class="hbar-row">' +
+    '<div class="hbar-top"><span class="hbar-name">Obstrucción<span class="hbar-dir">— menor es mejor</span></span>' +
+    '<span class="hbar-score"><strong>' + obstruccion + '</strong> / 30</span></div>' +
+    '<div class="hbar-track"><div class="hbar-fill hbar-fill-obstruccion" id="hbar-obs"></div></div>' +
+    '<div class="hbar-foot"><span>0</span><span>' + pctObs + '% del rango</span><span>30</span></div>' +
+    '</div>');
+
+  setTimeout(function() {
+    document.getElementById('hbar-pro').style.width = pctPro + '%';
+    document.getElementById('hbar-obs').style.width = pctObs + '%';
+  }, 150);
+}
+
+function dibujarSubs(progreso, obstruccion) {
+  var grid = document.getElementById('subsGrid');
+  grid.innerHTML = '';
+
+  var nPro = clasificarProgreso(progreso);
+  var badgePro = nPro.clase === 'alto' ? 'badge-bien' : nPro.clase === 'moderado' ? 'badge-moderado' : 'badge-dificultad';
+  grid.insertAdjacentHTML('beforeend',
+    '<div class="sub-card">' +
+    '<p class="sub-name">Progreso</p>' +
+    '<div class="sub-score">' + progreso + '</div>' +
+    '<p class="sub-denom">de 30</p>' +
+    '<span class="sub-badge ' + badgePro + '">' + nPro.etiqueta + '</span>' +
+    '<span class="sub-dir">Mayor = más avance</span>' +
+    '</div>');
+
+  var nObs = clasificarObstruccion(obstruccion);
+  var badgeObs = nObs.clase === 'baja' ? 'badge-bien' : nObs.clase === 'moderada' ? 'badge-moderado' : 'badge-dificultad';
+  grid.insertAdjacentHTML('beforeend',
+    '<div class="sub-card">' +
+    '<p class="sub-name">Obstrucción</p>' +
+    '<div class="sub-score">' + obstruccion + '</div>' +
+    '<p class="sub-denom">de 30</p>' +
+    '<span class="sub-badge ' + badgeObs + '">' + nObs.etiqueta + '</span>' +
+    '<span class="sub-dir">Mayor = más interferencia</span>' +
+    '</div>');
+}
+
+function generarInforme(progreso, obstruccion, nombre) {
+  var nPro = clasificarProgreso(progreso);
+  var nObs = clasificarObstruccion(obstruccion);
+  var html = '<p><strong>' + nombre + '</strong>, esto es lo que refleja tu semana en relación a tus valores.</p>';
+
+  html += '<p><strong>Progreso (' + progreso + '/30).</strong> ';
+  if (nPro.clase === 'alto') {
+    html += 'Esta semana avanzaste bastante en lo que te importa: trabajaste hacia tus metas incluso sin motivación, sentiste propósito, y viviste de una manera de la que te sentís orgulloso/a. Desde ACT, esto es lo que se llama acción comprometida — no ausencia de dificultades, sino movimiento en dirección a valores a pesar de ellas.';
+  } else if (nPro.clase === 'moderado') {
+    html += 'Hubo avance hacia tus valores esta semana, aunque no de forma consistente o intensa. Algunos momentos de propósito y progreso, otros en los que probablemente costó más. <em>¿Hay alguna área específica de tu vida donde sí notaste avance, aunque sea pequeño?</em> Identificarla da más información que el promedio general.';
+  } else {
+    html += 'Esta semana el avance hacia lo que te importa fue limitado. Puede ser circunstancial — una semana difícil, mucha demanda externa, poca energía disponible — o puede ser parte de un patrón más sostenido. Ambas posibilidades son distintas y merecen lecturas diferentes. <em>¿Cómo fue esta semana comparada con otras en los últimos meses?</em>';
+  }
+  html += '</p>';
+
+  html += '<p><strong>Obstrucción (' + obstruccion + '/30).</strong> ';
+  if (nObs.clase === 'baja') {
+    html += 'Los pensamientos, emociones y experiencias difíciles interfirieron poco con tu acción esta semana. Lo que sentiste o pensaste no te frenó mucho — pudiste actuar en la dirección que querías aunque hubiera incomodidad.';
+  } else if (nObs.clase === 'moderada') {
+    html += 'Hubo cierta interferencia de pensamientos y emociones en lo que querías hacer. El piloto automático tomó el control en algunos momentos, o algunas experiencias internas te frenaron sin que lo eligieras del todo. Es un nivel habitual en semanas con algo de estrés o demanda.';
+  } else {
+    html += 'Esta semana los pensamientos, sentimientos y recuerdos difíciles estuvieron bastante en el camino de lo que querías hacer. Tiempo en piloto automático, rendirse cuando las cosas no salieron como esperabas, experiencias internas que se interpusieron. Desde ACT, esto es la obstrucción actuando en tiempo real — no una falla de voluntad, sino el costo de no tener herramientas para moverse a pesar del malestar.';
+  }
+  html += '</p>';
+
+  html += generarLecturaIntegradora(nPro.clase, nObs.clase);
+  html += generarRecomendaciones(nPro.clase, nObs.clase);
+  return html;
+}
+
+function generarLecturaIntegradora(clPro, clObs) {
+  var html = '<p><strong>Cómo se conecta todo esto.</strong> ';
+
+  if (clPro === 'alto' && clObs === 'baja') {
+    html += 'Esta semana fue bastante buena en términos de valores: avanzaste hacia lo que te importa y las experiencias internas difíciles no te frenaron demasiado. Es el perfil que ACT busca cultivar — no una vida sin malestar, sino una vida donde el malestar no detiene la acción.';
+  } else if (clPro === 'alto' && clObs === 'moderada') {
+    html += 'Avanzaste bien hacia tus valores incluso con cierta interferencia interna. Es un perfil que muestra flexibilidad psicológica funcionando: algo de obstrucción hubo, pero no fue suficiente como para frenar el progreso.';
+  } else if (clPro === 'alto' && clObs === 'alta') {
+    html += 'Un resultado interesante: avanzaste bastante en tus valores a pesar de una obstrucción elevada. Esto sugiere que tenés capacidad para actuar según lo que te importa incluso cuando el malestar interno es intenso — algo que no es común y que vale la pena reconocer.';
+  } else if (clPro === 'moderado' && clObs === 'baja') {
+    html += 'La obstrucción fue baja esta semana — no fueron los pensamientos ni las emociones los que limitaron el progreso. Vale preguntarse qué sí lo limitó: ¿tiempo, energía, claridad sobre qué es lo más importante, factores externos?';
+  } else if (clPro === 'moderado' && clObs === 'moderada') {
+    html += 'Un resultado equilibrado: ni mucho progreso ni mucha obstrucción. Es el rango más frecuente en población general. <em>¿Hubo algo esta semana que podría haber sumado un poco más de avance con pequeños cambios?</em> Esa pregunta suele ser más útil que quedarse en el promedio.';
+  } else if (clPro === 'moderado' && clObs === 'alta') {
+    html += 'La obstrucción fue bastante alta esta semana, y aun así hubo algo de progreso. Eso dice algo positivo: incluso con mucha interferencia interna, algo se movió en la dirección que importa. El trabajo pasa por reducir esa obstrucción para que lo que ya está presente pueda desplegarse con más libertad.';
+  } else if (clPro === 'bajo' && clObs === 'baja') {
+    html += 'Poco progreso y poca obstrucción: los pensamientos y emociones no fueron el problema esta semana. La limitación parece ser otra — quizás falta de claridad sobre qué es lo que realmente importa, o circunstancias externas que complicaron la acción, o simplemente una semana de recarga que también tiene su lugar.';
+  } else if (clPro === 'bajo' && clObs === 'moderada') {
+    html += 'El progreso fue bajo con obstrucción moderada. Ambas cosas se retroalimentan: cuando la acción comprometida es escasa, la obstrucción tiende a ocupar más espacio. El punto de entrada más útil suele ser identificar una sola cosa concreta, pequeña y accionable, alineada con algún valor central.';
+  } else {
+    html += 'Bajo progreso y obstrucción elevada: los pensamientos, emociones y experiencias difíciles estuvieron muy presentes esta semana y la acción hacia valores fue limitada. Es el patrón que ACT asocia con mayor sufrimiento psicológico — no porque sea un destino, sino porque es la señal más clara de que algo necesita atención.';
+  }
+
+  html += '</p>';
+  return html;
+}
+
+function generarRecomendaciones(clPro, clObs) {
+  var tecnicas = [];
+
+  if (clObs === 'alta') {
+    tecnicas.push('<strong>Defusión aplicada a la obstrucción</strong> — cuando un pensamiento o emoción aparece en el camino de algo que querés hacer, notar: "esto es obstrucción" o "mi mente está poniendo algo en el camino". El solo acto de nombrarlo crea distancia y hace visible que tenés una opción sobre cómo responder.');
+    tecnicas.push('<strong>Acción pequeña y comprometida</strong> — elegir una sola acción concreta, accionable dentro de las próximas 24 horas, alineada con algo que te importe. No la más grande ni la más importante: la que sea posible hacer aunque haya malestar.');
+  } else if (clObs === 'moderada') {
+    tecnicas.push('<strong>Rastreo de obstrucción</strong> — notar brevemente, al final de cada día de la semana próxima, en qué momentos específicos los pensamientos o emociones frenaron una acción valiosa. No para juzgarlo sino para verlo con más claridad.');
+  }
+
+  if (clPro === 'bajo') {
+    tecnicas.push('<strong>Clarificación de valores</strong> — antes de actuar, preguntarse: "¿qué es lo que más me importa en esta área de mi vida?" y "¿qué haría alguien que vive según ese valor?" Tener claridad sobre qué importa es el primer paso para poder avanzar en esa dirección.');
+  } else if (clPro === 'moderado') {
+    tecnicas.push('<strong>Registro de progreso pequeño</strong> — al final del día, anotar una cosa concreta que hiciste en dirección a algo que te importa. Por más pequeña que sea. El registro sostenido de pequeñas acciones construye, con el tiempo, un sentido más sólido de avance.');
+  }
+
+  if (tecnicas.length === 0) {
+    tecnicas.push('<strong>Consolidación</strong> — cuando el progreso es alto y la obstrucción baja, el trabajo pasa por mantener y consolidar lo que ya está funcionando: notar qué condiciones hacen posible esta semana para poder replicarlas cuando el contexto sea más difícil.');
+  }
+
+  var lista = '<ul>';
+  for (var i = 0; i < tecnicas.length; i++) {
+    lista += '<li>' + tecnicas[i] + '</li>';
+  }
+  lista += '</ul>';
+
+  return '<p><strong>Algunas herramientas de ACT que suelen trabajarse con este perfil.</strong>' + lista +
+    'Estas son menciones generales — qué tiene sentido para vos, cómo y cuándo, es algo que se define dentro de un proceso terapéutico, no a partir de un número en un cuestionario.</p>';
+}
+
+function reiniciar() {
+  document.getElementById('resultados').style.display = 'none';
+  document.getElementById('nombrePaciente').value = '';
+  document.getElementById('errMsg').style.display = 'none';
+  document.getElementById('nameBlock').classList.remove('field-error');
+  for (var i = 0; i < ITEMS.length; i++) {
+    var n = ITEMS[i].n;
+    var radios = document.querySelectorAll('input[name="item' + n + '"]');
+    for (var r = 0; r < radios.length; r++) radios[r].checked = false;
+    document.getElementById('card-' + n).classList.remove('field-error');
+  }
+  document.getElementById('progressBar').style.width = '0%';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+var header = document.querySelector('header');
+window.addEventListener('scroll', function() {
+  header.classList.toggle('scrolled', window.scrollY > 12);
+}, false);
+
+document.getElementById('year').textContent = new Date().getFullYear();
+buildItems();
+</script>
+</body>
+</html>

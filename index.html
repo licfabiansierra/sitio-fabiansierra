@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Lic. Fabián Sierra — Psicología y Rendimiento</title>
+<meta name="description" content="Un espacio de consulta y trabajo psicoterapéutico adaptado a tus objetivos. Psicoterapia clínica y entrenamiento mental de alto rendimiento. Montevideo, San José y modalidad virtual.">
+<meta name="author" content="Lic. Fabián Sierra">
+<meta name="theme-color" content="#F3F1EC">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_UY">
+<meta property="og:site_name" content="Lic. Fabián Sierra — Psicología y Rendimiento">
+<meta property="og:title" content="Lic. Fabián Sierra — Psicología y Rendimiento">
+<meta property="og:description" content="Un espacio de consulta y trabajo psicoterapéutico adaptado a tus objetivos. Psicoterapia clínica y entrenamiento mental desde la psicología científica. Montevideo, San José y virtual.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lic. Fabián Sierra — Psicología y Rendimiento">
+<meta name="twitter:description" content="Psicoterapia clínica y entrenamiento mental de alto rendimiento. Montevideo, San José y virtual.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;
+    --bone-deep:#EAE7DE;
+    --paper:#FBFAF7;
+    --ink:#17181C;
+    --ink-soft:#3A3C44;
+    --muted:#6E7079;
+    --line:#D8D4C9;
+    --line-soft:#E5E2D9;
+    --accent:#942322;
+    --accent-deep:#741A19;
+    --maxw:1240px;
+    --pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;color-scheme:light}
+  body{
+    font-family:"Archivo",system-ui,sans-serif;
+    background:var(--bone);color:var(--ink);
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+  .eyebrow{
+    font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);display:flex;align-items:center;gap:.85rem;
+  }
+  .eyebrow .num{color:var(--accent);font-weight:500}
+
+  /* HEADER */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(243,241,236,.82);backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:border-color .4s var(--ease),background .4s var(--ease);
+  }
+  header.scrolled{border-bottom:1px solid var(--line);background:rgba(243,241,236,.94)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:74px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:1.02rem}
+  .brand span{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .menu{display:flex;gap:2rem;align-items:center}
+  .menu a{font-size:.9rem;color:var(--ink-soft);position:relative;transition:color .25s}
+  .menu a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--ink);transition:width .3s var(--ease)}
+  .menu a:hover{color:var(--ink)}
+  .menu a:hover::after{width:100%}
+  .menu a.btn,.menu a.btn:hover{color:#fff}
+  .menu a.btn::after{display:none}
+  .btn{
+    display:inline-flex;align-items:center;gap:.6rem;
+    font-weight:600;font-size:.9rem;letter-spacing:.005em;
+    padding:.78rem 1.4rem;border-radius:2px;
+    background:var(--accent);color:#fff;border:1px solid var(--accent);
+    transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .3s var(--ease);
+    white-space:nowrap;
+  }
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(148,35,34,.4)}
+  .btn svg{width:15px;height:15px;flex:0 0 auto}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--bone);box-shadow:none}
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:8px}
+  .menu-toggle span{width:24px;height:2px;background:var(--ink);transition:.3s var(--ease)}
+
+  /* HERO */
+  .hero{position:relative;padding-top:clamp(4rem,9vw,8rem);padding-bottom:clamp(4rem,9vw,7.5rem);overflow:hidden}
+  .hero .grid-bg{
+    position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:min(11vw,96px) min(11vw,96px);
+    -webkit-mask-image:radial-gradient(120% 90% at 80% 10%,#000,transparent 75%);
+    mask-image:radial-gradient(120% 90% at 80% 10%,#000,transparent 75%);
+  }
+  .hero-inner{position:relative;max-width:920px}
+  .hero h1{
+    font-weight:700;letter-spacing:-.028em;line-height:1.02;
+    font-size:clamp(2.6rem,7vw,5.3rem);margin:1.6rem 0 0;
+  }
+  .hero h1 .em{color:var(--accent)}
+  .hero h2{
+    font-weight:400;color:var(--ink-soft);opacity:.9;
+    font-size:clamp(1.05rem,2vw,1.32rem);line-height:1.6;
+    max-width:640px;margin:1.8rem 0 0;letter-spacing:-.005em;
+  }
+  .hero-cta{margin-top:2.6rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem 2rem;margin-top:3.4rem;padding-top:2rem;border-top:1px solid var(--line)}
+  @media(min-width:640px){.hero-meta{grid-template-columns:repeat(4,1fr)}}
+  .hero-meta .item{display:flex;flex-direction:column;gap:.25rem}
+  .hero-meta .k{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:.96rem;font-weight:500}
+
+  /* SECTIONS */
+  section.block{padding-top:clamp(4rem,8vw,7rem);padding-bottom:clamp(4rem,8vw,7rem);border-top:1px solid var(--line)}
+  .sec-head{max-width:760px}
+  .sec-head h3{font-weight:700;letter-spacing:-.022em;line-height:1.08;font-size:clamp(1.9rem,4.2vw,3rem);margin-top:1.3rem}
+  .sec-head p.lead{color:var(--ink-soft);font-size:clamp(1.02rem,1.6vw,1.18rem);margin-top:1.3rem;line-height:1.65}
+
+  /* ENFOQUE */
+  .enfoque-grid{display:grid;grid-template-columns:1fr;gap:clamp(2rem,4vw,3.5rem);align-items:start;margin-top:3rem}
+  @media(min-width:880px){.enfoque-grid{grid-template-columns:1.15fr .85fr}}
+  .enfoque-body p{color:var(--ink-soft);font-size:1.08rem;line-height:1.75;max-width:60ch}
+  .enfoque-body p+p{margin-top:1.1rem}
+  .principles{border-top:1px solid var(--line)}
+  .principles .row{display:flex;gap:1.1rem;padding:1.3rem 0;border-bottom:1px solid var(--line-soft)}
+  .principles .row .n{font-size:.78rem;color:var(--accent);padding-top:.18rem;min-width:2.2rem}
+  .principles .row .t b{display:block;font-weight:600;font-size:1rem}
+  .principles .row .t span{display:block;color:var(--muted);font-size:.92rem;margin-top:.2rem}
+
+  /* LINEAS */
+  .lines{display:grid;grid-template-columns:1fr;gap:0;margin-top:3rem;border:1px solid var(--line)}
+  @media(min-width:860px){.lines{grid-template-columns:1fr 1fr}}
+  .line-card{padding:clamp(1.8rem,3.4vw,2.8rem);position:relative;background:var(--paper);transition:background .3s var(--ease)}
+  .line-card:first-child{border-bottom:1px solid var(--line)}
+  @media(min-width:860px){.line-card:first-child{border-bottom:none;border-right:1px solid var(--line)}}
+  .line-card:hover{background:#fff}
+  .line-card .tag{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .line-card h4{font-weight:700;font-size:clamp(1.3rem,2.4vw,1.7rem);letter-spacing:-.018em;margin:.9rem 0 0;line-height:1.15}
+  .line-card .desc{color:var(--ink-soft);margin-top:1rem;line-height:1.7;font-size:1.02rem}
+  .line-card dl{margin-top:1.5rem;border-top:1px solid var(--line-soft);padding-top:1.3rem;display:grid;gap:1.05rem}
+  .line-card dt{font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+  .line-card dd{margin-top:.3rem;font-size:.97rem;line-height:1.6;color:var(--ink-soft)}
+  .line-card dd b{color:var(--ink);font-weight:600}
+  .line-card.clinica{background:#FAF5F1}
+  .line-card.clinica:hover{background:#fff}
+  .line-note{margin-top:1.5rem;padding-top:1.3rem;border-top:1px solid var(--line-soft);font-size:.92rem;color:var(--ink-soft);line-height:1.55}
+  .line-note a{color:var(--accent);font-weight:600;white-space:nowrap;transition:opacity .2s}
+  .line-note a:hover{opacity:.7}
+
+  /* PROCESO */
+  .proceso-grid{display:grid;grid-template-columns:1fr;gap:1.1rem;margin-top:3rem}
+  @media(min-width:680px){.proceso-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:980px){.proceso-grid{grid-template-columns:repeat(4,1fr)}}
+  .proceso-step{padding:clamp(1.4rem,2.6vw,1.9rem);border:1px solid var(--line);background:var(--paper);transition:border-color .3s var(--ease)}
+  .proceso-step:hover{border-color:var(--accent)}
+  .proceso-step .step-n{font-size:.8rem;font-weight:600;color:var(--accent);letter-spacing:.04em}
+  .proceso-step h4{font-weight:700;font-size:1.06rem;letter-spacing:-.012em;margin:.65rem 0 0;line-height:1.25}
+  .proceso-step p{color:var(--ink-soft);font-size:.94rem;line-height:1.6;margin-top:.55rem}
+
+  /* EVALUACIONES (seccion) */
+  .evals-banner{
+    display:grid;grid-template-columns:1fr;gap:1.1rem;margin-top:2.8rem;
+  }
+  @media(min-width:760px){.evals-banner{grid-template-columns:1fr 1fr}}
+  .eval-link-card{
+    display:flex;flex-direction:column;gap:.5rem;
+    padding:clamp(1.8rem,3vw,2.4rem);border:1px solid var(--line);
+    background:var(--paper);transition:border-color .3s var(--ease),transform .3s var(--ease),background .3s var(--ease);
+  }
+  .eval-link-card:hover{border-color:var(--accent);transform:translateY(-2px);background:#fff}
+  .eval-link-card .k{font-size:.8rem;color:var(--muted);font-weight:500}
+  .eval-link-card .h{font-size:clamp(1.15rem,2.2vw,1.5rem);font-weight:700;letter-spacing:-.018em;line-height:1.18}
+  .eval-link-card .s{color:var(--ink-soft);font-size:.97rem;line-height:1.6}
+  .eval-link-card .go{margin-top:.6rem;font-weight:600;font-size:.92rem;color:var(--accent);display:inline-flex;align-items:center;gap:.5rem;transition:gap .25s var(--ease)}
+  .eval-link-card:hover .go{gap:.85rem}
+  .eval-link-card .go svg{width:15px;height:15px}
+
+  /* MODALIDADES */
+  .modos{display:grid;grid-template-columns:1fr;gap:1.4rem;margin-top:3rem}
+  @media(min-width:780px){.modos{grid-template-columns:1fr 1fr}}
+  .modo{border:1px solid var(--line);padding:clamp(1.7rem,3vw,2.4rem);background:var(--paper);position:relative;overflow:hidden}
+  .modo::before{content:"";position:absolute;top:0;left:0;width:0;height:3px;background:var(--accent);transition:width .5s var(--ease)}
+  .modo:hover::before{width:100%}
+  .modo .idx{font-size:.86rem;font-weight:500;color:var(--accent)}
+  .modo h4{font-weight:700;font-size:1.3rem;letter-spacing:-.015em;margin:.7rem 0 0}
+  .modo .where{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:.35rem}
+  .modo p{color:var(--ink-soft);margin-top:1.1rem;line-height:1.7;font-size:1rem}
+  .modos-nota{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--line-soft);color:var(--ink-soft);font-size:.95rem;line-height:1.65;max-width:70ch}
+  .modos-nota b{color:var(--ink);font-weight:600}
+
+  /* TRAYECTORIA */
+  .trayectoria-grid{display:grid;grid-template-columns:1fr;gap:clamp(2.4rem,4vw,4rem);margin-top:4.5rem}
+  @media(min-width:880px){.trayectoria-grid{grid-template-columns:1fr 1fr}}
+  .trayectoria-col h4{font-weight:700;font-size:clamp(1.15rem,2vw,1.4rem);letter-spacing:-.015em;line-height:1.2;padding-bottom:1.1rem;border-bottom:1px solid var(--ink);margin-bottom:.4rem}
+  .exp-item{padding:1.4rem 0;border-bottom:1px solid var(--line-soft);background:var(--paper);transition:background .3s}
+  .exp-item:last-child{border-bottom:none}
+  .exp-header{display:flex;align-items:baseline;gap:.85rem}
+  .exp-header .dot{flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--accent);transform:translateY(-2px)}
+  .exp-title{font-weight:600;font-size:1.04rem;letter-spacing:-.01em;line-height:1.35}
+  .exp-institution{margin-top:.55rem;margin-left:1.7rem;color:var(--ink-soft);font-size:.97rem;line-height:1.7}
+  @media(max-width:540px){.exp-institution{margin-left:0}}
+  .trayectoria-intro{display:grid;grid-template-columns:1fr;border:1px solid var(--line);background:var(--paper);overflow:hidden;margin-top:2.8rem}
+  @media(min-width:720px){.trayectoria-intro{grid-template-columns:minmax(0,300px) 1fr}}
+  .foto-fabian{width:100%;height:360px;object-fit:cover;object-position:50% 20%;display:block;background:#141113}
+  @media(min-width:720px){.foto-fabian{height:100%;min-height:400px}}
+  .trayectoria-intro .who{padding:clamp(1.7rem,3.4vw,2.6rem);align-self:center}
+  .trayectoria-intro .who .k{font-size:.78rem;color:var(--muted);font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+  .trayectoria-intro .who p{color:var(--ink-soft);font-size:1.06rem;line-height:1.74;margin-top:.7rem;max-width:54ch}
+
+  /* BIFURCA */
+  .bifurca{border-top:1px solid var(--line);padding-top:clamp(2.6rem,5vw,3.8rem);padding-bottom:clamp(2.6rem,5vw,3.8rem)}
+  .bifurca-intro{font-size:clamp(1.05rem,1.9vw,1.28rem);color:var(--ink-soft);max-width:52ch;line-height:1.55}
+  .bifurca-grid{display:grid;grid-template-columns:1fr;gap:1.1rem;margin-top:2rem}
+  @media(min-width:760px){.bifurca-grid{grid-template-columns:1fr 1fr}}
+  .bifurca-card{display:flex;flex-direction:column;gap:.45rem;padding:clamp(1.5rem,3vw,2.1rem);border:1px solid var(--line);background:var(--paper);transition:border-color .3s var(--ease),transform .3s var(--ease),background .3s var(--ease)}
+  .bifurca-card:hover{border-color:var(--accent);transform:translateY(-2px);background:#fff}
+  .bifurca-card .k{font-size:.8rem;color:var(--muted);font-weight:500}
+  .bifurca-card .h{font-size:clamp(1.15rem,2.2vw,1.5rem);font-weight:700;letter-spacing:-.018em;line-height:1.18}
+  .bifurca-card .s{color:var(--ink-soft);font-size:.97rem;line-height:1.6}
+  .bifurca-card .go{margin-top:.55rem;font-weight:600;font-size:.92rem;color:var(--accent);display:inline-flex;align-items:center;gap:.5rem;transition:gap .25s var(--ease)}
+  .bifurca-card:hover .go{gap:.85rem}
+  .bifurca-card .go svg{width:15px;height:15px}
+
+  /* FAQ */
+  .faq{margin-top:3rem;border-top:1px solid var(--line)}
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-q{
+    width:100%;background:none;border:none;cursor:pointer;text-align:left;
+    display:flex;align-items:flex-start;gap:1.3rem;padding:1.55rem 0;
+    font-family:"Archivo",sans-serif;font-size:clamp(1rem,1.7vw,1.18rem);font-weight:600;color:var(--ink);
+    letter-spacing:-.01em;line-height:1.4;transition:color .25s;
+  }
+  .faq-q:hover{color:var(--accent)}
+  .faq-q .qn{font-size:.78rem;color:var(--accent);font-weight:500;padding-top:.28rem;min-width:2.3rem}
+  .faq-q .qt{flex:1}
+  .faq-q .ico{flex:0 0 auto;width:22px;height:22px;position:relative;margin-top:.18rem}
+  .faq-q .ico::before,.faq-q .ico::after{content:"";position:absolute;background:var(--ink);transition:transform .35s var(--ease),background .25s}
+  .faq-q .ico::before{top:50%;left:0;width:100%;height:2px;transform:translateY(-50%)}
+  .faq-q .ico::after{left:50%;top:0;height:100%;width:2px;transform:translateX(-50%)}
+  .faq-q[aria-expanded="true"] .ico::after{transform:translateX(-50%) scaleY(0)}
+  .faq-q[aria-expanded="true"]{color:var(--accent)}
+  .faq-q[aria-expanded="true"] .ico::before{background:var(--accent)}
+  .faq-a{overflow:hidden;max-height:0;transition:max-height .45s var(--ease)}
+  .faq-a-inner{padding:0 0 1.7rem 3.6rem;color:var(--ink-soft);line-height:1.72;font-size:1rem;max-width:74ch}
+  .faq-a-inner p{margin-top:.8rem}
+  .faq-a-inner p:first-child{margin-top:0}
+  @media(max-width:540px){.faq-a-inner{padding-left:0}}
+
+  /* CTA STRIP */
+  .cta-strip{border-top:1px solid var(--line);background:var(--ink);color:var(--bone)}
+  .cta-strip .wrap{padding-top:clamp(3.5rem,7vw,6rem);padding-bottom:clamp(3.5rem,7vw,6rem);display:flex;flex-direction:column;gap:2rem;align-items:flex-start}
+  @media(min-width:820px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.8rem,3.6vw,2.7rem);letter-spacing:-.02em;line-height:1.1;max-width:18ch}
+  .cta-strip .eyebrow{color:#9a9ba2}
+  .cta-strip .eyebrow .num{color:var(--accent)}
+  .cta-strip .btn{padding:1rem 1.7rem;font-size:.98rem}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:#b7b8bd;border-top:1px solid #2a2b30}
+  .foot-grid{display:grid;grid-template-columns:1fr;gap:2.4rem;padding-top:clamp(3rem,5vw,4rem);padding-bottom:2.5rem}
+  @media(min-width:760px){.foot-grid{grid-template-columns:1.6fr 1fr 1fr}}
+  .foot-col .ft{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#76777d;margin-bottom:1rem}
+  .foot-col p,.foot-col a{font-size:.94rem;line-height:1.7;color:#c9cace}
+  .foot-col a{display:block;transition:color .25s}
+  .foot-col a:hover{color:#fff}
+  .foot-brand b{color:#fff;font-weight:700;font-size:1.05rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.68rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-top:.7rem}
+  .foot-bottom{border-top:1px solid #2a2b30;padding:1.5rem 0;display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;justify-content:space-between;align-items:center}
+  .foot-bottom span{font-size:.7rem;color:#76777d;letter-spacing:.05em}
+
+  /* WA FLOAT */
+  .wa-float{position:fixed;right:clamp(1rem,3vw,2rem);bottom:clamp(1rem,3vw,2rem);z-index:60;width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px -8px rgba(148,35,34,.5);transition:transform .3s var(--ease),background .25s;opacity:0;transform:translateY(20px) scale(.8);pointer-events:none}
+  .wa-float.show{opacity:1;transform:none;pointer-events:auto}
+  .wa-float:hover{transform:translateY(-3px) scale(1.05);background:var(--accent-deep)}
+  .wa-float svg{width:28px;height:28px;fill:#fff}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  [data-d="1"]{transition-delay:.08s}[data-d="2"]{transition-delay:.16s}[data-d="3"]{transition-delay:.24s}[data-d="4"]{transition-delay:.32s}
+
+  @media(max-width:860px){
+    .menu{position:fixed;inset:74px 0 auto 0;background:var(--bone);flex-direction:column;align-items:flex-start;gap:0;padding:0 var(--pad);max-height:0;overflow:hidden;transition:max-height .4s var(--ease);border-bottom:1px solid transparent}
+    .menu.open{max-height:480px;border-bottom:1px solid var(--line);padding-bottom:1.5rem}
+    .menu a{width:100%;padding:1rem 0;border-bottom:1px solid var(--line-soft)}
+    .menu a::after{display:none}
+    .menu .btn{margin-top:1.75rem;width:100%;justify-content:center;color:#fff}
+    .menu-toggle{display:flex}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Lic. Fabián Sierra, inicio">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <nav class="menu" id="menu">
+      <a href="#enfoque">El Enfoque</a>
+      <a href="#servicios">Servicios</a>
+      <a href="/evaluaciones/" target="_blank">Evaluaciones</a>
+      <a href="#modalidades">Modalidades</a>
+      <a href="#trayectoria">Trayectoria</a>
+      <a href="#faq">Preguntas frecuentes</a>
+      <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Me%20contacto%20desde%20la%20web%20para%20hacerle%20una%20consulta%20sobre%20los%20procesos%20de%20atenci%C3%B3n." target="_blank" rel="noopener">
+        Coordinar Sesión
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </nav>
+    <button class="menu-toggle" id="toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="grid-bg"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow reveal"><span class="num">01</span> Psicología clínica y alto rendimiento</div>
+    <h1 class="reveal" data-d="1">
+      Un lugar donde<br>lo que te pasa<br>tiene <span class="em">sentido.</span>
+    </h1>
+    <h2 class="reveal" data-d="2">
+      No para eliminarlo. Para entender qué hace, por qué lo hace, y cuánto te cuesta seguirle el juego.
+      La mente humana es extraordinariamente buena resolviendo problemas. El problema es cuando intenta resolver el malestar como si fuera uno. Cuanto más se le pelea, más espacio ocupa.
+    </h2>
+    <div class="hero-cta reveal" data-d="3">
+      <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Me%20contacto%20desde%20la%20web%20para%20hacerle%20una%20consulta%20sobre%20los%20procesos%20de%20atenci%C3%B3n." target="_blank" rel="noopener">
+        Iniciar Proceso vía WhatsApp
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#servicios">Ver líneas de trabajo</a>
+    </div>
+    <div class="hero-meta reveal" data-d="4">
+      <div class="item"><span class="k">Marco</span><span class="v">Psicología basada en evidencia</span></div>
+      <div class="item"><span class="k">Presencial</span><span class="v">Montevideo · San José</span></div>
+      <div class="item"><span class="k">Virtual</span><span class="v">País y exterior</span></div>
+      <div class="item"><span class="k">Atención</span><span class="v">Estrictamente particular</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BIFURCACION -->
+<section class="bifurca" id="bifurca">
+  <div class="wrap">
+    <p class="bifurca-intro reveal">No todos llegan por lo mismo. Decime con qué te identificás y te muestro el camino:</p>
+    <div class="bifurca-grid">
+      <a class="bifurca-card reveal" data-d="1" href="#clinica">
+        <span class="k">Proceso personal</span>
+        <span class="h">Estoy atravesando algo y busco ayuda</span>
+        <span class="s">Ansiedad, estrés, momentos en que todo se siente demasiado. No solo el peso de lo que te pasa — sino el agotamiento extra de pelearle. Hay una diferencia entre los dos, y vale entenderla.</span>
+        <span class="go">Ver psicoterapia clínica
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+      <a class="bifurca-card reveal" data-d="2" href="#rendimiento">
+        <span class="k">Alto rendimiento</span>
+        <span class="h">Quiero rendir mejor cuando más importa</span>
+        <span class="s">Deporte, escenario, quirófano o decisiones de alto impacto. La brecha entre lo que podés y lo que realmente ejecutás cuando más importa no suele ser técnica. Casi siempre es mental.</span>
+        <span class="go">Ver entrenamiento mental
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ENFOQUE -->
+<section class="block" id="enfoque">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow reveal"><span class="num">02</span> El enfoque</div>
+      <h3 class="reveal" data-d="1">Un método concreto, no solo escucha</h3>
+    </div>
+    <div class="enfoque-grid">
+      <div class="enfoque-body reveal" data-d="1">
+        <p>Entiendo la consulta como un espacio seguro, horizontal y de absoluto resguardo. Trabajo desde la psicología científica — lo que significa que hay un método detrás de cada sesión, no solo escucha.</p>
+        <p>La mente produce pensamientos, emociones, recuerdos, juicios. Eso no se puede apagar. Lo que sí cambia es la relación que uno tiene con todo eso: si le creemos todo lo que dice, si la dejamos decidir por nosotros, si gastamos energía peleando contra lo que de todas formas va a aparecer. Hay una diferencia entre tener un pensamiento y ser ese pensamiento. Entre sentir miedo y dejar que el miedo elija.</p>
+        <p>El trabajo es entender cómo funciona tu patrón real — qué lo dispara, qué lo mantiene, qué te cuesta. Y desde ahí, que los valores que genuinamente te importan vuelvan a ser la brújula. No una meta que se alcanza cuando el malestar desaparece. La dirección desde la que se actúa mientras el malestar todavía está.</p>
+      </div>
+      <div class="principles reveal" data-d="2">
+        <div class="row"><div class="n">A.</div><div class="t"><b>Método con respaldo científico</b><span>Modelos contrastados, no charla al vacío.</span></div></div>
+        <div class="row"><div class="n">B.</div><div class="t"><b>Entender cómo funciona lo que te frena</b><span>Tu patrón real, no lo que creés que pasa.</span></div></div>
+        <div class="row"><div class="n">C.</div><div class="t"><b>Tus pensamientos no son los hechos</b><span>Tampoco son quién sos. Eso cambia mucho.</span></div></div>
+        <div class="row"><div class="n">D.</div><div class="t"><b>Los valores como brújula, no como meta</b><span>No se alcanzan. Dan dirección incluso los días en que no hay ganas.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="block" id="servicios">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow reveal"><span class="num">03</span> Líneas de trabajo</div>
+      <h3 class="reveal" data-d="1">Dos áreas de intervención diferenciadas</h3>
+      <p class="lead reveal" data-d="2">No todos los objetivos requieren el mismo recorrido. Separo de forma metodológica la atención clínica del entrenamiento mental para la alta competencia, adaptando las herramientas a la necesidad exacta de cada proceso.</p>
+    </div>
+    <div class="lines reveal" data-d="1">
+      <div class="line-card clinica" id="clinica">
+        <div class="tag">Proceso personal</div>
+        <h4>Psicoterapia Clínica<br>Jóvenes y Adultos</h4>
+        <p class="desc">Un espacio de consulta para personas que se sienten atrapadas en dinámicas de malestar, desborde o estancamiento — y necesitan claridad para empezar a moverse diferente.</p>
+        <dl>
+          <div><dt>Especialidad</dt><dd>Ansiedad, estrés crónico, emociones difíciles y transiciones vitales o académicas que se sienten paralizantes.</dd></div>
+          <div><dt>Objetivo</dt><dd><b>Que puedas distinguir entre lo que tu mente dice y lo que querés hacer con tu vida.</b> Y que lo segundo empiece a pesar más — incluso en los días difíciles.</dd></div>
+        </dl>
+      </div>
+      <div class="line-card" id="rendimiento">
+        <div class="tag">Alto rendimiento</div>
+        <h4>Entrenamiento Psicológico<br>para el Alto Rendimiento</h4>
+        <p class="desc">Diseñado para optimizar la toma de decisiones, la consistencia y la gestión de la presión en entornos de alta competencia profesional.</p>
+        <dl>
+          <div><dt>Público objetivo</dt><dd>Deportistas de élite, músicos profesionales, médicos especialistas, ejecutivos y empresarios expuestos a contextos de alta exigencia.</dd></div>
+          <div><dt>Especialidad</dt><dd>Control de la atención y el foco, gestión del error, establecimiento de metas medibles, tolerancia a la frustración y rutinas de ejecución estables.</dd></div>
+          <div><dt>Objetivo</dt><dd><b>Que tu potencial se convierta en consistencia real</b> cuando más importa — no solo cuando el contexto es favorable.</dd></div>
+        </dl>
+        <p class="line-note">¿Representás a un club o empresa? <a href="#faq">Consultá por programas institucionales →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="block" id="proceso">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow reveal"><span class="num">04</span> Cómo es el proceso</div>
+      <h3 class="reveal" data-d="1">Saber qué esperar también ordena</h3>
+      <p class="lead reveal" data-d="2">No hace falta tener todo claro para empezar. El primer paso es simplemente escribir; lo demás lo construimos juntos, a tu ritmo.</p>
+    </div>
+    <div class="proceso-grid">
+      <div class="proceso-step reveal" data-d="1">
+        <span class="step-n">Paso 01</span>
+        <h4>Primer contacto</h4>
+        <p>Me escribís por WhatsApp, sin compromiso. Conversamos brevemente qué te trae y resolvemos las dudas prácticas de agenda y modalidad.</p>
+      </div>
+      <div class="proceso-step reveal" data-d="2">
+        <span class="step-n">Paso 02</span>
+        <h4>Evaluación inicial</h4>
+        <p>En los primeros encuentros entendemos juntos qué está pasando — no como historia que contar, sino como patrón vivo. Sin respuestas correctas ni incorrectas.</p>
+      </div>
+      <div class="proceso-step reveal" data-d="3">
+        <span class="step-n">Paso 03</span>
+        <h4>Plan de trabajo</h4>
+        <p>Definimos un foco y un rumbo claros, con objetivos concretos. Sabés hacia dónde vamos y por qué.</p>
+      </div>
+      <div class="proceso-step reveal" data-d="4">
+        <span class="step-n">Paso 04</span>
+        <h4>Herramientas tuyas</h4>
+        <p>El proceso apunta a que te lleves recursos propios en el menor tiempo posible. No trabajo con estructuras eternas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVALUACIONES (boton entre secciones) -->
+<div style="background:var(--bone);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(2rem,4vw,3rem) var(--pad)">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem">
+    <p style="font-size:clamp(1rem,1.8vw,1.2rem);color:var(--ink-soft);max-width:52ch;line-height:1.6">
+      ¿Querés explorar antes de consultar? Tengo 14 cuestionarios psicológicos validados, sin registro y con resultado inmediato.
+    </p>
+    <a href="/evaluaciones/" class="btn btn-ghost" style="white-space:nowrap;flex-shrink:0">
+      Ver evaluaciones gratuitas
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:15px;height:15px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- MODALIDADES -->
+<section class="block" id="modalidades">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow reveal"><span class="num">05</span> Cobertura</div>
+      <h3 class="reveal" data-d="1">Modalidades y cobertura geográfica</h3>
+    </div>
+    <div class="modos">
+      <div class="modo reveal" data-d="1">
+        <div class="idx">En un espacio cuidado</div>
+        <h4>Atención Presencial</h4>
+        <div class="where">Montevideo · San José</div>
+        <p>Espacios de consulta privada con absoluto resguardo profesional, comodidad y privacidad. Coordinación de turnos semanales fija tanto en Montevideo como en la ciudad de San José de Mayo.</p>
+      </div>
+      <div class="modo reveal" data-d="2">
+        <div class="idx">Desde donde estés</div>
+        <h4>Atención Virtual</h4>
+        <div class="where">Resto del país · Exterior</div>
+        <p>Sesiones online mediante plataformas de videollamada cifradas. Diseñado para el resto de los departamentos del país, pacientes que viajan con frecuencia o quienes residen en el exterior y requieren flexibilidad total de agenda.</p>
+      </div>
+    </div>
+    <p class="modos-nota reveal"><b>Régimen Particular:</b> Ejercicio profesional libre e independiente. Gestión administrativa directa y emisión de factura oficial.</p>
+  </div>
+</section>
+
+<!-- TRAYECTORIA -->
+<section class="block" id="trayectoria">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow reveal"><span class="num">06</span> Formación y trayectoria</div>
+      <h3 class="reveal" data-d="1">Una base académica y de campo consolidada</h3>
+    </div>
+    <div class="trayectoria-intro reveal">
+      <img class="foto-fabian" src="fabian.jpg" alt="Retrato de Lic. Fabián Sierra, psicólogo" width="880" height="1100" loading="lazy">
+      <div class="who">
+        <span class="k">Quién te atiende</span>
+        <p>Soy Fabián Sierra, psicólogo. Hace más de una década acompaño procesos clínicos y de alto rendimiento, combinando el rigor de la psicología científica con un trato cercano, horizontal y de absoluto resguardo. Atiendo de forma estrictamente particular en Montevideo, San José y modalidad virtual.</p>
+      </div>
+    </div>
+    <div class="trayectoria-grid">
+      <div class="trayectoria-col reveal" data-d="1">
+        <h4>Perspectiva y Formación Global</h4>
+        <div class="exp-item">
+          <div class="exp-header"><span class="dot"></span><span class="exp-title">Formación en 5 Universidades Internacionales</span></div>
+          <p class="exp-institution">Estructura académica consolidada a través de instituciones de Uruguay, México, Brasil y España, completando tres maestrías de posgrado en las áreas clínica y de rendimiento.</p>
+        </div>
+        <div class="exp-item">
+          <div class="exp-header"><span class="dot"></span><span class="exp-title">Apertura y Adaptabilidad Cultural</span></div>
+          <p class="exp-institution">Experiencia de vida residiendo en Brasil y Medio Oriente. Una visión del mundo expandida y libre de sesgos rígidos, clave para abordar procesos de cambio y transiciones personales complejas.</p>
+        </div>
+        <div class="exp-item">
+          <div class="exp-header"><span class="dot"></span><span class="exp-title">Licenciatura en Psicología</span></div>
+          <p class="exp-institution">Profesional habilitado e inscripto en el Registro de Profesionales de la Salud del MSP desde noviembre de 2014, e inscripto en la Caja de Profesionales Universitarios del Uruguay (N.º 142609). Habilitación certificada también para el ejercicio internacional mediante Apostilla de La Haya (Ministerio de Relaciones Exteriores del Uruguay, 2020).</p>
+        </div>
+      </div>
+      <div class="trayectoria-col reveal" data-d="2">
+        <h4>Inserción y Recorrido en el Campo</h4>
+        <div class="exp-item">
+          <div class="exp-header"><span class="dot"></span><span class="exp-title">Preparación Mental en Alta Competencia</span></div>
+          <p class="exp-institution">Entrenamiento y optimización de recursos cognitivos puestos a prueba en la máxima exigencia, con planteles de Primera División y divisiones juveniles del fútbol profesional uruguayo. Esta metodología la aplico de forma transversal en la preparación de músicos profesionales, médicos especialistas, ejecutivos y empresarios que requieren consistencia bajo presión.</p>
+        </div>
+        <div class="exp-item">
+          <div class="exp-header"><span class="dot"></span><span class="exp-title">Departamento Clínico Institucional</span></div>
+          <p class="exp-institution">Abordaje, seguimiento individual y gestión de la salud mental institucional en la mutual gremial que nuclea a los futbolistas profesionales del país.</p>
+        </div>
+        <div class="exp-item">
+          <div class="exp-header"><span class="dot"></span><span class="exp-title">Actividad Docente Universitaria</span></div>
+          <p class="exp-institution">Experiencia como educador y docente en programas de grado y de posgrado de universidades privadas uruguayas de referencia.</p>
+        </div>
+        <div class="exp-item">
+          <div class="exp-header"><span class="dot"></span><span class="exp-title">Trayectoria y Evolución en el Campo</span></div>
+          <p class="exp-institution">Experiencia acumulada en una institución de asistencia médica integral a nivel departamental, clínicas privadas, espacios comunitarios y educativos. Un recorrido diverso en territorio que consolidó mi transición definitiva hacia la especialización en psicoterapia clínica y el entrenamiento mental de alto rendimiento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow reveal"><span class="num">07</span> Preguntas frecuentes</div>
+      <h3 class="reveal" data-d="1">Lo que conviene saber antes de empezar</h3>
+    </div>
+    <div class="faq reveal" data-d="1" id="faqList"></div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="num">08</span> Coordiná tu sesión</div>
+      <h3 style="margin-top:1.2rem">Hablemos. Un espacio para entender lo que te pasa y trazar un camino hacia lo que te importa.</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Me%20contacto%20desde%20la%20web%20para%20hacerle%20una%20consulta%20sobre%20los%20procesos%20de%20atenci%C3%B3n." target="_blank" rel="noopener">
+      Iniciar Proceso vía WhatsApp
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-col foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <p>Psicología Clínica y del Rendimiento.</p>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <div class="foot-col">
+      <div class="ft">Contacto</div>
+      <a href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Me%20contacto%20desde%20la%20web%20para%20hacerle%20una%20consulta%20sobre%20los%20procesos%20de%20atenci%C3%B3n." target="_blank" rel="noopener">WhatsApp · +598 98 769 714</a>
+      <p style="margin-top:.4rem">Montevideo — San José, Uruguay.</p>
+    </div>
+    <div class="foot-col">
+      <div class="ft">Evaluaciones</div>
+      <a href="/evaluaciones/">Ver cuestionarios gratuitos</a>
+      <p style="margin-top:.4rem;font-size:.84rem">14 instrumentos validados · Resultado inmediato</p>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Atención estrictamente particular</span>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="wa-float" id="waFloat" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Me%20contacto%20desde%20la%20web%20para%20hacerle%20una%20consulta%20sobre%20los%20procesos%20de%20atenci%C3%B3n." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413z"/></svg>
+</a>
+
+<script>
+var WA = "https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Me%20contacto%20desde%20la%20web%20para%20hacerle%20una%20consulta%20sobre%20los%20procesos%20de%20atenci%C3%B3n.";
+
+/* FAQ */
+var faqs = [
+  ["¿Cómo trabajás? ¿Cuál es tu enfoque terapéutico?",
+   "Trabajo desde la Terapia de Aceptación y Compromiso (ACT), un modelo de psicoterapia de tercera generación con respaldo científico sólido. A diferencia de los enfoques tradicionales que buscan eliminar o suprimir lo que sentís, ACT trabaja en cambiar la relación que tenés con tus pensamientos y emociones para que dejen de manejar tu vida.\n\nEn la práctica, eso significa que no pasamos las sesiones intentando que no te pongas ansioso o que dejes de pensar en lo que te preocupa. Trabajamos en entender cómo funcionan esos patrones, qué valores genuinos están en juego, y cómo podés actuar en esa dirección aunque el malestar todavía esté presente.\n\nEl Análisis Funcional del Comportamiento completa el marco: es la herramienta que permite identificar exactamente qué mantiene un patrón que te limita — y qué haría falta para que cambie."],
+  ["¿A partir de qué edad atendés en la línea clínica?",
+   "El espacio está diseñado para jóvenes (adolescentes en etapas de transición o universitarios) y adultos. En ambos casos, el abordaje permite estructurar el proceso según el momento vital y las exigencias del entorno de cada persona."],
+  ["¿Cuál es la diferencia entre hacer psicoterapia y hacer un entrenamiento de alto rendimiento?",
+   "La psicoterapia clínica se enfoca en tratar el malestar psicológico, desarmar patrones limitantes y resolver problemas emocionales o conductuales que interfieren con tu vida cotidiana. El entrenamiento para el alto rendimiento, en cambio, no busca reparar una disfunción, sino potenciar habilidades específicas — foco, consistencia, toma de decisiones — para alcanzar un nivel óptimo de ejecución en un ámbito técnico, deportivo o profesional determinado."],
+  ["¿Puedo combinar ambos enfoques?",
+   "Sí. A menudo, un deportista o profesional de alta exigencia necesita primero ordenar aspectos clínicos (como la ansiedad o el insomnio) para luego poder trabajar de lleno en sus destrezas de rendimiento. Durante la evaluación inicial determinamos cuál es el foco prioritario."],
+  ["¿Cómo se coordinan las sesiones presenciales entre Montevideo y San José?",
+   "Cuento con días específicos de atención presencial asignados a cada ciudad. Al momento de tu contacto inicial, evaluamos las opciones disponibles en la agenda de Montevideo o de San José para asignarte un horario fijo que respete la continuidad de tu proceso."],
+  ["¿El formato virtual es igual de efectivo para el alto rendimiento?",
+   "Absolutamente. El entrenamiento mental se basa en el análisis de datos, el diseño de rutinas y el seguimiento de objetivos conductuales. El formato online permite una comunicación fluida y un monitoreo constante, siendo ideal para quienes están en competencia o residen fuera de Montevideo y San José."],
+  ["¿Cuánto dura un proceso y con qué frecuencia se asiste?",
+   "No trabajo con estructuras eternas. Las sesiones duran entre 45 y 50 minutos y la frecuencia suele ser semanal al inicio para establecer las bases y el plan de acción. La duración total varía según los objetivos, pero siempre está orientada a que adquieras herramientas propias en el menor tiempo posible."],
+  ["¿Cuál es el honorario de las sesiones y qué modalidades de pago se manejan?",
+   "La consulta de psicoterapia clínica tiene un valor de $2.000 (pesos uruguayos) por sesión. El entrenamiento psicológico de alto rendimiento, al implicar un diseño individualizado, seguimiento de objetivos y trabajo entre sesiones, se maneja en un valor de $3.000 por sesión. Al tratarse de una práctica estrictamente particular, la gestión administrativa y los pagos se realizan mediante transferencia bancaria o canales digitales previo a cada sesión, emitiéndose factura profesional con validez legal."],
+  ["¿Trabajás con clubes, empresas u organizaciones?",
+   "Sí. Para clubes deportivos, empresas e instituciones diseño programas a medida según los objetivos, el alcance y la cantidad de personas involucradas. Estos procesos se cotizan de forma independiente a la consulta individual, mediante propuesta y presupuesto. Para coordinarlo, escribime directamente y conversamos las necesidades específicas."]
+];
+
+var list = document.getElementById('faqList');
+faqs.forEach(function(f, i) {
+  var n = String(i + 1).padStart(2, '0');
+  var item = document.createElement('div');
+  item.className = 'faq-item';
+  item.innerHTML =
+    '<button class="faq-q" aria-expanded="false">' +
+      '<span class="qn">' + n + '</span>' +
+      '<span class="qt">' + f[0] + '</span>' +
+      '<span class="ico" aria-hidden="true"></span>' +
+    '</button>' +
+    '<div class="faq-a"><div class="faq-a-inner">' + f[1].split('\n').filter(function(p){return p.trim();}).map(function(p){return '<p>'+p+'</p>';}).join('') + '</div></div>';
+  list.appendChild(item);
+});
+
+document.querySelectorAll('.faq-q').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    var panel = btn.nextElementSibling;
+    document.querySelectorAll('.faq-q').forEach(function(b) {
+      if (b !== btn) { b.setAttribute('aria-expanded', 'false'); b.nextElementSibling.style.maxHeight = null; }
+    });
+    btn.setAttribute('aria-expanded', String(!open));
+    panel.style.maxHeight = open ? null : panel.scrollHeight + 'px';
+  });
+});
+
+/* Header scroll + WA float */
+var header = document.querySelector('header');
+var waFloat = document.getElementById('waFloat');
+function onScroll() {
+  header.classList.toggle('scrolled', window.scrollY > 12);
+  waFloat.classList.toggle('show', window.scrollY > 560);
+}
+window.addEventListener('scroll', onScroll, {passive: true});
+onScroll();
+
+/* Mobile menu */
+var toggle = document.getElementById('toggle');
+var menu = document.getElementById('menu');
+toggle.addEventListener('click', function() {
+  var open = menu.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', String(open));
+});
+menu.querySelectorAll('a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    menu.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+/* Reveal */
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, {threshold: .14, rootMargin: '0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+document.querySelectorAll('.hero .reveal').forEach(function(el, i) {
+  setTimeout(function() { el.classList.add('in'); }, 80 + i * 90);
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

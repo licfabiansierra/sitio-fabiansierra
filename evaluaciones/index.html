@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Evaluaciones · Lic. Fabián Sierra</title>
+<meta name="description" content="Evaluaciones psicológicas gratuitas. Cuestionarios validados de psicología clínica, deportiva y de alto rendimiento. Lic. Fabián Sierra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;--paper:#FBFAF7;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --line:#D8D4C9;--line-soft:#E5E2D9;
+    --accent:#942322;--accent-deep:#741A19;
+    --pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#F3F1EC;color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+
+  /* HEADER */
+  header{position:fixed;top:0;left:0;right:0;z-index:50;height:64px;display:flex;align-items:center;padding:0 var(--pad);justify-content:space-between}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.98rem}
+  .brand span{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .header-tag{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+  /* PUERTAS */
+  .puertas{display:flex;flex-direction:column;min-height:100vh;padding-top:64px}
+  @media(min-width:780px){.puertas{flex-direction:row}}
+
+  .puerta{
+    flex:1;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:clamp(2rem,5vw,4rem);
+    min-height:44vh;
+    cursor:pointer;
+    transition:flex .6s var(--ease);
+    text-decoration:none;color:inherit;
+  }
+  @media(min-width:780px){.puerta{min-height:calc(100vh - 64px)}}
+
+  .puerta-a{background:var(--bone)}
+  .puerta-b{background:var(--ink);color:var(--bone)}
+
+  /* Divisor vertical */
+  @media(min-width:780px){
+    .puerta-a{border-right:1px solid var(--line)}
+  }
+  @media(max-width:779px){
+    .puerta-a{border-bottom:1px solid var(--line)}
+  }
+
+  /* Fondo de grilla sutil */
+  .puerta::before{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    opacity:0;transition:opacity .4s var(--ease);
+    background-image:linear-gradient(rgba(23,24,28,.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(23,24,28,.04) 1px,transparent 1px);
+    background-size:min(10vw,80px) min(10vw,80px);
+  }
+  .puerta-b::before{
+    background-image:linear-gradient(rgba(243,241,236,.06) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(243,241,236,.06) 1px,transparent 1px);
+  }
+  .puerta:hover::before{opacity:1}
+
+  /* Número grande de fondo */
+  .puerta-num{
+    position:absolute;top:clamp(3rem,8vw,5rem);right:clamp(1.5rem,4vw,3rem);
+    font-size:clamp(7rem,18vw,16rem);font-weight:900;line-height:1;
+    letter-spacing:-.05em;
+    opacity:.05;pointer-events:none;
+    transition:opacity .4s var(--ease), transform .5s var(--ease);
+    transform:translateY(0);
+    color:var(--ink);
+  }
+  .puerta-b .puerta-num{color:var(--bone);opacity:.07}
+  .puerta:hover .puerta-num{opacity:.09;transform:translateY(-8px)}
+  .puerta-b:hover .puerta-num{opacity:.12}
+
+  .puerta-content{position:relative;z-index:1}
+
+  .puerta-eyebrow{
+    font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;margin-bottom:1.2rem;
+    display:flex;align-items:center;gap:.7rem;
+  }
+  .puerta-b .puerta-eyebrow{color:#c47a78}
+
+  .puerta-eyebrow::before{
+    content:'';width:20px;height:1px;background:var(--accent);display:block;flex-shrink:0;
+  }
+  .puerta-b .puerta-eyebrow::before{background:#c47a78}
+
+  .puerta h2{
+    font-weight:800;letter-spacing:-.03em;line-height:1;
+    font-size:clamp(2.2rem,5.5vw,4.2rem);
+    margin-bottom:1.4rem;
+  }
+
+  .puerta-desc{
+    font-size:clamp(.9rem,1.5vw,1.05rem);line-height:1.7;font-weight:300;
+    max-width:38ch;color:var(--ink-soft);
+    margin-bottom:2.2rem;
+  }
+  .puerta-b .puerta-desc{color:#9a9ba2}
+
+  .puerta-meta{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:1.2rem;border-top:1px solid var(--line);
+  }
+  .puerta-b .puerta-meta{border-top-color:rgba(255,255,255,.12)}
+
+  .puerta-count{
+    font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);font-weight:500;
+  }
+  .puerta-b .puerta-count{color:#6E7079}
+
+  .puerta-cta{
+    display:flex;align-items:center;gap:.6rem;
+    font-weight:700;font-size:.88rem;letter-spacing:.02em;
+    color:var(--accent);
+    transition:gap .3s var(--ease);
+  }
+  .puerta-b .puerta-cta{color:#c47a78}
+  .puerta:hover .puerta-cta{gap:1rem}
+
+  .puerta-cta svg{width:16px;height:16px;flex-shrink:0;transition:transform .3s var(--ease)}
+  .puerta:hover .puerta-cta svg{transform:translateX(4px)}
+
+  /* FOOTER MINIMAL */
+  .foot-minimal{
+    text-align:center;padding:1.2rem var(--pad);
+    border-top:1px solid var(--line);
+    font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);font-weight:500;
+    background:var(--bone);
+  }
+
+  @media(max-width:420px){.puerta h2{font-size:2rem}.puerta-num{font-size:6rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="https://fabiansierra.com" target="_blank">
+    <b>Lic. Fabián Sierra</b>
+    <span>Psicología y Rendimiento</span>
+  </a>
+  <span class="header-tag">Evaluaciones</span>
+</header>
+
+<div class="puertas">
+
+  <a class="puerta puerta-a" href="deportiva.html">
+    <div class="puerta-num">01</div>
+    <div class="puerta-content">
+      <p class="puerta-eyebrow">Área 01</p>
+      <h2>Psicología<br>Deportiva</h2>
+      <p class="puerta-desc">Rendimiento, presión, competencia. Lo que pasa en la mente cuando más importa — y lo que podés hacer con eso.</p>
+      <div class="puerta-meta">
+        <span class="puerta-count">5 evaluaciones</span>
+        <span class="puerta-cta">
+          Ingresar
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+    </div>
+  </a>
+
+  <a class="puerta puerta-b" href="emocional.html">
+    <div class="puerta-num">02</div>
+    <div class="puerta-content">
+      <p class="puerta-eyebrow">Área 02</p>
+      <h2>Procesos<br>Emocionales</h2>
+      <p class="puerta-desc">Ansiedad, estrés, valores, autocompasión. Cómo te relacionás con lo que sentís — y cuánto eso dirige tu vida.</p>
+      <div class="puerta-meta">
+        <span class="puerta-count">9 evaluaciones</span>
+        <span class="puerta-cta">
+          Ingresar
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<div class="foot-minimal">Acceso gratuito · Sin registro · Resultado inmediato</div>
+
+</body>
+</html>

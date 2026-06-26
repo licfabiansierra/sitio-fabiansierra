@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Burnout Deportivo (ABQ / IBD-R) · Lic. Fabián Sierra</title>
+<meta name="description" content="Cuestionarios de burnout deportivo. ABQ para fútbol (Arce, De Francisco, Andrade, Arce & Raedeke, 2010) e IBD-R para cualquier deporte (Garcés de los Fayos, De Francisco & Arce, 2012). Lic. Fabián Sierra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;--paper:#FBFAF7;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --line:#D8D4C9;--line-soft:#E5E2D9;
+    --accent:#942322;--accent-deep:#741A19;
+    --maxw:860px;--pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --success:#1F5C3A;--warning:#7A5A0E;--danger:#7A1A1A;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#F3F1EC;scroll-behavior:smooth;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#F3F1EC;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(243,241,236,.82);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .4s var(--ease),background .4s var(--ease)}
+  header.scrolled{border-bottom:1px solid var(--line);background:rgba(243,241,236,.94)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.98rem}
+  .brand span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .nav-tag{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+  .prog-wrap{height:2px;background:var(--line-soft);position:sticky;top:68px;z-index:49}
+  .prog-fill{height:100%;background:var(--accent);width:0%;transition:width .35s var(--ease)}
+
+  .hero{background:#F3F1EC;border-top:1px solid var(--line);padding-top:clamp(3rem,7vw,5.5rem);padding-bottom:clamp(3rem,7vw,5rem);position:relative}
+  .hero .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.45;z-index:0;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:min(11vw,88px) min(11vw,88px);-webkit-mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%);mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%)}
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1.2rem}
+  .eyebrow .num{color:var(--accent);font-weight:500}
+  .hero h1{font-weight:700;letter-spacing:-.028em;line-height:1.04;font-size:clamp(2.2rem,6vw,4rem);margin-bottom:1.4rem}
+  .hero-sub{color:var(--ink-soft);font-size:clamp(1rem,1.8vw,1.15rem);line-height:1.68;max-width:60ch;margin-bottom:2rem}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem 2rem;padding-top:1.8rem;border-top:1px solid var(--line)}
+  @media(min-width:580px){.hero-meta{grid-template-columns:repeat(4,1fr)}}
+  .hero-meta .k{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:.9rem;font-weight:500;margin-top:.2rem}
+
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9rem;letter-spacing:.005em;padding:.82rem 1.6rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .3s var(--ease);cursor:pointer;font-family:"Archivo",sans-serif}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(148,35,34,.4)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--bone);box-shadow:none;transform:none}
+  .btn-block{display:block;width:100%;justify-content:center;margin-top:1.6rem}
+
+  main{background:#F3F1EC;padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(3rem,7vw,6rem)}
+
+  .ficha-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .sec-tag{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-bottom:.9rem;margin-bottom:1.1rem;border-bottom:1px solid var(--line)}
+  .ficha-body{font-size:.93rem;color:var(--ink-soft);font-weight:300;line-height:1.75}
+  .ficha-body strong{font-weight:600;color:var(--ink)}
+  .ficha-body p+p{margin-top:.8rem}
+  .ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.5rem;margin-top:.9rem;font-size:.84rem;color:var(--ink-soft);border-top:1px solid var(--line-soft);padding-top:.9rem}
+  .ficha-grid dt{font-weight:600;color:var(--ink-soft)}
+  .ficha-grid dd{font-weight:300}
+  @media(max-width:480px){.ficha-grid{grid-template-columns:1fr}}
+  .ficha-subhead{font-size:.95rem;font-weight:700;color:var(--ink);margin:1.6rem 0 .6rem;padding-top:1.4rem;border-top:1px solid var(--line-soft)}
+  .ficha-subhead:first-of-type{margin-top:0;padding-top:0;border-top:none}
+
+  .nota-honesta{background:#FBF8ED;border-left:3px solid var(--warning);padding:1rem 1.3rem;margin-top:1rem;font-size:.82rem;color:var(--ink-soft);font-weight:300;line-height:1.65}
+  .nota-honesta strong{color:var(--ink);font-weight:600}
+  .nota-honesta+.nota-honesta{margin-top:.8rem}
+
+  /* SELECTOR DE INSTRUMENTO */
+  .instrument-select{scroll-margin-top:120px}
+  .instrument-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1.4rem}
+  @media(min-width:680px){.instrument-grid{grid-template-columns:1fr 1fr}}
+  .instrument-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.5rem,3vw,2rem);display:flex;flex-direction:column;cursor:pointer;transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
+  .instrument-card:hover{border-color:var(--accent);box-shadow:0 10px 24px -14px rgba(148,35,34,.3)}
+  .instrument-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.5rem}
+  .instrument-card .inst-meta{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.8rem}
+  .instrument-card p{font-size:.86rem;color:var(--ink-soft);font-weight:300;line-height:1.6;margin-bottom:1.2rem;flex-grow:1}
+  .instrument-card .btn{align-self:flex-start}
+
+  .instrument-banner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;border:1px solid var(--line);background:var(--bone-deep);padding:1rem 1.4rem;margin-bottom:2rem}
+  .instrument-banner .ib-label{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.2rem}
+  .instrument-banner .ib-name{font-size:1rem;font-weight:700}
+  .instrument-banner button{background:none;border:none;border-bottom:1px solid var(--ink);color:var(--ink);font-size:.8rem;font-weight:500;cursor:pointer;font-family:"Archivo",sans-serif;padding:0}
+
+  #formSection{display:none}
+
+  .name-block{border:1px solid var(--line);background:var(--paper);padding:clamp(1.4rem,3vw,2rem);margin-bottom:2rem;border-left:3px solid var(--accent);scroll-margin-top:140px}
+  .name-block label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.65rem;font-weight:500}
+  .name-block .req{color:var(--accent)}
+  .name-block input[type=text]{width:100%;border:none;border-bottom:2px solid var(--line);background:transparent;font-family:"Archivo",sans-serif;font-size:1.08rem;font-weight:500;color:var(--ink);padding:.4rem 0;outline:none;transition:border-color .25s}
+  .name-block input[type=text]:focus{border-bottom-color:var(--accent)}
+  .name-block input[type=text]::placeholder{color:var(--muted);font-weight:300;font-size:.96rem}
+  .name-block.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .name-block.field-error input[type=text]{border-bottom-color:var(--danger)}
+
+  .consigna-block{margin-bottom:2.5rem;border-top:1px solid var(--line);padding-top:1.6rem}
+  .consigna-block h2{font-weight:700;letter-spacing:-.022em;line-height:1.1;font-size:clamp(1.3rem,3vw,1.8rem);margin-bottom:.9rem}
+  .consigna{background:var(--bone-deep);border-left:2px solid var(--line);padding:.85rem 1.2rem;font-size:.93rem;line-height:1.7;color:var(--muted);font-style:italic}
+
+  .scale-ref{border:1px solid var(--line);background:var(--paper);padding:1rem 1.4rem;margin-bottom:2rem}
+  .scale-ref-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:.7rem}
+  .scale-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.3rem;text-align:center}
+  .scale-num{font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.2rem}
+  .scale-txt{font-size:.58rem;color:var(--muted);line-height:1.3;padding:0 .1rem}
+
+  .item-card{background:var(--paper);border:1px solid var(--line);border-left:3px solid transparent;padding:1.3rem 1.5rem;margin-bottom:.6rem;transition:border-left-color .2s var(--ease)}
+  .item-card.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .item-num{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.45rem}
+  .item-text{font-size:.97rem;font-weight:500;color:var(--ink);margin-bottom:1rem;line-height:1.5}
+
+  .radio-group{display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem}
+  .radio-opt{text-align:center}
+  .radio-opt input[type=radio]{display:none}
+  .radio-opt label{display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:pointer}
+  .radio-circle{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--bone);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:600;color:var(--muted);transition:all .15s;margin:0 auto}
+  .radio-opt input[type=radio]:checked + label .radio-circle{background:var(--accent);border-color:var(--accent);color:#fff;transform:scale(1.1)}
+  .radio-opt label:hover .radio-circle{border-color:var(--accent);color:var(--accent)}
+  .radio-anchor{font-size:.56rem;color:var(--muted);line-height:1.2;max-width:62px;text-align:center}
+
+  .submit-zone{text-align:center;margin-top:2.5rem}
+  .err-msg{background:#FBF0F0;border:1px solid #E8BFBF;color:var(--danger);padding:.75rem 1.1rem;font-size:.86rem;margin-top:1rem;display:none;font-weight:500}
+
+  .disclaimer-card{background:var(--ink);color:var(--bone);padding:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:1.5rem;border-left:3px solid var(--accent)}
+  .disclaimer-tag{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#9a9ba2;font-weight:600;margin-bottom:.9rem}
+  .disclaimer-card p{font-size:.92rem;font-weight:300;line-height:1.75;color:#dcdce0}
+  .disclaimer-card strong{font-weight:600;color:#fff}
+
+  #resultados{display:none;margin-top:4rem;border-top:1px solid var(--line);padding-top:3rem}
+  .res-eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1rem}
+  .res-eyebrow .num{color:var(--accent);font-weight:500}
+  .res-title{font-weight:700;letter-spacing:-.022em;line-height:1.08;font-size:clamp(1.6rem,4vw,2.6rem);margin-bottom:2rem}
+
+  .score-card{background:var(--ink);color:var(--bone);padding:clamp(2rem,4vw,3rem);margin-bottom:1.5rem}
+  .score-eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#9a9ba2;margin-bottom:.65rem}
+  .score-num{font-size:clamp(3.5rem,9vw,5.5rem);font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:.2rem}
+  .score-denom{font-size:.8rem;color:#9a9ba2;margin-bottom:1.2rem;font-weight:300}
+  .score-track{background:rgba(255,255,255,.12);height:3px;max-width:360px;margin:0 0 1.2rem;overflow:hidden}
+  .score-fill{height:100%;background:var(--accent);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+  .score-badge{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--bone);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .8rem;font-weight:600;margin-bottom:1rem}
+  .score-text{font-size:.95rem;font-weight:300;color:#c9cace;line-height:1.65;max-width:55ch}
+
+  .chart-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3.2vw,2.2rem);margin-bottom:1.5rem}
+  .chart-title{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1.6rem}
+  .hbar-row{margin-bottom:1.4rem}
+  .hbar-row:last-child{margin-bottom:0}
+  .hbar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
+  .hbar-name{font-size:.88rem;font-weight:600;color:var(--ink)}
+  .hbar-score{font-size:.82rem;color:var(--muted);font-weight:500}
+  .hbar-score strong{color:var(--ink);font-weight:700}
+  .hbar-track{height:10px;background:var(--bone-deep);position:relative;overflow:hidden}
+  .hbar-fill{height:100%;background:var(--accent);width:0%;transition:width 1.1s cubic-bezier(.4,0,.2,1)}
+  .hbar-foot{display:flex;justify-content:space-between;margin-top:.35rem}
+  .hbar-foot span{font-size:.6rem;color:var(--muted);letter-spacing:.04em}
+
+  .subs-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:1.5rem}
+  @media(min-width:680px){.subs-grid{grid-template-columns:repeat(3,1fr)}}
+  .sub-card{background:var(--paper);padding:1.5rem 1.3rem;text-align:center}
+  .sub-card .sub-name{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.6rem}
+  .sub-card .sub-score{font-size:2rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:.3rem}
+  .sub-card .sub-denom{font-size:.7rem;color:var(--muted);margin-bottom:.6rem}
+  .sub-card .sub-badge{font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.2rem .5rem;display:inline-block}
+  .sub-bajo{background:#EFF6F2;color:var(--success)}
+  .sub-moderado{background:#FBF8ED;color:var(--warning)}
+  .sub-alto{background:#FBF0F0;color:var(--danger)}
+  .sub-flag{display:block;font-size:.62rem;color:var(--warning);font-weight:500;margin-top:.5rem;line-height:1.3}
+
+  .informe-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .informe-body{font-size:.95rem;color:var(--ink-soft);font-weight:300;line-height:1.8}
+  .informe-body p+p{margin-top:.9rem}
+  .informe-body strong{font-weight:600;color:var(--ink)}
+  .informe-body ul{margin:.6rem 0 .6rem 1.2rem}
+  .informe-body li{margin-bottom:.4rem}
+
+  .firma-box{text-align:center;padding:2rem 1.5rem;margin-top:2rem;border-top:1px solid var(--line)}
+  .firma-name{font-size:.98rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin-bottom:.2rem}
+  .firma-sub{font-size:.76rem;color:var(--muted);font-weight:300}
+
+  .cta-strip{border-top:1px solid var(--line);background:var(--ink);color:var(--bone);margin-top:3rem}
+  .cta-strip .wrap{padding-top:clamp(3rem,6vw,4.5rem);padding-bottom:clamp(3rem,6vw,4.5rem);display:flex;flex-direction:column;gap:1.6rem;align-items:flex-start}
+  @media(min-width:780px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;line-height:1.15;max-width:22ch}
+  .cta-strip .eyebrow{color:#9a9ba2;margin-bottom:1rem}
+
+  footer{background:var(--ink);color:#b7b8bd;border-top:1px solid #2a2b30}
+  .foot-inner{padding:clamp(2rem,4vw,3rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:#fff;font-weight:700;font-size:.98rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.66rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-top:.5rem}
+  .foot-bottom{border-top:1px solid #2a2b30;padding:1.3rem var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:center}
+  .foot-bottom span{font-size:.7rem;color:#76777d;letter-spacing:.05em}
+
+  @media(max-width:520px){.hero h1{font-size:2rem}.score-num{font-size:3rem}.radio-circle{width:28px;height:28px;font-size:.68rem}.radio-anchor{font-size:.48rem;max-width:46px}.ficha-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com" target="_blank">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <span class="nav-tag">Psicología Deportiva</span>
+  </div>
+</header>
+
+<div class="prog-wrap"><div class="prog-fill" id="progressBar"></div></div>
+
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">Burnout</span> Psicología del Deporte</div>
+    <h1>Burnout Deportivo</h1>
+    <p class="hero-sub">El síndrome de burnout combina agotamiento, una sensación reducida de estar logrando algo valioso y una pérdida de interés por la actividad que se practica. Elegí la versión que corresponde a tu deporte para responder el cuestionario validado correspondiente.</p>
+    <div class="hero-meta">
+      <div><span class="k">Ítems</span><span class="v">15 o 19 según versión</span></div>
+      <div><span class="k">Alcance</span><span class="v">Fútbol o cualquier deporte</span></div>
+      <div><span class="k">Tiempo</span><span class="v">4–5 min</span></div>
+      <div><span class="k">Uso</span><span class="v">Clínico exclusivo</span></div>
+    </div>
+    <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem">
+      <button class="btn" onclick="document.getElementById('instrumentSelect').scrollIntoView({behavior:'smooth',block:'start'})">Responder cuestionario</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('ficha-tecnica').scrollIntoView({behavior:'smooth',block:'start'})">Ver ficha técnica</button>
+    </div>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <!-- SELECTOR DE INSTRUMENTO -->
+  <section class="instrument-select" id="instrumentSelect">
+    <div class="eyebrow"><span class="num">01</span> Elegí tu deporte</div>
+    <h2 style="font-weight:700;letter-spacing:-.022em;font-size:clamp(1.3rem,3vw,1.8rem);margin-bottom:.5rem">¿Qué versión te corresponde?</h2>
+    <p style="font-size:.9rem;color:var(--muted);font-weight:300;max-width:60ch">Son dos cuestionarios distintos, no dos traducciones del mismo test — cada uno está validado de forma independiente. Elegí el que corresponde a tu situación.</p>
+    <div class="instrument-grid">
+      <div class="instrument-card" onclick="seleccionarInstrumento('abq')">
+        <p class="inst-meta">ABQ · 15 ítems</p>
+        <h3>Fútbol</h3>
+        <p>Versión validada específicamente en futbolistas de habla hispana (Arce, De Francisco, Andrade, Arce &amp; Raedeke, 2010). Los enunciados están redactados pensando en el fútbol en particular.</p>
+        <span class="btn">Elegir Fútbol</span>
+      </div>
+      <div class="instrument-card" onclick="seleccionarInstrumento('ibdr')">
+        <p class="inst-meta">IBD-R · 19 ítems</p>
+        <h3>Cualquier deporte</h3>
+        <p>Versión genérica, validada en deportistas de distintas disciplinas (Garcés de los Fayos, De Francisco &amp; Arce, 2012). Los enunciados están redactados de forma neutral, sin referirse a un deporte puntual.</p>
+        <span class="btn">Elegir Cualquier deporte</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM -->
+  <div id="formSection">
+
+    <div class="instrument-banner">
+      <div>
+        <p class="ib-label">Estás respondiendo</p>
+        <p class="ib-name" id="bannerNombre"></p>
+      </div>
+      <button onclick="cambiarInstrumento()">Cambiar versión</button>
+    </div>
+
+    <div class="name-block" id="nameBlock">
+      <label for="nombrePaciente">Tu nombre <span class="req">*</span></label>
+      <input type="text" id="nombrePaciente" placeholder="Escribí tu nombre o cómo preferís que te llamemos" autocomplete="off" oninput="onAnswer()"/>
+    </div>
+
+    <div class="consigna-block">
+      <div class="eyebrow"><span class="num">02</span> Consigna</div>
+      <h2 id="consignaTitulo">Tu experiencia reciente</h2>
+      <p class="consigna" id="consignaTexto"></p>
+    </div>
+
+    <div class="scale-ref">
+      <p class="scale-ref-label">Escala de respuesta</p>
+      <div class="scale-grid" id="scaleGrid"></div>
+    </div>
+
+    <div id="itemsContainer"></div>
+
+    <div class="submit-zone">
+      <button class="btn" onclick="calcular()">Ver mis resultados</button>
+      <p class="err-msg" id="errMsg">Faltan campos por completar — revisá lo marcado en rojo.</p>
+    </div>
+
+    <!-- RESULTADOS -->
+    <section id="resultados">
+
+      <div class="res-eyebrow"><span class="num">03</span> Informe completo</div>
+      <h2 class="res-title" id="resTitle">Tus resultados</h2>
+
+      <div class="disclaimer-card">
+        <p class="disclaimer-tag">Antes de leer tu resultado</p>
+        <p>Este resultado refleja <strong>cómo te sentís en este momento</strong> de tu trayectoria deportiva, no un diagnóstico clínico ni un rasgo permanente. El burnout se construye progresivamente — detectarlo a tiempo es lo que permite intervenir antes de que se profundice. Para una lectura más profunda, lo más certero sigue siendo el trabajo con un profesional que pueda contextualizar esto dentro de tu historia particular.</p>
+      </div>
+
+      <div class="score-card">
+        <p class="score-eyebrow" id="scoreEyebrow"></p>
+        <div class="score-num" id="scoreNum">—</div>
+        <p class="score-denom" id="scoreDenom"></p>
+        <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+        <div class="score-badge" id="scoreBadge"></div>
+        <p class="score-text" id="scoreText"></p>
+      </div>
+
+      <div class="chart-card">
+        <p class="chart-title">Perfil por dimensión (% del rango posible)</p>
+        <div id="hbarContainer"></div>
+      </div>
+
+      <div class="subs-grid" id="subsGrid"></div>
+
+      <div class="informe-card">
+        <p class="sec-tag">Análisis aplicado a psicología deportiva</p>
+        <div class="informe-body" id="informeIntegral"></div>
+      </div>
+
+      <div class="firma-box">
+        <p class="firma-name">Lic. Fabián Sierra</p>
+        <p class="firma-sub">Psicología Clínica &amp; Alto Rendimiento · fabiansierra.com</p>
+      </div>
+
+      <button class="btn btn-ghost btn-block" onclick="reiniciar()">Completar de nuevo</button>
+
+    </section>
+
+  </div>
+
+  <!-- FICHA TECNICA - AL FINAL, COMO ANEXO -->
+  <section id="ficha-tecnica" style="margin-top:4rem;border-top:1px solid var(--line);padding-top:2.5rem;scroll-margin-top:120px">
+    <p class="eyebrow"><span class="num">+</span> Ficha técnica</p>
+    <div class="ficha-card">
+      <p class="sec-tag">Sobre estos instrumentos</p>
+      <div class="ficha-body">
+        <p>Esta página reúne <strong>dos cuestionarios distintos</strong> para evaluar el síndrome de burnout en deportistas — no dos versiones del mismo test. Ambos parten de marcos teóricos diferentes y no son intercambiables ni directamente comparables entre sí: el resultado de uno no se traduce al otro, y elegir cuál responder depende exclusivamente de si tu deporte es el fútbol o no.</p>
+
+        <p class="ficha-subhead">ABQ — Fútbol</p>
+        <p>El <strong>Athlete Burnout Questionnaire (ABQ)</strong> fue desarrollado por Raedeke &amp; Smith (2001) sobre un modelo propio para el deporte (no el de Maslach), que mide tres dimensiones: agotamiento físico/emocional, reducida sensación de logro y devaluación de la práctica deportiva. La versión utilizada en este cuestionario es la adaptación española específica para fútbol de Arce, De Francisco, Andrade, Arce &amp; Raedeke (2010, Psicothema, 22(2), 250-255), con una muestra de 326 futbolistas de ambos sexos de 14 a 23 años.</p>
+        <dl class="ficha-grid">
+          <dt>Ítems</dt><dd>15 · escala Likert 1–5</dd>
+          <dt>Subescalas</dt><dd>Agotamiento Físico/Emocional · Reducida Sensación de Logro · Devaluación de la Práctica (5 ítems c/u)</dd>
+          <dt>Rango por subescala</dt><dd>5 a 25 puntos</dd>
+          <dt>Ítems invertidos</dt><dd>2 (en Reducida Sensación de Logro)</dd>
+          <dt>Fiabilidad AFE</dt><dd>α=.825</dd>
+          <dt>Fiabilidad RSL</dt><dd>α=.625</dd>
+          <dt>Fiabilidad DPD</dt><dd>α=.812</dd>
+        </dl>
+        <div class="nota-honesta">
+          <strong>Sobre la fiabilidad de Reducida Sensación de Logro.</strong> Esta subescala mostró una fiabilidad más floja (α=.625) en el propio estudio de validación — por debajo del resto. Es un valor marginal, no catastrófico (los autores no la descartan), por lo que se incluye en el resultado con esta salvedad explícita en vez de excluirla: tomá esta dimensión en particular con algo más de cautela que las otras dos.
+        </div>
+
+        <p class="ficha-subhead">IBD-R — Cualquier deporte</p>
+        <p>El <strong>Inventario de Burnout en Deportistas-Revisado (IBD-R)</strong> es una revisión psicométrica del IBD original (Garcés de los Fayos, 1999), basado en el modelo clásico de Maslach &amp; Jackson (1981): agotamiento emocional, despersonalización y reducida realización personal. La revisión es de Garcés de los Fayos, De Francisco &amp; Arce (2012, Revista de Psicología del Deporte, 21(2), 271-278), con una muestra de 460 deportistas españoles de 29 modalidades individuales y 11 colectivas.</p>
+        <dl class="ficha-grid">
+          <dt>Ítems</dt><dd>19 · escala Likert 1–5</dd>
+          <dt>Subescalas</dt><dd>Agotamiento Emocional (7) · Despersonalización (5) · Reducida Realización Personal (7)</dd>
+          <dt>Rango AE / RRP</dt><dd>7 a 35 puntos</dd>
+          <dt>Rango Despersonalización</dt><dd>5 a 25 puntos</dd>
+          <dt>Ítems invertidos</dt><dd>7 (en Reducida Realización Personal)</dd>
+          <dt>Fiabilidad</dt><dd>AE α=.73 · D α=.72 · RRP α=.70 · global α=.75</dd>
+        </dl>
+        <div class="nota-honesta">
+          <strong>Sobre la subescala Despersonalización.</strong> El propio paper de 2012 discute una tensión teórica: el ABQ de Raedeke &amp; Smith reemplazó la "Despersonalización" clásica de Maslach por "Devaluación de la Práctica Deportiva", argumentando que encaja mejor con el contexto deportivo. El IBD-R mantiene la Despersonalización original. Esto refuerza por qué estos dos cuestionarios no son comparables entre sí pese a medir el mismo síndrome: parten de decisiones teóricas distintas sobre qué significa esta tercera dimensión en el deporte.
+        </div>
+        <div class="nota-honesta">
+          <strong>Sobre la fiabilidad de Reducida Realización Personal.</strong> Una revalidación uruguaya posterior (Tutte-Vallarino et al., 2025, Retos, 73, 973-986, N=121 deportistas de alto rendimiento) encontró una fiabilidad algo más floja para esta subescala en su muestra (α=.66, ω=.68) que para Agotamiento Emocional (α=.75) y Despersonalización (α=.72) — un patrón que se repite en varios instrumentos de burnout. No es motivo de exclusión, pero vale tomar esta dimensión con algo más de cautela.
+        </div>
+        <div class="nota-honesta">
+          <strong>Sobre la interpretación de los resultados.</strong> Ninguno de los dos papers originales reporta baremos poblacionales (percentiles) para clasificar a una persona como "con" o "sin" burnout. Por eso, los resultados de ambos cuestionarios se presentan en relación al rango posible de cada subescala, con una descripción cualitativa de cada nivel, y no como una comparación contra una población de referencia ni como un diagnóstico categórico.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="num">+</span> Profundizar el resultado</div>
+      <h3>¿Querés trabajar lo que mostró tu evaluación?</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Complet%C3%A9%20el%20cuestionario%20de%20Burnout%20Deportivo%20y%20me%20gustar%C3%ADa%20coordinar%20una%20consulta." target="_blank" rel="noopener">
+      Coordinar consulta vía WhatsApp
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <span style="font-size:.8rem;color:#76777d">ABQ · Arce et al. (2010) · IBD-R · Garcés de los Fayos et al. (2012)</span>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Atención estrictamente particular</span>
+  </div>
+</footer>
+
+<script>
+var CONFIGS = {
+
+  abq: {
+    nombreLargo: 'ABQ — Burnout en Fútbol',
+    consignaTitulo: 'En relación al fútbol...',
+    consignaTexto: 'Las siguientes afirmaciones describen cómo se puede sentir un/a futbolista respecto a su práctica. Pensá en las últimas semanas y marcá con qué frecuencia sentís o pensás cada una.',
+    anchors: {1:'Casi nunca', 2:'Pocas veces', 3:'Algunas veces', 4:'A menudo', 5:'Casi siempre'},
+    headlineSub: 'afe',
+    subOrder: ['afe','rsl','dpd'],
+    subs: {
+      afe: {nombre:'Agotamiento Físico/Emocional', min:5, max:25, descripcion:'Sensación de estar exhausto/a, sin energía, desgastado/a por el entrenamiento y la competencia.'},
+      rsl: {nombre:'Reducida Sensación de Logro', min:5, max:25, descripcion:'Sensación de no estar rindiendo ni progresando como deportista, más allá de los resultados objetivos.', flag:'Fiabilidad más floja en el estudio original (α=.625) — tomar con cautela.'},
+      dpd: {nombre:'Devaluación de la Práctica', min:5, max:25, descripcion:'Pérdida de interés y de valor asignado al fútbol: la actividad deja de importar como antes.'}
+    },
+    items: [
+      {n:1,  sub:'afe', txt:'El entrenamiento me deja tan cansado/a que me cuesta reunir la energía suficiente para hacer otras cosas.'},
+      {n:2,  sub:'afe', txt:'La práctica del fútbol me deja demasiado cansado/a.'},
+      {n:3,  sub:'afe', txt:'Me siento físicamente agotado/a por el fútbol.'},
+      {n:4,  sub:'afe', txt:'Me agotan las exigencias físicas y mentales del fútbol.'},
+      {n:5,  sub:'afe', txt:'La práctica del fútbol me deja mentalmente agotado/a.'},
+      {n:6,  sub:'rsl', txt:'En el fútbol estoy logrando muchas cosas que valen la pena.', inv:true},
+      {n:7,  sub:'rsl', txt:'Creo que no estoy logrando mucho en el fútbol.'},
+      {n:8,  sub:'rsl', txt:'Pienso que no estoy rindiendo a mi nivel real en el fútbol.'},
+      {n:9,  sub:'rsl', txt:'Parece que, haga lo que haga, no rindo como debería.'},
+      {n:10, sub:'rsl', txt:'Creo que tengo éxito en el fútbol.', inv:true},
+      {n:11, sub:'dpd', txt:'Mi rendimiento en el fútbol me importa menos que antes.'},
+      {n:12, sub:'dpd', txt:'Creo que no me interesa tanto el fútbol como antes.'},
+      {n:13, sub:'dpd', txt:'Estoy dejando de disfrutar del fútbol.'},
+      {n:14, sub:'dpd', txt:'Me preocupo menos que antes por triunfar en el fútbol.'},
+      {n:15, sub:'dpd', txt:'Tengo dudas de si el fútbol merece todo el tiempo que le dedico.'}
+    ]
+  },
+
+  ibdr: {
+    nombreLargo: 'IBD-R — Burnout, Cualquier Deporte',
+    consignaTitulo: 'En relación a tu actividad deportiva...',
+    consignaTexto: 'Las siguientes afirmaciones describen cómo se puede sentir un/a deportista respecto a su práctica. Marcá con qué frecuencia pensás o sentís cada una.',
+    anchors: {1:'Nunca', 2:'Alguna vez al año', 3:'Alguna vez al mes', 4:'Alguna vez por semana', 5:'A diario'},
+    headlineSub: 'ae',
+    subOrder: ['ae','d','rrp'],
+    subs: {
+      ae:  {nombre:'Agotamiento Emocional', min:7, max:35, descripcion:'Sensación de estar emocionalmente exhausto/a y desbordado/a por la exigencia de la práctica deportiva.'},
+      d:   {nombre:'Despersonalización', min:5, max:25, descripcion:'Endurecimiento emocional hacia las personas del entorno deportivo: trato distante o más duro de lo habitual.'},
+      rrp: {nombre:'Reducida Realización Personal', min:7, max:35, descripcion:'Sensación de estar logrando menos de lo esperado y de que el propio aporte vale menos.', flag:'Fiabilidad algo más floja en una revalidación uruguaya (α=.66) — tomar con cautela.'}
+    },
+    items: [
+      {n:1,  sub:'ae',  txt:'Estoy emocionalmente defraudado/a con el trabajo deportivo que realizo.'},
+      {n:2,  sub:'ae',  txt:'Cuando me levanto por las mañanas y me enfrento con otro entrenamiento o competición me siento fatigado/a.'},
+      {n:3,  sub:'rrp', txt:'Comprendo fácilmente a las personas que me rodean en el ámbito deportivo.', inv:true},
+      {n:4,  sub:'ae',  txt:'Cuando me planteo seguir con mi práctica deportiva (entrenamientos o competición) me encuentro muy desganado/a.'},
+      {n:5,  sub:'rrp', txt:'Soy efectivo/a tratando los problemas de las personas que me rodean en el ámbito deportivo.', inv:true},
+      {n:6,  sub:'ae',  txt:'Mi actividad me está desgastando excesivamente.'},
+      {n:7,  sub:'rrp', txt:'Influyo positivamente en las vidas de otras personas a través de mi actividad deportiva.', inv:true},
+      {n:8,  sub:'d',   txt:'Me he hecho más duro/a con la gente.'},
+      {n:9,  sub:'d',   txt:'Me preocupa que esta actividad deportiva me esté endureciendo emocionalmente.'},
+      {n:10, sub:'ae',  txt:'Estoy frustrado/a en mi actividad deportiva.'},
+      {n:11, sub:'d',   txt:'Con la práctica deportiva me he dado cuenta que hay que ser duro/a con las personas.'},
+      {n:12, sub:'d',   txt:'Realmente no me importa lo que les ocurra a las personas que me rodean en mi actividad deportiva.'},
+      {n:13, sub:'d',   txt:'Mi práctica deportiva me ha endurecido emocionalmente para tratar con las personas.'},
+      {n:14, sub:'rrp', txt:'Puedo crear con facilidad un clima agradable en mi actividad deportiva.', inv:true},
+      {n:15, sub:'rrp', txt:'Después de haber realizado mi actividad deportiva con quienes me rodean en el ámbito deportivo me siento estimulado/a.', inv:true},
+      {n:16, sub:'rrp', txt:'Creo que consigo muchas cosas valiosas en esta actividad deportiva.', inv:true},
+      {n:17, sub:'ae',  txt:'Me encuentro al límite de mis posibilidades.'},
+      {n:18, sub:'rrp', txt:'En el ámbito de mi actividad deportiva los problemas emocionales son tratados de forma adecuada.', inv:true},
+      {n:19, sub:'ae',  txt:'Llevar una disciplina de trabajo en mi actividad deportiva me agota emocionalmente.'}
+    ]
+  }
+
+};
+
+var ACTIVE = null;
+
+function seleccionarInstrumento(key) {
+  ACTIVE = key;
+  var cfg = CONFIGS[key];
+
+  document.getElementById('bannerNombre').textContent = cfg.nombreLargo;
+  document.getElementById('consignaTitulo').textContent = cfg.consignaTitulo;
+  document.getElementById('consignaTexto').textContent = cfg.consignaTexto;
+
+  var scaleGrid = document.getElementById('scaleGrid');
+  scaleGrid.innerHTML = '';
+  for (var v = 1; v <= 5; v++) {
+    scaleGrid.insertAdjacentHTML('beforeend',
+      '<div><div class="scale-num">' + v + '</div><div class="scale-txt">' + cfg.anchors[v] + '</div></div>');
+  }
+
+  buildItems();
+
+  document.getElementById('formSection').style.display = 'block';
+  document.getElementById('resultados').style.display = 'none';
+
+  setTimeout(function() {
+    document.getElementById('formSection').scrollIntoView({behavior:'smooth', block:'start'});
+    setTimeout(function(){ document.getElementById('nombrePaciente').focus(); }, 350);
+  }, 100);
+}
+
+function cambiarInstrumento() {
+  reiniciar();
+  ACTIVE = null;
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('instrumentSelect').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function buildItems() {
+  var cfg = CONFIGS[ACTIVE];
+  var c = document.getElementById('itemsContainer');
+  c.innerHTML = '';
+
+  for (var i = 0; i < cfg.items.length; i++) {
+    var item = cfg.items[i];
+
+    var radios = '';
+    for (var v = 1; v <= 5; v++) {
+      var anchor = '<span class="radio-anchor">' + cfg.anchors[v] + '</span>';
+      radios += '<div class="radio-opt">' +
+        '<input type="radio" name="item' + item.n + '" id="i' + item.n + 'v' + v + '" value="' + v + '" onchange="onAnswer()">' +
+        '<label for="i' + item.n + 'v' + v + '"><span class="radio-circle">' + v + '</span>' + anchor + '</label>' +
+        '</div>';
+    }
+
+    c.insertAdjacentHTML('beforeend',
+      '<div class="item-card" id="card-' + item.n + '">' +
+      '<p class="item-num">Ítem ' + item.n + '</p>' +
+      '<p class="item-text">' + item.txt + '</p>' +
+      '<div class="radio-group">' + radios + '</div>' +
+      '</div>');
+  }
+}
+
+function onAnswer() { updateProgress(); }
+
+function getVal(n) {
+  var sel = document.querySelector('input[name="item' + n + '"]:checked');
+  return sel ? parseInt(sel.value) : null;
+}
+
+function getNombre() {
+  var v = document.getElementById('nombrePaciente').value;
+  return v ? v.trim() : '';
+}
+
+function updateProgress() {
+  if (!ACTIVE) return;
+  var cfg = CONFIGS[ACTIVE];
+  var totalFields = cfg.items.length + 1;
+  var done = getNombre() ? 1 : 0;
+  for (var i = 0; i < cfg.items.length; i++) {
+    if (getVal(cfg.items[i].n) !== null) done++;
+  }
+  document.getElementById('progressBar').style.width = Math.round((done / totalFields) * 100) + '%';
+}
+
+function calcular() {
+  var cfg = CONFIGS[ACTIVE];
+  var nombre = getNombre();
+  var vals = [];
+  for (var i = 0; i < cfg.items.length; i++) vals.push(getVal(cfg.items[i].n));
+
+  var faltaNombre = !nombre;
+  var hasNull = false;
+  for (var i = 0; i < vals.length; i++) { if (vals[i] === null) hasNull = true; }
+
+  var nameBlock = document.getElementById('nameBlock');
+  nameBlock.classList.toggle('field-error', faltaNombre);
+  for (var i = 0; i < cfg.items.length; i++) {
+    var card = document.getElementById('card-' + cfg.items[i].n);
+    card.classList.toggle('field-error', vals[i] === null);
+  }
+
+  if (faltaNombre || hasNull) {
+    document.getElementById('errMsg').style.display = 'block';
+    if (faltaNombre) {
+      nameBlock.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    return;
+  }
+  document.getElementById('errMsg').style.display = 'none';
+
+  var subScores = {};
+  for (var i = 0; i < cfg.subOrder.length; i++) subScores[cfg.subOrder[i]] = 0;
+  for (var i = 0; i < cfg.items.length; i++) {
+    var raw = vals[i];
+    var scored = cfg.items[i].inv ? (6 - raw) : raw;
+    subScores[cfg.items[i].sub] += scored;
+  }
+
+  document.getElementById('resTitle').textContent = 'Resultados de ' + nombre;
+
+  var headKey = cfg.headlineSub;
+  var headSub = cfg.subs[headKey];
+  var headScore = subScores[headKey];
+  var pctHead = ((headScore - headSub.min) / (headSub.max - headSub.min)) * 100;
+
+  document.getElementById('scoreEyebrow').textContent = 'Perfil de Burnout · ' + (ACTIVE === 'abq' ? 'Fútbol (ABQ)' : 'Cualquier deporte (IBD-R)');
+  document.getElementById('scoreNum').textContent = headScore;
+  document.getElementById('scoreDenom').textContent = headSub.nombre + ' · rango ' + headSub.min + '–' + headSub.max;
+  setTimeout(function() { document.getElementById('scoreFill').style.width = pctHead + '%'; }, 120);
+
+  var nivelHead = clasificarNivel(headSub, headScore);
+  document.getElementById('scoreBadge').textContent = headSub.nombre + ': ' + nivelHead.texto;
+  document.getElementById('scoreText').textContent = nivelHead.scoreText;
+
+  dibujarBarras(cfg, subScores);
+
+  var subsGrid = document.getElementById('subsGrid');
+  subsGrid.innerHTML = '';
+  for (var i = 0; i < cfg.subOrder.length; i++) {
+    var key = cfg.subOrder[i];
+    var sub = cfg.subs[key];
+    var score = subScores[key];
+    var nivel = clasificarNivel(sub, score);
+    var flagHtml = sub.flag ? '<span class="sub-flag">' + sub.flag + '</span>' : '';
+    subsGrid.insertAdjacentHTML('beforeend',
+      '<div class="sub-card">' +
+      '<p class="sub-name">' + sub.nombre + '</p>' +
+      '<div class="sub-score">' + score + '</div>' +
+      '<p class="sub-denom">de ' + sub.max + '</p>' +
+      '<span class="sub-badge sub-' + nivel.clase + '">' + nivel.texto + '</span>' +
+      flagHtml +
+      '</div>'
+    );
+  }
+
+  document.getElementById('informeIntegral').innerHTML = generarInforme(cfg, subScores, nombre);
+
+  document.getElementById('resultados').style.display = 'block';
+  document.getElementById('progressBar').style.width = '100%';
+  setTimeout(function() {
+    document.getElementById('resultados').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 200);
+}
+
+function clasificarNivel(sub, score) {
+  // Bandas por tercios del rango posible (no hay baremos poblacionales publicados).
+  // En las tres subescalas, mayor puntaje = mas indicadores de burnout (las
+  // subescalas positivas ya fueron invertidas al sumar).
+  var span = sub.max - sub.min;
+  var t1 = sub.min + span / 3;
+  var t2 = sub.min + (span * 2) / 3;
+
+  if (score <= t1) return {clase:'bajo', texto:'Baja'};
+  if (score <= t2) return {clase:'moderado', texto:'Media'};
+  return {clase:'alto', texto:'Alta'};
+}
+
+function dibujarBarras(cfg, subScores) {
+  var c = document.getElementById('hbarContainer');
+  c.innerHTML = '';
+  for (var i = 0; i < cfg.subOrder.length; i++) {
+    var key = cfg.subOrder[i];
+    var sub = cfg.subs[key];
+    var score = subScores[key];
+    var pct = Math.round(((score - sub.min) / (sub.max - sub.min)) * 100);
+
+    var html = '<div class="hbar-row">' +
+      '<div class="hbar-top"><span class="hbar-name">' + sub.nombre + '</span>' +
+      '<span class="hbar-score"><strong>' + score + '</strong> / ' + sub.max + '</span></div>' +
+      '<div class="hbar-track"><div class="hbar-fill" id="hbar-' + key + '"></div></div>' +
+      '<div class="hbar-foot"><span>' + sub.min + '</span><span>' + pct + '% del rango</span><span>' + sub.max + '</span></div>' +
+      '</div>';
+    c.insertAdjacentHTML('beforeend', html);
+  }
+
+  setTimeout(function() {
+    for (var i = 0; i < cfg.subOrder.length; i++) {
+      var key = cfg.subOrder[i];
+      var sub = cfg.subs[key];
+      var score = subScores[key];
+      var pct = ((score - sub.min) / (sub.max - sub.min)) * 100;
+      document.getElementById('hbar-' + key).style.width = pct + '%';
+    }
+  }, 150);
+}
+
+function nivelDe(sub, score) {
+  return clasificarNivel(sub, score).clase;
+}
+
+function generarInforme(cfg, subScores, nombre) {
+  var html = '<p><strong>' + nombre + '</strong>, así se ve tu relación con ' + (ACTIVE === 'abq' ? 'el fútbol' : 'tu actividad deportiva') + ' en este momento, según lo que respondiste.</p>';
+
+  for (var i = 0; i < cfg.subOrder.length; i++) {
+    var key = cfg.subOrder[i];
+    var sub = cfg.subs[key];
+    var score = subScores[key];
+    var nivel = nivelDe(sub, score);
+    html += '<p><strong>' + sub.nombre + '</strong> <span style="color:var(--muted);font-weight:300">(' + score + '/' + sub.max + ')</span><br>';
+    html += textoItemNivel(ACTIVE, key, nivel);
+    html += '</p>';
+  }
+
+  html += generarLecturaIntegradora(cfg, subScores);
+  html += generarRecomendaciones(cfg, subScores);
+
+  return html;
+}
+
+function textoItemNivel(instrumento, sub, nivel) {
+  var textos = {
+    abq: {
+      afe: {
+        alto: 'El entrenamiento y la competencia te están dejando sin energía: cansancio físico que no termina de irse, mente agotada incluso antes de empezar a jugar. Este suele ser el primer síntoma en aparecer dentro del proceso de burnout — vale la pena prestarle atención antes de que se profundice.',
+        moderado: 'Hay cierto desgaste físico y mental asociado al fútbol, sin que sea todavía agobiante. Es razonable sentir algo de cansancio en temporadas exigentes; lo que conviene observar es si se recupera con el descanso habitual o si se va acumulando semana a semana.',
+        bajo: 'El fútbol no te está generando un desgaste físico ni mental importante en este momento — tu energía para entrenar y competir parece sostenerse bien.'
+      },
+      rsl: {
+        alto: 'Sentís que no estás rindiendo ni progresando en el fútbol al nivel que esperarías de vos mismo/a, más allá de cómo te vaya en los resultados puntuales. Esta sensación de estancamiento es una de las señales más tempranas del desgaste deportivo, y suele pasar más desapercibida que el cansancio físico.',
+        moderado: 'Hay momentos en los que sentís que no estás rindiendo del todo a tu nivel, aunque no es una sensación constante.',
+        bajo: 'Sentís que estás logrando cosas que valen la pena en el fútbol — tu sensación de progreso y rendimiento se sostiene bien.'
+      },
+      dpd: {
+        alto: 'El fútbol te importa notablemente menos que antes: el interés, las ganas de seguir invirtiendo tiempo y esfuerzo en esto se está debilitando. Es la dimensión que más se asocia al abandono deportivo cuando se sostiene en el tiempo.',
+        moderado: 'Hay cierta pérdida de interés por el fútbol comparado con otros momentos, sin que sea todavía una devaluación marcada.',
+        bajo: 'El fútbol sigue importándote tanto como antes — no hay señales de devaluación de la práctica.'
+      }
+    },
+    ibdr: {
+      ae: {
+        alto: 'Tu actividad deportiva te está dejando sin energía emocional: cansancio que no termina de irse, sensación de estar desbordado/a incluso antes de empezar a entrenar. Este suele ser el primer síntoma en aparecer dentro del proceso de burnout — vale la pena prestarle atención antes de que se profundice.',
+        moderado: 'Hay cierto desgaste emocional asociado a tu práctica deportiva, sin que sea todavía agobiante. Es razonable sentir algo de cansancio en temporadas exigentes; lo que conviene observar es si se recupera con el descanso habitual o si se va acumulando.',
+        bajo: 'Tu actividad deportiva no te está generando un desgaste emocional importante en este momento — tu energía para entrenar y competir parece sostenerse bien.'
+      },
+      d: {
+        alto: 'Notás que te has vuelto más duro/a o distante con las personas de tu entorno deportivo — compañeros, entrenadores, rivales. Este endurecimiento emocional suele ser, dentro de las tres dimensiones, la que más cuesta reconocer en uno mismo, porque no se vive como cansancio sino como cambio de carácter.',
+        moderado: 'Hay algo de distancia o dureza en cómo te relacionás con la gente de tu entorno deportivo, sin que sea un cambio marcado.',
+        bajo: 'Tu forma de relacionarte con la gente de tu entorno deportivo no muestra señales de endurecimiento o distancia.'
+      },
+      rrp: {
+        alto: 'Sentís que tu aporte en el ámbito deportivo vale menos de lo que debería — que no estás influyendo positivamente, ni logrando cosas que valgan la pena, ni generando un buen ambiente como antes. Esta dimensión suele ser la más silenciosa de las tres: no se siente como agotamiento sino como una merma de la propia valía.',
+        moderado: 'Hay cierta sensación de estar logrando menos de lo esperado en tu actividad deportiva, sin que sea una sensación generalizada.',
+        bajo: 'Sentís que estás logrando cosas valiosas y aportando positivamente en tu actividad deportiva.'
+      }
+    }
+  };
+
+  return textos[instrumento][sub][nivel];
+}
+
+function generarLecturaIntegradora(cfg, subScores) {
+  var altas = [];
+  for (var i = 0; i < cfg.subOrder.length; i++) {
+    var key = cfg.subOrder[i];
+    if (nivelDe(cfg.subs[key], subScores[key]) === 'alto') altas.push(key);
+  }
+
+  var lecturas = {
+    abq: {
+      '3':  'Las tres dimensiones del burnout aparecen elevadas: agotamiento físico, sensación de bajo rendimiento y pérdida de interés por el fútbol. Esta combinación es la que la literatura asocia más directamente con el síndrome de burnout deportivo en su forma más desarrollada. No es algo para resolver solo/a — vale la pena conversarlo con alguien de confianza y considerar acompañamiento profesional.',
+      'afe,rsl': 'Estás agotado/a y sentís que no estás rindiendo a tu nivel, pero el fútbol todavía te importa — no hay devaluación de la actividad en sí. Esto puede ser una señal de que el desgaste es todavía reciente o situacional, y que el vínculo con el deporte sigue siendo una fuente de motivación a la que apoyarte para revertir el cuadro.',
+      'afe,dpd': 'Estás agotado/a y el fútbol te importa menos que antes, aunque tu sensación de rendimiento se sostiene. El cansancio parece estar erosionando las ganas antes que la confianza en tu propio nivel.',
+      'rsl,dpd': 'Sentís que no estás rindiendo a tu nivel y que el fútbol te importa menos que antes, aunque tu energía física y mental se sostiene. El desgaste acá parece ser más motivacional que físico.',
+      'afe': 'El cansancio físico y mental es lo que más está pesando en este momento, mientras tu sensación de rendimiento y tu interés por el fútbol se mantienen firmes. Esto sugiere que el desgaste es todavía puntual — vale la pena priorizar la recuperación antes de que empiece a afectar las otras dimensiones.',
+      'rsl': 'Lo que más pesa en este momento es la sensación de no estar rindiendo a tu nivel, sin que el cansancio físico ni el interés por el fútbol estén comprometidos. Vale la pena revisar si esa sensación responde a un parámetro realista o a una autoexigencia que se volvió desproporcionada.',
+      'dpd': 'Lo que más se nota en este momento es la pérdida de interés por el fútbol, mientras tu energía y tu sensación de rendimiento se sostienen. Vale la pena preguntarte qué cambió: <em>¿es el fútbol en sí, o algo del contexto (entrenador, equipo, momento de vida) lo que se volvió menos atractivo?</em>',
+      '0':  'Ninguna de las tres dimensiones del burnout aparece elevada en este momento — tu relación con el fútbol parece sostenerse en un nivel saludable. Esto no significa que no haya nada para cuidar: el burnout se construye de a poco, así que vale la pena volver a tomar este cuestionario si notás cambios en cómo te sentís respecto al fútbol.'
+    },
+    ibdr: {
+      '3':  'Las tres dimensiones del burnout aparecen elevadas: agotamiento emocional, endurecimiento en el trato con los demás y una sensación reducida de estar logrando algo valioso en tu actividad deportiva. Esta combinación es la que la literatura asocia con el síndrome de burnout en su forma más desarrollada, independientemente del deporte que practiques. No es algo para resolver solo/a — vale la pena conversarlo con alguien de confianza y considerar acompañamiento profesional.',
+      'ae,d': 'Estás emocionalmente agotado/a y notás que te has vuelto más duro/a con la gente de tu entorno, pero tu sensación de estar logrando cosas valiosas se sostiene. El desgaste parece estar afectando más cómo te relacionás que cómo te ves a vos mismo/a en tu deporte.',
+      'ae,rrp': 'Estás emocionalmente agotado/a y sentís que tu aporte vale menos de lo que debería, aunque tu forma de relacionarte con los demás no muestra señales de endurecimiento. El desgaste parece estar golpeando tu energía y tu autopercepción, más que tu vínculo con la gente.',
+      'd,rrp': 'Notás endurecimiento en el trato con los demás y una sensación reducida de logro, aunque tu nivel de energía se sostiene. Esto sugiere un desgaste más relacional y motivacional que puramente físico.',
+      'ae': 'El agotamiento emocional es lo que más pesa en este momento, mientras tu trato con los demás y tu sensación de logro se mantienen firmes. Esto sugiere un desgaste todavía puntual — vale la pena priorizar el descanso y la recuperación antes de que empiece a afectar las otras dimensiones.',
+      'd': 'Lo que más se nota en este momento es cierto endurecimiento en cómo tratás a la gente de tu entorno deportivo, sin que tu energía ni tu sensación de logro estén comprometidas. Vale la pena prestarle atención — es la dimensión que más cuesta reconocer en uno mismo.',
+      'rrp': 'Lo que más pesa en este momento es la sensación de que tu aporte vale menos de lo que debería, sin que tu energía ni tu trato con los demás muestren señales de desgaste. Vale la pena revisar si ese juicio sobre vos mismo/a responde a algo concreto o a una autoexigencia desproporcionada.',
+      '0':  'Ninguna de las tres dimensiones del burnout aparece elevada en este momento — tu relación con tu actividad deportiva parece sostenerse en un nivel saludable. Esto no significa que no haya nada para cuidar: el burnout se construye de a poco, así que vale la pena volver a tomar este cuestionario si notás cambios en cómo te sentís respecto a tu deporte.'
+    }
+  };
+
+  var key;
+  if (altas.length === 3) key = '3';
+  else if (altas.length === 0) key = '0';
+  else key = altas.join(',');
+
+  var texto = lecturas[ACTIVE][key];
+
+  return '<p><strong>Cómo se conecta todo esto.</strong> ' + texto + '</p>';
+}
+
+function generarRecomendaciones(cfg, subScores) {
+  var altas = [];
+  for (var i = 0; i < cfg.subOrder.length; i++) {
+    var key = cfg.subOrder[i];
+    if (nivelDe(cfg.subs[key], subScores[key]) === 'alto') altas.push(key);
+  }
+
+  var tecnicasTexto = {
+    abq: {
+      afe: '<strong>Recuperación activa y descanso programado</strong> — pausas de entrenamiento planificadas, no solo cuando el cuerpo ya no da más, sino como parte regular de la planificación, para que el descanso sea preventivo y no reactivo.',
+      rsl: '<strong>Objetivos de proceso y revisión de expectativas</strong> — repasar con un entrenador o psicólogo deportivo si los parámetros de rendimiento que estás usando para evaluarte son realistas para tu momento actual, y fijar metas más concretas y alcanzables a corto plazo.',
+      dpd: '<strong>Reconexión con el sentido</strong> — explorar qué fue lo que te atrajo del fútbol originalmente y si todavía está presente, o si cambió algo del contexto (equipo, entrenador, exigencia) que vale la pena revisar.'
+    },
+    ibdr: {
+      ae: '<strong>Recuperación activa y descanso programado</strong> — pausas de entrenamiento planificadas, no solo cuando el cuerpo ya no da más, sino como parte regular de la planificación, para que el descanso sea preventivo y no reactivo.',
+      d:  '<strong>Trabajo sobre el vínculo</strong> — espacios de conversación honesta con compañeros/as o entrenador sobre cómo te estás sintiendo en el trato cotidiano, ya que el endurecimiento emocional tiende a aislar antes de que la persona lo note.',
+      rrp:'<strong>Registro de logros concretos</strong> — un repaso periódico (semanal) de cosas puntuales que hiciste bien o que aportaste, por más chicas que parezcan, para contrarrestar la sensación difusa de "no estoy logrando nada".'
+    }
+  };
+
+  var tecnicas = [];
+  if (altas.length > 0) {
+    for (var i = 0; i < altas.length; i++) {
+      tecnicas.push(tecnicasTexto[ACTIVE][altas[i]]);
+    }
+  } else {
+    tecnicas.push('<strong>Chequeos periódicos</strong> — repetir este cuestionario cada cierto tiempo, sobre todo en momentos de mayor carga (pretemporada, tramos finales de torneo, exámenes si combinás deporte y estudio), para detectar cambios a tiempo.');
+  }
+
+  var listaTexto = '<ul>';
+  for (var i = 0; i < tecnicas.length; i++) {
+    listaTexto += '<li>' + tecnicas[i] + '</li>';
+  }
+  listaTexto += '</ul>';
+
+  return '<p><strong>Para pensar de acá en más.</strong> Este resultado es un punto de partida, no un diagnóstico. Tiene más sentido leído junto a tu contexto actual — la carga de entrenamientos, lo que está en juego esta temporada, cómo vienen tus otras áreas de vida — que como un dato aislado. Algunas líneas de trabajo de psicología del deporte que suelen explorarse frente a un perfil como este incluyen:' + listaTexto + 'Estas son menciones generales, no un protocolo a aplicar de forma automática: qué técnica tiene sentido, cuándo y para qué, es algo que se define en función de tu situación particular, no de un número en un cuestionario.</p>';
+}
+
+function reiniciar() {
+  document.getElementById('resultados').style.display = 'none';
+  document.getElementById('nombrePaciente').value = '';
+  document.getElementById('errMsg').style.display = 'none';
+  document.getElementById('nameBlock').classList.remove('field-error');
+  if (ACTIVE) {
+    var cfg = CONFIGS[ACTIVE];
+    for (var i = 0; i < cfg.items.length; i++) {
+      var n = cfg.items[i].n;
+      var radios = document.querySelectorAll('input[name="item' + n + '"]');
+      for (var r = 0; r < radios.length; r++) radios[r].checked = false;
+      var card = document.getElementById('card-' + n);
+      if (card) card.classList.remove('field-error');
+    }
+  }
+  document.getElementById('progressBar').style.width = '0%';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+var header = document.querySelector('header');
+window.addEventListener('scroll', function() {
+  header.classList.toggle('scrolled', window.scrollY > 12);
+}, false);
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

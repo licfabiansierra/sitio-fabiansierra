@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Flexibilidad Psicológica en el Deporte (ES-PFSS) · Lic. Fabián Sierra</title>
+<meta name="description" content="Escala de Flexibilidad Psicológica en el Deporte (ES-PFSS). Johles, Gustafsson, Jansson-Fröjmark, Classon, Hasselqvist & Lundgren (2020), validación española Garcia-Pardina et al. (2026). Lic. Fabián Sierra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;--paper:#FBFAF7;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --line:#D8D4C9;--line-soft:#E5E2D9;
+    --accent:#942322;--accent-deep:#741A19;
+    --maxw:860px;--pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --success:#1F5C3A;--warning:#7A5A0E;--danger:#7A1A1A;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#F3F1EC;scroll-behavior:smooth;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#F3F1EC;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(243,241,236,.82);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .4s var(--ease),background .4s var(--ease)}
+  header.scrolled{border-bottom:1px solid var(--line);background:rgba(243,241,236,.94)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.98rem}
+  .brand span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .nav-tag{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+  .prog-wrap{height:2px;background:var(--line-soft);position:sticky;top:68px;z-index:49}
+  .prog-fill{height:100%;background:var(--accent);width:0%;transition:width .35s var(--ease)}
+
+  .hero{background:#F3F1EC;border-top:1px solid var(--line);padding-top:clamp(3rem,7vw,5.5rem);padding-bottom:clamp(3rem,7vw,5rem);position:relative}
+  .hero .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.45;z-index:0;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:min(11vw,88px) min(11vw,88px);-webkit-mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%);mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%)}
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1.2rem}
+  .eyebrow .num{color:var(--accent);font-weight:500}
+  .hero h1{font-weight:700;letter-spacing:-.028em;line-height:1.04;font-size:clamp(2.2rem,6vw,4rem);margin-bottom:1.4rem}
+  .hero-sub{color:var(--ink-soft);font-size:clamp(1rem,1.8vw,1.15rem);line-height:1.68;max-width:58ch;margin-bottom:2rem}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem 2rem;padding-top:1.8rem;border-top:1px solid var(--line)}
+  @media(min-width:580px){.hero-meta{grid-template-columns:repeat(4,1fr)}}
+  .hero-meta .k{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:.9rem;font-weight:500;margin-top:.2rem}
+
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9rem;letter-spacing:.005em;padding:.82rem 1.6rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .3s var(--ease);cursor:pointer;font-family:"Archivo",sans-serif}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(148,35,34,.4)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--bone);box-shadow:none;transform:none}
+  .btn-block{display:block;width:100%;justify-content:center;margin-top:1.6rem}
+
+  main{background:#F3F1EC;padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(3rem,7vw,6rem)}
+
+  .ficha-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .sec-tag{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-bottom:.9rem;margin-bottom:1.1rem;border-bottom:1px solid var(--line)}
+  .ficha-body{font-size:.93rem;color:var(--ink-soft);font-weight:300;line-height:1.75}
+  .ficha-body strong{font-weight:600;color:var(--ink)}
+  .ficha-body p+p{margin-top:.8rem}
+  .ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.5rem;margin-top:.9rem;font-size:.84rem;color:var(--ink-soft);border-top:1px solid var(--line-soft);padding-top:.9rem}
+  .ficha-grid dt{font-weight:600;color:var(--ink-soft)}
+  .ficha-grid dd{font-weight:300}
+  @media(max-width:480px){.ficha-grid{grid-template-columns:1fr}}
+
+  .nota-honesta{background:#FBF8ED;border-left:3px solid var(--warning);padding:1rem 1.3rem;margin-top:1rem;font-size:.82rem;color:var(--ink-soft);font-weight:300;line-height:1.65}
+  .nota-honesta strong{color:var(--ink);font-weight:600}
+  .nota-honesta+.nota-honesta{margin-top:.8rem}
+
+  .name-block{border:1px solid var(--line);background:var(--paper);padding:clamp(1.4rem,3vw,2rem);margin-bottom:2rem;border-left:3px solid var(--accent);scroll-margin-top:140px}
+  .name-block label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.65rem;font-weight:500}
+  .name-block .req{color:var(--accent)}
+  .name-block input[type=text]{width:100%;border:none;border-bottom:2px solid var(--line);background:transparent;font-family:"Archivo",sans-serif;font-size:1.08rem;font-weight:500;color:var(--ink);padding:.4rem 0;outline:none;transition:border-color .25s}
+  .name-block input[type=text]:focus{border-bottom-color:var(--accent)}
+  .name-block input[type=text]::placeholder{color:var(--muted);font-weight:300;font-size:.96rem}
+  .name-block.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .name-block.field-error input[type=text]{border-bottom-color:var(--danger)}
+
+  .consigna-block{margin-bottom:2.5rem;border-top:1px solid var(--line);padding-top:1.6rem}
+  .consigna-block h2{font-weight:700;letter-spacing:-.022em;line-height:1.1;font-size:clamp(1.3rem,3vw,1.8rem);margin-bottom:.9rem}
+  .consigna{background:var(--bone-deep);border-left:2px solid var(--line);padding:.85rem 1.2rem;font-size:.93rem;line-height:1.7;color:var(--muted);font-style:italic}
+
+  .scale-ref{border:1px solid var(--line);background:var(--paper);padding:1rem 1.4rem;margin-bottom:2rem}
+  .scale-ref-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:.7rem}
+  .scale-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.25rem;text-align:center}
+  .scale-num{font-size:.8rem;font-weight:700;color:var(--accent);margin-bottom:.2rem}
+  .scale-txt{font-size:.54rem;color:var(--muted);line-height:1.25;padding:0 .05rem}
+
+  .item-card{background:var(--paper);border:1px solid var(--line);border-left:3px solid transparent;padding:1.3rem 1.5rem;margin-bottom:.6rem;transition:border-left-color .2s var(--ease)}
+  .item-card.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .item-num{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.45rem}
+  .item-text{font-size:.97rem;font-weight:500;color:var(--ink);margin-bottom:1rem;line-height:1.5}
+
+  .radio-group{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem}
+  .radio-opt{text-align:center}
+  .radio-opt input[type=radio]{display:none}
+  .radio-opt label{display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:pointer}
+  .radio-circle{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:var(--bone);display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:600;color:var(--muted);transition:all .15s;margin:0 auto}
+  .radio-opt input[type=radio]:checked + label .radio-circle{background:var(--accent);border-color:var(--accent);color:#fff;transform:scale(1.1)}
+  .radio-opt label:hover .radio-circle{border-color:var(--accent);color:var(--accent)}
+  .radio-anchor{font-size:.52rem;color:var(--muted);line-height:1.2;max-width:54px;text-align:center}
+
+  .submit-zone{text-align:center;margin-top:2.5rem}
+  .err-msg{background:#FBF0F0;border:1px solid #E8BFBF;color:var(--danger);padding:.75rem 1.1rem;font-size:.86rem;margin-top:1rem;display:none;font-weight:500}
+
+  .disclaimer-card{background:var(--ink);color:var(--bone);padding:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:1.5rem;border-left:3px solid var(--accent)}
+  .disclaimer-tag{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#9a9ba2;font-weight:600;margin-bottom:.9rem}
+  .disclaimer-card p{font-size:.92rem;font-weight:300;line-height:1.75;color:#dcdce0}
+  .disclaimer-card strong{font-weight:600;color:#fff}
+
+  #resultados{display:none;margin-top:4rem;border-top:1px solid var(--line);padding-top:3rem}
+  .res-eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1rem}
+  .res-eyebrow .num{color:var(--accent);font-weight:500}
+  .res-title{font-weight:700;letter-spacing:-.022em;line-height:1.08;font-size:clamp(1.6rem,4vw,2.6rem);margin-bottom:2rem}
+
+  .score-card{background:var(--ink);color:var(--bone);padding:clamp(2rem,4vw,3rem);margin-bottom:1.5rem}
+  .score-eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#9a9ba2;margin-bottom:.65rem}
+  .score-num{font-size:clamp(3.5rem,9vw,5.5rem);font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:.2rem}
+  .score-denom{font-size:.8rem;color:#9a9ba2;margin-bottom:1.2rem;font-weight:300}
+  .score-track{background:rgba(255,255,255,.12);height:3px;max-width:360px;margin:0 0 1.2rem;overflow:hidden}
+  .score-fill{height:100%;background:var(--accent);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+  .score-badge{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--bone);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .8rem;font-weight:600;margin-bottom:1rem}
+  .score-text{font-size:.95rem;font-weight:300;color:#c9cace;line-height:1.65;max-width:55ch}
+
+  .chart-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3.2vw,2.2rem);margin-bottom:1.5rem}
+  .chart-title{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1.6rem}
+  .hbar-row{margin-bottom:1rem}
+  .hbar-row:last-child{margin-bottom:0}
+  .hbar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.45rem;gap:1rem}
+  .hbar-name{font-size:.84rem;font-weight:500;color:var(--ink);line-height:1.4}
+  .hbar-score{font-size:.82rem;color:var(--muted);font-weight:500;white-space:nowrap}
+  .hbar-score strong{color:var(--ink);font-weight:700}
+  .hbar-track{height:8px;background:var(--bone-deep);position:relative;overflow:hidden}
+  .hbar-fill{height:100%;background:var(--accent);width:0%;transition:width 1.1s cubic-bezier(.4,0,.2,1)}
+
+  .informe-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .informe-body{font-size:.95rem;color:var(--ink-soft);font-weight:300;line-height:1.8}
+  .informe-body p+p{margin-top:.9rem}
+  .informe-body strong{font-weight:600;color:var(--ink)}
+  .informe-body ul{margin:.6rem 0 .6rem 1.2rem}
+  .informe-body li{margin-bottom:.4rem}
+
+  .firma-box{text-align:center;padding:2rem 1.5rem;margin-top:2rem;border-top:1px solid var(--line)}
+  .firma-name{font-size:.98rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin-bottom:.2rem}
+  .firma-sub{font-size:.76rem;color:var(--muted);font-weight:300}
+
+  .cta-strip{border-top:1px solid var(--line);background:var(--ink);color:var(--bone);margin-top:3rem}
+  .cta-strip .wrap{padding-top:clamp(3rem,6vw,4.5rem);padding-bottom:clamp(3rem,6vw,4.5rem);display:flex;flex-direction:column;gap:1.6rem;align-items:flex-start}
+  @media(min-width:780px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;line-height:1.15;max-width:22ch}
+  .cta-strip .eyebrow{color:#9a9ba2;margin-bottom:1rem}
+
+  footer{background:var(--ink);color:#b7b8bd;border-top:1px solid #2a2b30}
+  .foot-inner{padding:clamp(2rem,4vw,3rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:#fff;font-weight:700;font-size:.98rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.66rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-top:.5rem}
+  .foot-bottom{border-top:1px solid #2a2b30;padding:1.3rem var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:center}
+  .foot-bottom span{font-size:.7rem;color:#76777d;letter-spacing:.05em}
+
+  @media(max-width:520px){.hero h1{font-size:1.9rem}.score-num{font-size:3rem}.radio-circle{width:27px;height:27px;font-size:.66rem}.radio-anchor{font-size:.46rem;max-width:42px}.ficha-grid{grid-template-columns:1fr}.scale-txt{font-size:.46rem}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com" target="_blank">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <span class="nav-tag">Psicología Deportiva</span>
+  </div>
+</header>
+
+<div class="prog-wrap"><div class="prog-fill" id="progressBar"></div></div>
+
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">ES-PFSS</span> Psicología del Deporte · ACT</div>
+    <h1>Flexibilidad Psicológica en el Deporte</h1>
+    <p class="hero-sub">Johles, Gustafsson, Jansson-Fröjmark, Classon, Hasselqvist &amp; Lundgren (2020) · Validación española: Garcia-Pardina, Belloso, Bellido-Esteban, Montalvo-Pérez &amp; Budziszewska (2026) · El primer instrumento de flexibilidad psicológica diseñado específicamente para deporte.</p>
+    <div class="hero-meta">
+      <div><span class="k">Ítems</span><span class="v">7 · Likert 1–7</span></div>
+      <div><span class="k">Estructura</span><span class="v">Unidimensional</span></div>
+      <div><span class="k">Tiempo</span><span class="v">2 min</span></div>
+      <div><span class="k">Uso</span><span class="v">Clínico exclusivo</span></div>
+    </div>
+    <button class="btn btn-block" onclick="irAlFormulario()">Responder cuestionario</button>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <!-- FICHA TECNICA - PARTE 1: NARRATIVA -->
+  <div class="ficha-card">
+    <p class="sec-tag">Sobre este instrumento</p>
+    <div class="ficha-body">
+      <p>La <strong>Escala de Flexibilidad Psicológica en el Deporte (PFSS, Psychological Flexibility Sport Scale)</strong> fue desarrollada por Johles, Gustafsson, Jansson-Fröjmark, Classon, Hasselqvist &amp; Lundgren (2020) y constituye el primer instrumento diseñado específicamente para medir flexibilidad psicológica en contexto deportivo, dentro del marco de la Terapia de Aceptación y Compromiso (ACT). Está inspirada explícitamente en el AAQ-II, adaptando su lógica a las exigencias propias de la competencia. La versión en español utilizada en este cuestionario corresponde a la validación de Garcia-Pardina, Belloso, Bellido-Esteban, Montalvo-Pérez &amp; Budziszewska (2026), desarrollada en conjunto entre la Universidad Europea de Madrid y el Real Madrid Graduate School, con una muestra de 146 atletas hispanohablantes.</p>
+      <p>El instrumento mide en qué medida los recuerdos de fracasos pasados, los nervios, los pensamientos, los sentimientos y la preocupación interfieren con el rendimiento durante la competencia. A diferencia de otros instrumentos de este catálogo, la PFSS es <strong>unidimensional</strong>: no se organiza en subescalas, sino que arroja una única puntuación de flexibilidad psicológica aplicada al deporte.</p>
+    </div>
+  </div>
+
+  <button class="btn btn-block" onclick="irAlFormulario()">Responder cuestionario</button>
+
+  <!-- FICHA TECNICA - PARTE 2: DATOS TECNICOS -->
+  <div class="ficha-card" style="margin-top:1.5rem">
+    <p class="sec-tag">Datos técnicos</p>
+    <div class="ficha-body">
+      <dl class="ficha-grid">
+        <dt>Ítems</dt><dd>7 · escala Likert 1–7</dd>
+        <dt>Estructura</dt><dd>Unidimensional (sin subescalas)</dd>
+        <dt>Rango total</dt><dd>7 a 49 puntos</dd>
+        <dt>Dirección del puntaje</dt><dd>A mayor puntaje, menor flexibilidad</dd>
+        <dt>Fiabilidad (versión española)</dt><dd>α de Cronbach = 0.937</dd>
+        <dt>Validez de constructo</dt><dd>Estructura unidimensional confirmada por AFC</dd>
+      </dl>
+      <div class="nota-honesta">
+        <strong>Sobre la dirección del puntaje.</strong> A diferencia de otros instrumentos de este catálogo, en la PFSS un puntaje <strong>más alto indica menor flexibilidad psicológica</strong> (mayor interferencia de pensamientos, emociones y recuerdos en el rendimiento), y un puntaje más bajo indica mayor flexibilidad. Es importante tenerlo presente al leer el resultado.
+      </div>
+      <div class="nota-honesta">
+        <strong>Nota sobre los puntos de corte.</strong> El estudio de validación española no estableció categorías oficiales de interpretación (bajo/moderado/alto); trabajó únicamente con el puntaje continuo y sus correlaciones con otras variables. Los rangos de interpretación que se usan en este cuestionario (tercios del rango total de la escala) son un criterio de aplicación práctica desarrollado para esta herramienta, no un punto de corte validado por los autores originales.
+      </div>
+      <div class="nota-honesta">
+        <strong>Nota sobre estabilidad temporal.</strong> El estudio de validación española reportó una estabilidad test-retest baja (ICC=0.378) en una submuestra reducida de 13 personas a 5 semanas, señalada por los propios autores como limitación atribuible al tamaño de esa submuestra. La consistencia interna de la escala, en cambio, fue excelente (α=0.937).
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="name-block" id="nameBlock">
+    <label for="nombrePaciente">Tu nombre <span class="req">*</span></label>
+    <input type="text" id="nombrePaciente" placeholder="Escribí tu nombre o cómo preferís que te llamemos" autocomplete="off" oninput="onAnswer()"/>
+  </div>
+
+  <div class="consigna-block">
+    <div class="eyebrow"><span class="num">01</span> Consigna</div>
+    <h2>Pensando en tu competencia...</h2>
+    <p class="consigna">Las siguientes afirmaciones describen experiencias posibles durante la competencia deportiva. Indicá con qué frecuencia es verdad para vos cada una de ellas.</p>
+  </div>
+
+  <div class="scale-ref">
+    <p class="scale-ref-label">Escala de respuesta</p>
+    <div class="scale-grid">
+      <div><div class="scale-num">1</div><div class="scale-txt">Nunca verdadero</div></div>
+      <div><div class="scale-num">2</div></div>
+      <div><div class="scale-num">3</div></div>
+      <div><div class="scale-num">4</div><div class="scale-txt">A veces verdadero</div></div>
+      <div><div class="scale-num">5</div></div>
+      <div><div class="scale-num">6</div></div>
+      <div><div class="scale-num">7</div><div class="scale-txt">Siempre verdadero</div></div>
+    </div>
+  </div>
+
+  <div id="itemsContainer"></div>
+
+  <div class="submit-zone">
+    <button class="btn" onclick="calcular()">Ver mis resultados</button>
+    <p class="err-msg" id="errMsg">Faltan campos por completar — revisá lo marcado en rojo.</p>
+  </div>
+
+  <!-- RESULTADOS -->
+  <section id="resultados">
+
+    <div class="res-eyebrow"><span class="num">02</span> Informe completo</div>
+    <h2 class="res-title" id="resTitle">Tus resultados</h2>
+
+    <div class="disclaimer-card">
+      <p class="disclaimer-tag">Antes de leer tu resultado</p>
+      <p>Este resultado refleja una <strong>fotografía de este momento</strong>, no un diagnóstico ni un rasgo permanente. Su valor está más en <strong>abrir preguntas</strong> que en cerrar respuestas. La forma más certera de explorar estos aspectos sigue siendo el trabajo directo con un profesional, que puede contextualizar este resultado dentro de tu historia particular.</p>
+    </div>
+
+    <div class="score-card">
+      <p class="score-eyebrow">Puntuación de Flexibilidad Psicológica</p>
+      <div class="score-num" id="scoreNum">—</div>
+      <p class="score-denom">rango 7 – 49 · a mayor puntaje, menor flexibilidad</p>
+      <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+      <div class="score-badge" id="scoreBadge"></div>
+      <p class="score-text" id="scoreText"></p>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">Detalle por ítem</p>
+      <div id="hbarContainer"></div>
+    </div>
+
+    <div class="informe-card">
+      <p class="sec-tag">Análisis aplicado a psicología deportiva</p>
+      <div class="informe-body" id="informeIntegral"></div>
+    </div>
+
+    <div class="firma-box">
+      <p class="firma-name">Lic. Fabián Sierra</p>
+      <p class="firma-sub">Psicología Clínica &amp; Alto Rendimiento · fabiansierra.com</p>
+    </div>
+
+    <button class="btn btn-ghost btn-block" onclick="reiniciar()">Completar de nuevo</button>
+
+  </section>
+
+</div>
+</main>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="num">+</span> Profundizar el resultado</div>
+      <h3>¿Querés trabajar lo que mostró tu evaluación?</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Complet%C3%A9%20la%20escala%20de%20Flexibilidad%20Psicol%C3%B3gica%20en%20el%20Deporte%20y%20me%20gustar%C3%ADa%20coordinar%20una%20consulta." target="_blank" rel="noopener">
+      Coordinar consulta vía WhatsApp
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <span style="font-size:.8rem;color:#76777d">ES-PFSS · Johles et al. (2020) · Garcia-Pardina et al. (2026)</span>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Atención estrictamente particular</span>
+  </div>
+</footer>
+
+<script>
+var ITEMS = [
+  {n:1, txt:'Mis recuerdos y experiencias de fracasos anteriores tienen un impacto negativo en mi rendimiento.'},
+  {n:2, txt:'Cuando estoy compitiendo no puedo controlar mis nervios y eso afecta negativamente a mi rendimiento.'},
+  {n:3, txt:'Cuando compito mis pensamientos debilitan/perjudican mi rendimiento.'},
+  {n:4, txt:'Cuando compito mis sentimientos debilitan/perjudican mi rendimiento.'},
+  {n:5, txt:'Parece que la mayoría de los atletas pueden manejar sus sentimientos mejor que yo cuando están compitiendo.'},
+  {n:6, txt:'La ansiedad por rendimiento perjudica mi rendimiento durante las competiciones.'},
+  {n:7, txt:'La preocupación hace que mi rendimiento empeore cuando estoy compitiendo.'}
+];
+
+var ANCHORS = {1:'Nunca verdadero', 4:'A veces verdadero', 7:'Siempre verdadero'};
+
+function irAlFormulario() {
+  var el = document.getElementById('nameBlock');
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(function(){ document.getElementById('nombrePaciente').focus(); }, 450);
+}
+
+function buildItems() {
+  var c = document.getElementById('itemsContainer');
+
+  for (var i = 0; i < ITEMS.length; i++) {
+    var item = ITEMS[i];
+
+    var radios = '';
+    for (var v = 1; v <= 7; v++) {
+      var anchor = ANCHORS[v] ? '<span class="radio-anchor">' + ANCHORS[v] + '</span>' : '<span class="radio-anchor"></span>';
+      radios += '<div class="radio-opt">' +
+        '<input type="radio" name="item' + item.n + '" id="i' + item.n + 'v' + v + '" value="' + v + '" onchange="onAnswer()">' +
+        '<label for="i' + item.n + 'v' + v + '"><span class="radio-circle">' + v + '</span>' + anchor + '</label>' +
+        '</div>';
+    }
+
+    c.insertAdjacentHTML('beforeend',
+      '<div class="item-card" id="card-' + item.n + '">' +
+      '<p class="item-num">Ítem ' + item.n + '</p>' +
+      '<p class="item-text">' + item.txt + '</p>' +
+      '<div class="radio-group">' + radios + '</div>' +
+      '</div>');
+  }
+}
+
+function onAnswer() { updateProgress(); }
+
+function getVal(n) {
+  var sel = document.querySelector('input[name="item' + n + '"]:checked');
+  return sel ? parseInt(sel.value) : null;
+}
+
+function getNombre() {
+  var v = document.getElementById('nombrePaciente').value;
+  return v ? v.trim() : '';
+}
+
+function updateProgress() {
+  var totalFields = ITEMS.length + 1;
+  var done = getNombre() ? 1 : 0;
+  for (var i = 0; i < ITEMS.length; i++) {
+    if (getVal(ITEMS[i].n) !== null) done++;
+  }
+  document.getElementById('progressBar').style.width = Math.round((done / totalFields) * 100) + '%';
+}
+
+function calcular() {
+  var nombre = getNombre();
+  var vals = [];
+  for (var i = 0; i < ITEMS.length; i++) vals.push(getVal(ITEMS[i].n));
+
+  var faltaNombre = !nombre;
+  var hasNull = false;
+  for (var i = 0; i < vals.length; i++) { if (vals[i] === null) hasNull = true; }
+
+  var nameBlock = document.getElementById('nameBlock');
+  nameBlock.classList.toggle('field-error', faltaNombre);
+  for (var i = 0; i < ITEMS.length; i++) {
+    var card = document.getElementById('card-' + ITEMS[i].n);
+    card.classList.toggle('field-error', vals[i] === null);
+  }
+
+  if (faltaNombre || hasNull) {
+    document.getElementById('errMsg').style.display = 'block';
+    if (faltaNombre) {
+      nameBlock.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    return;
+  }
+  document.getElementById('errMsg').style.display = 'none';
+
+  var total = 0;
+  for (var i = 0; i < vals.length; i++) total += vals[i];
+
+  document.getElementById('resTitle').textContent = 'Resultados de ' + nombre;
+  document.getElementById('scoreNum').textContent = total;
+
+  var pct = ((total - 7) / 42) * 100;
+  setTimeout(function() { document.getElementById('scoreFill').style.width = pct + '%'; }, 120);
+
+  var clasif = clasificarGeneral(total);
+  document.getElementById('scoreBadge').textContent = clasif.badge;
+  document.getElementById('scoreText').textContent = clasif.texto;
+
+  dibujarBarras(vals);
+
+  document.getElementById('informeIntegral').innerHTML = generarInforme(total, vals, nombre);
+
+  document.getElementById('resultados').style.display = 'block';
+  document.getElementById('progressBar').style.width = '100%';
+  setTimeout(function() {
+    document.getElementById('resultados').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 200);
+}
+
+function dibujarBarras(vals) {
+  var c = document.getElementById('hbarContainer');
+  c.innerHTML = '';
+
+  for (var i = 0; i < ITEMS.length; i++) {
+    var item = ITEMS[i];
+    var v = vals[i];
+    var pct = ((v - 1) / 6) * 100;
+
+    var html = '<div class="hbar-row">' +
+      '<div class="hbar-top"><span class="hbar-name">Ítem ' + item.n + '</span>' +
+      '<span class="hbar-score"><strong>' + v + '</strong> / 7</span></div>' +
+      '<div class="hbar-track"><div class="hbar-fill" id="hbar-' + item.n + '"></div></div>' +
+      '</div>';
+    c.insertAdjacentHTML('beforeend', html);
+  }
+
+  setTimeout(function() {
+    for (var i = 0; i < ITEMS.length; i++) {
+      var item = ITEMS[i];
+      var v = vals[i];
+      var pct = ((v - 1) / 6) * 100;
+      document.getElementById('hbar-' + item.n).style.width = pct + '%';
+    }
+  }, 150);
+}
+
+function clasificarGeneral(total) {
+  if (total <= 20) {
+    return {badge:'Flexibilidad alta', texto:'Tu puntuación indica que, en este momento, tus recuerdos, pensamientos, sentimientos y nervios interfieren poco con tu rendimiento durante la competencia. Esto sugiere una buena capacidad de mantener el foco en lo que estás haciendo, incluso cuando aparecen experiencias internas incómodas.'};
+  }
+  if (total <= 34) {
+    return {badge:'Flexibilidad moderada', texto:'Tu puntuación se ubica en un nivel intermedio. Es probable que en algunas competencias o situaciones de presión tus pensamientos, sentimientos o recuerdos tomen más protagonismo del que te gustaría, mientras que en otras los podés sostener con más distancia.'};
+  }
+  return {badge:'Flexibilidad a trabajar', texto:'Tu puntuación sugiere que, en este momento, los pensamientos, sentimientos, nervios o recuerdos de fracasos pasados están teniendo un peso considerable sobre tu rendimiento durante la competencia. Esto es un patrón abordable, no un rasgo fijo de tu carácter como deportista.'};
+}
+
+function generarInforme(total, vals, nombre) {
+  var html = '<p><strong>' + nombre + '</strong>, tu puntuación total en flexibilidad psicológica deportiva fue de <strong>' + total + '/49</strong>. Recordá que en esta escala, a mayor puntaje, menor flexibilidad — es decir, mayor interferencia de tus experiencias internas sobre tu rendimiento.</p>';
+
+  // Identificar los items con mayor puntaje (mayor interferencia)
+  var itemsConTexto = [];
+  for (var i = 0; i < ITEMS.length; i++) {
+    itemsConTexto.push({n: ITEMS[i].n, val: vals[i]});
+  }
+  itemsConTexto.sort(function(a, b) { return b.val - a.val; });
+
+  var temasPorItem = {
+    1: 'el peso de recuerdos y fracasos anteriores',
+    2: 'la dificultad para controlar los nervios durante la competencia',
+    3: 'la interferencia de los pensamientos en el momento de competir',
+    4: 'la interferencia de las emociones en el momento de competir',
+    5: 'la comparación con otros atletas en el manejo de sus propios sentimientos',
+    6: 'la ansiedad de rendimiento como factor que perjudica la ejecución',
+    7: 'la preocupación como factor que empeora el rendimiento'
+  };
+
+  var top2 = itemsConTexto.slice(0, 2);
+  var hayInterferenciaAlta = top2[0].val >= 5;
+
+  html += '<p><strong>Lectura del patrón de respuesta.</strong> ';
+  if (hayInterferenciaAlta) {
+    html += 'Dentro de tu perfil, los aspectos que más peso muestran son ' + temasPorItem[top2[0].n] + (top2[1].val >= 5 ? ' y ' + temasPorItem[top2[1].n] : '') + '. Esto no implica que el resto de los factores no importen, pero marca un punto de partida concreto: ahí parece estar concentrándose la mayor parte de la interferencia sobre tu rendimiento en este momento.';
+  } else {
+    html += 'Tu perfil no muestra una concentración marcada de interferencia en ningún aspecto particular — los siete factores evaluados (recuerdos, nervios, pensamientos, emociones, comparación con otros, ansiedad y preocupación) aparecen con un peso relativamente bajo y parejo entre sí.';
+  }
+  html += '</p>';
+
+  html += generarRecomendaciones(total, vals);
+
+  return html;
+}
+
+function generarRecomendaciones(total, vals) {
+  var tecnicas = [];
+
+  var itemsConTexto = [];
+  for (var i = 0; i < ITEMS.length; i++) {
+    itemsConTexto.push({n: ITEMS[i].n, val: vals[i]});
+  }
+  itemsConTexto.sort(function(a, b) { return b.val - a.val; });
+  var maxVal = itemsConTexto[0].val;
+  var hayPicoLocal = maxVal >= 5 && total <= 20;
+
+  if (total > 34) {
+    tecnicas.push('defusión cognitiva aplicada a pensamientos de fracaso o autoexigencia, para tomar distancia de ellos sin necesidad de discutirlos o eliminarlos antes de competir');
+    tecnicas.push('trabajo de aceptación de la activación nerviosa como parte esperable de la competencia, en lugar de intentar controlarla o suprimirla');
+  } else if (total > 20) {
+    tecnicas.push('rutinas breves de anclaje atencional al presente, para situaciones puntuales donde los pensamientos o nervios tomen más protagonismo del habitual');
+    tecnicas.push('revisión de patrones de autodiálogo durante la competencia, identificando en qué momentos específicos aparece más interferencia');
+  } else if (hayPicoLocal) {
+    tecnicas.push('trabajo focalizado de defusión sobre el aspecto puntual que mostró más peso en tu perfil, ya que el resto de los factores parece estar bien sostenido');
+    tecnicas.push('rutinas de mantenimiento para los aspectos que ya muestran bajo nivel de interferencia, de forma que ese punto de tensión específico no se generalice al resto');
+  } else {
+    tecnicas.push('rutinas de mantenimiento de la flexibilidad actual (registro breve post-competencia, revisión de qué funcionó), para sostener este recurso en el tiempo y que no dependa solo de rachas de buenos resultados');
+  }
+
+  var listaTexto = '<ul>';
+  for (var i = 0; i < tecnicas.length; i++) {
+    listaTexto += '<li>' + tecnicas[i] + '</li>';
+  }
+  listaTexto += '</ul>';
+
+  return '<p><strong>Para pensar de acá en más.</strong> Este resultado es un punto de partida, no una conclusión. Tiene más sentido leído junto a tu contexto actual — la etapa de la temporada, lo que está en juego en esta competencia particular, cómo veniste entrenando — que como un dato aislado. Algunas líneas de trabajo de psicología del deporte basadas en ACT que suelen explorarse frente a un perfil como este incluyen:' + listaTexto + 'Estas son menciones generales, no un protocolo a aplicar de forma automática: qué técnica tiene sentido, cuándo y para qué, es algo que se define en función de tu situación particular, no de un número en un cuestionario.</p>';
+}
+
+function reiniciar() {
+  document.getElementById('resultados').style.display = 'none';
+  document.getElementById('nombrePaciente').value = '';
+  document.getElementById('errMsg').style.display = 'none';
+  document.getElementById('nameBlock').classList.remove('field-error');
+  for (var i = 0; i < ITEMS.length; i++) {
+    var n = ITEMS[i].n;
+    var radios = document.querySelectorAll('input[name="item' + n + '"]');
+    for (var r = 0; r < radios.length; r++) radios[r].checked = false;
+    document.getElementById('card-' + n).classList.remove('field-error');
+  }
+  document.getElementById('progressBar').style.width = '0%';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+var header = document.querySelector('header');
+window.addEventListener('scroll', function() {
+  header.classList.toggle('scrolled', window.scrollY > 12);
+}, false);
+
+document.getElementById('year').textContent = new Date().getFullYear();
+buildItems();
+</script>
+</body>
+</html>

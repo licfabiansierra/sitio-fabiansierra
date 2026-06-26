@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Evitación Experiencial (AAQ-II) · Lic. Fabián Sierra</title>
+<meta name="description" content="Cuestionario AAQ-II de evitación experiencial e inflexibilidad psicológica. Bond et al. (2011), versión española Ruiz et al. (2013). Lic. Fabián Sierra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;--paper:#FBFAF7;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --line:#D8D4C9;--line-soft:#E5E2D9;
+    --accent:#942322;--accent-deep:#741A19;
+    --maxw:860px;--pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --success:#1F5C3A;--warning:#7A5A0E;--danger:#7A1A1A;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#F3F1EC;scroll-behavior:smooth;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#F3F1EC;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(243,241,236,.82);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .4s var(--ease),background .4s var(--ease)}
+  header.scrolled{border-bottom:1px solid var(--line);background:rgba(243,241,236,.94)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.98rem}
+  .brand span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .nav-tag{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+  .prog-wrap{height:2px;background:var(--line-soft);position:sticky;top:68px;z-index:49}
+  .prog-fill{height:100%;background:var(--accent);width:0%;transition:width .35s var(--ease)}
+
+  .hero{background:#F3F1EC;border-top:1px solid var(--line);padding-top:clamp(3rem,7vw,5.5rem);padding-bottom:clamp(3rem,7vw,5rem);position:relative}
+  .hero .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.45;z-index:0;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:min(11vw,88px) min(11vw,88px);-webkit-mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%);mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%)}
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1.2rem}
+  .eyebrow .num{color:var(--accent);font-weight:500}
+  .hero h1{font-weight:700;letter-spacing:-.028em;line-height:1.04;font-size:clamp(2.2rem,6vw,4rem);margin-bottom:1.4rem}
+  .hero-sub{color:var(--ink-soft);font-size:clamp(1rem,1.8vw,1.15rem);line-height:1.68;max-width:58ch;margin-bottom:2rem}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem 2rem;padding-top:1.8rem;border-top:1px solid var(--line)}
+  @media(min-width:580px){.hero-meta{grid-template-columns:repeat(4,1fr)}}
+  .hero-meta .k{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:.9rem;font-weight:500;margin-top:.2rem}
+
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9rem;letter-spacing:.005em;padding:.82rem 1.6rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .3s var(--ease);cursor:pointer;font-family:"Archivo",sans-serif}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(148,35,34,.4)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--bone);box-shadow:none;transform:none}
+  .btn-block{display:block;width:100%;justify-content:center;margin-top:1.6rem}
+
+  main{background:#F3F1EC;padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(3rem,7vw,6rem)}
+
+  .ficha-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .sec-tag{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-bottom:.9rem;margin-bottom:1.1rem;border-bottom:1px solid var(--line)}
+  .ficha-body{font-size:.93rem;color:var(--ink-soft);font-weight:300;line-height:1.75}
+  .ficha-body strong{font-weight:600;color:var(--ink)}
+  .ficha-body p+p{margin-top:.8rem}
+  .ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.5rem;margin-top:.9rem;font-size:.84rem;color:var(--ink-soft);border-top:1px solid var(--line-soft);padding-top:.9rem}
+  .ficha-grid dt{font-weight:600;color:var(--ink-soft)}
+  .ficha-grid dd{font-weight:300}
+  @media(max-width:480px){.ficha-grid{grid-template-columns:1fr}}
+
+  .nota-honesta{background:#FBF8ED;border-left:3px solid var(--warning);padding:1rem 1.3rem;margin-top:1rem;font-size:.82rem;color:var(--ink-soft);font-weight:300;line-height:1.65}
+  .nota-honesta strong{color:var(--ink);font-weight:600}
+  .nota-honesta+.nota-honesta{margin-top:.8rem}
+
+  .name-block{border:1px solid var(--line);background:var(--paper);padding:clamp(1.4rem,3vw,2rem);margin-bottom:2rem;border-left:3px solid var(--accent);scroll-margin-top:140px}
+  .name-block label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.65rem;font-weight:500}
+  .name-block .req{color:var(--accent)}
+  .name-block input[type=text]{width:100%;border:none;border-bottom:2px solid var(--line);background:transparent;font-family:"Archivo",sans-serif;font-size:1.08rem;font-weight:500;color:var(--ink);padding:.4rem 0;outline:none;transition:border-color .25s}
+  .name-block input[type=text]:focus{border-bottom-color:var(--accent)}
+  .name-block input[type=text]::placeholder{color:var(--muted);font-weight:300;font-size:.96rem}
+  .name-block.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .name-block.field-error input[type=text]{border-bottom-color:var(--danger)}
+
+  .consigna-block{margin-bottom:2.5rem;border-top:1px solid var(--line);padding-top:1.6rem}
+  .consigna-block h2{font-weight:700;letter-spacing:-.022em;line-height:1.1;font-size:clamp(1.3rem,3vw,1.8rem);margin-bottom:.9rem}
+  .consigna{background:var(--bone-deep);border-left:2px solid var(--line);padding:.85rem 1.2rem;font-size:.93rem;line-height:1.7;color:var(--muted);font-style:italic}
+
+  .scale-ref{border:1px solid var(--line);background:var(--paper);padding:1rem 1.4rem;margin-bottom:2rem}
+  .scale-ref-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:.7rem}
+  .scale-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.2rem;text-align:center}
+  .scale-num{font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.2rem}
+  .scale-txt{font-size:.55rem;color:var(--muted);line-height:1.25;padding:0 .05rem}
+
+  .item-card{background:var(--paper);border:1px solid var(--line);border-left:3px solid transparent;padding:1.3rem 1.5rem;margin-bottom:.6rem;transition:border-left-color .2s var(--ease)}
+  .item-card.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .item-num{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.45rem}
+  .item-text{font-size:.97rem;font-weight:500;color:var(--ink);margin-bottom:1rem;line-height:1.5}
+
+  .radio-group{display:grid;grid-template-columns:repeat(7,1fr);gap:.2rem}
+  .radio-opt{text-align:center}
+  .radio-opt input[type=radio]{display:none}
+  .radio-opt label{display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:pointer}
+  .radio-circle{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:var(--bone);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:var(--muted);transition:all .15s;margin:0 auto}
+  .radio-opt input[type=radio]:checked + label .radio-circle{background:var(--accent);border-color:var(--accent);color:#fff;transform:scale(1.1)}
+  .radio-opt label:hover .radio-circle{border-color:var(--accent);color:var(--accent)}
+  .radio-anchor{font-size:.48rem;color:var(--muted);line-height:1.2;max-width:44px;text-align:center}
+
+  .submit-zone{text-align:center;margin-top:2.5rem}
+  .err-msg{background:#FBF0F0;border:1px solid #E8BFBF;color:var(--danger);padding:.75rem 1.1rem;font-size:.86rem;margin-top:1rem;display:none;font-weight:500}
+
+  .disclaimer-card{background:var(--ink);color:var(--bone);padding:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:1.5rem;border-left:3px solid var(--accent)}
+  .disclaimer-tag{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#9a9ba2;font-weight:600;margin-bottom:.9rem}
+  .disclaimer-card p{font-size:.92rem;font-weight:300;line-height:1.75;color:#dcdce0}
+  .disclaimer-card strong{font-weight:600;color:#fff}
+
+  #resultados{display:none;margin-top:4rem;border-top:1px solid var(--line);padding-top:3rem}
+  .res-eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1rem}
+  .res-eyebrow .num{color:var(--accent);font-weight:500}
+  .res-title{font-weight:700;letter-spacing:-.022em;line-height:1.08;font-size:clamp(1.6rem,4vw,2.6rem);margin-bottom:2rem}
+
+  .score-card{background:var(--ink);color:var(--bone);padding:clamp(2rem,4vw,3rem);margin-bottom:1.5rem}
+  .score-eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#9a9ba2;margin-bottom:.65rem}
+  .score-num{font-size:clamp(3.5rem,9vw,5.5rem);font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:.2rem}
+  .score-denom{font-size:.8rem;color:#9a9ba2;margin-bottom:1.2rem;font-weight:300}
+  .score-track{background:rgba(255,255,255,.12);height:3px;max-width:360px;margin:0 0 1.2rem;overflow:hidden}
+  .score-fill{height:100%;background:var(--accent);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+  .score-badge{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--bone);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .8rem;font-weight:600;margin-bottom:1rem}
+  .score-text{font-size:.95rem;font-weight:300;color:#c9cace;line-height:1.65;max-width:55ch}
+
+  .chart-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3.2vw,2.2rem);margin-bottom:1.5rem}
+  .chart-title{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1.6rem}
+  .hbar-row{margin-bottom:1.4rem}
+  .hbar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
+  .hbar-name{font-size:.88rem;font-weight:600;color:var(--ink)}
+  .hbar-score{font-size:.82rem;color:var(--muted);font-weight:500}
+  .hbar-score strong{color:var(--ink);font-weight:700}
+  .hbar-track{height:10px;background:var(--bone-deep);overflow:hidden}
+  .hbar-fill{height:100%;background:var(--accent);width:0%;transition:width 1.1s cubic-bezier(.4,0,.2,1)}
+  .hbar-foot{display:flex;justify-content:space-between;margin-top:.35rem}
+  .hbar-foot span{font-size:.6rem;color:var(--muted);letter-spacing:.04em}
+  .ref-markers{position:relative;height:18px;margin-top:.5rem}
+  .ref-marker{position:absolute;font-size:.55rem;color:var(--muted);transform:translateX(-50%);line-height:1.2;text-align:center}
+  .ref-marker::before{content:'';display:block;width:1px;height:6px;background:var(--line);margin:0 auto 2px}
+
+  .informe-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .informe-body{font-size:.95rem;color:var(--ink-soft);font-weight:300;line-height:1.8}
+  .informe-body p+p{margin-top:.9rem}
+  .informe-body strong{font-weight:600;color:var(--ink)}
+  .informe-body em{font-style:italic;color:var(--ink-soft)}
+  .informe-body ul{margin:.6rem 0 .6rem 1.2rem}
+  .informe-body li{margin-bottom:.4rem}
+
+  .firma-box{text-align:center;padding:2rem 1.5rem;margin-top:2rem;border-top:1px solid var(--line)}
+  .firma-name{font-size:.98rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin-bottom:.2rem}
+  .firma-sub{font-size:.76rem;color:var(--muted);font-weight:300}
+
+  .cta-strip{border-top:1px solid var(--line);background:var(--ink);color:var(--bone);margin-top:3rem}
+  .cta-strip .wrap{padding-top:clamp(3rem,6vw,4.5rem);padding-bottom:clamp(3rem,6vw,4.5rem);display:flex;flex-direction:column;gap:1.6rem;align-items:flex-start}
+  @media(min-width:780px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;line-height:1.15;max-width:22ch}
+  .cta-strip .eyebrow{color:#9a9ba2;margin-bottom:1rem}
+
+  footer{background:var(--ink);color:#b7b8bd;border-top:1px solid #2a2b30}
+  .foot-inner{padding:clamp(2rem,4vw,3rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:#fff;font-weight:700;font-size:.98rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.66rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-top:.5rem}
+  .foot-bottom{border-top:1px solid #2a2b30;padding:1.3rem var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:center}
+  .foot-bottom span{font-size:.7rem;color:#76777d;letter-spacing:.05em}
+
+  @media(max-width:520px){.hero h1{font-size:2rem}.score-num{font-size:3rem}.radio-circle{width:26px;height:26px;font-size:.66rem}.radio-anchor{font-size:.44rem;max-width:36px}.ficha-grid{grid-template-columns:1fr}.scale-grid{grid-template-columns:repeat(7,1fr)}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com" target="_blank">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <span class="nav-tag">Procesos Emocionales</span>
+  </div>
+</header>
+
+<div class="prog-wrap"><div class="prog-fill" id="progressBar"></div></div>
+
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">AAQ-II</span> Procesos Emocionales</div>
+    <h1>Evitación Experiencial</h1>
+    <p class="hero-sub">¿Cuánto interfieren tus pensamientos, recuerdos y emociones dolorosas en la vida que querés llevar? Este cuestionario mide la tendencia a alejarse de las experiencias internas difíciles — y el costo que eso tiene en la acción cotidiana.</p>
+    <div class="hero-meta">
+      <div><span class="k">Ítems</span><span class="v">7 · Likert 1–7</span></div>
+      <div><span class="k">Área</span><span class="v">Procesos emocionales</span></div>
+      <div><span class="k">Tiempo</span><span class="v">2 min</span></div>
+      <div><span class="k">Uso</span><span class="v">Clínico exclusivo</span></div>
+    </div>
+    <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem">
+      <button class="btn" onclick="irAlFormulario()">Responder cuestionario</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('ficha-tecnica').scrollIntoView({behavior:'smooth',block:'start'})">Ver ficha técnica</button>
+    </div>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <div class="name-block" id="nameBlock">
+    <label for="nombrePaciente">Tu nombre <span class="req">*</span></label>
+    <input type="text" id="nombrePaciente" placeholder="Escribí tu nombre o cómo preferís que te llamemos" autocomplete="off" oninput="onAnswer()"/>
+  </div>
+
+  <div class="consigna-block">
+    <div class="eyebrow"><span class="num">01</span> Consigna</div>
+    <h2>A continuación hay una lista de afirmaciones.</h2>
+    <p class="consigna">Indicá en qué medida cada afirmación es verdad para vos. No hay respuestas correctas ni incorrectas — respondé con lo que realmente sentís o vivís, no con lo que creés que debería ser.</p>
+  </div>
+
+  <div class="scale-ref">
+    <p class="scale-ref-label">Escala de respuesta</p>
+    <div class="scale-grid">
+      <div><div class="scale-num">1</div><div class="scale-txt">Nunca es verdad</div></div>
+      <div><div class="scale-num">2</div><div class="scale-txt">Muy raramente es verdad</div></div>
+      <div><div class="scale-num">3</div><div class="scale-txt">Raramente es verdad</div></div>
+      <div><div class="scale-num">4</div><div class="scale-txt">A veces es verdad</div></div>
+      <div><div class="scale-num">5</div><div class="scale-txt">Frecuentemente es verdad</div></div>
+      <div><div class="scale-num">6</div><div class="scale-txt">Casi siempre es verdad</div></div>
+      <div><div class="scale-num">7</div><div class="scale-txt">Siempre es verdad</div></div>
+    </div>
+  </div>
+
+  <div id="itemsContainer"></div>
+
+  <div class="submit-zone">
+    <button class="btn" onclick="calcular()">Ver mis resultados</button>
+    <p class="err-msg" id="errMsg">Faltan campos por completar — revisá lo marcado en rojo.</p>
+  </div>
+
+  <section id="resultados">
+
+    <div class="res-eyebrow"><span class="num">02</span> Informe completo</div>
+    <h2 class="res-title" id="resTitle">Tus resultados</h2>
+
+    <div class="disclaimer-card">
+      <p class="disclaimer-tag">Antes de leer tu resultado</p>
+      <p>Este resultado describe <strong>cómo te relacionás con tus experiencias internas en este momento</strong> — no es un diagnóstico ni una etiqueta permanente. La evitación experiencial es un proceso normal y universal: el problema no es tener pensamientos o emociones difíciles, sino cuánto espacio ocupan en las decisiones de cada día. Para una lectura más profunda, lo más certero sigue siendo el trabajo con un profesional que pueda contextualizar esto dentro de tu historia particular.</p>
+    </div>
+
+    <div class="score-card">
+      <p class="score-eyebrow">Evitación Experiencial · AAQ-II</p>
+      <div class="score-num" id="scoreNum">—</div>
+      <p class="score-denom">rango 7–49 · a mayor puntaje, mayor evitación experiencial</p>
+      <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+      <div class="score-badge" id="scoreBadge"></div>
+      <p class="score-text" id="scoreText"></p>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">Tu puntuación en el rango posible</p>
+      <div class="hbar-row">
+        <div class="hbar-top">
+          <span class="hbar-name">Evitación Experiencial</span>
+          <span class="hbar-score"><strong id="chartScore">—</strong> / 49</span>
+        </div>
+        <div class="hbar-track"><div class="hbar-fill" id="hbarFill"></div></div>
+        <div class="hbar-foot"><span>7</span><span id="hbarPct">—</span><span>49</span></div>
+        <div class="ref-markers">
+          <div class="ref-marker" id="marker1" style="left:26%">No clínico típico<br>(18–23)</div>
+          <div class="ref-marker" id="marker2" style="left:52%">Zona clínica<br>(desde 29)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="informe-card">
+      <p class="sec-tag">Análisis aplicado · Terapia de Aceptación y Compromiso (ACT)</p>
+      <div class="informe-body" id="informeIntegral"></div>
+    </div>
+
+    <div class="firma-box">
+      <p class="firma-name">Lic. Fabián Sierra</p>
+      <p class="firma-sub">Psicología Clínica &amp; Alto Rendimiento · fabiansierra.com</p>
+    </div>
+
+    <button class="btn btn-ghost btn-block" onclick="reiniciar()">Completar de nuevo</button>
+
+  </section>
+
+  <section id="ficha-tecnica" style="margin-top:4rem;border-top:1px solid var(--line);padding-top:2.5rem;scroll-margin-top:120px">
+    <p class="eyebrow"><span class="num">+</span> Ficha técnica</p>
+    <div class="ficha-card">
+      <p class="sec-tag">Sobre este instrumento</p>
+      <div class="ficha-body">
+        <p>El <strong>Cuestionario de Aceptación y Acción II (AAQ-II)</strong> fue desarrollado por Bond et al. (2011) para medir la <strong>evitación experiencial</strong> y la <strong>inflexibilidad psicológica</strong> — los dos constructos centrales del modelo de psicopatología de la Terapia de Aceptación y Compromiso (ACT). La evitación experiencial se define como la tendencia a no querer estar en contacto con experiencias internas desagradables (pensamientos, emociones, recuerdos, sensaciones físicas) y a actuar para modificarlas, escapar de ellas o reducir su frecuencia, incluso cuando hacerlo tiene un costo en términos de vida valiosa.</p>
+        <p>La versión española utilizada en este cuestionario es la de Ruiz, Langer, Luciano, Cangas &amp; Beltrán (2013, Psicothema, 25, 123-129), validada en población española clínica y no clínica. Es el instrumento de medida ACT más utilizado a nivel mundial y está disponible de forma gratuita para uso clínico e investigador.</p>
+        <dl class="ficha-grid">
+          <dt>Ítems</dt><dd>7 · escala Likert 1–7</dd>
+          <dt>Dimensiones</dt><dd>Unidimensional (un único factor)</dd>
+          <dt>Rango</dt><dd>7 a 49 puntos</dd>
+          <dt>Ítems invertidos</dt><dd>Ninguno</dd>
+          <dt>Fiabilidad</dt><dd>α=.88 (Ruiz et al., 2013)</dd>
+          <dt>Marco teórico</dt><dd>Terapia de Aceptación y Compromiso (ACT)</dd>
+        </dl>
+        <div class="nota-honesta">
+          <strong>Sobre los puntos de referencia.</strong> Ruiz et al. (2013) reportan puntuaciones promedio descriptivas (no baremos poblacionales formales): población no clínica ≈ 18–23 puntos, población clínica &gt; 29 puntos. Estos valores son orientativos — no son puntos de corte diagnósticos ni umbrales de patología. Por eso los resultados de este cuestionario se presentan de forma descriptiva y contextualizada, sin etiquetas de "normal" o "patológico".
+        </div>
+        <div class="nota-honesta">
+          <strong>Sobre lo que mide y lo que no.</strong> El AAQ-II es una medida <em>transdiagnóstica</em> — no está diseñada para detectar un trastorno específico, sino para evaluar un proceso que subyace a muchos de ellos. Puntuaciones altas en evitación experiencial se asocian con mayor sintomatología ansiosa, depresiva y de estrés, pero la relación no es determinista: hay personas con puntuaciones altas que funcionan bien en distintas áreas de su vida, y hay quienes con puntuaciones moderadas muestran un malestar significativo. El resultado siempre debe leerse junto al contexto.
+        </div>
+        <div class="nota-honesta">
+          <strong>Sobre las críticas al instrumento.</strong> Algunos estudios (Rochefort et al., 2017; Tyndall et al., 2019) señalan que el AAQ-II puede solaparse con medidas de afecto negativo general (neuroticismo, distrés) más que medir estrictamente evitación experiencial como proceso independiente. Es una limitación real, reconocida en la literatura ACT, que refuerza la necesidad de no leer el resultado en forma aislada.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="num">+</span> Profundizar el resultado</div>
+      <h3>¿Querés trabajar lo que mostró tu evaluación?</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Complet%C3%A9%20el%20AAQ-II%20de%20evitaci%C3%B3n%20experiencial%20y%20me%20gustar%C3%ADa%20coordinar%20una%20consulta." target="_blank" rel="noopener">
+      Coordinar consulta vía WhatsApp
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <span style="font-size:.8rem;color:#76777d">AAQ-II · Bond et al. (2011) · Ruiz et al. (2013)</span>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Atención estrictamente particular</span>
+  </div>
+</footer>
+
+<script>
+var ITEMS = [
+  {n:1, txt:'Mis experiencias y recuerdos dolorosos hacen que me sea difícil vivir la vida que querría.'},
+  {n:2, txt:'Tengo miedo de mis sentimientos.'},
+  {n:3, txt:'Me preocupa no ser capaz de controlar mis preocupaciones y sentimientos.'},
+  {n:4, txt:'Mis recuerdos dolorosos me impiden llevar una vida plena.'},
+  {n:5, txt:'Mis emociones interfieren en cómo me gustaría que fuera mi vida.'},
+  {n:6, txt:'Parece que la mayoría de la gente lleva su vida mejor que yo.'},
+  {n:7, txt:'Mis preocupaciones interfieren en el camino de lo que quiero conseguir.'}
+];
+
+var ANCHORS = {
+  1:'Nunca es verdad',
+  2:'Muy raramente es verdad',
+  3:'Raramente es verdad',
+  4:'A veces es verdad',
+  5:'Frecuentemente es verdad',
+  6:'Casi siempre es verdad',
+  7:'Siempre es verdad'
+};
+
+function irAlFormulario() {
+  var el = document.getElementById('nameBlock');
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(function(){ document.getElementById('nombrePaciente').focus(); }, 450);
+}
+
+function buildItems() {
+  var c = document.getElementById('itemsContainer');
+  for (var i = 0; i < ITEMS.length; i++) {
+    var item = ITEMS[i];
+    var radios = '';
+    for (var v = 1; v <= 7; v++) {
+      var showAnchor = (v === 1 || v === 4 || v === 7) ? ANCHORS[v] : '';
+      radios += '<div class="radio-opt">' +
+        '<input type="radio" name="item' + item.n + '" id="i' + item.n + 'v' + v + '" value="' + v + '" onchange="onAnswer()">' +
+        '<label for="i' + item.n + 'v' + v + '"><span class="radio-circle">' + v + '</span>' +
+        '<span class="radio-anchor">' + showAnchor + '</span></label>' +
+        '</div>';
+    }
+    c.insertAdjacentHTML('beforeend',
+      '<div class="item-card" id="card-' + item.n + '">' +
+      '<p class="item-num">Ítem ' + item.n + '</p>' +
+      '<p class="item-text">' + item.txt + '</p>' +
+      '<div class="radio-group">' + radios + '</div>' +
+      '</div>');
+  }
+}
+
+function onAnswer() { updateProgress(); }
+
+function getVal(n) {
+  var sel = document.querySelector('input[name="item' + n + '"]:checked');
+  return sel ? parseInt(sel.value) : null;
+}
+
+function getNombre() {
+  var v = document.getElementById('nombrePaciente').value;
+  return v ? v.trim() : '';
+}
+
+function updateProgress() {
+  var totalFields = ITEMS.length + 1;
+  var done = getNombre() ? 1 : 0;
+  for (var i = 0; i < ITEMS.length; i++) {
+    if (getVal(ITEMS[i].n) !== null) done++;
+  }
+  document.getElementById('progressBar').style.width = Math.round((done / totalFields) * 100) + '%';
+}
+
+function calcular() {
+  var nombre = getNombre();
+  var vals = [];
+  for (var i = 0; i < ITEMS.length; i++) vals.push(getVal(ITEMS[i].n));
+
+  var faltaNombre = !nombre;
+  var hasNull = false;
+  for (var i = 0; i < vals.length; i++) { if (vals[i] === null) hasNull = true; }
+
+  var nameBlock = document.getElementById('nameBlock');
+  nameBlock.classList.toggle('field-error', faltaNombre);
+  for (var i = 0; i < ITEMS.length; i++) {
+    var card = document.getElementById('card-' + ITEMS[i].n);
+    card.classList.toggle('field-error', vals[i] === null);
+  }
+
+  if (faltaNombre || hasNull) {
+    document.getElementById('errMsg').style.display = 'block';
+    if (faltaNombre) nameBlock.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  document.getElementById('errMsg').style.display = 'none';
+
+  var total = 0;
+  for (var i = 0; i < vals.length; i++) total += vals[i];
+
+  document.getElementById('resTitle').textContent = 'Resultados de ' + nombre;
+  document.getElementById('scoreNum').textContent = total;
+
+  var pct = ((total - 7) / (49 - 7)) * 100;
+  setTimeout(function() {
+    document.getElementById('scoreFill').style.width = pct + '%';
+    document.getElementById('hbarFill').style.width = pct + '%';
+  }, 120);
+
+  document.getElementById('chartScore').textContent = total;
+  document.getElementById('hbarPct').textContent = Math.round(pct) + '% del rango';
+
+  var nivel = clasificar(total);
+  document.getElementById('scoreBadge').textContent = nivel.etiqueta;
+  document.getElementById('scoreText').textContent = nivel.scoreText;
+
+  document.getElementById('informeIntegral').innerHTML = generarInforme(total, nombre, nivel);
+
+  document.getElementById('resultados').style.display = 'block';
+  document.getElementById('progressBar').style.width = '100%';
+  setTimeout(function() {
+    document.getElementById('resultados').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 200);
+}
+
+function clasificar(total) {
+  // Bandas basadas en los datos descriptivos de Ruiz et al. (2013):
+  // poblacion no clinica promedio 18-23, clinica > 29.
+  if (total <= 17) {
+    return {
+      etiqueta: 'Evitación baja',
+      scoreText: 'Tus pensamientos y emociones difíciles parecen interferir poco en la vida que querés llevar — hay bastante espacio entre lo que sentís y lo que hacés.',
+      nivel: 'baja'
+    };
+  }
+  if (total <= 28) {
+    return {
+      etiqueta: 'Evitación moderada',
+      scoreText: 'Hay cierta interferencia de tus experiencias internas en tu vida cotidiana — dentro del rango que se observa típicamente en población general no clínica.',
+      nivel: 'moderada'
+    };
+  }
+  return {
+    etiqueta: 'Evitación elevada',
+    scoreText: 'Tus pensamientos, recuerdos y emociones difíciles están ocupando bastante espacio y afectando la vida que querés llevar — una señal que vale la pena atender.',
+    nivel: 'elevada'
+  };
+}
+
+function generarInforme(total, nombre, nivel) {
+  var html = '<p><strong>' + nombre + '</strong>, esto es lo que muestra tu resultado en este momento.</p>';
+
+  if (nivel.nivel === 'baja') {
+    html += '<p><strong>Lo que indica tu puntuación (' + total + '/49).</strong> ' +
+      'Tu tendencia a alejarte de tus experiencias internas difíciles parece ser baja en este momento — tus pensamientos, emociones y recuerdos dolorosos no parecen estar dirigiendo mucho tus decisiones ni achicando el espacio de tu vida. Desde la perspectiva de ACT, esto sugiere que hay una buena cuota de flexibilidad psicológica disponible: podés estar en contacto con lo que sentís y aun así actuar en la dirección que valorás.</p>';
+    html += '<p><em>Una pregunta para llevarte:</em> ¿hay algún área específica de tu vida — algún tipo de situación, conversación o emoción — donde la tendencia a evitar sea más fuerte que lo que muestra este promedio general? Los promedios a veces esconden patrones localizados que vale la pena notar.</p>';
+
+  } else if (nivel.nivel === 'moderada') {
+    html += '<p><strong>Lo que indica tu puntuación (' + total + '/49).</strong> ' +
+      'Hay cierta interferencia de tus experiencias internas — pensamientos que te preocupan, emociones que se sienten difíciles de tolerar, recuerdos que reaparecen — en cómo vivís tu día a día. Esta puntuación está dentro del rango que se observa típicamente en población general: no es un nivel que genere alarma, pero sí es suficiente como para preguntarse en qué áreas concretas eso ocurre más.</p>';
+    html += '<p>Desde ACT, lo que importa no es tanto el número sino <strong>qué es lo que se evita</strong> y <strong>qué costo tiene eso</strong>. Un nivel moderado de evitación en contextos de bajo riesgo puede ser completamente funcional; el mismo nivel en áreas centrales de tu vida (vínculos, trabajo, salud) puede estar achicando significativamente lo que podés hacer.</p>';
+    html += '<p><em>¿Notás alguna área donde el intento de no sentir ciertas cosas te haya llevado a alejarte de algo que te importa?</em> Esa es la pregunta que suele abrir el trabajo más útil.</p>';
+
+  } else {
+    html += '<p><strong>Lo que indica tu puntuación (' + total + '/49).</strong> ' +
+      'Tus experiencias internas — pensamientos sobre el futuro, recuerdos dolorosos, emociones que se sienten difíciles de tolerar — están ocupando bastante espacio y parecen estar influyendo mucho en las decisiones cotidianas. Este nivel se asocia, en la literatura ACT, con mayor malestar emocional, dificultades en el funcionamiento y una vida que se va volviendo progresivamente más pequeña: menos actividades, menos vínculos, menos riesgos, para evitar el contacto con lo que duele.</p>';
+    html += '<p>El punto central de ACT no es que tengas esos pensamientos o emociones — eso es universal — sino que <strong>el intento de controlarlos o eliminarlos muchas veces amplifica el problema</strong> en lugar de resolverlo. Es la paradoja del control: cuánto más se lucha contra ciertos contenidos internos, más presentes se vuelven.</p>';
+    html += '<p><em>¿Hay cosas que dejaste de hacer, evitás iniciar o postergás de forma habitual para no activar cierto malestar?</em> Si la lista es larga, eso es información importante. No como autocrítica — como punto de partida.</p>';
+  }
+
+  html += generarRecomendaciones(nivel.nivel);
+  return html;
+}
+
+function generarRecomendaciones(nivel) {
+  var tecnicas = [];
+
+  if (nivel === 'baja') {
+    tecnicas.push('<strong>Observación sin intervención</strong> — dedicar unos minutos al día a notar experiencias internas (un pensamiento molesto, una incomodidad física, una emoción incómoda) sin hacer nada para cambiarlas, solo para practicar la diferencia entre "tener" una experiencia y "ser" esa experiencia.');
+  } else if (nivel === 'moderada') {
+    tecnicas.push('<strong>Defusión cognitiva</strong> — técnicas para crear distancia entre vos y tus pensamientos, de modo que puedan estar presentes sin dirigir automáticamente el comportamiento. Ejemplos: notar el pensamiento como pensamiento ("estoy teniendo el pensamiento de que..."), observarlo desde afuera en lugar de mirarlo desde adentro.');
+    tecnicas.push('<strong>Aceptación como postura activa</strong> — distinguir entre "resignarse" (rendirse ante algo que no querés) y "aceptar" (hacer espacio para una experiencia difícil sin luchar contra ella, para poder actuar igual). Son posturas completamente distintas.');
+  } else {
+    tecnicas.push('<strong>Defusión cognitiva</strong> — crear distancia entre vos y los pensamientos que dirigen la evitación. Cuando un pensamiento como "no puedo con esto" aparece, la defusión no busca eliminarlo sino que vos dejes de tratarlo como una orden que hay que obedecer.');
+    tecnicas.push('<strong>Activación conductual guiada por valores</strong> — identificar una o dos acciones pequeñas y concretas que estén alineadas con lo que te importa (aunque impliquen cierto malestar) y realizarlas de forma gradual, sin esperar a que el malestar desaparezca primero.');
+    tecnicas.push('<strong>Trabajo de clarificación de valores</strong> — explorar qué áreas de tu vida son más importantes para vos y qué distancia hay entre lo que valorás y lo que estás haciendo realmente. Esta brecha suele ser una fuente de malestar más importante que las emociones en sí mismas.');
+  }
+
+  var lista = '<ul>';
+  for (var i = 0; i < tecnicas.length; i++) {
+    lista += '<li>' + tecnicas[i] + '</li>';
+  }
+  lista += '</ul>';
+
+  return '<p><strong>Algunas herramientas de ACT que suelen trabajarse con este perfil.</strong>' + lista +
+    'Estas son menciones generales — qué tiene sentido para vos, cómo y cuándo, es algo que se define dentro de un proceso terapéutico, no a partir de un número en un cuestionario.</p>';
+}
+
+function reiniciar() {
+  document.getElementById('resultados').style.display = 'none';
+  document.getElementById('nombrePaciente').value = '';
+  document.getElementById('errMsg').style.display = 'none';
+  document.getElementById('nameBlock').classList.remove('field-error');
+  for (var i = 0; i < ITEMS.length; i++) {
+    var n = ITEMS[i].n;
+    var radios = document.querySelectorAll('input[name="item' + n + '"]');
+    for (var r = 0; r < radios.length; r++) radios[r].checked = false;
+    document.getElementById('card-' + n).classList.remove('field-error');
+  }
+  document.getElementById('progressBar').style.width = '0%';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+var header = document.querySelector('header');
+window.addEventListener('scroll', function() {
+  header.classList.toggle('scrolled', window.scrollY > 12);
+}, false);
+
+document.getElementById('year').textContent = new Date().getFullYear();
+buildItems();
+</script>
+</body>
+</html>

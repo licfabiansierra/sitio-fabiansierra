@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Ansiedad Generalizada (GAD-7) · Lic. Fabián Sierra</title>
+<meta name="description" content="Cuestionario GAD-7 de ansiedad generalizada. Spitzer, Kroenke, Williams y Löwe (2006), versión española CIBERSAM. Lic. Fabián Sierra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;--paper:#FBFAF7;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --line:#D8D4C9;--line-soft:#E5E2D9;
+    --accent:#942322;--accent-deep:#741A19;
+    --maxw:860px;--pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --success:#1F5C3A;--warning:#7A5A0E;--danger:#7A1A1A;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#F3F1EC;scroll-behavior:smooth;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#F3F1EC;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(243,241,236,.82);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .4s var(--ease),background .4s var(--ease)}
+  header.scrolled{border-bottom:1px solid var(--line);background:rgba(243,241,236,.94)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.98rem}
+  .brand span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .nav-tag{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+  .prog-wrap{height:2px;background:var(--line-soft);position:sticky;top:68px;z-index:49}
+  .prog-fill{height:100%;background:var(--accent);width:0%;transition:width .35s var(--ease)}
+
+  .hero{background:#F3F1EC;border-top:1px solid var(--line);padding-top:clamp(3rem,7vw,5.5rem);padding-bottom:clamp(3rem,7vw,5rem);position:relative}
+  .hero .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.45;z-index:0;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:min(11vw,88px) min(11vw,88px);-webkit-mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%);mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%)}
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1.2rem}
+  .eyebrow .num{color:var(--accent);font-weight:500}
+  .hero h1{font-weight:700;letter-spacing:-.028em;line-height:1.04;font-size:clamp(2.2rem,6vw,4rem);margin-bottom:1.4rem}
+  .hero-sub{color:var(--ink-soft);font-size:clamp(1rem,1.8vw,1.15rem);line-height:1.68;max-width:58ch;margin-bottom:2rem}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem 2rem;padding-top:1.8rem;border-top:1px solid var(--line)}
+  @media(min-width:580px){.hero-meta{grid-template-columns:repeat(4,1fr)}}
+  .hero-meta .k{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:.9rem;font-weight:500;margin-top:.2rem}
+
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9rem;letter-spacing:.005em;padding:.82rem 1.6rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .3s var(--ease);cursor:pointer;font-family:"Archivo",sans-serif}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(148,35,34,.4)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--bone);box-shadow:none;transform:none}
+  .btn-block{display:block;width:100%;justify-content:center;margin-top:1.6rem}
+
+  main{background:#F3F1EC;padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(3rem,7vw,6rem)}
+
+  .sec-tag{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-bottom:.9rem;margin-bottom:1.1rem;border-bottom:1px solid var(--line)}
+  .ficha-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .ficha-body{font-size:.93rem;color:var(--ink-soft);font-weight:300;line-height:1.75}
+  .ficha-body strong{font-weight:600;color:var(--ink)}
+  .ficha-body p+p{margin-top:.8rem}
+  .ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.5rem;margin-top:.9rem;font-size:.84rem;color:var(--ink-soft);border-top:1px solid var(--line-soft);padding-top:.9rem}
+  .ficha-grid dt{font-weight:600;color:var(--ink-soft)}
+  .ficha-grid dd{font-weight:300}
+  @media(max-width:480px){.ficha-grid{grid-template-columns:1fr}}
+  .nota-honesta{background:#FBF8ED;border-left:3px solid var(--warning);padding:1rem 1.3rem;margin-top:1rem;font-size:.82rem;color:var(--ink-soft);font-weight:300;line-height:1.65}
+  .nota-honesta strong{color:var(--ink);font-weight:600}
+  .nota-honesta+.nota-honesta{margin-top:.8rem}
+
+  .name-block{border:1px solid var(--line);background:var(--paper);padding:clamp(1.4rem,3vw,2rem);margin-bottom:2rem;border-left:3px solid var(--accent);scroll-margin-top:140px}
+  .name-block label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.65rem;font-weight:500}
+  .name-block .req{color:var(--accent)}
+  .name-block input[type=text]{width:100%;border:none;border-bottom:2px solid var(--line);background:transparent;font-family:"Archivo",sans-serif;font-size:1.08rem;font-weight:500;color:var(--ink);padding:.4rem 0;outline:none;transition:border-color .25s}
+  .name-block input[type=text]:focus{border-bottom-color:var(--accent)}
+  .name-block input[type=text]::placeholder{color:var(--muted);font-weight:300;font-size:.96rem}
+  .name-block.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .name-block.field-error input[type=text]{border-bottom-color:var(--danger)}
+
+  .consigna-block{margin-bottom:2.5rem;border-top:1px solid var(--line);padding-top:1.6rem}
+  .consigna-block h2{font-weight:700;letter-spacing:-.022em;line-height:1.1;font-size:clamp(1.3rem,3vw,1.8rem);margin-bottom:.9rem}
+  .consigna{background:var(--bone-deep);border-left:2px solid var(--line);padding:.85rem 1.2rem;font-size:.93rem;line-height:1.7;color:var(--muted);font-style:italic}
+
+  .scale-ref{border:1px solid var(--line);background:var(--paper);padding:1rem 1.4rem;margin-bottom:2rem}
+  .scale-ref-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:.7rem}
+  .scale-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem;text-align:center}
+  .scale-num{font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.2rem}
+  .scale-txt{font-size:.62rem;color:var(--muted);line-height:1.3;padding:0 .1rem}
+
+  .item-card{background:var(--paper);border:1px solid var(--line);border-left:3px solid transparent;padding:1.3rem 1.5rem;margin-bottom:.6rem;transition:border-left-color .2s var(--ease)}
+  .item-card.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .item-num{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.45rem}
+  .item-text{font-size:.97rem;font-weight:500;color:var(--ink);margin-bottom:1rem;line-height:1.5}
+
+  .radio-group{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}
+  .radio-opt{text-align:center}
+  .radio-opt input[type=radio]{display:none}
+  .radio-opt label{display:flex;flex-direction:column;align-items:center;gap:.35rem;cursor:pointer}
+  .radio-circle{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:var(--bone);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:600;color:var(--muted);transition:all .15s;margin:0 auto}
+  .radio-opt input[type=radio]:checked + label .radio-circle{background:var(--accent);border-color:var(--accent);color:#fff;transform:scale(1.1)}
+  .radio-opt label:hover .radio-circle{border-color:var(--accent);color:var(--accent)}
+  .radio-anchor{font-size:.6rem;color:var(--muted);line-height:1.25;max-width:70px;text-align:center}
+
+  .submit-zone{text-align:center;margin-top:2.5rem}
+  .err-msg{background:#FBF0F0;border:1px solid #E8BFBF;color:var(--danger);padding:.75rem 1.1rem;font-size:.86rem;margin-top:1rem;display:none;font-weight:500}
+
+  .disclaimer-card{background:var(--ink);color:var(--bone);padding:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:1.5rem;border-left:3px solid var(--accent)}
+  .disclaimer-tag{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#9a9ba2;font-weight:600;margin-bottom:.9rem}
+  .disclaimer-card p{font-size:.92rem;font-weight:300;line-height:1.75;color:#dcdce0}
+  .disclaimer-card strong{font-weight:600;color:#fff}
+
+  #resultados{display:none;margin-top:4rem;border-top:1px solid var(--line);padding-top:3rem}
+  .res-eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1rem}
+  .res-eyebrow .num{color:var(--accent);font-weight:500}
+  .res-title{font-weight:700;letter-spacing:-.022em;line-height:1.08;font-size:clamp(1.6rem,4vw,2.6rem);margin-bottom:2rem}
+
+  .score-card{background:var(--ink);color:var(--bone);padding:clamp(2rem,4vw,3rem);margin-bottom:1.5rem}
+  .score-eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#9a9ba2;margin-bottom:.65rem}
+  .score-num{font-size:clamp(3.5rem,9vw,5.5rem);font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:.2rem}
+  .score-denom{font-size:.8rem;color:#9a9ba2;margin-bottom:1.2rem;font-weight:300}
+  .score-track{background:rgba(255,255,255,.12);height:3px;max-width:360px;margin:0 0 1.2rem;overflow:hidden}
+  .score-fill{height:100%;background:var(--accent);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+  .score-badge{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--bone);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .8rem;font-weight:600;margin-bottom:1rem}
+  .score-text{font-size:.95rem;font-weight:300;color:#c9cace;line-height:1.65;max-width:55ch}
+
+  .cutoff-bar{border:1px solid var(--line);background:var(--paper);padding:1rem 1.4rem;margin-bottom:1.5rem}
+  .cutoff-label{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.8rem}
+  .cutoff-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:.5rem}
+  .cutoff-seg{height:8px;position:relative}
+  .cutoff-seg-0{background:#E8F5EE}
+  .cutoff-seg-1{background:#FFF3CC}
+  .cutoff-seg-2{background:#FFCCCC}
+  .cutoff-seg-3{background:#F4C0C0}
+  .cutoff-marker{position:absolute;top:-4px;width:3px;height:16px;background:var(--ink);display:none}
+  .cutoff-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+  .cutoff-seg-label{font-size:.52rem;color:var(--muted);text-align:center;line-height:1.3}
+
+  .chart-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3.2vw,2.2rem);margin-bottom:1.5rem}
+  .chart-title{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1.6rem}
+  .hbar-row{margin-bottom:1rem}
+  .hbar-row:last-child{margin-bottom:0}
+  .hbar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
+  .hbar-name{font-size:.85rem;font-weight:600;color:var(--ink)}
+  .hbar-score{font-size:.8rem;color:var(--muted);font-weight:500}
+  .hbar-score strong{color:var(--ink);font-weight:700}
+  .hbar-track{height:8px;background:var(--bone-deep);overflow:hidden}
+  .hbar-fill{height:100%;background:var(--accent);width:0%;transition:width 1.1s cubic-bezier(.4,0,.2,1)}
+  .hbar-foot{display:flex;justify-content:space-between;margin-top:.3rem}
+  .hbar-foot span{font-size:.58rem;color:var(--muted)}
+
+  .informe-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .informe-body{font-size:.95rem;color:var(--ink-soft);font-weight:300;line-height:1.8}
+  .informe-body p+p{margin-top:.9rem}
+  .informe-body strong{font-weight:600;color:var(--ink)}
+  .informe-body em{font-style:italic}
+  .informe-body ul{margin:.6rem 0 .6rem 1.2rem}
+  .informe-body li{margin-bottom:.4rem}
+
+  .firma-box{text-align:center;padding:2rem 1.5rem;margin-top:2rem;border-top:1px solid var(--line)}
+  .firma-name{font-size:.98rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin-bottom:.2rem}
+  .firma-sub{font-size:.76rem;color:var(--muted);font-weight:300}
+
+  .cta-strip{border-top:1px solid var(--line);background:var(--ink);color:var(--bone);margin-top:3rem}
+  .cta-strip .wrap{padding-top:clamp(3rem,6vw,4.5rem);padding-bottom:clamp(3rem,6vw,4.5rem);display:flex;flex-direction:column;gap:1.6rem;align-items:flex-start}
+  @media(min-width:780px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;line-height:1.15;max-width:22ch}
+  .cta-strip .eyebrow{color:#9a9ba2;margin-bottom:1rem}
+
+  footer{background:var(--ink);color:#b7b8bd;border-top:1px solid #2a2b30}
+  .foot-inner{padding:clamp(2rem,4vw,3rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:#fff;font-weight:700;font-size:.98rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.66rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-top:.5rem}
+  .foot-bottom{border-top:1px solid #2a2b30;padding:1.3rem var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:center}
+  .foot-bottom span{font-size:.7rem;color:#76777d;letter-spacing:.05em}
+
+  @media(max-width:520px){.hero h1{font-size:2rem}.score-num{font-size:3rem}.radio-circle{width:32px;height:32px;font-size:.75rem}.radio-anchor{font-size:.56rem;max-width:58px}.ficha-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com" target="_blank">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <span class="nav-tag">Procesos Emocionales</span>
+  </div>
+</header>
+
+<div class="prog-wrap"><div class="prog-fill" id="progressBar"></div></div>
+
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">GAD-7</span> Procesos Emocionales</div>
+    <h1>Ansiedad Generalizada</h1>
+    <p class="hero-sub">¿Con qué frecuencia la preocupación, la tensión o el nerviosismo te han estado molestando en las últimas dos semanas? El GAD-7 es el instrumento de tamizaje de ansiedad más utilizado a nivel mundial — breve, validado y de libre acceso.</p>
+    <div class="hero-meta">
+      <div><span class="k">Ítems</span><span class="v">7 · Likert 0–3</span></div>
+      <div><span class="k">Área</span><span class="v">Procesos emocionales</span></div>
+      <div><span class="k">Tiempo</span><span class="v">2 min</span></div>
+      <div><span class="k">Uso</span><span class="v">Clínico exclusivo</span></div>
+    </div>
+    <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem">
+      <button class="btn" onclick="irAlFormulario()">Responder cuestionario</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('ficha-tecnica').scrollIntoView({behavior:'smooth',block:'start'})">Ver ficha técnica</button>
+    </div>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <div class="name-block" id="nameBlock">
+    <label for="nombrePaciente">Tu nombre <span class="req">*</span></label>
+    <input type="text" id="nombrePaciente" placeholder="Escribí tu nombre o cómo preferís que te llamemos" autocomplete="off" oninput="onAnswer()"/>
+  </div>
+
+  <div class="consigna-block">
+    <div class="eyebrow"><span class="num">01</span> Consigna</div>
+    <h2>Durante las últimas 2 semanas, ¿con qué frecuencia ha sufrido los siguientes problemas?</h2>
+    <p class="consigna">Respondé lo que mejor describe tu experiencia real en las últimas dos semanas, incluyendo el día de hoy.</p>
+  </div>
+
+  <div class="scale-ref">
+    <p class="scale-ref-label">Escala de respuesta</p>
+    <div class="scale-grid">
+      <div><div class="scale-num">0</div><div class="scale-txt">Nunca</div></div>
+      <div><div class="scale-num">1</div><div class="scale-txt">Varios días</div></div>
+      <div><div class="scale-num">2</div><div class="scale-txt">Más de la mitad de los días</div></div>
+      <div><div class="scale-num">3</div><div class="scale-txt">Casi todos los días</div></div>
+    </div>
+  </div>
+
+  <div id="itemsContainer"></div>
+
+  <div class="submit-zone">
+    <button class="btn" onclick="calcular()">Ver mis resultados</button>
+    <p class="err-msg" id="errMsg">Faltan campos por completar — revisá lo marcado en rojo.</p>
+  </div>
+
+  <section id="resultados">
+
+    <div class="res-eyebrow"><span class="num">02</span> Informe completo</div>
+    <h2 class="res-title" id="resTitle">Tus resultados</h2>
+
+    <div class="disclaimer-card">
+      <p class="disclaimer-tag">Antes de leer tu resultado</p>
+      <p>Este resultado es una <strong>herramienta de tamizaje</strong>, no un diagnóstico. El GAD-7 detecta la presencia e intensidad de síntomas de ansiedad — solo un profesional puede determinar si hay un trastorno de ansiedad, de qué tipo y qué tratamiento tiene sentido. Lo que encontrés acá es información útil para una conversación con un especialista, no un veredicto sobre tu salud mental.</p>
+    </div>
+
+    <div class="score-card">
+      <p class="score-eyebrow">Ansiedad Generalizada · GAD-7</p>
+      <div class="score-num" id="scoreNum">—</div>
+      <p class="score-denom">rango 0–21 · a mayor puntaje, mayor intensidad de síntomas</p>
+      <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+      <div class="score-badge" id="scoreBadge"></div>
+      <p class="score-text" id="scoreText"></p>
+    </div>
+
+    <div class="cutoff-bar">
+      <p class="cutoff-label">Interpretación según rangos publicados (Spitzer et al., 2006)</p>
+      <div class="cutoff-row">
+        <div class="cutoff-seg cutoff-seg-0"><div class="cutoff-marker" id="marker-0"></div></div>
+        <div class="cutoff-seg cutoff-seg-1"><div class="cutoff-marker" id="marker-1"></div></div>
+        <div class="cutoff-seg cutoff-seg-2"><div class="cutoff-marker" id="marker-2"></div></div>
+        <div class="cutoff-seg cutoff-seg-3"><div class="cutoff-marker" id="marker-3"></div></div>
+      </div>
+      <div class="cutoff-labels">
+        <div class="cutoff-seg-label">Mínima<br>0–4</div>
+        <div class="cutoff-seg-label">Leve<br>5–9</div>
+        <div class="cutoff-seg-label">Moderada<br>10–14</div>
+        <div class="cutoff-seg-label">Severa<br>15–21</div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">Tus síntomas por área</p>
+      <div id="hbarContainer"></div>
+    </div>
+
+    <div class="informe-card">
+      <p class="sec-tag">Análisis aplicado · Procesos Emocionales</p>
+      <div class="informe-body" id="informeIntegral"></div>
+    </div>
+
+    <div class="firma-box">
+      <p class="firma-name">Lic. Fabián Sierra</p>
+      <p class="firma-sub">Psicología Clínica &amp; Alto Rendimiento · fabiansierra.com</p>
+    </div>
+
+    <button class="btn btn-ghost btn-block" onclick="reiniciar()">Completar de nuevo</button>
+
+  </section>
+
+  <section id="ficha-tecnica" style="margin-top:4rem;border-top:1px solid var(--line);padding-top:2.5rem;scroll-margin-top:120px">
+    <p class="eyebrow"><span class="num">+</span> Ficha técnica</p>
+    <div class="ficha-card">
+      <p class="sec-tag">Sobre este instrumento</p>
+      <div class="ficha-body">
+        <p>La <strong>Escala para el Trastorno de Ansiedad Generalizada-7 (GAD-7)</strong> fue desarrollada por Spitzer, Kroenke, Williams y Löwe (2006, Archives of Internal Medicine) para detectar y medir la severidad del trastorno de ansiedad generalizada (TAG). Sus 7 ítems cubren los síntomas centrales del TAG según el DSM: preocupación excesiva y difícil de controlar, tensión, irritabilidad, dificultad de concentración, inquietud y miedo anticipatorio. Comparte la misma estructura, escala y periodo de referencia que el PHQ-9, lo que permite administrarlos juntos.</p>
+        <p>La versión española fue validada por el CIBERSAM (Centro de Investigación Biomédica en Red de Salud Mental, España) y está disponible de forma gratuita. Existen validaciones en múltiples países hispanohablantes con propiedades psicométricas consistentes: α=.90–.92, sensibilidad de 89% y especificidad de 82% para TAG con punto de corte ≥10.</p>
+        <dl class="ficha-grid">
+          <dt>Ítems</dt><dd>7 · escala Likert 0–3</dd>
+          <dt>Dimensiones</dt><dd>Unidimensional</dd>
+          <dt>Rango</dt><dd>0 a 21 puntos</dd>
+          <dt>Punto de corte</dt><dd>≥10 ansiedad moderada o severa (sens. 89%, esp. 82%)</dd>
+          <dt>Fiabilidad</dt><dd>α=.90–.92 en versiones en español</dd>
+          <dt>Periodo de referencia</dt><dd>Últimas 2 semanas</dd>
+        </dl>
+        <div class="nota-honesta">
+          <strong>Este es un instrumento de tamizaje, no diagnóstico.</strong> Un puntaje elevado indica que la persona experimenta síntomas que merecen evaluación profesional — no que tenga un diagnóstico de TAG u otro trastorno de ansiedad. El GAD-7 tiene sensibilidad razonable también para trastorno de pánico, fobia social y trastorno de estrés postraumático, por lo que un puntaje alto no especifica el diagnóstico: eso requiere una entrevista clínica.
+        </div>
+        <div class="nota-honesta">
+          <strong>Relación con el PHQ-9 y los instrumentos ACT.</strong> El GAD-7 y el PHQ-9 se desarrollaron juntos y suelen administrarse en el mismo contexto. La ansiedad y la depresión comparten factores de vulnerabilidad y comórbilidad alta. Desde ACT, la ansiedad generalizada se entiende como un patrón de preocupación crónica — pensamiento verbal repetitivo sobre amenazas futuras — que funciona como evitación experiencial encubierta: la preocupación da la ilusión de control y prepara para lo peor, pero a costa de vivir en el futuro imaginado en vez del presente real. Los cuestionarios CFQ-7 (fusión cognitiva) y AAQ-II (evitación experiencial) de esta misma sección miden los procesos psicológicos que subyacen a ese patrón.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="num">+</span> Profundizar el resultado</div>
+      <h3>¿Querés trabajar lo que mostró tu evaluación?</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Complet%C3%A9%20el%20GAD-7%20de%20ansiedad%20generalizada%20y%20me%20gustar%C3%ADa%20coordinar%20una%20consulta." target="_blank" rel="noopener">
+      Coordinar consulta vía WhatsApp
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <span style="font-size:.8rem;color:#76777d">GAD-7 · Spitzer, Kroenke, Williams &amp; Löwe (2006)</span>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Atención estrictamente particular</span>
+  </div>
+</footer>
+
+<script>
+var ITEMS = [
+  {n:1, txt:'Se ha sentido nervioso/a, ansioso/a o muy alterado/a.', area:'Activacion'},
+  {n:2, txt:'No ha podido dejar de preocuparse.', area:'Preocupacion'},
+  {n:3, txt:'Se ha preocupado excesivamente por diferentes cosas.', area:'Preocupacion'},
+  {n:4, txt:'Ha tenido dificultad para relajarse.', area:'Tension'},
+  {n:5, txt:'Se ha sentido tan intranquilo/a que no podía estarse quieto/a.', area:'Tension'},
+  {n:6, txt:'Se ha irritado o enfadado con facilidad.', area:'Irritabilidad'},
+  {n:7, txt:'Ha sentido miedo, como si fuera a suceder algo terrible.', area:'Miedo'}
+];
+
+var AREAS_CHART = [
+  {label:'Activación y nerviosismo', items:[1]},
+  {label:'Preocupación', items:[2,3]},
+  {label:'Tensión e inquietud', items:[4,5]},
+  {label:'Irritabilidad', items:[6]},
+  {label:'Miedo anticipatorio', items:[7]}
+];
+
+var ANCHORS = {0:'Nunca', 1:'Varios días', 2:'Más de la mitad', 3:'Casi todos los días'};
+
+function irAlFormulario() {
+  var el = document.getElementById('nameBlock');
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(function(){ document.getElementById('nombrePaciente').focus(); }, 450);
+}
+
+function buildItems() {
+  var c = document.getElementById('itemsContainer');
+  for (var i = 0; i < ITEMS.length; i++) {
+    var item = ITEMS[i];
+    var radios = '';
+    for (var v = 0; v <= 3; v++) {
+      radios += '<div class="radio-opt">' +
+        '<input type="radio" name="item' + item.n + '" id="i' + item.n + 'v' + v + '" value="' + v + '" onchange="onAnswer()">' +
+        '<label for="i' + item.n + 'v' + v + '"><span class="radio-circle">' + v + '</span>' +
+        '<span class="radio-anchor">' + ANCHORS[v] + '</span></label>' +
+        '</div>';
+    }
+    c.insertAdjacentHTML('beforeend',
+      '<div class="item-card" id="card-' + item.n + '">' +
+      '<p class="item-num">Ítem ' + item.n + '</p>' +
+      '<p class="item-text">' + item.txt + '</p>' +
+      '<div class="radio-group">' + radios + '</div>' +
+      '</div>');
+  }
+}
+
+function onAnswer() { updateProgress(); }
+
+function getVal(n) {
+  var sel = document.querySelector('input[name="item' + n + '"]:checked');
+  return sel ? parseInt(sel.value) : null;
+}
+
+function getNombre() {
+  var v = document.getElementById('nombrePaciente').value;
+  return v ? v.trim() : '';
+}
+
+function updateProgress() {
+  var totalFields = ITEMS.length + 1;
+  var done = getNombre() ? 1 : 0;
+  for (var i = 0; i < ITEMS.length; i++) {
+    if (getVal(ITEMS[i].n) !== null) done++;
+  }
+  document.getElementById('progressBar').style.width = Math.round((done / totalFields) * 100) + '%';
+}
+
+function calcular() {
+  var nombre = getNombre();
+  var vals = [];
+  for (var i = 0; i < ITEMS.length; i++) vals.push(getVal(ITEMS[i].n));
+
+  var faltaNombre = !nombre;
+  var hasNull = false;
+  for (var i = 0; i < vals.length; i++) { if (vals[i] === null) hasNull = true; }
+
+  document.getElementById('nameBlock').classList.toggle('field-error', faltaNombre);
+  for (var i = 0; i < ITEMS.length; i++) {
+    document.getElementById('card-' + ITEMS[i].n).classList.toggle('field-error', vals[i] === null);
+  }
+
+  if (faltaNombre || hasNull) {
+    document.getElementById('errMsg').style.display = 'block';
+    if (faltaNombre) document.getElementById('nameBlock').scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  document.getElementById('errMsg').style.display = 'none';
+
+  var total = 0;
+  for (var i = 0; i < vals.length; i++) total += vals[i];
+
+  document.getElementById('resTitle').textContent = 'Resultados de ' + nombre;
+  document.getElementById('scoreNum').textContent = total;
+
+  var pct = (total / 21) * 100;
+  setTimeout(function() { document.getElementById('scoreFill').style.width = pct + '%'; }, 120);
+
+  var nivel = clasificar(total);
+  document.getElementById('scoreBadge').textContent = nivel.etiqueta;
+  document.getElementById('scoreText').textContent = nivel.scoreText;
+
+  posicionarMarker(total);
+  dibujarBarras(vals);
+
+  document.getElementById('informeIntegral').innerHTML = generarInforme(total, nombre, nivel, vals);
+  document.getElementById('resultados').style.display = 'block';
+  document.getElementById('progressBar').style.width = '100%';
+  setTimeout(function() {
+    document.getElementById('resultados').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 200);
+}
+
+function clasificar(total) {
+  // Spitzer et al. (2006): 0-4 minima, 5-9 leve, 10-14 moderada, 15-21 severa
+  if (total <= 4) return {
+    clase:'minima', etiqueta:'Sintomatología mínima',
+    scoreText:'Los síntomas de ansiedad en las últimas dos semanas son mínimos o ausentes.'
+  };
+  if (total <= 9) return {
+    clase:'leve', etiqueta:'Sintomatología leve',
+    scoreText:'Hay síntomas de ansiedad presentes pero de baja intensidad. Merecen atención aunque no necesariamente tratamiento inmediato.'
+  };
+  if (total <= 14) return {
+    clase:'moderada', etiqueta:'Sintomatología moderada',
+    scoreText:'Los síntomas de ansiedad son de intensidad moderada. Este rango suele indicar que la evaluación profesional es necesaria.'
+  };
+  return {
+    clase:'severa', etiqueta:'Sintomatología severa',
+    scoreText:'Los síntomas de ansiedad son significativamente intensos. La consulta profesional urgente es recomendada.'
+  };
+}
+
+function posicionarMarker(total) {
+  for (var i = 0; i <= 3; i++) {
+    document.getElementById('marker-' + i).style.display = 'none';
+  }
+  var segIdx = 0;
+  if (total <= 4) segIdx = 0;
+  else if (total <= 9) segIdx = 1;
+  else if (total <= 14) segIdx = 2;
+  else segIdx = 3;
+  document.getElementById('marker-' + segIdx).style.display = 'block';
+}
+
+function dibujarBarras(vals) {
+  var c = document.getElementById('hbarContainer');
+  c.innerHTML = '';
+  for (var i = 0; i < AREAS_CHART.length; i++) {
+    var area = AREAS_CHART[i];
+    var maxArea = area.items.length * 3;
+    var scoreArea = 0;
+    for (var j = 0; j < area.items.length; j++) {
+      scoreArea += vals[area.items[j] - 1];
+    }
+    var pctArea = Math.round((scoreArea / maxArea) * 100);
+    var id = 'hbar-' + i;
+    c.insertAdjacentHTML('beforeend',
+      '<div class="hbar-row">' +
+      '<div class="hbar-top"><span class="hbar-name">' + area.label + '</span>' +
+      '<span class="hbar-score"><strong>' + scoreArea + '</strong>/' + maxArea + '</span></div>' +
+      '<div class="hbar-track"><div class="hbar-fill" id="' + id + '"></div></div>' +
+      '<div class="hbar-foot"><span>0</span><span>' + pctArea + '% del rango</span><span>' + maxArea + '</span></div>' +
+      '</div>');
+  }
+  setTimeout(function() {
+    for (var i = 0; i < AREAS_CHART.length; i++) {
+      var area = AREAS_CHART[i];
+      var maxArea = area.items.length * 3;
+      var scoreArea = 0;
+      for (var j = 0; j < area.items.length; j++) {
+        scoreArea += vals[area.items[j] - 1];
+      }
+      document.getElementById('hbar-' + i).style.width = ((scoreArea / maxArea) * 100) + '%';
+    }
+  }, 150);
+}
+
+function generarInforme(total, nombre, nivel, vals) {
+  var html = '<p><strong>' + nombre + '</strong>, esto es lo que refleja tu resultado de las últimas dos semanas.</p>';
+
+  html += '<p><strong>Tu puntaje total: ' + total + '/21 — ' + nivel.etiqueta + '.</strong> ';
+
+  if (nivel.clase === 'minima') {
+    html += 'Los síntomas de ansiedad que señalaste en las últimas dos semanas son mínimos. Eso no quiere decir que no haya nada difícil en tu vida — el GAD-7 mide síntomas específicos de ansiedad generalizada, no el nivel general de bienestar. Pero en lo que a esos síntomas refiere, no hay señales de alarma en este momento.';
+  } else if (nivel.clase === 'leve') {
+    html += 'Hay algo de ansiedad presente — preocupación, tensión, dificultad para relajarte — pero de baja intensidad. Este rango es frecuente en períodos de mayor demanda o incertidumbre. Vale la pena notar si lleva varias semanas así, o si apareció más recientemente: la duración dice algo sobre si estamos frente a una respuesta situacional o algo más instalado.';
+  } else if (nivel.clase === 'moderada') {
+    html += 'Los síntomas que estás experimentando en las últimas dos semanas son de intensidad moderada. Este rango en el GAD-7 se asocia con un impacto real en el funcionamiento cotidiano: dificultad para desconectarse, para dormir bien, para estar presente en lo que hacés. No es algo que valga la pena esperar que "se pase solo".';
+  } else {
+    html += 'Los síntomas son de alta intensidad. Un puntaje en este rango indica que la ansiedad está ocupando mucho espacio en tu día a día — probablemente afectando el sueño, la concentración, las relaciones, el trabajo. Es el rango donde la evaluación y el inicio de un proceso de acompañamiento profesional son más urgentes.';
+  }
+  html += '</p>';
+
+  html += generarLecturaACT(nivel.clase, vals);
+  html += '<p><strong>Qué hacer con este resultado.</strong> ';
+  if (nivel.clase === 'minima') {
+    html += 'No hay acción urgente indicada. Si en las próximas semanas notás que algo cambia — que la preocupación o la tensión empiezan a costar más — este cuestionario sigue disponible para repetirlo.';
+  } else {
+    html += 'Este resultado por sí solo no alcanza para tomar decisiones clínicas — es una señal de que vale la pena una evaluación más completa con un profesional. La diferencia entre los distintos trastornos de ansiedad, y entre la ansiedad como síntoma y como trastorno, requiere una entrevista clínica. El GAD-7 abre la puerta; la consulta es lo que permite entender qué hay adentro.';
+  }
+  html += '</p>';
+
+  return html;
+}
+
+function generarLecturaACT(clase, vals) {
+  if (clase === 'minima') return '';
+
+  var preocupacion = vals[1] + vals[2];
+  var html = '<p><strong>Una mirada desde ACT.</strong> ';
+
+  if (preocupacion >= 4) {
+    html += 'Lo que más se destaca en tu resultado es la preocupación: la dificultad para dejar de pensar en posibles amenazas, para "apagar" el modo de alerta. Desde ACT, la preocupación crónica es uno de los ejemplos más claros de <strong>fusión cognitiva</strong> — la mente atrapada en pensamientos sobre el futuro como si fueran realidades que hay que resolver ahora. La paradoja es que cuanto más se intenta controlar o eliminar esa preocupación, más presente se vuelve. ';
+    if (clase === 'leve') {
+      html += 'En este rango, trabajar la relación con esos pensamientos — verlos como eventos mentales en lugar de verdades urgentes — suele ser un punto de entrada útil.';
+    } else {
+      html += 'En este rango de intensidad, ese trabajo requiere acompañamiento profesional para ser efectivo.';
+    }
+  } else {
+    html += 'Tu ansiedad parece estar más en el cuerpo y en el comportamiento — tensión, irritabilidad, inquietud — que en el circuito de preocupación verbal. Desde ACT, eso conecta con la <strong>evitación experiencial</strong>: la tendencia a alejarse de sensaciones físicas incómodas, situaciones que generan activación, o cualquier cosa que pueda disparar malestar. ';
+    if (clase === 'leve') {
+      html += 'A veces un primer paso útil es simplemente notar qué situaciones se evitan y qué costo tiene esa evitación.';
+    } else {
+      html += 'En este nivel de intensidad, explorar esos patrones con acompañamiento profesional es lo más recomendable.';
+    }
+  }
+
+  html += ' Los cuestionarios <strong>CFQ-7</strong> (fusión cognitiva) y <strong>AAQ-II</strong> (evitación experiencial) de esta misma sección miden exactamente esos procesos — podés compararlos con este resultado para tener una imagen más completa.</p>';
+
+  return html;
+}
+
+function reiniciar() {
+  document.getElementById('resultados').style.display = 'none';
+  document.getElementById('nombrePaciente').value = '';
+  document.getElementById('errMsg').style.display = 'none';
+  document.getElementById('nameBlock').classList.remove('field-error');
+  for (var i = 0; i < ITEMS.length; i++) {
+    var n = ITEMS[i].n;
+    var radios = document.querySelectorAll('input[name="item' + n + '"]');
+    for (var r = 0; r < radios.length; r++) radios[r].checked = false;
+    document.getElementById('card-' + n).classList.remove('field-error');
+  }
+  document.getElementById('progressBar').style.width = '0%';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+var header = document.querySelector('header');
+window.addEventListener('scroll', function() {
+  header.classList.toggle('scrolled', window.scrollY > 12);
+}, false);
+
+document.getElementById('year').textContent = new Date().getFullYear();
+buildItems();
+</script>
+</body>
+</html>

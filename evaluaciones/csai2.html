@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Ansiedad Precompetitiva (CSAI-2) · Lic. Fabián Sierra</title>
+<meta name="description" content="Inventario de Ansiedad Competitiva CSAI-2. Martens, Burton, Vealey, Bump & Smith (1990), adaptación española Capdevila (1997). Lic. Fabián Sierra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;--paper:#FBFAF7;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --line:#D8D4C9;--line-soft:#E5E2D9;
+    --accent:#942322;--accent-deep:#741A19;
+    --maxw:860px;--pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --success:#1F5C3A;--warning:#7A5A0E;--danger:#7A1A1A;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#F3F1EC;scroll-behavior:smooth;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#F3F1EC;color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(243,241,236,.82);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .4s var(--ease),background .4s var(--ease)}
+  header.scrolled{border-bottom:1px solid var(--line);background:rgba(243,241,236,.94)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.98rem}
+  .brand span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .nav-tag{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+  .prog-wrap{height:2px;background:var(--line-soft);position:sticky;top:68px;z-index:49}
+  .prog-fill{height:100%;background:var(--accent);width:0%;transition:width .35s var(--ease)}
+
+  .hero{background:#F3F1EC;border-top:1px solid var(--line);padding-top:clamp(3rem,7vw,5.5rem);padding-bottom:clamp(3rem,7vw,5rem);position:relative}
+  .hero .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.45;z-index:0;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:min(11vw,88px) min(11vw,88px);-webkit-mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%);mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 70%)}
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1.2rem}
+  .eyebrow .num{color:var(--accent);font-weight:500}
+  .hero h1{font-weight:700;letter-spacing:-.028em;line-height:1.04;font-size:clamp(2.2rem,6vw,4rem);margin-bottom:1.4rem}
+  .hero-sub{color:var(--ink-soft);font-size:clamp(1rem,1.8vw,1.15rem);line-height:1.68;max-width:58ch;margin-bottom:2rem}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem 2rem;padding-top:1.8rem;border-top:1px solid var(--line)}
+  @media(min-width:580px){.hero-meta{grid-template-columns:repeat(4,1fr)}}
+  .hero-meta .k{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:.9rem;font-weight:500;margin-top:.2rem}
+
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9rem;letter-spacing:.005em;padding:.82rem 1.6rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .3s var(--ease);cursor:pointer;font-family:"Archivo",sans-serif}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(148,35,34,.4)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--bone);box-shadow:none;transform:none}
+  .btn-block{display:block;width:100%;justify-content:center;margin-top:1.6rem}
+
+  main{background:#F3F1EC;padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(3rem,7vw,6rem)}
+
+  .ficha-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .sec-tag{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-bottom:.9rem;margin-bottom:1.1rem;border-bottom:1px solid var(--line)}
+  .ficha-body{font-size:.93rem;color:var(--ink-soft);font-weight:300;line-height:1.75}
+  .ficha-body strong{font-weight:600;color:var(--ink)}
+  .ficha-body p+p{margin-top:.8rem}
+  .ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.5rem;margin-top:.9rem;font-size:.84rem;color:var(--ink-soft);border-top:1px solid var(--line-soft);padding-top:.9rem}
+  .ficha-grid dt{font-weight:600;color:var(--ink-soft)}
+  .ficha-grid dd{font-weight:300}
+  @media(max-width:480px){.ficha-grid{grid-template-columns:1fr}}
+
+  .nota-honesta{background:#FBF8ED;border-left:3px solid var(--warning);padding:1rem 1.3rem;margin-top:1rem;font-size:.82rem;color:var(--ink-soft);font-weight:300;line-height:1.65}
+  .nota-honesta strong{color:var(--ink);font-weight:600}
+
+  .name-block{border:1px solid var(--line);background:var(--paper);padding:clamp(1.4rem,3vw,2rem);margin-bottom:2rem;border-left:3px solid var(--accent);scroll-margin-top:140px}
+  .name-block label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.65rem;font-weight:500}
+  .name-block .req{color:var(--accent)}
+  .name-block input[type=text]{width:100%;border:none;border-bottom:2px solid var(--line);background:transparent;font-family:"Archivo",sans-serif;font-size:1.08rem;font-weight:500;color:var(--ink);padding:.4rem 0;outline:none;transition:border-color .25s}
+  .name-block input[type=text]:focus{border-bottom-color:var(--accent)}
+  .name-block input[type=text]::placeholder{color:var(--muted);font-weight:300;font-size:.96rem}
+  .name-block.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .name-block.field-error input[type=text]{border-bottom-color:var(--danger)}
+
+  .consigna-block{margin-bottom:2.5rem;border-top:1px solid var(--line);padding-top:1.6rem}
+  .consigna-block h2{font-weight:700;letter-spacing:-.022em;line-height:1.1;font-size:clamp(1.3rem,3vw,1.8rem);margin-bottom:.9rem}
+  .consigna{background:var(--bone-deep);border-left:2px solid var(--line);padding:.85rem 1.2rem;font-size:.93rem;line-height:1.7;color:var(--muted);font-style:italic}
+
+  .scale-ref{border:1px solid var(--line);background:var(--paper);padding:1rem 1.4rem;margin-bottom:2rem}
+  .scale-ref-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:.7rem}
+  .scale-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem;text-align:center}
+  .scale-num{font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.2rem}
+  .scale-txt{font-size:.62rem;color:var(--muted);line-height:1.3;padding:0 .1rem}
+
+  .subescala-head{margin:2.5rem 0 1.2rem;padding-top:1.8rem;border-top:1px solid var(--line)}
+  .subescala-head:first-of-type{margin-top:0}
+  .subescala-tag{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.5rem}
+  .subescala-head h3{font-weight:700;font-size:clamp(1.15rem,2.5vw,1.5rem);letter-spacing:-.016em;margin-bottom:.5rem}
+  .subescala-desc{font-size:.86rem;color:var(--muted);font-weight:300;line-height:1.6;max-width:60ch}
+
+  .item-card{background:var(--paper);border:1px solid var(--line);border-left:3px solid transparent;padding:1.3rem 1.5rem;margin-bottom:.6rem;transition:border-left-color .2s var(--ease)}
+  .item-card.field-error{border-left-color:var(--danger);background:#FBF0F0}
+  .item-num{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.45rem}
+  .item-text{font-size:.97rem;font-weight:500;color:var(--ink);margin-bottom:1rem;line-height:1.5}
+
+  .radio-group{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}
+  .radio-opt{text-align:center}
+  .radio-opt input[type=radio]{display:none}
+  .radio-opt label{display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:pointer}
+  .radio-circle{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:var(--bone);display:flex;align-items:center;justify-content:center;font-size:.84rem;font-weight:600;color:var(--muted);transition:all .15s;margin:0 auto}
+  .radio-opt input[type=radio]:checked + label .radio-circle{background:var(--accent);border-color:var(--accent);color:#fff;transform:scale(1.1)}
+  .radio-opt label:hover .radio-circle{border-color:var(--accent);color:var(--accent)}
+  .radio-anchor{font-size:.6rem;color:var(--muted);line-height:1.2;max-width:70px;text-align:center}
+
+  .submit-zone{text-align:center;margin-top:2.5rem}
+  .err-msg{background:#FBF0F0;border:1px solid #E8BFBF;color:var(--danger);padding:.75rem 1.1rem;font-size:.86rem;margin-top:1rem;display:none;font-weight:500}
+
+  .disclaimer-card{background:var(--ink);color:var(--bone);padding:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:1.5rem;border-left:3px solid var(--accent)}
+  .disclaimer-tag{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#9a9ba2;font-weight:600;margin-bottom:.9rem}
+  .disclaimer-card p{font-size:.92rem;font-weight:300;line-height:1.75;color:#dcdce0}
+  .disclaimer-card strong{font-weight:600;color:#fff}
+
+  #resultados{display:none;margin-top:4rem;border-top:1px solid var(--line);padding-top:3rem}
+  .res-eyebrow{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.85rem;margin-bottom:1rem}
+  .res-eyebrow .num{color:var(--accent);font-weight:500}
+  .res-title{font-weight:700;letter-spacing:-.022em;line-height:1.08;font-size:clamp(1.6rem,4vw,2.6rem);margin-bottom:2rem}
+
+  .score-card{background:var(--ink);color:var(--bone);padding:clamp(2rem,4vw,3rem);margin-bottom:1.5rem}
+  .score-eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#9a9ba2;margin-bottom:.65rem}
+  .score-num{font-size:clamp(3.5rem,9vw,5.5rem);font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:.2rem}
+  .score-denom{font-size:.8rem;color:#9a9ba2;margin-bottom:1.2rem;font-weight:300}
+  .score-track{background:rgba(255,255,255,.12);height:3px;max-width:360px;margin:0 0 1.2rem;overflow:hidden}
+  .score-fill{height:100%;background:var(--accent);width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+  .score-badge{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--bone);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .8rem;font-weight:600;margin-bottom:1rem}
+  .score-text{font-size:.95rem;font-weight:300;color:#c9cace;line-height:1.65;max-width:55ch}
+
+  .chart-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3.2vw,2.2rem);margin-bottom:1.5rem}
+  .chart-title{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1.6rem}
+  .hbar-row{margin-bottom:1.4rem}
+  .hbar-row:last-child{margin-bottom:0}
+  .hbar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
+  .hbar-name{font-size:.88rem;font-weight:600;color:var(--ink)}
+  .hbar-score{font-size:.82rem;color:var(--muted);font-weight:500}
+  .hbar-score strong{color:var(--ink);font-weight:700}
+  .hbar-track{height:10px;background:var(--bone-deep);position:relative;overflow:hidden}
+  .hbar-fill{height:100%;background:var(--accent);width:0%;transition:width 1.1s cubic-bezier(.4,0,.2,1)}
+  .hbar-foot{display:flex;justify-content:space-between;margin-top:.35rem}
+  .hbar-foot span{font-size:.6rem;color:var(--muted);letter-spacing:.04em}
+
+  .subs-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:1.5rem}
+  @media(min-width:680px){.subs-grid{grid-template-columns:repeat(3,1fr)}}
+  .sub-card{background:var(--paper);padding:1.5rem 1.3rem;text-align:center}
+  .sub-card .sub-name{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.6rem}
+  .sub-card .sub-score{font-size:2rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:.3rem}
+  .sub-card .sub-denom{font-size:.7rem;color:var(--muted);margin-bottom:.6rem}
+  .sub-card .sub-badge{font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.2rem .5rem;display:inline-block}
+  .sub-bajo{background:#EFF6F2;color:var(--success)}
+  .sub-moderado{background:#FBF8ED;color:var(--warning)}
+  .sub-alto{background:#FBF0F0;color:var(--danger)}
+
+  .informe-card{border:1px solid var(--line);background:var(--paper);padding:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.5rem}
+  .informe-body{font-size:.95rem;color:var(--ink-soft);font-weight:300;line-height:1.8}
+  .informe-body p+p{margin-top:.9rem}
+  .informe-body strong{font-weight:600;color:var(--ink)}
+  .informe-body ul{margin:.6rem 0 .6rem 1.2rem}
+  .informe-body li{margin-bottom:.4rem}
+
+  .firma-box{text-align:center;padding:2rem 1.5rem;margin-top:2rem;border-top:1px solid var(--line)}
+  .firma-name{font-size:.98rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin-bottom:.2rem}
+  .firma-sub{font-size:.76rem;color:var(--muted);font-weight:300}
+
+  .cta-strip{border-top:1px solid var(--line);background:var(--ink);color:var(--bone);margin-top:3rem}
+  .cta-strip .wrap{padding-top:clamp(3rem,6vw,4.5rem);padding-bottom:clamp(3rem,6vw,4.5rem);display:flex;flex-direction:column;gap:1.6rem;align-items:flex-start}
+  @media(min-width:780px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;line-height:1.15;max-width:22ch}
+  .cta-strip .eyebrow{color:#9a9ba2;margin-bottom:1rem}
+
+  footer{background:var(--ink);color:#b7b8bd;border-top:1px solid #2a2b30}
+  .foot-inner{padding:clamp(2rem,4vw,3rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:#fff;font-weight:700;font-size:.98rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.66rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-top:.5rem}
+  .foot-bottom{border-top:1px solid #2a2b30;padding:1.3rem var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;align-items:center}
+  .foot-bottom span{font-size:.7rem;color:#76777d;letter-spacing:.05em}
+
+  @media(max-width:520px){.hero h1{font-size:2rem}.score-num{font-size:3rem}.radio-circle{width:32px;height:32px;font-size:.74rem}.radio-anchor{font-size:.54rem;max-width:54px}.ficha-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com" target="_blank">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <span class="nav-tag">Psicología Deportiva</span>
+  </div>
+</header>
+
+<div class="prog-wrap"><div class="prog-fill" id="progressBar"></div></div>
+
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">CSAI-2</span> Psicología del Deporte</div>
+    <h1>Ansiedad Precompetitiva</h1>
+    <p class="hero-sub">Evaluá cómo te sentís en los momentos previos a una competencia: qué tanto te preocupan los pensamientos, cómo responde tu cuerpo, y cuánta confianza sostenés de cara al desafío.</p>
+    <div class="hero-meta">
+      <div><span class="k">Ítems</span><span class="v">27 · Likert 1–4</span></div>
+      <div><span class="k">Alcance</span><span class="v">10+ deportes</span></div>
+      <div><span class="k">Tiempo</span><span class="v">5 min</span></div>
+      <div><span class="k">Uso</span><span class="v">Clínico exclusivo</span></div>
+    </div>
+    <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem">
+      <button class="btn" onclick="irAlFormulario()">Responder cuestionario</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('ficha-tecnica').scrollIntoView({behavior:'smooth',block:'start'})">Ver ficha técnica</button>
+    </div>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <!-- FORM -->
+  <div class="name-block" id="nameBlock">
+    <label for="nombrePaciente">Tu nombre <span class="req">*</span></label>
+    <input type="text" id="nombrePaciente" placeholder="Escribí tu nombre o cómo preferís que te llamemos" autocomplete="off" oninput="onAnswer()"/>
+  </div>
+
+  <div class="consigna-block">
+    <div class="eyebrow"><span class="num">01</span> Consigna</div>
+    <h2>Antes de la competición...</h2>
+    <p class="consigna">Las siguientes afirmaciones describen posibles sentimientos antes de una competencia. Leé cada una y marcá cómo te sentís ahora mismo, en este momento. No hay respuestas correctas ni incorrectas — tratá de no pensarlo demasiado.</p>
+  </div>
+
+  <div class="scale-ref">
+    <p class="scale-ref-label">Escala de respuesta</p>
+    <div class="scale-grid">
+      <div><div class="scale-num">1</div><div class="scale-txt">Nada</div></div>
+      <div><div class="scale-num">2</div><div class="scale-txt">Algo</div></div>
+      <div><div class="scale-num">3</div><div class="scale-txt">Bastante</div></div>
+      <div><div class="scale-num">4</div><div class="scale-txt">Mucho</div></div>
+    </div>
+  </div>
+
+  <div id="itemsContainer"></div>
+
+  <div class="submit-zone">
+    <button class="btn" onclick="calcular()">Ver mis resultados</button>
+    <p class="err-msg" id="errMsg">Faltan campos por completar — revisá lo marcado en rojo.</p>
+  </div>
+
+  <!-- RESULTADOS -->
+  <section id="resultados">
+
+    <div class="res-eyebrow"><span class="num">02</span> Informe completo</div>
+    <h2 class="res-title" id="resTitle">Tus resultados</h2>
+
+    <div class="disclaimer-card">
+      <p class="disclaimer-tag">Antes de leer tu resultado</p>
+      <p>Este resultado refleja una <strong>fotografía de este momento</strong>, no un diagnóstico ni un rasgo permanente. Su valor está más en <strong>abrir preguntas</strong> que en cerrar respuestas. La forma más certera de explorar estos aspectos sigue siendo el trabajo directo con un profesional, que puede contextualizar este resultado dentro de tu historia particular.</p>
+    </div>
+
+    <div class="score-card">
+      <p class="score-eyebrow">Perfil de Ansiedad Precompetitiva</p>
+      <div class="score-num" id="scoreNum">—</div>
+      <p class="score-denom" id="scoreDenom">subescala predominante</p>
+      <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+      <div class="score-badge" id="scoreBadge"></div>
+      <p class="score-text" id="scoreText"></p>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-title">Perfil por subescala (% del máximo posible)</p>
+      <div id="hbarContainer"></div>
+    </div>
+
+    <div class="subs-grid" id="subsGrid"></div>
+
+    <div class="informe-card">
+      <p class="sec-tag">Análisis aplicado a psicología deportiva</p>
+      <div class="informe-body" id="informeIntegral"></div>
+    </div>
+
+    <div class="firma-box">
+      <p class="firma-name">Lic. Fabián Sierra</p>
+      <p class="firma-sub">Psicología Clínica &amp; Alto Rendimiento · fabiansierra.com</p>
+    </div>
+
+    <button class="btn btn-ghost btn-block" onclick="reiniciar()">Completar de nuevo</button>
+
+  </section>
+
+  <!-- FICHA TECNICA - AL FINAL, COMO ANEXO -->
+  <section id="ficha-tecnica" style="margin-top:4rem;border-top:1px solid var(--line);padding-top:2.5rem;scroll-margin-top:120px">
+    <p class="eyebrow"><span class="num">+</span> Ficha técnica</p>
+    <div class="ficha-card">
+      <p class="sec-tag">Sobre este instrumento</p>
+      <div class="ficha-body">
+        <p>El <strong>Inventario de Ansiedad Competitiva CSAI-2 (Competitive State Anxiety Inventory-2)</strong> fue elaborado por Martens, Burton, Vealey, Bump &amp; Smith (1990) a partir del trabajo original de Martens (1977), con el objetivo de evaluar qué tan propensos son los deportistas a vivir las situaciones de competencia como amenazantes. La versión en español utilizada en este cuestionario corresponde a la adaptación de Capdevila, L. (1997), de uso extendido en investigación y práctica clínica deportiva de habla hispana.</p>
+        <p>El instrumento mide tres dimensiones de la ansiedad estado previa a una competición: la <strong>ansiedad cognitiva</strong> (pensamientos amenazantes que surgen minutos antes de competir), la <strong>ansiedad somática</strong> (cómo esos pensamientos repercuten en el cuerpo) y la <strong>autoconfianza</strong> (la creencia de poder salir bien parado de la situación que se va a enfrentar).</p>
+        <dl class="ficha-grid">
+          <dt>Ítems</dt><dd>27 · escala Likert 1–4</dd>
+          <dt>Subescalas</dt><dd>Cognitiva · Somática · Autoconfianza (9 ítems c/u)</dd>
+          <dt>Rango por subescala</dt><dd>9 a 36 puntos</dd>
+          <dt>Ítem invertido</dt><dd>Ítem 14 ("Mi cuerpo está relajado")</dd>
+          <dt>Fiabilidad Cognitiva</dt><dd>α entre 0.79 y 0.83</dd>
+          <dt>Fiabilidad Somática</dt><dd>α entre 0.82 y 0.83</dd>
+          <dt>Fiabilidad Autoconfianza</dt><dd>α entre 0.87 y 0.90</dd>
+        </dl>
+        <div class="nota-honesta">
+          <strong>Nota sobre las fuentes de fiabilidad.</strong> Los valores de alfa de Cronbach reportados (Cognitiva 0.79–0.83 · Somática 0.82–0.83 · Autoconfianza 0.87–0.90) corresponden a material de cátedra de psicología deportiva, atribuidos a Navarro et al. (1995) y Hernández (2001). No fue posible localizar y verificar de forma independiente esas publicaciones específicas, aunque los valores son coherentes con el rango reportado en la literatura disponible sobre el CSAI-2 en español. La estructura de 27 ítems en 3 subescalas de 9 ítems, y la traducción española de Capdevila (1997), sí están confirmadas contra múltiples fuentes académicas independientes.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="num">+</span> Profundizar el resultado</div>
+      <h3>¿Querés trabajar lo que mostró tu evaluación?</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Complet%C3%A9%20el%20CSAI-2%20de%20ansiedad%20precompetitiva%20y%20me%20gustar%C3%ADa%20coordinar%20una%20consulta." target="_blank" rel="noopener">
+      Coordinar consulta vía WhatsApp
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <span style="font-size:.8rem;color:#76777d">CSAI-2 · Martens et al. (1990) · Capdevila (1997)</span>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Atención estrictamente particular</span>
+  </div>
+</footer>
+
+<script>
+var ITEMS = [
+  {n:1,  sub:'cognitiva', txt:'Me preocupa esta competición.'},
+  {n:2,  sub:'somatica',  txt:'Estoy nervioso/a.'},
+  {n:3,  sub:'autoconf',  txt:'Estoy a gusto.'},
+  {n:4,  sub:'cognitiva', txt:'Dudo de mí mismo/a.'},
+  {n:5,  sub:'somatica',  txt:'Estoy inquieto/a.'},
+  {n:6,  sub:'autoconf',  txt:'Estoy cómodo/a.'},
+  {n:7,  sub:'cognitiva', txt:'Me preocupa no hacerlo tan bien como podría en esta competición.'},
+  {n:8,  sub:'somatica',  txt:'Mi cuerpo está tenso.'},
+  {n:9,  sub:'autoconf',  txt:'Tengo confianza en mí mismo/a.'},
+  {n:10, sub:'cognitiva', txt:'Me preocupa perder.'},
+  {n:11, sub:'somatica',  txt:'Tengo tensión en el estómago.'},
+  {n:12, sub:'autoconf',  txt:'Me siento seguro/a.'},
+  {n:13, sub:'cognitiva', txt:'Me preocupa bloquearme por la presión.'},
+  {n:14, sub:'somatica',  txt:'Mi cuerpo está relajado.', inv:true},
+  {n:15, sub:'autoconf',  txt:'Confío en superar el reto de la competición.'},
+  {n:16, sub:'cognitiva', txt:'Me preocupa no rendir lo suficiente.'},
+  {n:17, sub:'somatica',  txt:'Mi corazón late rápidamente.'},
+  {n:18, sub:'autoconf',  txt:'Confío en rendir bien.'},
+  {n:19, sub:'cognitiva', txt:'Me preocupa no poder conseguir mi objetivo.'},
+  {n:20, sub:'somatica',  txt:'Tengo un nudo en el estómago.'},
+  {n:21, sub:'autoconf',  txt:'Estoy mentalmente relajado/a.'},
+  {n:22, sub:'cognitiva', txt:'Me preocupa que mi rendimiento decepcione a los demás.'},
+  {n:23, sub:'somatica',  txt:'Tengo un sudor frío en las manos.'},
+  {n:24, sub:'autoconf',  txt:'Tengo confianza porque me imagino consiguiendo mi objetivo.'},
+  {n:25, sub:'cognitiva', txt:'Me preocupa no ser capaz de concentrarme.'},
+  {n:26, sub:'somatica',  txt:'Mi cuerpo está rígido.'},
+  {n:27, sub:'autoconf',  txt:'Confío en rendir bajo presión.'}
+];
+
+var SUBESCALAS = {
+  cognitiva: {nombre:'Ansiedad Cognitiva', max:36, descripcion:'Pensamientos amenazantes que surgen minutos antes de competir: preocupación por el resultado, el rendimiento o la evaluación de los demás.'},
+  somatica:  {nombre:'Ansiedad Somática', max:36, descripcion:'Repercusiones de esa preocupación en el cuerpo: tensión muscular, alteraciones del ritmo cardíaco, malestar físico.'},
+  autoconf:  {nombre:'Autoconfianza', max:36, descripcion:'Creencia de poder salir bien parado de la situación de competencia que se va a enfrentar.'}
+};
+
+var ANCHORS = {1:'Nada', 2:'Algo', 3:'Bastante', 4:'Mucho'};
+
+function irAlFormulario() {
+  var el = document.getElementById('nameBlock');
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(function(){ document.getElementById('nombrePaciente').focus(); }, 450);
+}
+
+function buildItems() {
+  var c = document.getElementById('itemsContainer');
+
+  for (var i = 0; i < ITEMS.length; i++) {
+    var item = ITEMS[i];
+
+    var radios = '';
+    for (var v = 1; v <= 4; v++) {
+      var anchor = '<span class="radio-anchor">' + ANCHORS[v] + '</span>';
+      radios += '<div class="radio-opt">' +
+        '<input type="radio" name="item' + item.n + '" id="i' + item.n + 'v' + v + '" value="' + v + '" onchange="onAnswer()">' +
+        '<label for="i' + item.n + 'v' + v + '"><span class="radio-circle">' + v + '</span>' + anchor + '</label>' +
+        '</div>';
+    }
+
+    c.insertAdjacentHTML('beforeend',
+      '<div class="item-card" id="card-' + item.n + '">' +
+      '<p class="item-num">Ítem ' + item.n + '</p>' +
+      '<p class="item-text">' + item.txt + '</p>' +
+      '<div class="radio-group">' + radios + '</div>' +
+      '</div>');
+  }
+}
+
+function onAnswer() { updateProgress(); }
+
+function getVal(n) {
+  var sel = document.querySelector('input[name="item' + n + '"]:checked');
+  return sel ? parseInt(sel.value) : null;
+}
+
+function getNombre() {
+  var v = document.getElementById('nombrePaciente').value;
+  return v ? v.trim() : '';
+}
+
+function updateProgress() {
+  var totalFields = ITEMS.length + 1;
+  var done = getNombre() ? 1 : 0;
+  for (var i = 0; i < ITEMS.length; i++) {
+    if (getVal(ITEMS[i].n) !== null) done++;
+  }
+  document.getElementById('progressBar').style.width = Math.round((done / totalFields) * 100) + '%';
+}
+
+function calcular() {
+  var nombre = getNombre();
+  var vals = [];
+  for (var i = 0; i < ITEMS.length; i++) vals.push(getVal(ITEMS[i].n));
+
+  var faltaNombre = !nombre;
+  var hasNull = false;
+  for (var i = 0; i < vals.length; i++) { if (vals[i] === null) hasNull = true; }
+
+  var nameBlock = document.getElementById('nameBlock');
+  nameBlock.classList.toggle('field-error', faltaNombre);
+  for (var i = 0; i < ITEMS.length; i++) {
+    var card = document.getElementById('card-' + ITEMS[i].n);
+    card.classList.toggle('field-error', vals[i] === null);
+  }
+
+  if (faltaNombre || hasNull) {
+    document.getElementById('errMsg').style.display = 'block';
+    if (faltaNombre) {
+      nameBlock.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    return;
+  }
+  document.getElementById('errMsg').style.display = 'none';
+
+  var itemScores = {};
+  for (var i = 0; i < ITEMS.length; i++) {
+    var rawVal = vals[i];
+    var scored = ITEMS[i].inv ? (5 - rawVal) : rawVal;
+    itemScores[ITEMS[i].n] = scored;
+  }
+
+  var subScores = {cognitiva:0, somatica:0, autoconf:0};
+  for (var i = 0; i < ITEMS.length; i++) {
+    subScores[ITEMS[i].sub] += itemScores[ITEMS[i].n];
+  }
+
+  document.getElementById('resTitle').textContent = 'Resultados de ' + nombre;
+
+  // Score card principal: usamos el promedio de ansiedad (cognitiva+somatica)/2 como indicador headline,
+  // ya que segun la fuente, cuando ambas estan elevadas el rendimiento disminuye
+  var ansiedadPromedio = (subScores.cognitiva + subScores.somatica) / 2;
+  var pctAnsiedad = ((ansiedadPromedio - 9) / 27) * 100;
+
+  document.getElementById('scoreNum').textContent = Math.round(ansiedadPromedio);
+  document.getElementById('scoreDenom').textContent = 'ansiedad promedio (cognitiva + somática) · rango 9–36';
+  setTimeout(function() { document.getElementById('scoreFill').style.width = pctAnsiedad + '%'; }, 120);
+
+  var clasifGeneral = clasificarGeneral(subScores);
+  document.getElementById('scoreBadge').textContent = clasifGeneral.badge;
+  document.getElementById('scoreText').textContent = clasifGeneral.texto;
+
+  dibujarBarras(subScores);
+
+  var subsGrid = document.getElementById('subsGrid');
+  subsGrid.innerHTML = '';
+  var subOrder = ['cognitiva', 'somatica', 'autoconf'];
+  for (var i = 0; i < subOrder.length; i++) {
+    var key = subOrder[i];
+    var sub = SUBESCALAS[key];
+    var score = subScores[key];
+    var nivel = clasificarNivelIndividual(key, score);
+    subsGrid.insertAdjacentHTML('beforeend',
+      '<div class="sub-card">' +
+      '<p class="sub-name">' + sub.nombre + '</p>' +
+      '<div class="sub-score">' + score + '</div>' +
+      '<p class="sub-denom">de ' + sub.max + '</p>' +
+      '<span class="sub-badge sub-' + nivel.clase + '">' + nivel.texto + '</span>' +
+      '</div>'
+    );
+  }
+
+  document.getElementById('informeIntegral').innerHTML = generarInforme(subScores, nombre);
+
+  document.getElementById('resultados').style.display = 'block';
+  document.getElementById('progressBar').style.width = '100%';
+  setTimeout(function() {
+    document.getElementById('resultados').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 200);
+}
+
+function clasificarNivelIndividual(sub, score) {
+  // Para cognitiva y somatica: mayor puntaje = mayor ansiedad (negativo)
+  // Para autoconf: mayor puntaje = mayor autoconfianza (positivo) -> invertimos la lectura de color
+  var tercio = 9; // 27 puntos de rango / 3
+  var bajo = score <= 18;
+  var medio = score > 18 && score <= 27;
+  var alto = score > 27;
+
+  if (sub === 'autoconf') {
+    if (alto) return {clase:'bajo', texto:'Alta'};
+    if (medio) return {clase:'moderado', texto:'Moderada'};
+    return {clase:'alto', texto:'Baja'};
+  } else {
+    if (alto) return {clase:'alto', texto:'Alta'};
+    if (medio) return {clase:'moderado', texto:'Moderada'};
+    return {clase:'bajo', texto:'Baja'};
+  }
+}
+
+function clasificarGeneral(subScores) {
+  var cog = subScores.cognitiva, som = subScores.somatica, auto = subScores.autoconf;
+  var ambasElevadas = cog > 27 && som > 27;
+
+  if (ambasElevadas) {
+    return {badge:'Ansiedad elevada', texto:'Tanto la ansiedad cognitiva como la somática aparecen elevadas en este momento. Según la literatura sobre el CSAI-2, cuando ambas dimensiones están altas a la vez, el rendimiento competitivo suele verse afectado. Vale la pena prestarle atención a este momento puntual.'};
+  }
+  if (cog <= 18 && som <= 18) {
+    return {badge:'Ansiedad baja', texto:'Tanto la ansiedad cognitiva como la somática aparecen bajas en este momento. Esto sugiere una activación contenida antes de competir, sin que la preocupación ni la tensión corporal estén tomando demasiado protagonismo.'};
+  }
+  return {badge:'Ansiedad moderada', texto:'Tu perfil muestra un nivel intermedio de activación antes de competir. Es un estado habitual en muchos deportistas — la lectura más útil está en cómo se combina con tu nivel de autoconfianza, que vas a ver más abajo.'};
+}
+
+function dibujarBarras(subScores) {
+  var c = document.getElementById('hbarContainer');
+  c.innerHTML = '';
+  var order = ['cognitiva', 'somatica', 'autoconf'];
+  for (var i = 0; i < order.length; i++) {
+    var key = order[i];
+    var sub = SUBESCALAS[key];
+    var score = subScores[key];
+    var pct = Math.round(((score - 9) / 27) * 100);
+
+    var html = '<div class="hbar-row">' +
+      '<div class="hbar-top"><span class="hbar-name">' + sub.nombre + '</span>' +
+      '<span class="hbar-score"><strong>' + score + '</strong> / ' + sub.max + '</span></div>' +
+      '<div class="hbar-track"><div class="hbar-fill" id="hbar-' + key + '"></div></div>' +
+      '<div class="hbar-foot"><span>9</span><span>' + pct + '% del rango</span><span>36</span></div>' +
+      '</div>';
+    c.insertAdjacentHTML('beforeend', html);
+  }
+
+  setTimeout(function() {
+    for (var i = 0; i < order.length; i++) {
+      var key = order[i];
+      var score = subScores[key];
+      var pct = ((score - 9) / 27) * 100;
+      document.getElementById('hbar-' + key).style.width = pct + '%';
+    }
+  }, 150);
+}
+
+function generarInforme(subScores, nombre) {
+  var cog = subScores.cognitiva, som = subScores.somatica, auto = subScores.autoconf;
+
+  var html = '<p><strong>' + nombre + '</strong>, así se ve tu cabeza y tu cuerpo en los minutos antes de competir, según lo que respondiste.</p>';
+
+  html += '<p><strong>Lo que pasa por tu cabeza</strong> <span style="color:var(--muted);font-weight:300">(' + cog + '/36)</span><br>';
+  if (cog > 27) {
+    html += 'En los minutos antes de salir a competir, tu mente está bastante ocupada: aparecen con fuerza pensamientos sobre el resultado, sobre si vas a estar a la altura, sobre cómo te van a ver los demás si las cosas no salen bien. Ese ruido mental ocupa un espacio que necesitarías para estar metido en lo que tenés que hacer ahí, no en lo que podría pasar.';
+  } else if (cog > 18) {
+    html += 'Aparecen algunos pensamientos de preocupación antes de competir — dudas sobre el resultado, algo de anticipación. Esto es lo más común entre deportistas: pocos llegan con la cabeza completamente despejada. Lo que marca la diferencia no es que aparezcan esos pensamientos, sino si lográs seguir metido en la tarea mientras están ahí. <em>¿Te pasa parejo en cualquier competencia, o hay situaciones puntuales —cierto rival, cierto torneo— donde esto se dispara más?</em> Identificar el contexto específico es más útil que el número en sí: te da algo concreto para observar la próxima vez que compitas.';
+  } else {
+    html += 'Tu cabeza llega relativamente despejada al momento previo a competir. No hay un ruido mental importante compitiendo por tu atención — eso te deja más disponible para estar metido en lo que tenés que hacer.';
+  }
+
+  html += '</p><p><strong>Lo que pasa en tu cuerpo</strong> <span style="color:var(--muted);font-weight:300">(' + som + '/36)</span><br>';
+  if (som > 27) {
+    html += 'Tu cuerpo está claramente activado: tensión muscular, el corazón más acelerado de lo habitual, quizás sudor frío o un nudo en el estómago. Esa activación no es necesariamente mala — muchos deportistas compiten mejor activados — pero el desafío está en que no se vuelva tan intensa que te saque de tu juego en vez de ayudarte a entrar en él.';
+  } else if (som > 18) {
+    html += 'Tu cuerpo muestra cierta activación previa a competir — algo de tensión, algo de pulso más rápido. La mayoría de los deportistas llega a competir con algún grado de activación física; el cuerpo completamente en calma antes de algo que importa es, en realidad, poco habitual. <em>¿Esta activación te suele ayudar a entrar en estado de competencia, o sentís que te resta?</em> Si no lo tenés claro, una forma simple de averiguarlo es anotar después de tu próxima competencia, en una escala del 1 al 10, cuánta activación corporal sentiste antes y cómo rendiste — con dos o tres registros empezás a ver el patrón.';
+  } else {
+    html += 'Tu cuerpo llega relativamente tranquilo a la previa de la competencia. Si tu nivel de activación física suele ser distinto cuando rendís en tu mejor nivel, vale la pena prestarle atención a esa diferencia.';
+  }
+
+  html += '</p><p><strong>Cuánto confiás en vos</strong> <span style="color:var(--muted);font-weight:300">(' + auto + '/36)</span><br>';
+  if (auto > 27) {
+    html += 'Llegás a competir sosteniendo una creencia firme de que podés estar a la altura del desafío. Esa confianza no depende de que todo salga perfecto — es más bien la sensación de que, pase lo que pase, vas a poder responder.';
+  } else if (auto > 18) {
+    html += 'Tenés cierta confianza en tu capacidad de afrontar la competencia, pero no es un terreno completamente firme. Es un punto intermedio habitual — ni la inseguridad total ni la confianza inquebrantable son lo más común, la mayoría de los deportistas navega en esta zona gran parte del tiempo. <em>¿Esta confianza se mueve según cómo vinieron los últimos resultados, o se sostiene más allá de eso?</em> Si depende mucho de lo último que pasó, ahí hay algo concreto para trabajar: una confianza que no dependa tanto del resultado más reciente.';
+  } else {
+    html += 'En este momento, la confianza en tu propia capacidad de responder al desafío está debilitada. Esto es algo puntual de este momento, no una sentencia sobre tu nivel real — pero vale la pena no ignorarlo.';
+  }
+
+  html += '</p>';
+  html += generarLecturaIntegradora(cog, som, auto);
+  html += generarRecomendaciones(cog, som, auto);
+
+  return html;
+}
+
+function nivelDe(valor, esAutoconf) {
+  // bajo/medio/alto segun rango 9-36, tercios de 9 puntos
+  if (esAutoconf) {
+    if (valor <= 18) return 'baja';
+    if (valor <= 27) return 'media';
+    return 'alta';
+  } else {
+    if (valor <= 18) return 'baja';
+    if (valor <= 27) return 'media';
+    return 'alta';
+  }
+}
+
+function generarLecturaIntegradora(cog, som, auto) {
+  var nCog = nivelDe(cog, false);
+  var nSom = nivelDe(som, false);
+  var nAuto = nivelDe(auto, true);
+  var key = nCog + '-' + nSom + '-' + nAuto;
+
+  var lecturas = {
+    'alta-alta-alta': 'Llegás a competir con la cabeza llena y el cuerpo activado, pero sin que eso te desarme — porque por debajo hay una confianza fuerte sosteniendo todo. Para vos, esta combinación puede no ser tan mala como suena: hay deportistas que rinden mejor activados, siempre que la confianza esté ahí para no perder el control.',
+    'alta-alta-media': 'Tu cabeza está ocupada y tu cuerpo activado, y la confianza que tenés ayuda, pero todavía no alcanza a equilibrar del todo esa carga. Es un momento de bastante exigencia interna, donde un poco más de confianza haría una diferencia notable en cómo vivís la previa.',
+    'alta-alta-baja': 'Esta es la combinación más pesada: la cabeza ocupada, el cuerpo activado, y sin la confianza necesaria para sostener todo eso. No es que la activación en sí sea el problema — es que te está llegando sin el piso de confianza que normalmente la hace manejable. Vale la pena prestarle atención a este momento puntual.',
+    'alta-media-alta': 'Tu cabeza está más activa que tu cuerpo, pero tenés una confianza sólida que parece estar conteniendo bien ese exceso de pensamiento. El cuerpo no está acompañando tanto la preocupación mental — eso puede ser un recurso de estabilidad que vale la pena reconocer.',
+    'alta-media-media': 'La preocupación está marcando el ritmo por sobre tu cuerpo y tu confianza, ambos en un nivel intermedio. Lo que más está pesando ahora es lo mental — la anticipación, el dar vueltas a las cosas. Tener la cabeza más activa que el cuerpo es bastante común; lo que conviene observar es si esa diferencia se mantiene constante o varía según el tipo de competencia. <em>¿Notás que pensás más de la cuenta en algunas competencias puntuales más que en otras?</em> Si identificás el patrón, tenés algo concreto para trabajar en esas situaciones específicas, en vez de en "la ansiedad" en general.',
+    'alta-media-baja': 'Tu cabeza está bastante ocupada, el cuerpo responde de forma moderada, y la confianza está debilitada. El desafío principal en este momento parece estar en el plano mental: pensamientos que ocupan espacio sin que todavía haya una confianza firme que los contrarreste.',
+    'alta-baja-alta': 'Tu cabeza está más activa que tu cuerpo, pero sostenés una confianza alta. El cuerpo aparece tranquilo pese a los pensamientos preocupantes — como si la confianza estuviera funcionando de amortiguador entre lo que pensás y cómo lo vive tu cuerpo.',
+    'alta-baja-media': 'Hay preocupación presente, el cuerpo está bastante calmo, y la confianza es moderada. El desafío parece ser más mental que físico — una confianza que todavía no termina de apagar del todo esa preocupación.',
+    'alta-baja-baja': 'Tu cabeza está bastante ocupada mientras el cuerpo se mantiene tranquilo, y la confianza está debilitada. Lo que más te está jugando en contra ahora es lo mental — la rumiación, la anticipación — más que cómo responde tu cuerpo.',
+    'media-alta-alta': 'Tu cuerpo responde con más fuerza que tu cabeza, mientras sostenés una confianza alta. La activación parece concentrarse más en lo físico que en lo mental, con una base de confianza sólida por debajo sosteniendo ese estado.',
+    'media-alta-media': 'Tu cuerpo está bastante activado, mientras la preocupación y la confianza se mantienen en un nivel intermedio. El cuerpo parece estar marcando el ritmo de esta previa más que tu cabeza. Esto es habitual en deportes que exigen mucho físicamente incluso antes de empezar. <em>¿Esa activación corporal te suele jugar a favor o en contra cuando rendís bien?</em> Prestale atención la próxima vez: muchos deportistas confunden activación con nerviosismo cuando en realidad es el cuerpo preparándose.',
+    'media-alta-baja': 'Tu cuerpo responde con más fuerza que tu cabeza, y la confianza está debilitada. Acá el desafío parece estar más en lo físico — esa activación corporal — que en el contenido de tus pensamientos.',
+    'media-media-alta': 'Preocupación y activación corporal en un nivel intermedio, sostenidas por una confianza alta. Es un estado de activación manejable, con un buen piso de confianza por debajo sosteniendo todo — la combinación que más suele acompañar a un buen rendimiento, según lo que muestra la investigación sobre el CSAI-2. Si este es tu estado habitual antes de competir, vale la pena que identifiques qué estás haciendo bien en tu preparación para sostenerlo, y lo repitas conscientemente la próxima vez.',
+    'media-media-media': 'Ninguna de las tres dimensiones está tomando demasiado protagonismo, lo cual te ubica en el patrón más frecuente entre deportistas: activación moderada y pareja es, estadísticamente, lo más común — no el extremo de calma total ni el de ansiedad desbordante. Donde sí vale la pena mirar más de cerca es en la variación: <em>¿este nivel se mantiene parecido antes de cualquier competencia, o cambia notoriamente según lo que está en juego?</em> Una forma simple de averiguarlo es repetir este cuestionario antes de tu próxima competencia importante y comparar los tres números con los de hoy — ahí vas a ver si hay un patrón o si este resultado fue específico de este momento.',
+    'media-media-baja': 'Cabeza y cuerpo en un nivel moderado, pero con la confianza debilitada. El desafío principal en este perfil parece estar más en la falta de un piso de confianza que en el nivel de activación en sí — la preocupación y la tensión corporal por sí solas no suelen ser tan determinantes como la falta de confianza para sostenerlas. <em>¿Esta baja confianza es algo reciente o te viene acompañando hace tiempo?</em> Si es reciente, suele estar más atada a resultados puntuales recientes; si es algo de fondo, conviene trabajarlo con más profundidad.',
+    'media-baja-alta': 'Hay algo de preocupación, tu cuerpo está tranquilo, y sostenés una confianza alta. Tu mente está levemente más activa que tu cuerpo, pero con una base de confianza sólida sosteniendo todo.',
+    'media-baja-media': 'Preocupación moderada, cuerpo tranquilo, confianza intermedia. Ninguna de las tres dimensiones está marcando con fuerza cómo llegás a esta competencia — es un perfil relativamente equilibrado, sin un punto de tensión claro. <em>¿Hay algo puntual de esta competencia que hizo que te sintieras así, o es tu estado habitual antes de competir?</em> Si podés identificar qué es distinto hoy, tenés información valiosa para anticipar tu estado en la próxima.',
+    'media-baja-baja': 'Hay cierta preocupación, tu cuerpo está relativamente calmo, pero la confianza aparece débil. El desafío en este perfil parece estar más en sostener la creencia en tu propia capacidad que en la activación misma.',
+    'baja-alta-alta': 'Tu cuerpo responde con más fuerza que tu cabeza, aunque la preocupación es baja y la confianza alta. Puede tratarse de activación física propia de la previa competitiva, sin que esté acompañada de preocupación mental.',
+    'baja-alta-media': 'Tu cuerpo está bastante activado, con poca preocupación mental y una confianza intermedia. El cuerpo parece estar respondiendo a la exigencia del momento más que tu cabeza.',
+    'baja-alta-baja': 'Hay activación corporal sin que tu mente esté especialmente preocupada, pero con la confianza debilitada. El cuerpo está marcando una señal que vale la pena no pasar por alto, incluso si tus pensamientos no la acompañan.',
+    'baja-media-alta': 'Poca preocupación, activación corporal moderada, confianza alta. Es un perfil cercano al equilibrio, con una leve presencia corporal de la previa competitiva.',
+    'baja-media-media': 'Preocupación baja, cuerpo y confianza en nivel intermedio. No hay ninguna dimensión que esté complicando especialmente cómo llegás a esta competencia. La combinación de poca preocupación con confianza apenas moderada es un poco inusual — normalmente cuando la cabeza está tranquila, la confianza también tiende a ser más alta. <em>¿Sentís que tu confianza depende de algo puntual de esta competencia, más que de tu estado mental general?</em> Vale la pena identificar qué es ese factor específico.',
+    'baja-media-baja': 'Poca preocupación mental, algo de activación corporal, pero confianza debilitada. La fragilidad en este perfil parece estar más en la creencia en tu propia capacidad que en la activación misma.',
+    'baja-baja-alta': 'Tu cabeza está despejada, tu cuerpo tranquilo, y sostenés una confianza alta. Es un estado de calma funcional antes de competir — vale la pena observar si este nivel de calma es el que te suele acompañar cuando rendís en tu mejor nivel, o si se aleja de tu patrón habitual.',
+    'baja-baja-media': 'Poca preocupación, poco cuerpo activado, confianza moderada. Es un estado de relativa calma, con una confianza que todavía tiene margen para consolidarse más.',
+    'baja-baja-baja': 'Tu cabeza está despejada y tu cuerpo tranquilo, pero la confianza también aparece baja. Esta combinación amerita mirar el contexto con cuidado — a veces esta calma refleja más desconexión con lo que está en juego que tranquilidad genuina.'
+  };
+
+  var texto = lecturas[key];
+
+  return '<p><strong>Cómo se conecta todo esto.</strong> ' + texto + '</p>';
+}
+
+function generarRecomendaciones(cog, som, auto) {
+  var tecnicas = [];
+
+  // Ansiedad cognitiva
+  if (cog > 27) {
+    tecnicas.push('<strong>Defusión cognitiva</strong> — en vez de pelearte con los pensamientos de preocupación o intentar que desaparezcan, se trabaja en aprender a notarlos sin que manejen lo que hacés. La idea no es pensar distinto, sino relacionarte distinto con lo que pensás.');
+  } else if (cog > 18) {
+    tecnicas.push('<strong>Focalización atencional</strong> — rutinas breves para dirigir la atención de vuelta a algo concreto de la tarea (un punto, una respiración, una señal del juego) cuando notás que la preocupación empieza a ganar terreno.');
+  } else {
+    tecnicas.push('<strong>Rutinas de activación mental</strong> — palabras clave o frases breves que repetís antes de competir, para sostener la claridad mental que ya tenés y que no se diluya por exceso de confianza o por distraerte con otra cosa.');
+  }
+
+  // Ansiedad somática
+  if (som > 27) {
+    tecnicas.push('<strong>Respiración diafragmática</strong> — respirar más lento y más profundo, desde el abdomen, para bajarle el volumen a la activación corporal sin tener que eliminarla del todo (algo de activación suele ayudar a rendir).');
+  } else if (som > 18) {
+    tecnicas.push('<strong>Regulación respiratoria breve</strong> — ciclos cortos de respiración entre momentos de tensión y calma, para mantener tu cuerpo dentro de un nivel de activación que te acompañe en vez de jugarte en contra.');
+  } else {
+    tecnicas.push('<strong>Activación física controlada</strong> — calentamiento progresivo o respiración energizante, para asegurarte de no llegar "frío" o subactivado al arranque de la competencia.');
+  }
+
+  // Autoconfianza
+  if (auto <= 18) {
+    tecnicas.push('<strong>Visualización y anclaje en valores</strong> — repasar mentalmente momentos en los que respondiste bien, y recordar por qué hacés este deporte más allá del resultado de hoy. Ayuda a reconectar con tus propios recursos cuando la confianza está baja.');
+  } else if (auto <= 27) {
+    tecnicas.push('<strong>Diálogo interno de refuerzo</strong> — repasar logros recientes y recordarte a vos mismo, en tus propias palabras, lo que ya sabés hacer. Sirve para consolidar una confianza que está presente pero todavía no del todo firme.');
+  } else {
+    tecnicas.push('<strong>Rutinas de mantenimiento de la confianza</strong> — llevar un registro breve de fortalezas y objetivos cumplidos, para que esta confianza no dependa solo del resultado de la última competencia.');
+  }
+
+  var listaTexto = '<ul>';
+  for (var i = 0; i < tecnicas.length; i++) {
+    listaTexto += '<li>' + tecnicas[i] + '</li>';
+  }
+  listaTexto += '</ul>';
+
+  return '<p><strong>Para pensar de acá en más.</strong> Este resultado es un punto de partida, no una conclusión. Tiene más sentido leído junto a tu contexto actual — el tipo de competición, lo que está en juego, cómo veniste entrenando — que como un dato aislado. Incluso un perfil en buen nivel se beneficia de sostenimiento, no solo de corrección. Algunas líneas de trabajo de psicología del deporte que suelen explorarse frente a un perfil como este incluyen:' + listaTexto + 'Estas son menciones generales, no un protocolo a aplicar de forma automática: qué técnica tiene sentido, cuándo y para qué, es algo que se define en función de tu situación particular, no de un número en un cuestionario.</p>';
+}
+
+function reiniciar() {
+  document.getElementById('resultados').style.display = 'none';
+  document.getElementById('nombrePaciente').value = '';
+  document.getElementById('errMsg').style.display = 'none';
+  document.getElementById('nameBlock').classList.remove('field-error');
+  for (var i = 0; i < ITEMS.length; i++) {
+    var n = ITEMS[i].n;
+    var radios = document.querySelectorAll('input[name="item' + n + '"]');
+    for (var r = 0; r < radios.length; r++) radios[r].checked = false;
+    document.getElementById('card-' + n).classList.remove('field-error');
+  }
+  document.getElementById('progressBar').style.width = '0%';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+var header = document.querySelector('header');
+window.addEventListener('scroll', function() {
+  header.classList.toggle('scrolled', window.scrollY > 12);
+}, false);
+
+document.getElementById('year').textContent = new Date().getFullYear();
+buildItems();
+</script>
+</body>
+</html>
