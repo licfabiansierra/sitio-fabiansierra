@@ -92,8 +92,11 @@
   .resultado-nombre{font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.03em;color:var(--bone);margin-bottom:2.5rem;line-height:1.15}
 
   /* CARTAS CON VOLTEO */
+  @-webkit-keyframes pulso{0%{box-shadow:0 0 0 0 rgba(196,122,120,.4)}70%{box-shadow:0 0 0 12px rgba(196,122,120,0)}100%{box-shadow:0 0 0 0 rgba(196,122,120,0)}}
+  @keyframes pulso{0%{box-shadow:0 0 0 0 rgba(196,122,120,.4)}70%{box-shadow:0 0 0 12px rgba(196,122,120,0)}100%{box-shadow:0 0 0 0 rgba(196,122,120,0)}}
+
   .cartas-wrap{
-    display:flex;align-items:flex-end;gap:2rem;margin-bottom:2rem;
+    display:flex;align-items:flex-start;gap:2.5rem;margin-bottom:0;
     flex-wrap:wrap;justify-content:center;
   }
   .cartas-nombre{
@@ -111,15 +114,19 @@
     max-width:44ch;margin-left:auto;margin-right:auto;
   }
 
-  .carta-contenedor{perspective:1200px;cursor:pointer;flex-shrink:0}
-  .carta-contenedor.principal{width:min(340px,85vw)}
-  .carta-contenedor.secundaria{width:min(240px,60vw);opacity:.85}
+  .carta-contenedor{perspective:1200px;cursor:pointer;flex-shrink:0;display:flex;flex-direction:column;align-items:center}
+  .carta-contenedor.principal{width:min(300px,80vw)}
+  .carta-contenedor.secundaria{width:min(200px,55vw);opacity:.85}
 
   .carta-inner{
     position:relative;width:100%;
     transform-style:preserve-3d;
     transition:transform .8s var(--ease);
+    border-radius:10px;
+    -webkit-animation:pulso 1.2s ease-out .5s 2;
+    animation:pulso 1.2s ease-out .5s 2;
   }
+  .carta-inner.volteada{-webkit-animation:none;animation:none}
   .carta-contenedor.principal .carta-inner{padding-bottom:175%}
   .carta-contenedor.secundaria .carta-inner{padding-bottom:175%}
   .carta-inner.volteada{transform:rotateY(180deg)}
@@ -137,8 +144,8 @@
     -webkit-backface-visibility:hidden;
     backface-visibility:hidden;
     border-radius:10px;
-    overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
+    overflow:hidden;
+    display:flex;flex-direction:column;justify-content:center;
   }
   .carta-reverso{
     background:#1a1510;
@@ -157,7 +164,7 @@
     line-height:1.9;
     text-align:center;
   }
-  .carta-contenedor.principal .carta-reverso-texto{font-size:1.05rem;line-height:1.9}
+  .carta-contenedor.principal .carta-reverso-texto{font-size:.85rem;line-height:1.75}
   .carta-reverso-texto p{margin-bottom:.9rem}
   .carta-reverso-texto p:last-child{margin-bottom:0;font-style:italic;color:var(--bone)}
 
@@ -234,6 +241,39 @@
   .perfil-contenido{}
   .perfil-nombre{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:.6rem}
   .perfil-texto{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(1rem,1.6vw,1.1rem);font-weight:300;color:rgba(243,241,236,.65);line-height:1.85}
+
+  .carta-perfil-texto{
+    margin-top:1.2rem;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:clamp(.9rem,1.4vw,1rem);
+    font-weight:300;font-style:italic;
+    color:rgba(243,241,236,.5);
+    line-height:1.8;text-align:center;
+    max-width:28ch;
+  }
+  .carta-contenedor.principal .carta-perfil-texto{
+    font-size:clamp(.95rem,1.5vw,1.05rem);
+    color:rgba(243,241,236,.6);
+    max-width:32ch;
+  }
+
+  .resultado-devolucion{
+    margin-top:3rem;padding-top:2.5rem;
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  .resultado-devolucion-titulo{
+    font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(243,241,236,.2);font-weight:600;margin-bottom:1.5rem;
+  }
+  .resultado-devolucion p{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:clamp(1rem,1.7vw,1.15rem);
+    font-weight:300;color:rgba(243,241,236,.7);
+    line-height:1.9;margin-bottom:1.2rem;
+  }
+  .resultado-devolucion p:last-child{
+    color:var(--bone);font-style:italic;font-weight:400;
+  }
 </style>
 </head>
 <body>
@@ -537,6 +577,14 @@ var reflexiones = {
   'T+C': 'La próxima vez que pisés, viví la escena completa antes de pensar en cómo la vas a compartir.'
 };
 
+
+var perfilesCarta = {
+  M: 'Hay personas que, cuando algo inesperado aparece en el camino, simplemente lo incorporan. Sin drama, sin expediente. No porque no sintieron nada, sino porque tienen una relación con lo que no controlan que la mayoría tarda años en construir. Lo que el Monje raramente se pregunta es si esa serenidad es presencia real o si aprendió, sin darse cuenta, a no quedarse demasiado tiempo en nada.',
+  F: 'Existen personas cuya mente, ante cualquier evento, abre automáticamente una investigación. El Fiscal no reacciona ante la caca, la procesa. Esa claridad para ver quién tiene la culpa es una capacidad real. El detalle es que los archivos se acumulan, y mientras el Fiscal está construyendo el caso, a veces ya pasó lo que valía la pena vivir.',
+  N: 'Entre lo que pasó y aceptar que pasó, existe un intervalo. El Negociador lo conoce bien porque vive ahí. Esa capacidad de ver todos los ángulos antes de decidir es genuina y útil. Lo que el Negociador todavía está explorando es la diferencia entre tomarse el tiempo necesario y usar el tiempo para no tener que llegar a ningún lado.',
+  T: 'Este arquetipo no está completo sin el otro. No porque le falte algo, sino porque su forma natural de procesar el mundo es con otros. Esa capacidad de construir momentos compartidos es una habilidad que no todo el mundo tiene. Lo que todavía está aprendiendo es que algunas experiencias no necesitan testigos para haber sido reales.',
+  C: 'Antes de que el zapato toque el suelo, la mente ya está en otro tiempo verbal. Este arquetipo convierte la experiencia en relato con una velocidad que tiene tanto de talento como de distancia. La caca fue suya. La historia ya es de todos. Lo que a veces queda en el medio es si estuvo del todo ahí cuando pasó.'
+};
 var devoluciones = {
   'M+C': '<p>Pisaste, limpiaste con lo que había, y seguiste caminando. Diez minutos después se lo estabas contando a alguien como si hubiera sido la escena de una película. Con pausa dramática y todo.</p><p>La combinación de El Monje y El que ya Sabe Cómo lo Va a Contar es, sin dudas, una de las más sofisticadas del espectro pisador. No sufriste. No maldijiste. No buscaste al culpable ni miraste alrededor para ver si alguien te había visto. Simplemente procesaste, archivaste, y seguiste. El mundo no se enteró de que algo había pasado hasta que vos decidiste que era el momento.</p><p>Porque eso es lo tuyo. No contás las cosas cuando pasan, las contás cuando saben mejor. Tenés un archivo mental impecable y un criterio muy afinado para el timing. La caca fue tuya pero la historia terminó siendo de todos, y encima te quedaste con los aplausos.</p><p>¿Las historias que contás serían todavía mejores si hubieras estado un poco más en la escena cuando pasaron?</p>',
   'M+F': '<p>Pisaste, limpiaste con lo que había, y seguiste caminando. Sin drama, sin palabras, sin escena. Caso cerrado.</p><p>La combinación de El Monje y El Fiscal de Guardia es, estadísticamente, una de las más contradictorias del espectro pisador. Porque por fuera sos la calma personificada. Limpiaste, seguiste, nadie supo nada. Pero por dentro ya tenías identificado al responsable, el antecedente, el agravante, y la pena correspondiente.</p><p>Sos de esas personas que procesan en silencio pero no perdonan en silencio. La serenidad que mostrás no es paz, es protocolo. Y el protocolo incluye una lista interna de quién tiene la culpa de cada cosa que sale mal, perfectamente ordenada y actualizada.</p><p>¿La caca del perro ya tiene dueño en tu cabeza, o todavía está en investigación?</p>',
@@ -580,6 +628,7 @@ function actualizarProgreso() {
 
 function crearCarta(clave, tamano, devolucionHTML) {
   var arq = arquetipos[clave];
+  if (!arq) return document.createElement('div');
   var contenedor = document.createElement('div');
   contenedor.className = 'carta-contenedor ' + tamano;
 
@@ -603,30 +652,9 @@ function crearCarta(clave, tamano, devolucionHTML) {
 
   var texto = document.createElement('div');
   texto.className = 'carta-reverso-texto';
-
-  if (tamano === 'principal' && devolucionHTML) {
-    var parser = new DOMParser();
-    var doc = parser.parseFromString('<div>' + devolucionHTML + '</div>', 'text/html');
-    var parrafos = doc.querySelectorAll('p');
-    var mitad = Math.ceil(parrafos.length / 2);
-    var fragmento = '';
-    for (var j = 0; j < mitad; j++) {
-      fragmento += parrafos[j].outerHTML;
-    }
-    texto.innerHTML = fragmento;
-  } else if (tamano === 'secundaria' && devolucionHTML) {
-    var parser2 = new DOMParser();
-    var doc2 = parser2.parseFromString('<div>' + devolucionHTML + '</div>', 'text/html');
-    var parrafos2 = doc2.querySelectorAll('p');
-    var mitad2 = Math.ceil(parrafos2.length / 2);
-    var fragmento2 = '';
-    for (var k = mitad2; k < parrafos2.length; k++) {
-      fragmento2 += parrafos2[k].outerHTML;
-    }
-    texto.innerHTML = fragmento2;
-  }
-
+  texto.innerHTML = '<p>' + (perfilesCarta[clave] || '') + '</p>';
   reverso.appendChild(texto);
+
   var ornB = document.createElement('div');
   ornB.className = 'carta-reverso-ornamento-bottom';
   ornB.textContent = 'Lic. Fabian Sierra';
@@ -643,7 +671,7 @@ function crearCarta(clave, tamano, devolucionHTML) {
 
   var hint = document.createElement('p');
   hint.className = 'carta-hint';
-  hint.textContent = tamano === 'principal' ? 'Tocá para leer tu perfil' : 'Rasgo secundario';
+  hint.textContent = 'Tocá para conocer tu arquetipo';
   contenedor.appendChild(hint);
 
   contenedor.onclick = function() {
@@ -651,7 +679,7 @@ function crearCarta(clave, tamano, devolucionHTML) {
     if (inner.classList.contains('volteada')) {
       hint.textContent = 'Tocá para volver';
     } else {
-      hint.textContent = tamano === 'principal' ? 'Tocá para leer tu perfil' : 'Rasgo secundario';
+      hint.textContent = 'Tocá para conocer tu arquetipo';
     }
   };
 
@@ -712,6 +740,11 @@ function calcularResultado() {
   reflexion.className = 'cartas-reflexion';
   reflexion.textContent = reflexiones[clave] || '';
   nombreCombo.parentNode.insertBefore(reflexion, nombreCombo.nextSibling);
+
+  var divDev = document.createElement('div');
+  divDev.className = 'resultado-devolucion';
+  divDev.innerHTML = '<p class="resultado-devolucion-titulo">Tu lectura</p>' + (devolucion || '');
+  reflexion.parentNode.insertBefore(divDev, reflexion.nextSibling);
 
   document.getElementById('formArea').style.display = 'none';
   document.getElementById('resultado').style.display = 'block';
