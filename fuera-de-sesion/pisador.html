@@ -92,39 +92,60 @@
   .resultado-nombre{font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.03em;color:var(--bone);margin-bottom:2.5rem;line-height:1.15}
 
   /* CARTAS CON VOLTEO */
-  .cartas-wrap{display:flex;align-items:flex-end;gap:2.5rem;margin-bottom:3rem;flex-wrap:wrap}
+  .cartas-wrap{
+    display:flex;align-items:flex-end;gap:2rem;margin-bottom:2rem;
+    flex-wrap:wrap;justify-content:center;
+  }
+  .cartas-nombre{
+    text-align:center;margin-bottom:.8rem;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:clamp(1.1rem,2vw,1.4rem);font-weight:300;font-style:italic;
+    color:rgba(243,241,236,.6);letter-spacing:.02em;line-height:1.4;
+    max-width:40ch;margin-left:auto;margin-right:auto;
+  }
+  .cartas-reflexion{
+    text-align:center;margin-bottom:2.5rem;
+    font-family:"Archivo",sans-serif;
+    font-size:clamp(.85rem,1.4vw,.95rem);font-weight:300;
+    color:rgba(243,241,236,.35);letter-spacing:.01em;line-height:1.65;
+    max-width:44ch;margin-left:auto;margin-right:auto;
+  }
 
-  .carta-contenedor{perspective:1000px;cursor:pointer;flex-shrink:0}
-  .carta-contenedor.principal{width:220px}
-  .carta-contenedor.secundaria{width:150px;opacity:.8}
+  .carta-contenedor{perspective:1200px;cursor:pointer;flex-shrink:0}
+  .carta-contenedor.principal{width:min(340px,85vw)}
+  .carta-contenedor.secundaria{width:min(240px,60vw);opacity:.85}
 
-  .carta-inner{position:relative;width:100%;transform-style:preserve-3d;transition:transform .8s var(--ease)}
-  .carta-contenedor.principal .carta-inner{min-height:340px}
-  .carta-contenedor.secundaria .carta-inner{min-height:245px}
+  .carta-inner{
+    position:relative;width:100%;
+    transform-style:preserve-3d;
+    transition:transform .8s var(--ease);
+  }
+  .carta-contenedor.principal .carta-inner{padding-bottom:163%}
+  .carta-contenedor.secundaria .carta-inner{padding-bottom:163%}
   .carta-inner.volteada{transform:rotateY(180deg)}
 
   .carta-frente{
     position:absolute;inset:0;
     -webkit-backface-visibility:hidden;
     backface-visibility:hidden;
-    border-radius:8px;
+    border-radius:10px;
     overflow:hidden;
   }
+  .carta-frente img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
   .carta-reverso{
+    position:absolute;inset:0;
     -webkit-backface-visibility:hidden;
     backface-visibility:hidden;
-    border-radius:8px;
+    border-radius:10px;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
   }
-  .carta-frente img{width:100%;height:100%;object-fit:cover;display:block}
-
   .carta-reverso{
     background:#1a1510;
     transform:rotateY(180deg);
     border:1px solid rgba(243,241,236,.15);
     display:flex;flex-direction:column;
     padding:1.4rem 1.1rem;
-    overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
   }
   .carta-contenedor.principal .carta-reverso{padding:1.8rem 1.4rem}
 
@@ -136,7 +157,7 @@
     line-height:1.9;
     text-align:center;
   }
-  .carta-contenedor.principal .carta-reverso-texto{font-size:1rem;line-height:1.85}
+  .carta-contenedor.principal .carta-reverso-texto{font-size:1.05rem;line-height:1.9}
   .carta-reverso-texto p{margin-bottom:.9rem}
   .carta-reverso-texto p:last-child{margin-bottom:0;font-style:italic;color:var(--bone)}
 
@@ -165,10 +186,10 @@
   .carta-hint{font-size:.62rem;color:rgba(243,241,236,.25);text-align:center;margin-top:.3rem}
 
   @media(max-width:520px){
-    .carta-contenedor.principal{width:180px}
-    .carta-contenedor.secundaria{width:120px}
-    .cartas-wrap{gap:1.5rem}
-    .carta-contenedor.principal .carta-reverso-texto{font-size:.88rem}
+    .carta-contenedor.principal{width:min(280px,80vw)}
+    .carta-contenedor.secundaria{width:min(180px,50vw)}
+    .cartas-wrap{gap:1rem}
+    .carta-contenedor.principal .carta-reverso-texto{font-size:.92rem}
   }
 
   .cta-strip{background:var(--surface-a);border-top:1px solid rgba(255,255,255,.06);margin-top:clamp(3rem,6vw,5rem)}
@@ -185,6 +206,22 @@
   .foot-bottom span{font-size:.66rem;color:rgba(243,241,236,.2);letter-spacing:.04em}
 
   @media(max-width:420px){.hero h1{font-size:2rem}}
+
+  /* FICHA TECNICA */
+  .ficha-section{margin-top:clamp(4rem,8vw,7rem);padding-top:clamp(2rem,4vw,3rem);border-top:1px solid rgba(255,255,255,.06)}
+  .ficha-eyebrow{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;margin-bottom:1.5rem}
+  .ficha-card{border:1px solid rgba(255,255,255,.06);background:var(--surface-b);padding:clamp(1.4rem,3vw,2rem);margin-bottom:1rem}
+  .ficha-card-label{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;padding-bottom:.8rem;margin-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.05)}
+  .ficha-body{font-size:.88rem;color:rgba(243,241,236,.3);font-weight:300;line-height:1.75}
+  .ficha-body strong{font-weight:600;color:rgba(243,241,236,.45)}
+  .ficha-body p+p{margin-top:.7rem}
+  .ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.5rem;margin-top:.8rem;font-size:.82rem;color:rgba(243,241,236,.3);border-top:1px solid rgba(255,255,255,.05);padding-top:.8rem}
+  .ficha-grid dt{font-weight:600;color:rgba(243,241,236,.35)}
+  .ficha-grid dd{font-weight:300}
+  @media(max-width:480px){.ficha-grid{grid-template-columns:1fr}}
+
+  /* DISCLAIMER FINAL */
+  .disclaimer-final{margin-top:1.5rem;padding:1rem 1.3rem;border-left:2px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(243,241,236,.25);font-weight:300;line-height:1.7;font-style:italic}
 </style>
 </head>
 <body>
@@ -305,6 +342,57 @@
     <button class="btn btn-ghost" style="margin-top:1rem" onclick="reiniciar()">Volver a empezar</button>
   </div>
 
+
+  <div class="ficha-section" id="ficha-tecnica">
+    <p class="ficha-eyebrow">Ficha técnica</p>
+
+    <div class="ficha-card">
+      <p class="ficha-card-label">Identificación del instrumento</p>
+      <div class="ficha-body">
+        <dl class="ficha-grid">
+          <dt>Nombre</dt><dd>Inventario de Respuesta ante Eventos Inevitables e Indeseados en la Vía Pública (IREIV-VP)</dd>
+          <dt>Nombre coloquial</dt><dd>El del pisador</dd>
+          <dt>Autores</dt><dd>Sierra, F. & una cantidad no especificada de personas que pisaron y nunca lo procesaron del todo</dd>
+          <dt>Año</dt><dd>Montevideo, 2024</dd>
+          <dt>Ítems</dt><dd>6 preguntas · 3 opciones cada una</dd>
+          <dt>Tiempo de administración</dt><dd>2 minutos aproximadamente, dependiendo de cuánto se rumieen las opciones</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="ficha-card">
+      <p class="ficha-card-label">Fundamentación</p>
+      <div class="ficha-body">
+        <p>Lo evitable negativo ocurre. No siempre, no siempre de la misma forma, pero ocurre. Lo que varía no es el evento sino lo que sucede en el intervalo entre el impacto y la siguiente conducta: la atención en el momento presente, la relación con el malestar, la atribución de responsabilidad, la necesidad de validación externa y la capacidad de seguir caminando sin que el zapato decida el resto del día.</p>
+        <p>Este cuestionario no mide tolerancia a la frustración. Mide el estilo con que una persona habita los tres segundos después de que algo sale mal sin haberlo pedido.</p>
+      </div>
+    </div>
+
+    <div class="ficha-card">
+      <p class="ficha-card-label">Propiedades psicométricas</p>
+      <div class="ficha-body">
+        <dl class="ficha-grid">
+          <dt>Muestra de estandarización</dt><dd>No existe. Existe evidencia anecdótica extensa, recolectada en condiciones no controladas y con sesgo de selección evidente.</dd>
+          <dt>Fiabilidad</dt><dd>No calculada. Se intentó. El software cerró solo.</dd>
+          <dt>Validez de constructo</dt><dd>Pendiente de revisión por pares que no han sido contactados todavía.</dd>
+          <dt>Baremos</dt><dd>Inexistentes. Se trabaja con intuición clínica y experiencia vital acumulada.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="ficha-card">
+      <p class="ficha-card-label">Interpretación y nota para colegas</p>
+      <div class="ficha-body">
+        <p>Los resultados no constituyen diagnóstico, perfil clínico ni evaluación psicológica de ningún tipo. Son una invitación a notar algo. Lo que se haga con eso queda fuera del alcance de este cuestionario y, en rigor, dentro del de la persona que lo respondió.</p>
+        <p><strong>Para colegas:</strong> los procesos que este instrumento intenta rozar de forma no sistemática ni validada incluyen contacto con el momento presente, fusión cognitiva, locus de control, evitación experiencial y flexibilidad psicológica contextual. Si encontrás problemas metodológicos, son todos intencionales. Si encontrás algo útil, también.</p>
+      </div>
+    </div>
+
+    <div class="disclaimer-final">
+      Este cuestionario no tiene validación científica, no constituye un diagnóstico psicológico ni reemplaza la evaluación profesional. Si algo de lo que apareció acá te generó preguntas de verdad, eso ya es información valiosa — y para eso existe la consulta.
+    </div>
+
+  </div>
 </div>
 </main>
 
@@ -344,6 +432,52 @@ var arquetipos = {
   N: { nombre: 'El Negociador', imagen: 'carta-negociador.png' },
   T: { nombre: 'El que Necesita Testigos', imagen: 'carta-testigos.png' },
   C: { nombre: 'El que ya Sabe Cómo lo Va a Contar', imagen: 'carta-cronista.png' }
+};
+
+var nombresCombo = {
+  'M+C': 'El que guarda todo para el momento justo',
+  'M+F': 'El que archiva sin hacer ruido',
+  'M+N': 'El que llega a la paz de a poco',
+  'M+T': 'El que no necesita público pero igual mira',
+  'F+M': 'El que sabe quién tiene la culpa y sigue',
+  'F+C': 'El que construye el caso y lo cuenta bien',
+  'F+N': 'El que a veces suelta antes de sentenciar',
+  'F+T': 'El que necesita que la injusticia sea pública',
+  'N+M': 'El que tarda en aceptar pero lo hace bien',
+  'N+F': 'El que ve todos los ángulos antes de decidir',
+  'N+C': 'El que convierte la duda en el mejor chiste',
+  'N+T': 'El que calibra según lo que ve en los demás',
+  'C+M': 'El que deja reposar la historia antes de contarla',
+  'C+F': 'El que hace la conclusión inevitable sin decirla',
+  'C+N': 'El que incluye sus propias contradicciones en el relato',
+  'C+T': 'El que necesita cómplices para que la historia pese',
+  'T+M': 'El que prefiere no estar solo con lo que pasa',
+  'T+F': 'El que necesita que la inocencia quede registrada',
+  'T+N': 'El que se conoce mejor cuando nadie está mirando',
+  'T+C': 'El que construye momentos para que otros los recuerden'
+};
+
+var reflexiones = {
+  'M+C': 'La próxima vez que pisés, quedate en la escena un segundo más antes de empezar a editarla.',
+  'M+F': 'Revisá el archivo. La caca de hoy no tiene por qué compartir espacio con la de hace tres años.',
+  'M+N': 'La diferencia entre tres segundos y tres años empieza en el primer paso después de limpiar el zapato.',
+  'M+T': 'Contale a alguien que pisaste. No porque necesites que lo sepan. Solo para ver qué pasa cuando lo decís en voz alta.',
+  'F+M': 'Identificaste al culpable. Bien. Ahora fijate si vas a hacer algo con eso o solo lo vas a tener guardado.',
+  'F+C': 'La próxima vez que cuentes lo de la caca, fijate si estás contando lo que pasó o construyendo el caso.',
+  'F+N': 'Dejá una caca sin dueño esta semana. A ver qué pasa si nadie tiene la culpa.',
+  'F+T': 'Guardá una injusticia solo para vos. Sin foto, sin testigo, sin historia. Una semana.',
+  'N+M': 'Cronometrá cuánto tardás en aceptar que pisaste. Después preguntate si ese tiempo cambió algo.',
+  'N+F': 'La próxima vez que pisés, limpiá antes de buscar al responsable. Solo para ver si el orden importa.',
+  'N+C': 'Quedate en la duda un poco más antes de convertirla en el chiste. A veces la duda sola ya es suficiente.',
+  'N+T': 'La próxima vez que no estés seguro de lo que pasó, fijate si tu primera reacción es mirar adentro o mirar alrededor.',
+  'C+M': 'Contá lo de la caca antes de que esté lista. Sin el timing perfecto. A ver qué queda.',
+  'C+F': 'Contá lo que pasó sin dejar en claro quién tuvo la culpa. Solo una vez. A ver si aguantás.',
+  'C+N': 'La próxima vez que dudes si fue caca o no, no lo conviertas en chiste todavía. Quedáte ahí un momento.',
+  'C+T': 'Guardá la historia de la caca solo para vos. Sin cómplices. A ver si igual vale algo.',
+  'T+M': 'La próxima vez que pisés y no haya nadie mirando, fijate cómo lo manejás igual.',
+  'T+F': 'La próxima vez que algo salga mal, esperá diez minutos antes de empezar a reconstruir la escena para alguien.',
+  'T+N': 'Fijate si tu reacción cambia según quién esté mirando. Empezando por la caca.',
+  'T+C': 'La próxima vez que pisés, viví la escena completa antes de pensar en cómo la vas a compartir.'
 };
 
 var devoluciones = {
@@ -511,6 +645,16 @@ function calcularResultado() {
   cartasWrap.innerHTML = '';
   cartasWrap.appendChild(crearCarta(principal, 'principal', devolucion));
   cartasWrap.appendChild(crearCarta(secundario, 'secundaria', devolucion));
+
+  var nombreCombo = document.createElement('p');
+  nombreCombo.className = 'cartas-nombre';
+  nombreCombo.textContent = nombresCombo[clave] || '';
+  cartasWrap.parentNode.insertBefore(nombreCombo, cartasWrap.nextSibling);
+
+  var reflexion = document.createElement('p');
+  reflexion.className = 'cartas-reflexion';
+  reflexion.textContent = reflexiones[clave] || '';
+  nombreCombo.parentNode.insertBefore(reflexion, nombreCombo.nextSibling);
 
   document.getElementById('formArea').style.display = 'none';
   document.getElementById('resultado').style.display = 'block';
