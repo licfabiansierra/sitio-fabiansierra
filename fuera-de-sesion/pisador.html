@@ -91,6 +91,67 @@
   .resultado-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent-light);display:block;flex-shrink:0}
   .resultado-nombre{font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.03em;color:var(--bone);margin-bottom:2.5rem;line-height:1.15}
 
+  /* ORACULO */
+  .oraculo{
+    margin-top:3rem;
+    background:#0e0d0b;
+    border:1px solid rgba(243,241,236,.07);
+    padding:clamp(2.5rem,6vw,5rem) clamp(1.5rem,5vw,4rem);
+    position:relative;
+  }
+  .oraculo::before{
+    content:'';position:absolute;inset:8px;
+    border:1px solid rgba(243,241,236,.04);
+    pointer-events:none;
+  }
+  .oraculo-ornamento{
+    text-align:center;margin-bottom:2.5rem;
+    font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(243,241,236,.15);
+  }
+  .oraculo-ornamento::before,.oraculo-ornamento::after{
+    content:'— ';
+  }
+  .oraculo-combo{
+    text-align:center;margin-bottom:.6rem;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:300;font-style:italic;
+    color:rgba(243,241,236,.5);letter-spacing:.02em;
+  }
+  .oraculo-reflexion{
+    text-align:center;margin-bottom:3rem;
+    font-size:.78rem;color:rgba(243,241,236,.2);
+    font-weight:300;letter-spacing:.04em;line-height:1.6;
+    font-family:"Archivo",sans-serif;
+  }
+  .oraculo-separador{
+    display:flex;align-items:center;gap:1rem;margin-bottom:3rem;
+  }
+  .oraculo-separador::before,.oraculo-separador::after{
+    content:'';flex:1;height:1px;background:rgba(243,241,236,.08);
+  }
+  .oraculo-separador span{
+    font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;
+    color:rgba(243,241,236,.15);white-space:nowrap;
+  }
+  .oraculo-texto{
+    max-width:56ch;margin:0 auto;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:clamp(1.1rem,1.8vw,1.25rem);
+    font-weight:300;color:rgba(243,241,236,.75);
+    line-height:2;text-align:center;
+  }
+  .oraculo-texto p{margin-bottom:1.8rem}
+  .oraculo-texto p:last-child{
+    margin-bottom:0;font-style:italic;
+    color:rgba(243,241,236,.9);font-size:clamp(1.15rem,1.9vw,1.3rem);
+  }
+  .oraculo-firma{
+    text-align:center;margin-top:3rem;
+    font-size:.55rem;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(243,241,236,.12);
+  }
+
   /* CARTAS CON VOLTEO */
   @-webkit-keyframes pulso{0%{box-shadow:0 0 0 0 rgba(196,122,120,.4)}70%{box-shadow:0 0 0 12px rgba(196,122,120,0)}100%{box-shadow:0 0 0 0 rgba(196,122,120,0)}}
   @keyframes pulso{0%{box-shadow:0 0 0 0 rgba(196,122,120,.4)}70%{box-shadow:0 0 0 12px rgba(196,122,120,0)}100%{box-shadow:0 0 0 0 rgba(196,122,120,0)}}
@@ -99,20 +160,8 @@
     display:flex;align-items:flex-start;gap:2.5rem;margin-bottom:0;
     flex-wrap:wrap;justify-content:center;
   }
-  .cartas-nombre{
-    text-align:center;margin-bottom:.8rem;
-    font-family:"Cormorant Garamond",Georgia,serif;
-    font-size:clamp(1.1rem,2vw,1.4rem);font-weight:300;font-style:italic;
-    color:rgba(243,241,236,.6);letter-spacing:.02em;line-height:1.4;
-    max-width:40ch;margin-left:auto;margin-right:auto;
-  }
-  .cartas-reflexion{
-    text-align:center;margin-bottom:2.5rem;
-    font-family:"Archivo",sans-serif;
-    font-size:clamp(.85rem,1.4vw,.95rem);font-weight:300;
-    color:rgba(243,241,236,.35);letter-spacing:.01em;line-height:1.65;
-    max-width:44ch;margin-left:auto;margin-right:auto;
-  }
+  .cartas-nombre{display:none}
+  .cartas-reflexion{display:none}
 
   .carta-contenedor{perspective:1200px;cursor:pointer;flex-shrink:0;display:flex;flex-direction:column;align-items:center}
   .carta-contenedor.principal{width:min(300px,80vw)}
@@ -257,23 +306,7 @@
     max-width:32ch;
   }
 
-  .resultado-devolucion{
-    margin-top:3rem;padding-top:2.5rem;
-    border-top:1px solid rgba(255,255,255,.08);
-  }
-  .resultado-devolucion-titulo{
-    font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
-    color:rgba(243,241,236,.2);font-weight:600;margin-bottom:1.5rem;
-  }
-  .resultado-devolucion p{
-    font-family:"Cormorant Garamond",Georgia,serif;
-    font-size:clamp(1rem,1.7vw,1.15rem);
-    font-weight:300;color:rgba(243,241,236,.7);
-    line-height:1.9;margin-bottom:1.2rem;
-  }
-  .resultado-devolucion p:last-child{
-    color:var(--bone);font-style:italic;font-weight:400;
-  }
+  .resultado-devolucion{display:none}
 </style>
 </head>
 <body>
@@ -731,20 +764,22 @@ function calcularResultado() {
   cartasWrap.appendChild(crearCarta(principal, 'principal', devolucion));
   cartasWrap.appendChild(crearCarta(secundario, 'secundaria', devolucion));
 
-  var nombreCombo = document.createElement('p');
-  nombreCombo.className = 'cartas-nombre';
-  nombreCombo.textContent = nombresCombo[clave] || '';
-  cartasWrap.parentNode.insertBefore(nombreCombo, cartasWrap.nextSibling);
+  var oraculo = document.getElementById('oraculo');
+  if (oraculo) oraculo.parentNode.removeChild(oraculo);
 
-  var reflexion = document.createElement('p');
-  reflexion.className = 'cartas-reflexion';
-  reflexion.textContent = reflexiones[clave] || '';
-  nombreCombo.parentNode.insertBefore(reflexion, nombreCombo.nextSibling);
+  var oraculoDiv = document.createElement('div');
+  oraculoDiv.className = 'oraculo';
+  oraculoDiv.id = 'oraculo';
+  oraculoDiv.innerHTML =
+    '<div class="oraculo-ornamento">Tu lectura</div>' +
+    '<p class="oraculo-combo">' + (nombresCombo[clave] || '') + '</p>' +
+    '<p class="oraculo-reflexion">' + (reflexiones[clave] || '') + '</p>' +
+    '<div class="oraculo-separador"><span>&#10022;</span></div>' +
+    '<div class="oraculo-texto">' + (devolucion || '') + '</div>' +
+    '<div class="oraculo-firma">Lic. Fabián Sierra &middot; Fuera de sesión</div>';
 
-  var divDev = document.createElement('div');
-  divDev.className = 'resultado-devolucion';
-  divDev.innerHTML = '<p class="resultado-devolucion-titulo">Tu lectura</p>' + (devolucion || '');
-  reflexion.parentNode.insertBefore(divDev, reflexion.nextSibling);
+  var btnReiniciar = document.querySelector('#resultado .btn-ghost');
+  document.getElementById('resultado').insertBefore(oraculoDiv, btnReiniciar);
 
   document.getElementById('formArea').style.display = 'none';
   document.getElementById('resultado').style.display = 'block';
