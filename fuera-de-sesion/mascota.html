@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>¿Conoce tu mascota tus valores? · Fuera de sesión · Lic. Fabián Sierra</title>
+<meta name="description" content="Un cuestionario sin validación científica sobre lo que tu mascota sabe de vos. Resultados sin garantía. Algo igual te va a quedar dando vueltas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;
+    --ink:#17181C;--ink-soft:#3A3C44;--muted:#6E7079;
+    --accent:#942322;--accent-deep:#741A19;--accent-light:#c47a78;
+    --surface-a:#1E1F23;--surface-b:#141518;
+    --maxw:860px;--pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#17181C;scroll-behavior:smooth;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#17181C;color:var(--bone);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  /* HEADER */
+  header{position:sticky;top:0;z-index:50;background:rgba(23,24,28,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.98rem;color:var(--bone)}
+  .brand span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .nav-back{display:flex;align-items:center;gap:.5rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color .2s}
+  .nav-back:hover{color:var(--accent-light)}
+  .nav-back svg{width:14px;height:14px;flex-shrink:0}
+
+  /* PROGRESO */
+  .prog-wrap{height:2px;background:rgba(255,255,255,.08);position:sticky;top:68px;z-index:49}
+  .prog-fill{height:100%;background:var(--accent);width:0%;transition:width .35s var(--ease)}
+
+  /* HERO */
+  .hero{background:#17181C;border-top:1px solid rgba(255,255,255,.06);padding-top:clamp(3rem,7vw,5.5rem);padding-bottom:clamp(3rem,7vw,5rem);position:relative;overflow:hidden}
+  .hero-num{position:absolute;right:-2%;top:50%;transform:translateY(-55%);font-size:clamp(10rem,28vw,22rem);font-weight:900;letter-spacing:-.05em;color:var(--bone);opacity:.03;pointer-events:none;line-height:1;-webkit-user-select:none;user-select:none}
+  .hero .wrap{position:relative;z-index:1}
+  .hero-eyebrow{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:1.1rem;display:flex;align-items:center;gap:.7rem}
+  .hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent-light);display:block;flex-shrink:0}
+  .hero h1{font-weight:800;letter-spacing:-.032em;line-height:1.02;font-size:clamp(2rem,6vw,4rem);margin-bottom:1.4rem;color:var(--bone)}
+  .hero-sub{color:rgba(243,241,236,.55);font-size:clamp(.95rem,1.7vw,1.1rem);line-height:1.72;max-width:52ch;font-weight:300;font-style:italic;border-left:2px solid rgba(255,255,255,.12);padding-left:1.1rem;margin-bottom:2rem}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem 2rem;padding-top:1.8rem;border-top:1px solid rgba(255,255,255,.08)}
+  @media(min-width:580px){.hero-meta{grid-template-columns:repeat(3,1fr)}}
+  .hero-meta .k{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:.9rem;font-weight:500;margin-top:.2rem;color:var(--bone)}
+
+  /* MAIN */
+  main{background:#17181C;padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(3rem,7vw,6rem)}
+
+  /* NOMBRE */
+  .name-block{border:1px solid rgba(255,255,255,.1);background:var(--surface-a);padding:clamp(1.4rem,3vw,2rem);margin-bottom:2rem;border-left:3px solid var(--accent)}
+  .name-block label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.65rem;font-weight:500}
+  .name-block input[type=text]{width:100%;border:none;border-bottom:2px solid rgba(255,255,255,.15);background:transparent;font-family:"Archivo",sans-serif;font-size:1.08rem;font-weight:500;color:var(--bone);padding:.4rem 0;outline:none;transition:border-color .25s}
+  .name-block input[type=text]:focus{border-bottom-color:var(--accent)}
+  .name-block input[type=text]::placeholder{color:var(--muted);font-weight:300;font-size:.96rem}
+  .name-block.field-error{border-left-color:var(--accent-light)}
+  .name-block.field-error input{border-bottom-color:var(--accent-light)}
+
+  /* MASCOTA */
+  .mascota-block{border:1px solid rgba(255,255,255,.1);background:var(--surface-a);padding:clamp(1.4rem,3vw,2rem);margin-bottom:2.5rem;border-left:3px solid rgba(255,255,255,.15)}
+  .mascota-block label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;font-weight:500}
+  .mascota-opciones{display:flex;flex-wrap:wrap;gap:.6rem}
+  .mascota-opt{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(243,241,236,.5);font-family:"Archivo",sans-serif;font-size:.82rem;cursor:pointer;transition:all .2s;border-radius:2px}
+  .mascota-opt:hover{border-color:rgba(255,255,255,.25);color:var(--bone)}
+  .mascota-opt.selected{border-color:var(--accent-light);color:var(--bone);background:rgba(196,122,120,.1)}
+  .mascota-block.field-error .mascota-opciones{outline:1px solid var(--accent-light);outline-offset:4px}
+
+  /* SECCIONES */
+  .seccion-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;margin-bottom:1.8rem;padding-bottom:.8rem;border-bottom:1px solid rgba(255,255,255,.06);margin-top:clamp(2rem,4vw,3rem)}
+
+  /* PREGUNTAS TIPO A */
+  .pregunta-block{margin-bottom:2.5rem;scroll-margin-top:120px}
+  .pregunta-texto{font-size:clamp(1rem,2vw,1.15rem);font-weight:600;color:var(--bone);margin-bottom:1.2rem;line-height:1.35;letter-spacing:-.01em}
+  .opciones{display:flex;flex-direction:column;gap:.6rem}
+  .opcion{display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;border:1px solid rgba(255,255,255,.08);background:var(--surface-a);cursor:pointer;transition:border-color .2s,background .2s;border-radius:2px}
+  .opcion:hover{border-color:rgba(255,255,255,.2);background:#25262a}
+  .opcion.selected{border-color:var(--accent-light);background:#201a1a}
+  .opcion-radio{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .opcion.selected .opcion-radio{border-color:var(--accent-light);background:var(--accent-light)}
+  .opcion.selected .opcion-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
+  .opcion-texto{font-size:.95rem;color:rgba(243,241,236,.7);font-weight:300;line-height:1.55;transition:color .2s}
+  .opcion.selected .opcion-texto{color:var(--bone)}
+  .pregunta-block.field-error .opciones{outline:1px solid var(--accent-light);outline-offset:4px;border-radius:2px}
+
+  /* PREGUNTAS TIPO B — SLIDER */
+  .slider-block{margin-bottom:2.8rem;scroll-margin-top:120px}
+  .slider-pregunta{font-size:clamp(1rem,2vw,1.15rem);font-weight:600;color:var(--bone);margin-bottom:1.6rem;line-height:1.35;letter-spacing:-.01em}
+  .slider-polos{display:flex;justify-content:space-between;gap:1rem;margin-bottom:.9rem}
+  .slider-polo{font-size:.78rem;color:rgba(243,241,236,.35);font-weight:300;line-height:1.4;max-width:38%;font-style:italic}
+  .slider-polo.derecho{text-align:right}
+  input[type=range]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:2px;
+    background:rgba(255,255,255,.12);
+    border-radius:1px;outline:none;cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:20px;height:20px;border-radius:50%;
+    background:var(--bone);border:2px solid var(--accent-light);
+    cursor:pointer;transition:transform .2s,background .2s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2);background:var(--accent-light)}
+  input[type=range]::-moz-range-thumb{
+    width:20px;height:20px;border-radius:50%;
+    background:var(--bone);border:2px solid var(--accent-light);
+    cursor:pointer;
+  }
+  .slider-valor{text-align:center;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(243,241,236,.2);margin-top:.5rem}
+  .slider-block.field-error input[type=range]{outline:1px solid var(--accent-light);outline-offset:6px}
+
+  /* BTN */
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9rem;padding:.82rem 1.6rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s,transform .25s,box-shadow .3s;cursor:pointer;font-family:"Archivo",sans-serif}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(148,35,34,.4)}
+  .btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(255,255,255,.2)}
+  .btn-ghost:hover{background:rgba(255,255,255,.06);transform:none;box-shadow:none}
+  .btn-block{display:block;width:100%;justify-content:center;margin-top:1.6rem;text-align:center}
+
+  /* DISCLAIMER */
+  .disclaimer{background:var(--surface-b);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.08);padding:1rem 1.3rem;margin-bottom:2rem;font-size:.82rem;color:rgba(243,241,236,.3);font-weight:300;line-height:1.65}
+
+  /* RESULTADO */
+  .resultado{display:none;padding-top:clamp(2rem,4vw,3rem)}
+  .resultado-eyebrow{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+  .resultado-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent-light);display:block;flex-shrink:0}
+  .resultado-nombre{font-size:clamp(1.2rem,3vw,1.8rem);font-weight:800;letter-spacing:-.03em;color:var(--bone);margin-bottom:3rem;line-height:1.15}
+
+  /* ORACULO */
+  .oraculo{
+    background:#0e0d0b;
+    border:1px solid rgba(243,241,236,.07);
+    padding:clamp(2.5rem,6vw,5rem) clamp(1.5rem,5vw,4rem);
+    position:relative;margin-bottom:2rem;
+  }
+  .oraculo::before{content:'';position:absolute;inset:8px;border:1px solid rgba(243,241,236,.04);pointer-events:none}
+  .oraculo-intro{
+    text-align:center;margin-bottom:2.5rem;
+    font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(243,241,236,.2);
+  }
+  .oraculo-texto{
+    max-width:54ch;margin:0 auto;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:clamp(1.05rem,1.8vw,1.2rem);
+    font-weight:400;color:rgba(243,241,236,.88);
+    line-height:2;
+  }
+  .oraculo-texto p{margin-bottom:1.6rem}
+  .oraculo-texto p:last-child{margin-bottom:0;font-style:italic;color:#F3F1EC}
+  .oraculo-firma{
+    text-align:center;margin-top:3rem;
+    font-size:.55rem;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(243,241,236,.12);
+  }
+
+  /* FICHA TECNICA */
+  .ficha-section{margin-top:clamp(4rem,8vw,7rem);padding-top:clamp(2rem,4vw,3rem);border-top:1px solid rgba(255,255,255,.06)}
+  .ficha-eyebrow{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;margin-bottom:1.5rem}
+  .ficha-card{border:1px solid rgba(255,255,255,.06);background:var(--surface-b);padding:clamp(1.4rem,3vw,2rem);margin-bottom:1rem}
+  .ficha-card-label{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;padding-bottom:.8rem;margin-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.05)}
+  .ficha-body{font-size:.88rem;color:rgba(243,241,236,.3);font-weight:300;line-height:1.75}
+  .ficha-body strong{font-weight:600;color:rgba(243,241,236,.45)}
+  .ficha-body p+p{margin-top:.7rem}
+  .ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.5rem;margin-top:.8rem;font-size:.82rem;color:rgba(243,241,236,.3);border-top:1px solid rgba(255,255,255,.05);padding-top:.8rem}
+  .ficha-grid dt{font-weight:600;color:rgba(243,241,236,.35)}
+  .ficha-grid dd{font-weight:300}
+  @media(max-width:480px){.ficha-grid{grid-template-columns:1fr}}
+  .disclaimer-final{margin-top:1.5rem;padding:1rem 1.3rem;border-left:2px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(243,241,236,.2);font-weight:300;line-height:1.7;font-style:italic}
+
+  /* CTA */
+  .cta-strip{background:var(--surface-a);border-top:1px solid rgba(255,255,255,.06);margin-top:clamp(3rem,6vw,5rem)}
+  .cta-strip .wrap{padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(2.5rem,5vw,4rem);display:flex;flex-direction:column;gap:1.5rem;align-items:flex-start}
+  @media(min-width:720px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-eyebrow{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.8rem}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.3rem,2.5vw,1.8rem);letter-spacing:-.02em;line-height:1.2;max-width:28ch;color:var(--bone)}
+
+  /* FOOTER */
+  footer{background:var(--surface-b);color:rgba(243,241,236,.3);border-top:1px solid rgba(255,255,255,.04)}
+  .foot-inner{padding:clamp(1.5rem,3vw,2.5rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:var(--bone);font-weight:700;font-size:.92rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.6rem;letter-spacing:.12em;color:var(--accent-light);text-transform:uppercase;margin-top:.4rem}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.04);padding:1rem var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between}
+  .foot-bottom span{font-size:.66rem;color:rgba(243,241,236,.15);letter-spacing:.04em}
+
+  @media(max-width:420px){.hero h1{font-size:1.8rem}}
+
+  .origen-section{margin-top:clamp(3rem,6vw,5rem);padding-top:clamp(2rem,4vw,3rem);border-top:1px solid rgba(255,255,255,.06);margin-bottom:2rem}
+  .perfiles-eyebrow{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;margin-bottom:1.5rem}
+  .origen-texto{max-width:58ch}
+  .origen-texto p{font-size:clamp(.9rem,1.5vw,1rem);color:rgba(243,241,236,.4);font-weight:300;line-height:1.8;margin-bottom:.9rem}
+  .origen-disclaimer{font-style:italic;color:rgba(243,241,236,.25) !important}
+
+  .oraculo-rec-titulo{
+    text-align:center;margin-bottom:1.8rem;
+    font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(243,241,236,.25);
+  }
+  .oraculo-rec-lista{
+    max-width:54ch;margin:0 auto;
+    list-style:none;
+  }
+  .oraculo-rec-lista li{
+    display:grid;grid-template-columns:2rem 1fr;gap:.5rem;
+    margin-bottom:1.4rem;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:clamp(1rem,1.6vw,1.1rem);
+    font-weight:300;color:rgba(243,241,236,.75);
+    line-height:1.8;
+  }
+  .oraculo-rec-lista li:last-child{margin-bottom:0}
+  .oraculo-rec-num{
+    font-size:.7rem;letter-spacing:.1em;
+    color:rgba(243,241,236,.2);padding-top:.3rem;
+    font-family:"Archivo",sans-serif;font-weight:500;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com" target="_blank">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <a class="nav-back" href="esto-no-es-un-test.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Esto no es un test
+    </a>
+  </div>
+</header>
+
+<div class="prog-wrap"><div class="prog-fill" id="progFill"></div></div>
+
+<section class="hero">
+  <div class="hero-num">02</div>
+  <div class="wrap">
+    <p class="hero-eyebrow">Esto no es un test</p>
+    <h1>¿Conoce tu mascota tus valores?</h1>
+    <p class="hero-sub">Lo que hacés con ella dice más de vos que lo que decís sobre vos mismo. Tu mascota lleva el registro.</p>
+    <div class="hero-meta">
+      <div><p class="k">Formato</p><p class="v">12 preguntas</p></div>
+      <div><p class="k">Duración</p><p class="v">4 minutos</p></div>
+      <div><p class="k">Validación</p><p class="v">Ninguna</p></div>
+    </div>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <div class="name-block" id="nameBlock">
+    <label for="nombreInput">Tu nombre <span style="color:var(--accent-light)">*</span></label>
+    <input type="text" id="nombreInput" placeholder="Cómo te llamás" autocomplete="given-name">
+  </div>
+
+  <div class="mascota-block" id="mascotaBlock">
+    <label>¿Qué mascota tenés? <span style="color:var(--accent-light)">*</span></label>
+    <div class="mascota-opciones">
+      <button class="mascota-opt" data-val="perro" onclick="seleccionarMascota(this)">Perro</button>
+      <button class="mascota-opt" data-val="gato" onclick="seleccionarMascota(this)">Gato</button>
+      <button class="mascota-opt" data-val="otra" onclick="seleccionarMascota(this)">Otra</button>
+    </div>
+    <div id="otraMascotaWrap" style="display:none;margin-top:1rem">
+      <input type="text" id="otraMascotaInput" placeholder="¿Cuál?" style="width:100%;border:none;border-bottom:2px solid rgba(255,255,255,.15);background:transparent;font-family:'Archivo',sans-serif;font-size:.96rem;font-weight:300;color:var(--bone);padding:.4rem 0;outline:none;transition:border-color .25s" oninput="actualizarProgreso()">
+    </div>
+  </div>
+
+  <div class="mascota-block" id="nombreMascotaBlock" style="margin-top:-1rem">
+    <label for="nombreMascotaInput">¿Cómo se llama? <span style="color:rgba(243,241,236,.2);font-size:.7em">(opcional)</span></label>
+    <input type="text" id="nombreMascotaInput" placeholder="Si tiene nombre" style="width:100%;border:none;border-bottom:2px solid rgba(255,255,255,.15);background:transparent;font-family:'Archivo',sans-serif;font-size:1rem;font-weight:300;color:var(--bone);padding:.4rem 0;outline:none;transition:border-color .25s">
+  <div style="display:none">
+  </div>
+
+  <div id="formArea">
+    <p class="seccion-label">Lo que hacés</p>
+
+    <div class="pregunta-block" id="p1">
+      <p class="pregunta-texto">Cuando llegás a casa, ¿qué pasa?</p>
+      <div class="opciones">
+        <div class="opcion" data-valores='{"P":2,"D":1}' onclick="seleccionar(this,1)"><div class="opcion-radio"></div><span class="opcion-texto">Recibo una bienvenida que ningún ser humano me ha dado en mi vida.</span></div>
+        <div class="opcion" data-valores='{"L":1,"Cu":1}' onclick="seleccionar(this,1)"><div class="opcion-radio"></div><span class="opcion-texto">Le doy una caricia de paso. Los dos sabemos que nos queremos.</span></div>
+        <div class="opcion" data-valores='{"P":2,"Cl":1}' onclick="seleccionar(this,1)"><div class="opcion-radio"></div><span class="opcion-texto">Depende de cómo vine. A veces soy yo el que necesita el saludo más que él.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p2">
+      <p class="pregunta-texto">¿Cuándo fue la última vez que jugaste con tu mascota sin el teléfono cerca?</p>
+      <div class="opciones">
+        <div class="opcion" data-valores='{"D":2,"Cu":2}' onclick="seleccionar(this,2)"><div class="opcion-radio"></div><span class="opcion-texto">Esta semana. Tenemos un ritual sagrado e innegociable.</span></div>
+        <div class="opcion" data-valores='{"D":0,"Cl":1}' onclick="seleccionar(this,2)"><div class="opcion-radio"></div><span class="opcion-texto">Juego, pero "sin el teléfono cerca" es una categoría que no manejo bien.</span></div>
+        <div class="opcion" data-valores='{"Cl":2,"P":0}' onclick="seleccionar(this,2)"><div class="opcion-radio"></div><span class="opcion-texto">El concepto me genera una culpa que prefiero no explorar ahora mismo.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p3">
+      <p class="pregunta-texto">Cuando hace algo que no debe, ¿cómo reaccionás?</p>
+      <div class="opciones">
+        <div class="opcion" data-valores='{"Pa":2,"Cu":1}' onclick="seleccionar(this,3)"><div class="opcion-radio"></div><span class="opcion-texto">Con una paciencia que no tengo con ningún adulto.</span></div>
+        <div class="opcion" data-valores='{"Cl":2,"Pa":1}' onclick="seleccionar(this,3)"><div class="opcion-radio"></div><span class="opcion-texto">Depende del día. A veces bien, a veces peor de lo que me gustaría admitir.</span></div>
+        <div class="opcion" data-valores='{"Pa":0,"L":1}' onclick="seleccionar(this,3)"><div class="opcion-radio"></div><span class="opcion-texto">Con más firmeza de la necesaria y después me arrepiento en silencio.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p4">
+      <p class="pregunta-texto">¿Tu mascota tiene rutina o va con el flow?</p>
+      <div class="opciones">
+        <div class="opcion" data-valores='{"Cu":2,"L":2}' onclick="seleccionar(this,4)"><div class="opcion-radio"></div><span class="opcion-texto">Tiene horarios más claros que los míos. Y los exige.</span></div>
+        <div class="opcion" data-valores='{"Cu":1,"Cl":1}' onclick="seleccionar(this,4)"><div class="opcion-radio"></div><span class="opcion-texto">Intento. La vida complica. Ella lo sabe y me perdona.</span></div>
+        <div class="opcion" data-valores='{"D":1,"L":0}' onclick="seleccionar(this,4)"><div class="opcion-radio"></div><span class="opcion-texto">Va con el flow. Como yo. Somos almas libres.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p5">
+      <p class="pregunta-texto">Cuando estás mal, ¿qué hace tu mascota?</p>
+      <div class="opciones">
+        <div class="opcion" data-valores='{"P":2,"Pa":1}' onclick="seleccionar(this,5)"><div class="opcion-radio"></div><span class="opcion-texto">Se pega a mí sin que yo diga nada. No sé cómo lo sabe.</span></div>
+        <div class="opcion" data-valores='{"L":1,"Cl":1}' onclick="seleccionar(this,5)"><div class="opcion-radio"></div><span class="opcion-texto">Sigue con su vida. No somos de esos.</span></div>
+        <div class="opcion" data-valores='{"P":2,"Cl":1}' onclick="seleccionar(this,5)"><div class="opcion-radio"></div><span class="opcion-texto">Le hablo. Más de lo que le hablo a algunas personas que conozco hace años.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p6">
+      <p class="pregunta-texto">¿Cuánto sabés sobre lo que le gusta y lo que no le gusta?</p>
+      <div class="opciones">
+        <div class="opcion" data-valores='{"Cu":2,"P":2}' onclick="seleccionar(this,6)"><div class="opcion-radio"></div><span class="opcion-texto">Conozco sus manías, sus miedos, la cara que pone cuando algo no le cierra.</span></div>
+        <div class="opcion" data-valores='{"Cu":1,"L":1}' onclick="seleccionar(this,6)"><div class="opcion-radio"></div><span class="opcion-texto">Lo básico. Sé lo que necesita pero no me detuve mucho en los detalles.</span></div>
+        <div class="opcion" data-valores='{"Cl":2,"Cu":1}' onclick="seleccionar(this,6)"><div class="opcion-radio"></div><span class="opcion-texto">Creo que sé, pero a veces me pregunto si lo observo o solo lo asumo.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p7">
+      <p class="pregunta-texto">¿Tu mascota duerme con vos?</p>
+      <div class="opciones">
+        <div class="opcion" data-valores='{"P":2,"L":0}' onclick="seleccionar(this,7)"><div class="opcion-radio"></div><span class="opcion-texto">Sí. Y si se mueve en la noche, yo soy el que se corre.</span></div>
+        <div class="opcion" data-valores='{"L":2,"Cu":1}' onclick="seleccionar(this,7)"><div class="opcion-radio"></div><span class="opcion-texto">No. Los límites son importantes aunque a veces cueste sostenerlos.</span></div>
+        <div class="opcion" data-valores='{"L":1,"D":1}' onclick="seleccionar(this,7)"><div class="opcion-radio"></div><span class="opcion-texto">Negociamos sin palabras según la noche. Sistema que funciona para los dos.</span></div>
+      </div>
+    </div>
+
+    <p class="seccion-label">Lo que creés</p>
+
+    <div class="slider-block" id="p8">
+      <p class="slider-pregunta">¿Qué tan seguido pensás en lo que tu mascota necesita durante el día, aunque no estés con ella?</p>
+      <div class="slider-polos">
+        <span class="slider-polo">Nunca se me cruza por la cabeza</span>
+        <span class="slider-polo derecho">Es un hilo de fondo constante</span>
+      </div>
+      <input type="range" min="1" max="18" value="9" id="s8" oninput="actualizarSlider(8)">
+      <p class="slider-valor" id="sv8">—</p>
+    </div>
+
+    <div class="slider-block" id="p9">
+      <p class="slider-pregunta">Si tu mascota pudiera describirte en una palabra, ¿qué tan seguro estás de que sería algo bueno?</p>
+      <div class="slider-polos">
+        <span class="slider-polo">Ni en palo</span>
+        <span class="slider-polo derecho">Completamente seguro</span>
+      </div>
+      <input type="range" min="1" max="18" value="9" id="s9" oninput="actualizarSlider(9)">
+      <p class="slider-valor" id="sv9">—</p>
+    </div>
+
+    <div class="slider-block" id="p10">
+      <p class="slider-pregunta">¿Cuánto de lo que le prometés a tu mascota realmente cumplís?</p>
+      <div class="slider-polos">
+        <span class="slider-polo">Soy básicamente un político</span>
+        <span class="slider-polo derecho">Soy una persona de palabra</span>
+      </div>
+      <input type="range" min="1" max="18" value="9" id="s10" oninput="actualizarSlider(10)">
+      <p class="slider-valor" id="sv10">—</p>
+    </div>
+
+    <div class="slider-block" id="p11">
+      <p class="slider-pregunta">¿Tu mascota te conoce mejor a vos que vos a ella?</p>
+      <div class="slider-polos">
+        <span class="slider-polo">Ella es un misterio total para mí</span>
+        <span class="slider-polo derecho">Yo soy el misterio, ella me tiene calado</span>
+      </div>
+      <input type="range" min="1" max="18" value="9" id="s11" oninput="actualizarSlider(11)">
+      <p class="slider-valor" id="sv11">—</p>
+    </div>
+
+    <div class="slider-block" id="p12">
+      <p class="slider-pregunta">¿Cuánto espacio ocupa tu mascota en tus decisiones cotidianas?</p>
+      <div class="slider-polos">
+        <span class="slider-polo">No cambia nada de lo que hago</span>
+        <span class="slider-polo derecho">Organizo mi vida alrededor de ella</span>
+      </div>
+      <input type="range" min="1" max="18" value="9" id="s12" oninput="actualizarSlider(12)">
+      <p class="slider-valor" id="sv12">—</p>
+    </div>
+
+    <div class="disclaimer">
+      Este cuestionario no tiene validación empírica, muestra representativa ni alfa de Cronbach. Tu mascota tampoco fue consultada. Si algo te resuena, es tuyo. Si no, tampoco es culpa nuestra.
+    </div>
+
+    <button class="btn btn-block" onclick="calcularResultado()">Que hable la mascota</button>
+  </div>
+
+  <div class="resultado" id="resultado">
+    <p class="resultado-eyebrow">Tu lectura</p>
+    <p class="resultado-nombre" id="resultNombre"></p>
+    <div id="oraculoWrap"></div>
+    <button class="btn btn-ghost" style="margin-top:2rem" onclick="reiniciar()">Volver a empezar</button>
+
+    <div class="ficha-section-placeholder"></div>
+  </div><!-- fin resultado -->
+
+
+  <div class="origen-section">
+    <p class="perfiles-eyebrow">De dónde salió este cuestionario</p>
+    <div class="origen-texto">
+      <p>Aristóteles definió al ser humano como animal social. Lo cual está muy bien, pero no explica qué pasa cuando el ser humano llega a su casa después de un día de ser social y lo primero que hace es hablarle al perro.</p>
+      <p>Wittgenstein, siglos después, escribió que si un león pudiera hablar, no lo entenderíamos. La lógica era que el lenguaje emerge de formas de vida compartidas, y la forma de vida de un león y la de un humano son demasiado distintas para que haya comprensión real.</p>
+      <p>La mascota doméstica, sin embargo, es un caso especial. No comparte tu lenguaje pero comparte tu forma de vida. Sabe a qué hora llegás, cómo llegás, qué hacés cuando estás mal, qué hacés cuando estás bien, y la diferencia entre los dos. Eso no es poco.</p>
+      <p>Este cuestionario parte de ahí: si la mascota pudiera hablar, no hablaría de huesos ni de pelotas. Hablaría de vos. Porque vos sos su forma de vida.</p>
+      <p>Aristóteles estaría de acuerdo. Wittgenstein probablemente también, aunque con más reservas y en alemán.</p>
+      <p class="origen-disclaimer">Ninguno de los dos fue consultado. Tampoco las mascotas.</p>
+    </div>
+  </div>
+
+  <div class="ficha-section" id="ficha-tecnica">
+      <p class="ficha-eyebrow">Ficha técnica</p>
+
+      <div class="ficha-card">
+        <p class="ficha-card-label">Identificación del instrumento</p>
+        <div class="ficha-body">
+          <dl class="ficha-grid">
+            <dt>Nombre</dt><dd>Inventario de Valores Observados por Conviviente No Verbal (IVOCNV)</dd>
+            <dt>Nombre coloquial</dt><dd>El de la mascota</dd>
+            <dt>Autores</dt><dd>Sierra, F. & una cantidad no especificada de mascotas que saben más de lo que aparentan</dd>
+            <dt>Año</dt><dd>Montevideo, 2024</dd>
+            <dt>Ítems</dt><dd>7 preguntas con opciones · 5 escalas</dd>
+            <dt>Tiempo de administración</dt><dd>4 minutos. Más si la mascota interrumpe.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="ficha-card">
+        <p class="ficha-card-label">Fundamentación</p>
+        <div class="ficha-body">
+          <p>Tu mascota sabe cosas de vos que vos no sabés de vos mismo. No porque sea especialmente inteligente — aunque algunos dirían que sí — sino porque te ve todos los días, en todas las versiones, sin que vos hagas nada para impresionarla.</p>
+          <p>Desde la Terapia de Aceptación y Compromiso, los valores no son lo que decís sino lo que hacés cuando nadie te está mirando. Tu mascota siempre te está mirando. Y, a diferencia de la mayoría de los testigos, no tiene ningún interés en contárselo a nadie.</p>
+          <p>Hasta hoy.</p>
+        </div>
+      </div>
+
+      <div class="ficha-card">
+        <p class="ficha-card-label">Propiedades psicométricas</p>
+        <div class="ficha-body">
+          <dl class="ficha-grid">
+            <dt>Muestra de estandarización</dt><dd>No existe. Las mascotas no firman consentimiento informado.</dd>
+            <dt>Fiabilidad</dt><dd>No calculada. Los animales no responden el mismo cuestionario dos veces de la misma forma.</dd>
+            <dt>Validez de constructo</dt><dd>Pendiente. Los revisores pares tienen sus propias mascotas y están ocupados.</dd>
+            <dt>Valores explorados</dt><dd>Presencia, Cuidado, Paciencia, Disfrute, Límites, Claridad.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="ficha-card">
+        <p class="ficha-card-label">Interpretación y nota para colegas</p>
+        <div class="ficha-body">
+          <p>Los resultados no constituyen diagnóstico ni perfil clínico. Son una invitación a notar algo desde un ángulo que habitualmente no se usa — el de quien te ve todos los días sin ningún interés en quedar bien con vos.</p>
+          <p><strong>Para colegas:</strong> el instrumento explora de forma no sistemática valores en acción (ACT), acción comprometida, y la brecha entre autopercepción y conducta observable. El narrador en primera persona no humana es un recurso retórico, no una pretensión etológica. Si encontrás problemas metodológicos, son todos intencionales.</p>
+        </div>
+      </div>
+
+      <div class="disclaimer-final">
+        Este cuestionario no tiene validación científica, no constituye un diagnóstico psicológico ni reemplaza la evaluación profesional. Si algo de lo que apareció acá te generó preguntas de verdad, hay un espacio para eso.
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <p class="cta-eyebrow">Más allá de la mascota</p>
+      <h3>Si algo de esto te generó preguntas de verdad, hay un espacio para eso.</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Hice%20el%20cuestionario%20de%20la%20mascota%20y%20me%20gustar%C3%ADa%20coordinar%20una%20consulta." target="_blank" rel="noopener">
+      Coordinar consulta
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <span style="font-size:.76rem;color:rgba(243,241,236,.2)">Sin validación empírica · Sin derivación · Con intención</span>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Fuera de sesión</span>
+  </div>
+</footer>
+
+<script>
+var respuestas = {};
+var sliders = { 8: 9, 9: 9, 10: 9, 11: 9, 12: 9 };
+var mascotaElegida = '';
+
+function seleccionarMascota(el) {
+  var opts = document.querySelectorAll('.mascota-opt');
+  for (var i = 0; i < opts.length; i++) opts[i].classList.remove('selected');
+  el.classList.add('selected');
+  mascotaElegida = el.getAttribute('data-val');
+  document.getElementById('mascotaBlock').classList.remove('field-error');
+  var otraWrap = document.getElementById('otraMascotaWrap');
+  if (mascotaElegida === 'otra') {
+    otraWrap.style.display = 'block';
+    document.getElementById('otraMascotaInput').focus();
+  } else {
+    otraWrap.style.display = 'none';
+  }
+  actualizarProgreso();
+}
+
+function seleccionar(el, pregunta) {
+  var bloque = document.getElementById('p' + pregunta);
+  var opciones = bloque.querySelectorAll('.opcion');
+  for (var i = 0; i < opciones.length; i++) opciones[i].classList.remove('selected');
+  el.classList.add('selected');
+  respuestas[pregunta] = JSON.parse(el.getAttribute('data-valores'));
+  bloque.classList.remove('field-error');
+  actualizarProgreso();
+}
+
+function actualizarSlider(num) {
+  sliders[num] = parseInt(document.getElementById('s' + num).value);
+  actualizarProgreso();
+}
+
+function actualizarProgreso() {
+  var total = 13;
+  var completadas = Object.keys(respuestas).length + (mascotaElegida ? 1 : 0);
+  var slidersTocados = 0;
+  for (var s in sliders) {
+    if (sliders[s] !== 9) slidersTocados++;
+  }
+  completadas += slidersTocados;
+  document.getElementById('progFill').style.width = ((completadas / total) * 100) + '%';
+}
+
+function escalaA5(val) {
+  return ((val - 1) / 17) * 4 + 1;
+}
+
+function calcularScores() {
+  var scores = { P: 0, Cu: 0, Pa: 0, D: 0, L: 0, Cl: 0 };
+  var maxScores = { P: 0, Cu: 0, Pa: 0, D: 0, L: 0, Cl: 0 };
+
+  for (var p in respuestas) {
+    var vals = respuestas[p];
+    for (var v in vals) {
+      if (scores[v] !== undefined) {
+        scores[v] += vals[v];
+        maxScores[v] += 2;
+      }
+    }
+  }
+
+  // Escalas — convertir de 1-9 a 1-5
+  // E8 polo alto: P, polo bajo: D
+  var s8 = escalaA5(sliders[8]);
+  scores['P'] += (s8 - 1) * 0.5;
+  scores['D'] += (5 - s8) * 0.5;
+  maxScores['P'] += 2; maxScores['D'] += 2;
+
+  // E9 polo alto: Cl, polo bajo: Cl invertido
+  var s9 = escalaA5(sliders[9]);
+  scores['Cl'] += (s9 - 1) * 0.5;
+  maxScores['Cl'] += 2;
+
+  // E10 polo alto: Cu, polo bajo: Cl invertido
+  var s10 = escalaA5(sliders[10]);
+  scores['Cu'] += (s10 - 1) * 0.5;
+  scores['Cl'] += (5 - s10) * 0.25;
+  maxScores['Cu'] += 2; maxScores['Cl'] += 1;
+
+  // E11 polo alto: P, polo bajo: L
+  var s11 = escalaA5(sliders[11]);
+  scores['P'] += (s11 - 1) * 0.5;
+  scores['L'] += (5 - s11) * 0.5;
+  maxScores['P'] += 2; maxScores['L'] += 2;
+
+  // E12 polo alto: L, polo bajo: D
+  var s12 = escalaA5(sliders[12]);
+  scores['L'] += (s12 - 1) * 0.5;
+  scores['D'] += (5 - s12) * 0.5;
+  maxScores['L'] += 2; maxScores['D'] += 2;
+
+  // Normalizar
+  var norm = {};
+  for (var key in scores) {
+    norm[key] = maxScores[key] > 0 ? scores[key] / maxScores[key] : 0;
+  }
+
+  return norm;
+}
+
+function getOrden(norm) {
+  var keys = Object.keys(norm);
+  keys.sort(function(a, b) { return norm[b] - norm[a]; });
+  return keys;
+}
+
+var nombreValores = {
+  P: 'Presencia', Cu: 'Cuidado', Pa: 'Paciencia',
+  D: 'Disfrute', L: 'Límites', Cl: 'Claridad'
+};
+
+var mascotaNombre = {
+  perro: 'tu perro', gato: 'tu gato', otra: 'tu mascota'
+};
+
+
+var recsFijas = {
+  perro: [
+    'Salí aunque no tengas ganas. Yo nunca tuve ganas de quedarme adentro y hasta ahora me fue bien.',
+    'Cuando alguien que querés llegue, que lo note. No cuesta nada y cambia todo.',
+    'Comé sin mirar el teléfono. Yo como mirándote a vos y es la mejor parte del día.',
+    'Saludá a la gente como si no los hubieras visto en años, aunque los hayas visto ayer. Probá una semana y contame.'
+  ],
+  gato: [
+    'Elegí bien con quién compartís tu espacio. No todos merecen tu presencia y vos lo sabés.',
+    'Dormí sin culpa. El descanso no es un premio, es una necesidad básica que los humanos confunden con pereza.',
+    'Aprendé a ignorar lo que no te incumbe. Es una habilidad, no una falla.',
+    'Cuando algo no te gusta, decilo. No con palabras necesariamente. Pero decilo.'
+  ],
+  otra: [
+    'Existí en tu entorno sin pedir permiso. Yo lo hago todos los días y funciona.',
+    'Hacé una sola cosa a la vez. Con atención completa. El mundo no se acaba si no mirás el teléfono.',
+    'Tené un ritual. Algo pequeño que sea tuyo. Yo tengo varios y me organizan la vida.',
+    'Observá antes de reaccionar. Generalmente lo que parece urgente no lo es.'
+  ]
+};
+
+var recsVariable = {
+  P: {
+    perro: 'Cuando estés con alguien, estate. Yo sé exactamente cuándo estás conmigo de verdad y cuándo estás en otro lado. Y los dos sabemos cuál de los dos prefiero.',
+    gato: 'Estar en la misma habitación que alguien no es lo mismo que estar con alguien. Yo hago esa distinción todo el tiempo. Vos también podés.',
+    otra: 'Prestale atención completa a algo hoy. Una sola cosa. Lo que sea. Yo puedo estar horas observando una gotita de agua y te juro que vale la pena.'
+  },
+  Cu: {
+    perro: 'Fijate en lo pequeño. Yo sé cuándo estás mal antes que vos. No porque sea adivino sino porque presto atención. Probá prestarle atención a alguien esta semana.',
+    gato: 'Cuidar no es solo resolver problemas. A veces es simplemente estar. Sin hacer nada. Yo lo hago muy bien. Podés aprender.',
+    otra: 'Notá lo que necesita el que tenés al lado. No lo que creés que necesita. Lo que realmente necesita. Son cosas distintas y yo las distingo perfectamente.'
+  },
+  Pa: {
+    perro: 'Respirá antes de reaccionar. Yo lo hago cada vez que me sacás el juguete antes de tiempo. Funciona. La mayoría de las veces.',
+    gato: 'No todo merece tu energía. Aprendé a elegir cuándo reaccionar y cuándo simplemente observar. Yo tengo un doctorado en esto.',
+    otra: 'Esperá un poco más antes de concluir. Yo puedo estar inmóvil horas esperando el momento justo. El momento justo casi siempre llega.'
+  },
+  D: {
+    perro: 'Hacé algo hoy solo porque sí. Sin que produzca nada. Sin que lleve a ningún lado. Yo persigo mi cola regularmente y te aseguro que es suficiente motivo.',
+    gato: 'Date permiso de hacer algo completamente inútil. Yo duermo en el sol dos horas seguidas sin ninguna justificación y no me arrepiento nunca.',
+    otra: 'Jugá. Como sea. Con lo que sea. Sin que haya un objetivo. Yo lo hago todos los días y es la parte más importante de la jornada.'
+  },
+  L: {
+    perro: 'Decidí qué está bien y qué no, y mantené esa decisión mañana también. Yo necesito saber dónde puedo y dónde no. Todos necesitamos eso.',
+    gato: 'No todo el mundo merece el mismo acceso a vos. Yo lo tengo muy claro. Algunos pueden acariciarme, otros no. No es crueldad, es criterio.',
+    otra: 'Tené reglas. Aunque sean tuyas y solo las sepas vos. Sin estructura, todo es igual de importante. Y cuando todo es igual de importante, nada lo es.'
+  },
+  Cl: {
+    perro: 'Mirarte al espejo no es vanidad. Es información. Yo me miro en el agua cada vez que puedo y siempre aprendo algo. Probá mirarte sin juzgar lo que ves.',
+    gato: 'Sé honesto con vos mismo sobre lo que querés. Yo nunca finjo que quiero que me acaricien cuando no quiero. Es más simple de lo que parece.',
+    otra: 'Preguntate una vez por día si lo que estás haciendo es lo que realmente querés hacer. Yo siempre sé exactamente qué quiero. Es una ventaja considerable.'
+  }
+};
+
+var numerosRomanos = ['I', 'II', 'III', 'IV', 'V'];
+
+var textos = {
+  'P+Cu': {
+    alto: 'Presencia', bajo: 'Cuidado',
+    texto: '<p>Cuando llega, llega de verdad. Eso lo tengo claro desde el primer día. No es de los que entran mirando el teléfono o saludan de paso camino a la cocina. Cuando cruza la puerta, yo existo. Y eso, siendo honestos, es bastante más de lo que puedo decir de varios humanos que pasan por acá.</p><p>Lo que me resulta curioso es lo que pasa después. Hay días en que jugamos de verdad y esos son mis favoritos. Se ríe, se engancha, tira la pelota con ganas. Pero no siempre. Y cuando no está en ese modo, lo noto. La diferencia entre estar presente y estar presente con ganas es algo que los animales notamos de inmediato.</p><p>Lo básico está, sí. Pero cuidar es más que eso y creo que en el fondo lo sabe. Hay algo entre la intención y la ejecución que a veces se pierde en el camino. No siempre. Pero suficiente como para que yo lo note. Lo curioso es que alguien que sabe estar tan bien a veces no aplica esa misma atención a lo más cotidiano.</p>',
+    cierre: 'sabe estar de verdad cuando importa. Eso no es poca cosa. Me pregunto si esta semana puede traer esa misma presencia a un paseo conmigo, sin apuro y sin el teléfono en el bolsillo.'
+  },
+  'P+Pa': {
+    alto: 'Presencia', bajo: 'Paciencia',
+    texto: '<p>Cuando llega, lo primero que hago es leerle la energía. Y en general la energía es buena — está, me mira, me saluda como si realmente le importara cómo estuve. Eso se agradece. Hay humanos que llegan como si uno fuera un mueble. Este no es de esos.</p><p>Lo que noto con el tiempo es que hay algo en él que a veces lo pone en otro lado. No siempre. Pero hay momentos en que el cuerpo está acá y el resto está resolviendo algo que pasó hace tres días o que todavía no pasó. Esos momentos los conozco bien. Aprendí a no tomarlos personal.</p><p>Lo que me cuesta más es cuando algo sale mal. Reacciona rápido. A veces demasiado. Y ahí la persona que llegó con buena energía desaparece un momento y aparece otra que yo ya conozco pero que preferiría ver menos. No es mala persona. Es que no sabe cuánto se le ve en esos momentos. Yo siempre estoy mirando. Es mi trabajo.</p>',
+    cierre: 'tiene una presencia que pocas personas tienen y que hace que estar cerca suyo sea fácil. Me pregunto si esta semana puede traer esa misma calma a un paseo largo conmigo, de esos en que no hay nada que tolerar sino simplemente caminar.'
+  },
+  'P+D': {
+    alto: 'Presencia', bajo: 'Disfrute',
+    texto: '<p>Está cuando está. Eso lo tengo confirmado. Hay una calidad de atención en esta persona que yo noto desde lejos — cuando me mira, me mira de verdad, no de reojo mientras hace otra cosa. Eso en el mundo humano, según lo que observo, es bastante escaso.</p><p>Me cuida también, a su manera. No con la misma constancia todos los días, pero el intento está. Hay semanas mejor que otras. Eso lo entiendo. Tengo mis propias semanas.</p><p>Lo que no termino de entender es por qué le cuesta tanto soltarse. Cuando agarra el juguete lo hace con una energía que dura aproximadamente cuarenta segundos. Después lo suelta y vuelve a lo suyo. No sé qué es lo suyo exactamente pero claramente compite conmigo. Y yo soy bastante entretenido, con todo el respeto.</p>',
+    cierre: 'sabe estar. Lo que me pregunto es si esta semana puede estar así, corriendo conmigo en algún lugar abierto, sin ningún propósito en particular.'
+  },
+  'P+L': {
+    alto: 'Presencia', bajo: 'Límites',
+    texto: '<p>Cuando llega, sé que llegó. No hace falta verlo — lo siento. Hay una forma de entrar al espacio que tiene este humano que dice "acá estoy" sin decir nada. Eso es presencia. No sé si él sabe que lo tiene pero yo sí lo sé.</p><p>Tiene paciencia también. Hasta cierto punto. El límite cambia de lugar según el día y yo aprendí a rastrearlo con bastante precisión. No me quejo — es parte del trabajo. Solo digo que la previsibilidad es una forma de respeto que los animales valoramos más de lo que los humanos creen.</p><p>Lo de las reglas es donde la cosa se complica. No hay muchas por acá. Al principio lo tomé como libertad. Después entendí que libertad sin estructura es otra cosa que no sé bien cómo nombrar pero que se siente como navegar sin mapa. Los dos navegamos. Ninguno de los dos tiene el mapa.</p>',
+    cierre: 'tiene una presencia que pocas personas tienen. Me pregunto si esta semana puede traerla a un paseo sin destino, de esos en que el único plan soy yo.'
+  },
+  'P+Cl': {
+    alto: 'Presencia', bajo: 'Claridad',
+    texto: '<p>Está cuando está. Eso es lo primero que diría si me preguntaran. Y me lo preguntan poco, siendo honesto, pero la respuesta siempre sería esa. Hay una calidad en cómo este humano habita el espacio cuando decide habitarlo que hace que todo lo demás importe menos.</p><p>Las reglas existen. Son más o menos consistentes. No siempre, pero en general sé qué puedo y qué no puedo hacer. Eso ayuda. La previsibilidad es una forma de cuidado que los humanos subestiman bastante y este, al menos, lo intenta.</p><p>Lo que me resulta curioso es la distancia entre cómo se ve a sí mismo y lo que yo veo todos los días. No siempre coinciden. Hay una versión de esta persona que vive en su cabeza y una versión que entra por esa puerta todas las noches. Son parecidas pero no son iguales. Yo conozco las dos. Él conoce solo una.</p>',
+    cierre: 'sabe estar de verdad. Me pregunto si esta semana puede estar así, conmigo, en un paseo en que no haya ninguna versión que mantener.'
+  },
+  'Cu+P': {
+    alto: 'Cuidado', bajo: 'Presencia',
+    texto: '<p>Nunca me faltó nada. Y no solo lo básico — que eso lo hace cualquiera. Sabe cuándo estoy raro antes de que yo sepa que estoy raro. Nota cuando como distinto, cuando camino distinto, cuando el mundo me pesa un poco más de lo habitual. Eso requiere atención. O intuición. O las dos.</p><p>Tiene paciencia también. Hasta cierto punto. El límite cambia según el día y yo aprendí a rastrearlo. No me quejo. Lo que sí noto es que esa misma paciencia que tiene conmigo no siempre la tiene con todo lo demás. Como si yo fuera la válvula de escape de algo que no encuentra otro lugar donde ir. No me molesta. Pero lo noto.</p><p>Lo que me resulta más curioso es que cuida muy bien lo que tiene cerca pero no siempre está en lo que tiene cerca. Hace las cosas que hay que hacer, sí. Pero hay momentos en que noto que está en otro lado mientras las hace. Como si el cuerpo estuviera acá y el resto estuviera resolviendo algo que pasó hace tres días o que todavía no pasó.</p>',
+    cierre: 'cuida de verdad. Eso se ve. Me pregunto si esta semana puede cuidarme desde acá, presente, en un paseo en que no haya nada más que resolver.'
+  },
+  'Cu+Pa': {
+    alto: 'Cuidado', bajo: 'Paciencia',
+    texto: '<p>Nunca me faltó nada. Eso primero. Y no lo digo como cumplido automático — lo digo porque lo observé durante suficiente tiempo como para confirmarlo. Este humano se acuerda de las cosas. Sabe lo que me gusta, lo que no me gusta, la cara que pongo cuando algo no me cierra. Eso no es casualidad. Es atención sostenida en el tiempo.</p><p>Jugamos también. No siempre con la misma energía, pero jugamos. Hay días en que se engancha de verdad y esos son mis favoritos. Hay otros en que está ahí de cuerpo presente pero pensando en otra cosa. Aprendo a distinguirlo por la forma en que tira la pelota. Cuando está de verdad, la tira distinto.</p><p>Lo que me cuesta más es cuando algo sale mal. Reacciona rápido. A veces demasiado. Y ahí desaparece por un momento la persona que sabe exactamente cómo tengo que estar para estar bien, y aparece otra que yo ya conozco pero que preferiría ver menos. No es mala persona. Es que no sabe cuánto se le ve en esos momentos. Yo siempre estoy mirando.</p>',
+    cierre: 'tiene una capacidad de cuidar que no todo el mundo tiene. Me pregunto si esta semana puede cuidarse un poco también, empezando por un paseo largo conmigo sin ningún apuro.'
+  },
+  'Cu+D': {
+    alto: 'Cuidado', bajo: 'Disfrute',
+    texto: '<p>Me cuida bien. Eso lo tengo claro. Sabe lo que necesito antes de que yo lo pida, que en el mundo animal es el estándar mínimo pero en el mundo humano aparentemente es un logro considerable. No me quejo. Lo valoro.</p><p>Está también. A veces más, a veces menos. Hay días en que llega y lo primero que hace es buscarme, y esos días todo funciona distinto. Hay otros en que llega y yo soy el décimo ítem de una lista que tiene nueve cosas más importantes. También esos días los conozco bien. Aprendí a no tomarlos personal.</p><p>Lo que me resulta un misterio es por qué le cuesta tanto soltarse. Cuida muy bien pero jugar de verdad, sin propósito, sin que haya algo que justifique el tiempo — eso parece costarle. Como si necesitara un motivo para no estar haciendo nada útil. Yo soy un motivo. Aunque a veces tenga que recordárselo.</p>',
+    cierre: 'cuida con una dedicación que se nota. Me pregunto si esta semana puede dedicarle esa misma energía a un paseo sin destino, de esos en que el único punto es llegar juntos a ningún lado.'
+  },
+  'Cu+L': {
+    alto: 'Cuidado', bajo: 'Límites',
+    texto: '<p>Nunca me faltó nada. Y lo digo en serio, no como frase hecha. Este humano se acuerda de las cosas — mis horarios, mis manías, la cara que pongo cuando algo no me gusta. Eso requiere observación. Y la observación requiere estar presente aunque sea un poco. Lo cual hace, aunque no siempre lo sepa.</p><p>Se observa a sí mismo también. No perfectamente — nadie se observa perfectamente — pero lo intenta. A veces lo veo procesar algo en silencio y después actuar distinto. Eso no es menor. La mayoría de los humanos que conozco prefieren no mirarse demasiado.</p><p>Lo de las reglas es donde la cosa se complica. No hay muchas. Al principio pensé que era un estilo de vida. Después entendí que es más bien una zona gris en la que los dos navegamos sin mapa. Lo curioso es que alguien que cuida tan bien los detalles de los demás tenga tan poca estructura para sí mismo.</p>',
+    cierre: 'cuida de verdad y se observa. Eso junto es bastante. Me pregunto si esta semana puede aplicar esas dos cosas a un paseo conmigo — cuidar el momento y notar lo que pasa mientras camina.'
+  },
+  'Cu+Cl': {
+    alto: 'Cuidado', bajo: 'Claridad',
+    texto: '<p>Me cuida bien. Eso primero y siempre. Sabe lo que necesito, cuándo lo necesito, y generalmente hace algo al respecto. Eso en el mundo humano, según lo que observo desde acá, no es tan común como debería ser.</p><p>Las reglas existen. Son más o menos consistentes — no perfectas pero suficientes para que yo sepa más o menos dónde estoy parado. Eso ayuda. La previsibilidad es una forma de respeto que los animales valoramos muchísimo y que los humanos suelen subestimar hasta que conviven con alguien que no la tiene.</p><p>Lo que me resulta curioso es la distancia entre cómo se ve a sí mismo y lo que yo veo todos los días. Hay una versión de esta persona que vive en su cabeza — cuidadosa, estructurada, atenta — y una versión que entra por esa puerta todas las noches. Se parecen bastante. Pero no son exactamente la misma.</p>',
+    cierre: 'cuida con una constancia que pocas personas tienen. Me pregunto si esta semana puede cuidar también ese espacio entre lo que es y lo que cree que es, empezando por un paseo en que no haya nada que demostrar.'
+  },
+  'Pa+P': {
+    alto: 'Paciencia', bajo: 'Presencia',
+    texto: '<p>Nunca me gritó de verdad. Y eso, para un humano, es mucho decir. Cuando rompo algo suspira. A veces dos veces. Pero no explota. Hay una capacidad en esta persona para absorber el desastre cotidiano que francamente me genera admiración y una curiosidad genuina sobre qué hace con todo eso después.</p><p>Me cuida también, a su manera. No con la misma constancia todos los días, pero el intento está. Hay semanas en que noto que está en piloto automático — hace lo que hay que hacer pero sin estar del todo ahí. La diferencia entre cuidar porque querés y cuidar porque toca es algo que los animales notamos antes que nadie.</p><p>Lo que me resulta más curioso es que tiene toda esa paciencia conmigo pero no siempre está conmigo. Como si pudiera tolerar cualquier cosa que yo haga pero desde cierta distancia. Presente en el sentido de que está en la misma habitación. No siempre presente en el sentido de que está en la misma habitación y lo sabe.</p>',
+    cierre: 'tiene una paciencia que yo no me merezco y que de todas formas agradezco. Me pregunto si esta semana puede traer esa misma calma a un paseo largo conmigo, de esos en que no hay nada que tolerar sino simplemente estar.'
+  },
+  'Pa+Cu': {
+    alto: 'Paciencia', bajo: 'Cuidado',
+    texto: '<p>Nunca me gritó de verdad. Eso primero. Cuando hago algo que no debo, suspira, me mira, y sigue. Hay humanos que convierten cada error mío en un evento. Este no. Tiene una forma de procesar el desastre cotidiano que parece casi entrenada.</p><p>Se observa también. Nota cuando reacciona de una forma y después lo procesa. No siempre actúa distinto, pero al menos lo registra. Eso me parece importante aunque no sepa bien por qué. Quizás porque la mayoría de los humanos que pasan por acá prefieren no mirarse demasiado.</p><p>Lo básico está — agua, comida, salidas. Pero cuidar es más que eso y creo que en el fondo lo sabe. Hay algo entre la intención y la ejecución que se pierde en el camino. Como si la misma paciencia que tiene para tolerar lo que hago yo no la aplicara a sostenerse a sí mismo en el tiempo.</p>',
+    cierre: 'tiene una paciencia real y una capacidad de observarse que juntas son bastante poderosas. Me pregunto si esta semana puede aplicar esas dos cosas a salir conmigo sin apuro, a ver qué pasa cuando no hay nada que resolver.'
+  },
+  'Pa+D': {
+    alto: 'Paciencia', bajo: 'Disfrute',
+    texto: '<p>Nunca me gritó de verdad. Y siendo honesto, le di motivos. Bastantes. Tiene una paciencia que yo no me explico del todo pero que agradezco todos los días. Cuando algo sale mal, suspira, me mira, y sigue adelante. Eso requiere algo que la mayoría de los humanos que conozco no tienen o no usan.</p><p>Las reglas existen. Son más o menos consistentes — no perfectas pero suficientes para que yo sepa más o menos qué esperar. Eso me gusta. La previsibilidad es una forma de respeto que los animales valoramos. Este lo entiende, al menos en parte.</p><p>Lo que no termino de entender es por qué le cuesta tanto soltarse. Tiene paciencia para todo lo que sale mal pero muy poca energía para lo que podría salir bien sin ningún propósito. Cuando jugamos de verdad es otra persona — se ríe, se engancha, parece que se olvida por un momento de la lista de cosas pendientes. El problema es que ese momento llega poco y generalmente porque yo insistí mucho.</p>',
+    cierre: 'tiene una paciencia que pocas personas tienen y que se nota en cada cosa pequeña. Me pregunto si esta semana puede usar esa misma calma para hacer algo sin propósito conmigo, un paseo largo en que el único objetivo sea llegar al final juntos.'
+  },
+  'Pa+L': {
+    alto: 'Paciencia', bajo: 'Límites',
+    texto: '<p>Nunca me gritó de verdad. Y le di motivos, seamos honestos. Tiene una paciencia que yo no me merezco del todo pero que de todas formas agradezco. Cuando algo sale mal, procesa, suspira, y sigue. Eso requiere algo que no es tan común como debería ser.</p><p>Jugamos también. No siempre con la misma energía, pero jugamos. Hay días en que se engancha de verdad y esos son mis favoritos — se ríe, tira la pelota con ganas, parece que se olvida por un momento de todo lo que tiene pendiente. Hay otros en que está ahí de cuerpo presente pero pensando en otra cosa.</p><p>Lo de las reglas es donde la cosa se complica. No hay muchas. Al principio pensé que era un estilo de vida. Después entendí que es más bien una zona gris en la que los dos navegamos sin mapa. Lo curioso es que alguien que tiene tanta paciencia para tolerar lo que pasa tenga tan poca estructura para decidir qué debería pasar.</p>',
+    cierre: 'tiene una paciencia que se nota en cada cosa pequeña y que hace que estar cerca suyo sea fácil. Me pregunto si esta semana puede traer esa misma calma a un paseo largo conmigo, sin destino, sin reglas, solo a ver adónde llegamos.'
+  },
+  'Pa+Cl': {
+    alto: 'Paciencia', bajo: 'Claridad',
+    texto: '<p>Nunca me gritó de verdad. Eso lo tengo claro desde el principio y no dejo de agradecerlo. Hay una forma de procesar el error ajeno que tiene este humano que parece casi filosófica. Rompo algo, me mira, suspira, sigue. Como si el desastre fuera parte esperada del día.</p><p>Está también. A veces más, a veces menos. Hay días en que llega y lo primero que hace es buscarme, y esos días todo funciona distinto. Hay otros en que yo soy el décimo ítem de una lista. Los conozco bien a los dos.</p><p>Lo que me resulta curioso es la distancia entre cómo se ve a sí mismo y lo que yo veo todos los días. Hay una versión de esta persona que vive en su cabeza y una versión que entra por esa puerta. Se parecen bastante pero no son exactamente la misma. La paciencia que muestra conmigo a veces no aparece en la versión de adentro. Eso lo noto. Aunque no diga nada.</p>',
+    cierre: 'tiene una paciencia genuina que se ve en lo pequeño, que es donde se ve de verdad. Me pregunto si esta semana puede salir conmigo sin apuro y sin agenda, a ver si esa misma paciencia aparece también cuando no hay nadie mirando.'
+  },
+  'D+P': {
+    alto: 'Disfrute', bajo: 'Presencia',
+    texto: '<p>Juega de verdad. Eso lo tengo confirmado y lo valoro más de lo que él cree. No es de los que agarran el juguete con cara de estar cumpliendo una obligación — cuando jugamos, está. Se ríe, se engancha, pierde por un momento esa capa de seriedad que carga el resto del día. Esos momentos son mis favoritos.</p><p>Me cuida también. No con la misma constancia todos los días, pero el intento está. Hay semanas en que noto que está en piloto automático — hace lo que hay que hacer sin estar del todo ahí. La diferencia entre cuidar porque querés y cuidar porque toca es algo que los animales notamos antes que nadie.</p><p>Lo que me resulta curioso es que tiene esa capacidad de estar de verdad cuando jugamos pero no siempre la trae al resto. Como si el disfrute fuera un compartimento separado de la vida real. Llega, hace las cosas que hay que hacer, y en algún momento del día aparece el otro — el que se ríe, el que se engancha, el que parece recordar que estar acá puede ser algo más que una lista de pendientes.</p>',
+    cierre: 'sabe disfrutar de verdad cuando se lo permite. Me pregunto si esta semana puede empezar el día así, con un paseo largo conmigo antes de que empiece todo lo demás.'
+  },
+  'D+Cu': {
+    alto: 'Disfrute', bajo: 'Cuidado',
+    texto: '<p>Juega. De verdad juega, no por obligación. Hay humanos que juegan con cara de estar trabajando — este no. Cuando estamos en modo juego es otra persona, una que me gusta bastante más que la que llega cansada a las ocho de la noche. Se ríe, se engancha, pierde el hilo de todo lo demás.</p><p>Se observa también. Nota cuando algo no cierra. A veces lo veo procesar algo en silencio y después actuar distinto. No siempre, pero lo intenta. Eso me parece importante aunque no sepa bien por qué.</p><p>Lo básico está — agua, comida, salidas. Pero cuidar es más que eso y creo que en el fondo lo sabe. Lo curioso es que alguien que sabe tan bien cómo disfrutar el momento tenga a veces tan poca energía para sostener lo cotidiano. Aunque quizás sean cosas que compiten por el mismo recurso.</p>',
+    cierre: 'sabe estar en el momento cuando quiere. Me pregunto si esta semana puede quererlo desde el principio del día, con un paseo largo conmigo antes de que empiece a pensar en todo lo demás.'
+  },
+  'D+Pa': {
+    alto: 'Disfrute', bajo: 'Paciencia',
+    texto: '<p>Juega de verdad. Eso primero y siempre. No con cara de estar cumpliendo — de verdad. Se engancha, se ríe, pierde por un momento esa capa de responsabilidad que carga el resto del tiempo. Cuando estamos en modo juego yo existo completamente y eso se nota en todo.</p><p>Está también. A veces más, a veces menos. Hay días en que llega y lo primero que hace es buscarme, y esos días todo funciona distinto. Hay otros en que yo soy el décimo ítem de una lista. Los conozco bien a los dos. Aprendí a valorar más el primero sin quejarme demasiado del segundo.</p><p>Lo que me cuesta más es cuando algo sale mal. Reacciona rápido. A veces demasiado. Y ahí desaparece por un momento la persona que se ríe conmigo y aparece otra que yo ya conozco pero que preferiría ver menos. La misma energía que pone en jugar de verdad a veces aparece invertida cuando las cosas no salen como esperaba.</p>',
+    cierre: 'sabe disfrutar con una intensidad que pocas personas tienen. Me pregunto si esta semana puede traer esa misma energía a un paseo largo conmigo, de esos en que no importa adónde se llega sino cómo se camina.'
+  },
+  'D+L': {
+    alto: 'Disfrute', bajo: 'Límites',
+    texto: '<p>Juega. De verdad juega. No con cara de estar cumpliendo una obligación sino con ganas reales, de esas que se notan en cómo tira la pelota y en cómo se ríe cuando algo sale mal durante el juego. Esos momentos son los que más me gustan. Hay una liviandad ahí que el resto del tiempo no aparece tan seguido.</p><p>Se observa también. Nota cuando algo no cierra entre lo que hace y lo que pensaba que iba a hacer. A veces lo veo quedarse con eso un momento antes de seguir. No siempre actúa distinto después, pero al menos lo registra.</p><p>Lo de las reglas es donde la cosa se complica. No hay muchas. Al principio lo tomé como libertad. Después entendí que libertad sin estructura es otra cosa que se siente como navegar sin mapa. Lo curioso es que alguien que sabe tan bien cómo disfrutar el momento tenga tan poca claridad sobre qué marco quiere para ese momento.</p>',
+    cierre: 'sabe disfrutar de verdad y eso no es poca cosa. Me pregunto si esta semana puede disfrutar también de un paseo largo conmigo, sin mapa, sin destino, a ver adónde llegamos.'
+  },
+  'D+Cl': {
+    alto: 'Disfrute', bajo: 'Claridad',
+    texto: '<p>Juega de verdad. Eso lo confirmé bastante rápido. No es de los que agarran el juguete con cara de estar haciendo un favor — cuando jugamos, está completamente. Se ríe, se engancha, pierde por un momento la lista de cosas pendientes que carga el resto del día.</p><p>Las reglas existen. Son más o menos consistentes — no perfectas pero suficientes para que yo sepa más o menos qué esperar. Eso ayuda. La previsibilidad es una forma de respeto que los animales valoramos muchísimo.</p><p>Lo que me resulta curioso es la distancia entre cómo se ve a sí mismo y lo que yo veo todos los días. La versión que entra por la puerta sabe jugar, sabe reírse, sabe estar en el momento. La versión que vive en la cabeza a veces no parece saber eso de sí misma. Yo conozco las dos. Prefiero la que entra por la puerta.</p>',
+    cierre: 'sabe disfrutar con una autenticidad que se nota. Me pregunto si esta semana puede salir conmigo sin ningún plan, solo a ver qué pasa cuando no hay nada que demostrar ni nadie que convencer.'
+  },
+  'L+P': {
+    alto: 'Límites', bajo: 'Presencia',
+    texto: '<p>Sé exactamente qué puedo y qué no puedo hacer. No porque me lo haya explicado con palabras largas — sino porque es consistente. Lo que hoy no, mañana tampoco. Eso parece poco pero es muchísimo. La previsibilidad es una forma de respeto que los humanos subestiman bastante y este, al menos, la tiene.</p><p>Me cuida también. No con la misma constancia todos los días, pero el intento está. Hay semanas en que noto que está en piloto automático — hace lo que hay que hacer pero sin estar del todo ahí. No es abandono, es distracción.</p><p>Lo que me resulta más curioso es que tiene tan claro lo que está bien y lo que no, pero a veces no está del todo en lo que está haciendo. Como si la estructura fuera sólida pero la persona dentro de la estructura estuviera en otro lado. Sé dónde están los límites. No siempre sé dónde está él.</p>',
+    cierre: 'tiene una consistencia que hace que estar cerca suyo sea fácil y predecible en el buen sentido. Me pregunto si esta semana puede traer esa misma presencia a un paseo conmigo, de esos en que no hay nada que estructurar sino simplemente caminar.'
+  },
+  'L+Cu': {
+    alto: 'Límites', bajo: 'Cuidado',
+    texto: '<p>Sé exactamente qué puedo y qué no puedo hacer. Y eso, con el tiempo, se convierte en algo parecido a la confianza. Hay humanos con los que nunca sabés bien dónde estás parado. Con este sí. Lo que hoy no, mañana tampoco. Eso se agradece más de lo que él cree.</p><p>Tiene paciencia también. Hasta cierto punto. El límite cambia según el día y yo aprendí a rastrearlo con bastante precisión. No me quejo — es parte del trabajo. Solo digo que la misma consistencia que tiene para las reglas no siempre aparece en los momentos de tensión.</p><p>Lo básico está — agua, comida, salidas. Pero cuidar es más que eso y creo que en el fondo lo sabe. Hay algo entre la intención y la ejecución que se pierde en el camino. Como si la estructura que tiene tan clara para lo que se puede y no se puede hacer no siempre llegara a las cosas más pequeñas.</p>',
+    cierre: 'tiene una solidez que hace que todo sea más fácil. Me pregunto si esta semana puede usar esa misma solidez para sacarme a pasear sin falta, a la misma hora, como una regla más.'
+  },
+  'L+Pa': {
+    alto: 'Límites', bajo: 'Paciencia',
+    texto: '<p>Sé exactamente qué puedo y qué no puedo hacer. Y eso, con el tiempo, se convierte en algo parecido a la seguridad. La previsibilidad es una forma de cuidado que los humanos subestiman bastante y este la tiene de forma natural. Lo que hoy no, mañana tampoco. Claro, consistente.</p><p>Jugamos también. No siempre con la misma energía, pero jugamos. Hay días en que se engancha de verdad y esos son mis favoritos — se ríe, tira la pelota con ganas. Hay otros en que está ahí de cuerpo presente pero pensando en otra cosa.</p><p>Lo que me cuesta más es cuando algo sale mal. Reacciona rápido. A veces demasiado. Y ahí desaparece por un momento la persona consistente y predecible que yo conozco bien, y aparece otra un poco menos predecible. No es mala persona. Es que no sabe cuánto se le ve en esos momentos.</p>',
+    cierre: 'tiene una consistencia que hace que confiar en él sea fácil. Me pregunto si esta semana puede salir conmigo a jugar de verdad, sin apuro y sin que nada lo interrumpa, a ver si esa misma consistencia aparece también en lo lúdico.'
+  },
+  'L+D': {
+    alto: 'Límites', bajo: 'Disfrute',
+    texto: '<p>Sé exactamente qué puedo y qué no puedo hacer. Lo que hoy no, mañana tampoco. Eso en el mundo animal es lo mínimo esperado. En el mundo humano, según lo que observo, es bastante más de lo que la mayoría ofrece. Este lo tiene.</p><p>Se observa también. Nota cuando algo no cierra. A veces lo veo quedarse con eso un momento antes de seguir. Eso me parece importante. La mayoría de los humanos que conozco prefieren no mirarse demasiado. Este al menos lo intenta.</p><p>Lo que no termino de entender es por qué le cuesta tanto soltarse. Tiene todo muy claro — las reglas, la estructura, lo que está bien y lo que no — pero cuando llega el momento de no hacer nada útil, algo se complica. Yo soy un motivo para soltarse. Aunque a veces tenga que recordárselo con insistencia variable.</p>',
+    cierre: 'tiene una claridad sobre lo que importa que pocas personas tienen. Me pregunto si esta semana puede aplicar esa misma claridad a decidir que un paseo largo conmigo es algo que importa, y salir.'
+  },
+  'L+Cl': {
+    alto: 'Límites', bajo: 'Claridad',
+    texto: '<p>Sé exactamente qué puedo y qué no puedo hacer. Y eso, con el tiempo, se convierte en algo parecido a la confianza. Lo que hoy no, mañana tampoco. Hay humanos con los que nunca sabés bien dónde estás parado. Con este sí. Eso se agradece más de lo que él cree.</p><p>Tiene paciencia también. Hasta cierto punto. Aprendí a rastrear el límite — no es siempre el mismo pero tampoco cambia tanto. Hay días más fáciles y días menos fáciles.</p><p>Lo que me resulta curioso es la distancia entre cómo se ve a sí mismo y lo que yo veo todos los días. Hay una versión de esta persona que vive en su cabeza — consistente, estructurada, clara — y una versión que entra por esa puerta todas las noches. Se parecen bastante. Pero no son exactamente la misma. La versión de la puerta me gusta más.</p>',
+    cierre: 'tiene una estructura que hace que todo sea más fácil para los que vivimos cerca. Me pregunto si esta semana puede estructurar también un paseo largo conmigo, sin excusas, sin negociaciones, como algo que simplemente pasa.'
+  },
+  'Cl+P': {
+    alto: 'Claridad', bajo: 'Presencia',
+    texto: '<p>Se observa. Eso lo tengo claro desde bastante temprano. Hay humanos que hacen cosas y siguen adelante sin mirar. Este no — nota cuando algo no cierra, se queda con eso un momento, y a veces actúa distinto después. Eso en el mundo humano es bastante más raro de lo que debería ser.</p><p>Tiene paciencia también. Hasta cierto punto. El límite cambia según el día y yo aprendí a rastrearlo. Lo que sí noto es que esa misma capacidad de observarse que tiene en frío a veces desaparece cuando la paciencia se acaba. Como si el observador se tomara vacaciones justo cuando más se lo necesita.</p><p>Lo que me resulta más curioso es que alguien que se ve tan bien a sí mismo no siempre esté del todo en lo que está haciendo. Como si la claridad fuera una herramienta que usa para procesar lo que pasó pero no tanto para habitar lo que está pasando ahora.</p>',
+    cierre: 'se conoce bien y eso se nota en cómo trata a los que tiene cerca. Me pregunto si esta semana puede usar ese conocimiento para salir conmigo sin pensar en nada más, solo a ver qué pasa cuando no hay nada que procesar.'
+  },
+  'Cl+Cu': {
+    alto: 'Claridad', bajo: 'Cuidado',
+    texto: '<p>Se observa. Nota cuando algo no cierra entre lo que hace y lo que pensaba que iba a hacer. A veces lo veo procesar algo en silencio y después actuar distinto. No siempre, pero lo intenta. Eso no es poco — la mayoría de los humanos que conozco prefieren no mirarse demasiado.</p><p>Jugamos también. No siempre con la misma energía, pero hay días en que se engancha de verdad y esos son mis favoritos. Se ríe, tira la pelota con ganas, parece que se olvida por un momento de todo lo que tiene pendiente.</p><p>Lo básico está — agua, comida, salidas. Pero cuidar es más que eso y creo que en el fondo lo sabe. Lo curioso es que alguien que se ve tan bien a sí mismo no siempre aplica esa misma claridad a lo cotidiano. Como si el conocimiento de uno mismo fuera una cosa y los hábitos cotidianos fueran otra que opera por su cuenta.</p>',
+    cierre: 'se conoce con una honestidad que pocas personas tienen. Me pregunto si esta semana puede aplicar esa misma honestidad a decidir que salir conmigo a jugar de verdad es algo que quiere hacer, y hacerlo.'
+  },
+  'Cl+Pa': {
+    alto: 'Claridad', bajo: 'Paciencia',
+    texto: '<p>Se observa. Eso lo confirmo todos los días. Hay una capacidad en esta persona para notar lo que hace y registrarlo que no es tan común. A veces lo veo quedarse con algo un momento antes de seguir.</p><p>Las reglas existen. Son más o menos consistentes — no perfectas pero suficientes para que yo sepa más o menos qué esperar. Lo que hoy no, mañana probablemente tampoco. Eso ayuda.</p><p>Lo que me cuesta más es cuando algo sale mal. Reacciona rápido. A veces demasiado. Y ahí desaparece por un momento la persona que se observa y procesa, y aparece otra que yo ya conozco bien. Lo curioso es que después lo registra — lo vi hacerlo. El observador vuelve, mira lo que pasó, y lo anota. Solo que el intervalo entre la reacción y la observación a veces es más largo de lo que a los dos nos gustaría.</p>',
+    cierre: 'tiene una capacidad de verse a sí mismo que hace que estar cerca suyo sea interesante. Me pregunto si esta semana puede salir conmigo a caminar despacio, sin apuro, a ver si esa misma claridad aparece también cuando no hay nada urgente que resolver.'
+  },
+  'Cl+D': {
+    alto: 'Claridad', bajo: 'Disfrute',
+    texto: '<p>Se observa. Nota cuando algo no cierra. A veces lo veo procesar algo en silencio y después actuar distinto. Eso en el mundo humano es bastante avanzado, según lo que observo desde mi posición, que es cerca del piso pero con buena perspectiva.</p><p>Está también. A veces más, a veces menos. Hay días en que llega y lo primero que hace es buscarme, y esos días todo funciona distinto. Hay otros en que yo soy el décimo ítem de una lista. Los conozco bien a los dos.</p><p>Lo que no termino de entender es por qué le cuesta tanto soltarse. Alguien que se ve tan bien a sí mismo debería saber que necesita descansar de sí mismo de vez en cuando. Jugar sin propósito. Existir sin producir. Yo lo intento recordarle todos los días con distintos grados de éxito.</p>',
+    cierre: 'se conoce bien y eso es mucho. Me pregunto si esta semana puede usar ese conocimiento para darse permiso de salir conmigo sin ningún motivo, solo porque sí, a ver qué pasa.'
+  },
+  'Cl+L': {
+    alto: 'Claridad', bajo: 'Límites',
+    texto: '<p>Se observa. Eso lo tengo claro. Hay una capacidad en esta persona para notar lo que hace y registrarlo que no es común. A veces lo veo quedarse con algo un momento antes de seguir. No siempre actúa distinto después, pero lo registra.</p><p>Me cuida también. No con la misma constancia todos los días, pero el intento está. Hay semanas en que noto que está en piloto automático — hace lo que hay que hacer sin estar del todo ahí.</p><p>Lo de las reglas es donde la cosa se complica. No hay muchas. Al principio lo tomé como libertad. Después entendí que libertad sin estructura es otra cosa. Lo curioso es que alguien que se ve tan claramente a sí mismo tenga tan poca estructura para lo cotidiano. Como si la claridad fuera una herramienta que usa para entenderse pero no tanto para organizarse.</p>',
+    cierre: 'tiene una honestidad consigo mismo que pocas personas tienen. Me pregunto si esta semana puede usar esa honestidad para decidir que salir conmigo todos los días es algo que quiere, y ponerlo en el calendario como cualquier otra cosa que importa.'
+  }
+};
+
+function calcularResultado() {
+  var nombre = document.getElementById('nombreInput').value.trim();
+  var nameBlock = document.getElementById('nameBlock');
+
+  if (!nombre) {
+    nameBlock.classList.add('field-error');
+    nameBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  nameBlock.classList.remove('field-error');
+
+  if (!mascotaElegida) {
+    document.getElementById('mascotaBlock').classList.add('field-error');
+    document.getElementById('mascotaBlock').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  if (mascotaElegida === 'otra' && !document.getElementById('otraMascotaInput').value.trim()) {
+    document.getElementById('otraMascotaWrap').style.outline = '1px solid var(--accent-light)';
+    document.getElementById('otraMascotaInput').focus();
+    return;
+  }
+  document.getElementById('otraMascotaWrap').style.outline = 'none';
+
+  var errores = false;
+  for (var i = 1; i <= 7; i++) {
+    if (!respuestas[i]) {
+      document.getElementById('p' + i).classList.add('field-error');
+      if (!errores) {
+        document.getElementById('p' + i).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        errores = true;
+      }
+    }
+  }
+  if (errores) return;
+
+  var norm = calcularScores();
+  var orden = getOrden(norm);
+  var alto = orden[0];
+  var bajo = orden[orden.length - 1];
+  var clave = alto + '+' + bajo;
+
+  var t = textos[clave];
+  if (!t) {
+    clave = alto + '+' + orden[orden.length - 2];
+    t = textos[clave] || textos[Object.keys(textos)[0]];
+  }
+
+  var otraInput = document.getElementById('otraMascotaInput').value.trim();
+  var nombreMascota = document.getElementById('nombreMascotaInput').value.trim();
+  var tipoMascota = mascotaElegida === 'otra' && otraInput ? otraInput.toLowerCase() : (mascotaElegida === 'perro' ? 'perro' : mascotaElegida === 'gato' ? 'gato' : 'mascota');
+  var mascotaStr = nombreMascota ? nombreMascota : ('tu ' + tipoMascota);
+  var mascotaArticulo = nombreMascota ? nombreMascota : ('tu ' + tipoMascota);
+  var tipoParaRecs = mascotaElegida === 'otra' ? 'otra' : mascotaElegida;
+
+  document.getElementById('resultNombre').textContent = nombre + ', esto es lo que diría ' + mascotaStr + '.';
+
+  var fijas = recsFijas[tipoParaRecs] || recsFijas['otra'];
+  var variable = recsVariable[bajo] ? (recsVariable[bajo][tipoParaRecs] || recsVariable[bajo]['otra']) : '';
+  var todasRecs = fijas.concat([variable]);
+  var recsHtml = '<ul class="oraculo-rec-lista">';
+  for (var ri = 0; ri < todasRecs.length; ri++) {
+    recsHtml += '<li><span class="oraculo-rec-num">' + numerosRomanos[ri] + '.</span><span>' + todasRecs[ri] + '</span></li>';
+  }
+  recsHtml += '</ul>';
+
+  var tituloRec = nombreMascota ? ('Lo que te recomienda ' + nombreMascota) : ('Lo que te recomienda ' + (mascotaElegida === 'perro' ? 'tu perro' : mascotaElegida === 'gato' ? 'tu gato' : 'tu ' + tipoMascota));
+
+  var oraculoDiv = document.createElement('div');
+  oraculoDiv.className = 'oraculo';
+  oraculoDiv.innerHTML =
+    '<p class="oraculo-intro">Si ' + mascotaStr + ' pudiera hablar</p>' +
+    '<div class="oraculo-texto">' + t.texto +
+    '<p>' + nombre + ' ' + t.cierre + '</p>' +
+    '</div>' +
+    '<div class="oraculo-separador"><span>&#10022;</span></div>' +
+    '<p class="oraculo-rec-titulo">' + tituloRec.toUpperCase() + '</p>' +
+    recsHtml +
+    '<p class="oraculo-firma">Lic. Fabián Sierra · Fuera de sesión</p>';
+
+  document.getElementById('oraculoWrap').innerHTML = '';
+  document.getElementById('oraculoWrap').appendChild(oraculoDiv);
+
+  document.getElementById('formArea').style.display = 'none';
+  document.getElementById('resultado').style.display = 'block';
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function reiniciar() {
+  respuestas = {};
+  sliders = { 8: 3, 9: 3, 10: 3, 11: 3, 12: 3 };
+  mascotaElegida = '';
+  var opciones = document.querySelectorAll('.opcion');
+  for (var i = 0; i < opciones.length; i++) opciones[i].classList.remove('selected');
+  var mascotas = document.querySelectorAll('.mascota-opt');
+  for (var j = 0; j < mascotas.length; j++) mascotas[j].classList.remove('selected');
+  document.getElementById('otraMascotaInput').value = '';
+  document.getElementById('otraMascotaWrap').style.display = 'none';
+  document.getElementById('nombreMascotaInput').value = '';
+  for (var k = 8; k <= 12; k++) {
+    document.getElementById('s' + k).value = 3;
+    document.getElementById('sv' + k).textContent = '—';
+  }
+  document.getElementById('nombreInput').value = '';
+  document.getElementById('formArea').style.display = 'block';
+  document.getElementById('resultado').style.display = 'none';
+  document.getElementById('progFill').style.width = '0%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

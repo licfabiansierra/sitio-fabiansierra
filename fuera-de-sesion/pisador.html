@@ -116,11 +116,11 @@
     text-align:center;margin-bottom:.6rem;
     font-family:"Cormorant Garamond",Georgia,serif;
     font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:300;font-style:italic;
-    color:rgba(243,241,236,.5);letter-spacing:.02em;
+    color:rgba(243,241,236,.7);letter-spacing:.02em;
   }
   .oraculo-reflexion{
     text-align:center;margin-bottom:3rem;
-    font-size:.78rem;color:rgba(243,241,236,.2);
+    font-size:.82rem;color:rgba(243,241,236,.4);
     font-weight:300;letter-spacing:.04em;line-height:1.6;
     font-family:"Archivo",sans-serif;
   }
@@ -137,14 +137,14 @@
   .oraculo-texto{
     max-width:56ch;margin:0 auto;
     font-family:"Cormorant Garamond",Georgia,serif;
-    font-size:clamp(1.1rem,1.8vw,1.25rem);
-    font-weight:300;color:rgba(243,241,236,.75);
-    line-height:2;text-align:center;
+    font-size:clamp(1.05rem,1.8vw,1.2rem);
+    font-weight:400;color:rgba(243,241,236,.9);
+    line-height:1.95;text-align:center;
   }
-  .oraculo-texto p{margin-bottom:1.8rem}
+  .oraculo-texto p{margin-bottom:1.6rem}
   .oraculo-texto p:last-child{
     margin-bottom:0;font-style:italic;
-    color:rgba(243,241,236,.9);font-size:clamp(1.15rem,1.9vw,1.3rem);
+    color:#F3F1EC;font-size:clamp(1.1rem,1.9vw,1.25rem);
   }
   .oraculo-firma{
     text-align:center;margin-top:3rem;
@@ -284,6 +284,7 @@
   .perfiles-eyebrow{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;margin-bottom:2rem}
   .perfil-item{display:grid;grid-template-columns:1fr;gap:1.5rem;padding:clamp(1.5rem,3vw,2rem) 0;border-bottom:1px solid rgba(255,255,255,.05)}
   @media(min-width:640px){.perfil-item{grid-template-columns:160px 1fr;align-items:start}}
+  @media(max-width:639px){.perfil-carta-mini{margin:0 auto}.perfil-contenido{text-align:center}}
   .perfil-item:last-child{border-bottom:none}
   .perfil-carta-mini{width:100%;max-width:160px;border-radius:6px;overflow:hidden;opacity:.85}
   .perfil-carta-mini img{width:100%;display:block}
@@ -709,9 +710,14 @@ function crearCarta(clave, tamano, devolucionHTML) {
   inner.appendChild(reverso);
   contenedor.appendChild(inner);
 
+  var etiq = document.createElement('p');
+  etiq.className = 'carta-etiqueta';
+  etiq.textContent = tamano === 'principal' ? 'Principal' : 'Secundario';
+  contenedor.insertBefore(etiq, inner);
+
   var label = document.createElement('p');
   label.className = 'carta-label';
-  label.textContent = tamano === 'principal' ? arq.nombre : arq.nombre;
+  label.textContent = arq.nombre;
   contenedor.appendChild(label);
 
   var hint = document.createElement('p');
