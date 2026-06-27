@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Tareas · Lic. Fabián Sierra</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+  :root{
+    --paper:#F6F3EE;--paper-deep:#EAE6DE;--paper-mid:#DDD8CF;
+    --ink:#252320;--ink-soft:#58544F;--muted:#9A9690;
+    --accent:#942322;--accent-light:#c47a78;--accent-bg:#FBF0EF;
+    --white:#FFFFFF;
+    --maxw:700px;--pad:clamp(1.25rem,5vw,3rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--paper);color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  /* HEADER */
+  header{background:rgba(246,243,238,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--paper-mid);position:sticky;top:0;z-index:50}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand b{font-weight:700;font-size:.95rem;color:var(--ink);display:block;letter-spacing:-.01em}
+  .brand span{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.14rem;display:block}
+  .nav-salir{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;cursor:pointer;border:none;background:none;font-family:inherit;transition:color .2s}
+  .nav-salir:hover{color:var(--accent)}
+
+  /* BIENVENIDA */
+  .bienvenida{padding:clamp(2.5rem,5vw,4rem) 0 clamp(2rem,4vw,3rem);border-bottom:1px solid var(--paper-mid)}
+  .bienvenida-eyebrow{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+  .bienvenida-eyebrow::before{content:'';width:18px;height:1px;background:var(--accent);display:block;flex-shrink:0}
+  .bienvenida h1{font-weight:800;letter-spacing:-.03em;font-size:clamp(1.7rem,4.5vw,2.6rem);color:var(--ink);line-height:1.1;margin-bottom:1rem}
+  .bienvenida p{font-size:.95rem;color:var(--ink-soft);font-weight:300;line-height:1.8;max-width:46ch}
+
+  /* CATEGORIAS */
+  main{padding-bottom:clamp(3rem,6vw,5rem)}
+
+  .categoria{border-bottom:1px solid var(--paper-mid)}
+
+  .categoria-header{
+    padding:clamp(1.5rem,3vw,2rem) 0;
+    cursor:pointer;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+  }
+  .categoria-header-left{display:flex;align-items:flex-start;gap:.9rem;flex:1;min-width:0}
+
+  .categoria-icono{
+    width:38px;height:38px;border-radius:8px;
+    background:var(--white);border:1px solid var(--paper-mid);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;margin-top:.1rem;
+    transition:border-color .2s,background .2s;
+  }
+  .categoria.abierta .categoria-icono{background:var(--accent-bg);border-color:#EAC8C7}
+  .categoria-icono i{font-size:18px;color:var(--muted);transition:color .2s}
+  .categoria.abierta .categoria-icono i{color:var(--accent)}
+
+  .categoria-info{}
+  .categoria-eyebrow{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.3rem}
+  .categoria-nombre{font-weight:600;font-size:clamp(1rem,2vw,1.1rem);color:var(--ink);letter-spacing:-.01em;line-height:1.25;margin-bottom:.5rem}
+  .categoria-desc{font-size:.84rem;color:var(--ink-soft);font-weight:300;line-height:1.7;margin-bottom:.3rem}
+  .categoria-ejemplo{font-size:.8rem;color:var(--muted);font-weight:300;line-height:1.6;font-style:italic}
+
+  .categoria-toggle{flex-shrink:0;margin-top:.25rem;color:var(--muted);transition:transform .3s var(--ease)}
+  .categoria-toggle i{font-size:20px}
+  .categoria.abierta .categoria-toggle{transform:rotate(180deg)}
+
+  .categoria-tareas{display:none;padding-bottom:1.5rem;padding-left:47px}
+  .categoria.abierta .categoria-tareas{display:block}
+
+  /* TAREA */
+  .tarea{
+    display:block;
+    background:var(--white);
+    border:1px solid var(--paper-mid);
+    border-radius:2px;
+    padding:1.1rem 1.3rem;
+    margin-bottom:.5rem;
+    transition:border-color .2s,box-shadow .2s;
+  }
+  .tarea:last-child{margin-bottom:0}
+  .tarea:hover{border-color:#C5C0B5;box-shadow:0 2px 12px rgba(37,35,32,.06)}
+  .tarea-top{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem}
+  .tarea-icono{
+    width:30px;height:30px;border-radius:6px;
+    background:var(--paper);border:1px solid var(--paper-mid);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .tarea-icono i{font-size:15px;color:var(--muted)}
+  .tarea-titulo-wrap{flex:1;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+  .tarea-titulo{font-weight:600;font-size:.95rem;color:var(--ink);letter-spacing:-.01em;line-height:1.3}
+  .tarea-cta{display:flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:600;color:var(--accent);white-space:nowrap;flex-shrink:0;transition:gap .2s}
+  .tarea:hover .tarea-cta{gap:.5rem}
+  .tarea-cta i{font-size:14px;transition:transform .2s}
+  .tarea:hover .tarea-cta i{transform:translateX(2px)}
+  .tarea-desc{font-size:.81rem;color:var(--muted);font-weight:300;line-height:1.65;margin-bottom:.85rem;padding-left:37px}
+  .tags{display:flex;flex-wrap:wrap;gap:.3rem;padding-left:37px}
+  .tag{display:inline-flex;align-items:center;gap:.3rem;padding:.18rem .6rem;border-radius:2px;font-size:.6rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+  .tag-proceso{background:var(--accent-bg);border:1px solid #EAC8C7;color:#8B2120}
+  .tag-variable{background:var(--paper-deep);border:1px solid var(--paper-mid);color:var(--muted)}
+  .tag i{font-size:10px}
+
+  .proxim{
+    padding:.85rem 1.1rem;font-size:.82rem;color:var(--muted);
+    font-weight:300;font-style:italic;
+    border:1px dashed var(--paper-mid);border-radius:2px;
+    background:transparent;
+    display:flex;align-items:center;gap:.5rem;
+  }
+  .proxim i{font-size:15px;color:var(--paper-mid)}
+
+  footer{border-top:1px solid var(--paper-mid);padding:1.2rem var(--pad);text-align:center;font-size:.66rem;color:var(--muted);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </div>
+    <button class="nav-salir" onclick="salir()">Salir</button>
+  </div>
+</header>
+
+<section class="bienvenida">
+  <div class="wrap">
+    <p class="bienvenida-eyebrow">Tus tareas</p>
+    <h1>Buenas. Acá encontrás lo que acordamos.</h1>
+    <p>Completá la tarea que te indiqué el día que corresponde. No tiene que ser perfecto — tiene que ser honesto. Lo trabajamos juntos en la próxima sesión.</p>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <div class="categoria" id="cat-01">
+    <div class="categoria-header" onclick="toggle('cat-01')">
+      <div class="categoria-header-left">
+        <div class="categoria-icono"><i class="ti ti-eye" aria-hidden="true"></i></div>
+        <div class="categoria-info">
+          <p class="categoria-eyebrow">Proceso 01</p>
+          <p class="categoria-nombre">Contacto con el momento presente</p>
+          <p class="categoria-desc">Prestar atención a lo que está pasando ahora, sin quedarse enganchado en lo que pasó ayer o en lo que puede pasar mañana.</p>
+          <p class="categoria-ejemplo">Como cuando manejás y de repente te das cuenta de que llegaste sin recordar el camino. Esto es lo contrario de eso.</p>
+        </div>
+      </div>
+      <span class="categoria-toggle"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="categoria-tareas">
+      <a class="tarea" href="registro-diario.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-notebook" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">Registro diario de situaciones</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Describí una situación del día de forma objetiva, los pensamientos que aparecieron y cómo respondiste. Una entrada por día.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Defusión cognitiva</span>
+          <span class="tag tag-proceso">Yo como contexto</span>
+          <span class="tag tag-variable">Conciencia experiencial</span>
+          <span class="tag tag-variable">Regulación emocional</span>
+          <span class="tag tag-variable">Automonitoreo</span>
+        </div>
+      </a>
+
+      <a class="tarea" href="atencion-focalizada.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-focus-2" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">Atención focalizada</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Diez intentos de atención sostenida sobre un objeto elegido. Registrás los dos mejores tiempos y el peor, más lo que notaste.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Defusión cognitiva</span>
+          <span class="tag tag-variable">Atención sostenida</span>
+          <span class="tag tag-variable">Rendimiento</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="categoria" id="cat-02">
+    <div class="categoria-header" onclick="toggle('cat-02')">
+      <div class="categoria-header-left">
+        <div class="categoria-icono"><i class="ti ti-brain" aria-hidden="true"></i></div>
+        <div class="categoria-info">
+          <p class="categoria-eyebrow">Proceso 02</p>
+          <p class="categoria-nombre">Defusión cognitiva</p>
+          <p class="categoria-desc">Tomar distancia de los pensamientos. No creerles todo lo que dicen.</p>
+          <p class="categoria-ejemplo">Un pensamiento como "soy un desastre" no es un hecho — es solo un pensamiento. Esta categoría trabaja esa diferencia.</p>
+        </div>
+      </div>
+      <span class="categoria-toggle"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="categoria-tareas">
+      <a class="tarea" href="fusion-en-escena.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-percentage" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">Fusión en escena</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Antes de una situación de presión registrás cuánto creés un pensamiento (0–100%). Después registrás cuánto lo creés. La diferencia es el ejercicio.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Contacto con el momento presente</span>
+          <span class="tag tag-variable">Distancia cognitiva</span>
+          <span class="tag tag-variable">Rendimiento</span>
+        </div>
+      </a>
+      <a class="tarea" href="titular-de-diario.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-news" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">El titular de diario</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Anotá un pensamiento que te da vueltas y convertilo en la tapa de un diario amarillista. Para verlo desde afuera por un momento.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Contacto con el momento presente</span>
+          <span class="tag tag-variable">Distancia cognitiva</span>
+          <span class="tag tag-variable">Autoobservación</span>
+          <span class="tag tag-variable">Regulación emocional</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="categoria" id="cat-03">
+    <div class="categoria-header" onclick="toggle('cat-03')">
+      <div class="categoria-header-left">
+        <div class="categoria-icono"><i class="ti ti-heart" aria-hidden="true"></i></div>
+        <div class="categoria-info">
+          <p class="categoria-eyebrow">Proceso 03</p>
+          <p class="categoria-nombre">Aceptación</p>
+          <p class="categoria-desc">Hacer espacio para lo que sentís sin tratar de cambiarlo, suprimirlo o evitarlo.</p>
+          <p class="categoria-ejemplo">No es resignarse. Es dejar de gastar energía peleando con lo que ya está.</p>
+        </div>
+      </div>
+      <span class="categoria-toggle"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="categoria-tareas">
+      <a class="tarea" href="escala-de-malestar.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-chart-bar" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">La escala de malestar</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Cinco situaciones esta semana. Antes de cada una estimás cuánto malestar esperás. Después registrás cuánto fue realmente.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Contacto con el momento presente</span>
+          <span class="tag tag-variable">Tolerancia al malestar</span>
+          <span class="tag tag-variable">Rendimiento</span>
+        </div>
+      </a>
+      <a class="tarea" href="la-forma-de-la-experiencia.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-wave-sine" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">La forma de la experiencia</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Un momento de pausa y escaneo corporal, seguido de un registro de la experiencia desde adentro. Sin nombrar emociones — solo ubicarlas.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Contacto con el momento presente</span>
+          <span class="tag tag-proceso">Yo como contexto</span>
+          <span class="tag tag-variable">Conciencia interoceptiva</span>
+          <span class="tag tag-variable">Tolerancia al malestar</span>
+          <span class="tag tag-variable">Regulación emocional</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="categoria" id="cat-04">
+    <div class="categoria-header" onclick="toggle('cat-04')">
+      <div class="categoria-header-left">
+        <div class="categoria-icono"><i class="ti ti-user-circle" aria-hidden="true"></i></div>
+        <div class="categoria-info">
+          <p class="categoria-eyebrow">Proceso 04</p>
+          <p class="categoria-nombre">Yo como contexto</p>
+          <p class="categoria-desc">Hay una parte de vos que observa todo lo que pensás y sentís sin ser ninguna de esas cosas.</p>
+          <p class="categoria-ejemplo">Como el cielo que contiene las nubes pero no es ninguna nube en particular.</p>
+        </div>
+      </div>
+      <span class="categoria-toggle"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="categoria-tareas">
+      <a class="tarea" href="el-observador-en-competencia.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-camera" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">El observador en competencia</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Dos registros de la misma situación con 24 horas de distancia. Yo-aquí-ahora y yo-allá-entonces. Lo que cambia entre los dos es el ejercicio.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Contacto con el momento presente</span>
+          <span class="tag tag-variable">Marco deíctico</span>
+          <span class="tag tag-variable">Rendimiento</span>
+        </div>
+      </a>
+      <a class="tarea" href="toma-de-perspectiva.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-users" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">Toma de perspectiva</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Describí una situación desde tu punto de vista y después desde el de alguien que te conoce bien. Lo que cambia entre los dos es el ejercicio.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Defusión cognitiva</span>
+          <span class="tag tag-proceso">Aceptación</span>
+          <span class="tag tag-variable">Autocompasión</span>
+          <span class="tag tag-variable">Regulación emocional</span>
+          <span class="tag tag-variable">Flexibilidad psicológica</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="categoria" id="cat-05">
+    <div class="categoria-header" onclick="toggle('cat-05')">
+      <div class="categoria-header-left">
+        <div class="categoria-icono"><i class="ti ti-compass" aria-hidden="true"></i></div>
+        <div class="categoria-info">
+          <p class="categoria-eyebrow">Proceso 05</p>
+          <p class="categoria-nombre">Valores</p>
+          <p class="categoria-desc">Lo que realmente importa para vos — no lo que deberías valorar, sino lo que de verdad te mueve cuando estás siendo la persona que querés ser.</p>
+          <p class="categoria-ejemplo">No es una lista de metas. Es una dirección.</p>
+        </div>
+      </div>
+      <span class="categoria-toggle"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="categoria-tareas">
+      <a class="tarea" href="decision-alineada.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-scale" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">La decisión alineada</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Tres decisiones de esta semana. Para cada una: cuánto convencido estabas antes de tomarla y cuánto quedaste después. La brecha dice algo.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Acción comprometida</span>
+          <span class="tag tag-variable">Convicción</span>
+          <span class="tag tag-variable">Rendimiento</span>
+        </div>
+      </a>
+      <a class="tarea" href="la-anecdota-significativa.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-bookmark" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">La anécdota significativa</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Un momento de tu vida que todavía te importa. Contarlo revela lo que ya valorás, sin necesidad de nombrarlo directamente.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Yo como contexto</span>
+          <span class="tag tag-proceso">Acción comprometida</span>
+          <span class="tag tag-variable">Clarificación de valores</span>
+          <span class="tag tag-variable">Identidad narrativa</span>
+          <span class="tag tag-variable">Autoconocimiento</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="categoria" id="cat-06">
+    <div class="categoria-header" onclick="toggle('cat-06')">
+      <div class="categoria-header-left">
+        <div class="categoria-icono"><i class="ti ti-bolt" aria-hidden="true"></i></div>
+        <div class="categoria-info">
+          <p class="categoria-eyebrow">Proceso 06</p>
+          <p class="categoria-nombre">Acción comprometida</p>
+          <p class="categoria-desc">Hacer cosas que van en la dirección de lo que valorás, aunque sea difícil o incómodo.</p>
+          <p class="categoria-ejemplo">No esperar a sentirte bien para actuar. Actuar es lo que a veces genera el bienestar.</p>
+        </div>
+      </div>
+      <span class="categoria-toggle"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="categoria-tareas">
+      <a class="tarea" href="registro-de-consistencia.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-calendar-stats" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">Registro de consistencia</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Una, dos o tres acciones para la semana. Para cada una: el valor que la mueve y el registro diario de si la hiciste o no.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Valores</span>
+          <span class="tag tag-variable">Consistencia conductual</span>
+          <span class="tag tag-variable">Rendimiento</span>
+        </div>
+      </a>
+      <a class="tarea" href="el-paso-mas-pequeno.html">
+        <div class="tarea-top">
+          <div class="tarea-icono"><i class="ti ti-shoe" aria-hidden="true"></i></div>
+          <div class="tarea-titulo-wrap">
+            <span class="tarea-titulo">El paso más pequeño</span>
+            <span class="tarea-cta">Completar <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+        <p class="tarea-desc">Identificá algo que postergás y encontrá el movimiento más pequeño posible en esa dirección. Tan pequeño que casi parezca ridículo.</p>
+        <div class="tags">
+          <span class="tag tag-proceso">Valores</span>
+          <span class="tag tag-proceso">Defusión cognitiva</span>
+          <span class="tag tag-variable">Autoeficacia</span>
+          <span class="tag tag-variable">Tolerancia al malestar</span>
+          <span class="tag tag-variable">Planificación conductual</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <span>Área privada · © <span id="year"></span> Lic. Fabián Sierra</span>
+</footer>
+
+<script>
+function verificarAcceso() {
+  if (!sessionStorage.getItem('fs_pacientes_auth')) {
+    window.location.href = '../index.html';
+  }
+}
+function salir() {
+  sessionStorage.removeItem('fs_pacientes_auth');
+  window.location.href = '../index.html';
+}
+function toggle(id) {
+  var cat = document.getElementById(id);
+  cat.classList.toggle('abierta');
+}
+verificarAcceso();
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

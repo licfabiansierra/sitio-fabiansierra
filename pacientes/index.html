@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Pacientes · Lic. Fabián Sierra</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--ink:#17181C;--muted:#6E7079;
+    --accent:#942322;--accent-deep:#741A19;--accent-light:#c47a78;
+    --surface-a:#1E1F23;--surface-b:#141518;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#17181C;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#17181C;color:var(--bone);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100vh}
+
+  header{padding:1.5rem clamp(1.25rem,5vw,4.5rem);border-bottom:1px solid rgba(255,255,255,.06)}
+  .brand{display:flex;flex-direction:column;line-height:1.1}
+  .brand b{font-weight:700;font-size:.98rem;color:var(--bone)}
+  .brand span{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+
+  .main{flex:1;display:flex;align-items:center;justify-content:center;padding:clamp(2rem,5vw,4rem) clamp(1.25rem,5vw,4.5rem)}
+
+  .login-card{
+    width:100%;max-width:420px;
+    background:var(--surface-a);
+    border:1px solid rgba(255,255,255,.08);
+    border-top:3px solid var(--accent);
+    padding:clamp(2rem,5vw,3rem);
+  }
+
+  .login-eyebrow{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:1rem}
+  .login-titulo{font-size:1.4rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.5rem;color:var(--bone)}
+  .login-sub{font-size:.88rem;color:rgba(243,241,236,.4);font-weight:300;line-height:1.6;margin-bottom:2rem}
+
+  .field{margin-bottom:1.2rem}
+  .field label{display:block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;font-weight:500}
+  .field input{
+    width:100%;border:none;border-bottom:2px solid rgba(255,255,255,.15);
+    background:transparent;font-family:"Archivo",sans-serif;
+    font-size:1rem;font-weight:400;color:var(--bone);
+    padding:.5rem 0;outline:none;transition:border-color .25s;
+    letter-spacing:.08em;
+  }
+  .field input:focus{border-bottom-color:var(--accent)}
+  .field input::placeholder{color:var(--muted);font-weight:300;letter-spacing:0}
+  .field input[type=password]{font-family:monospace;font-size:1.1rem}
+
+  .error{font-size:.82rem;color:var(--accent-light);margin-top:.5rem;display:none}
+
+  .btn{
+    width:100%;padding:.9rem;margin-top:1.5rem;
+    background:var(--accent);color:#fff;border:none;
+    font-family:"Archivo",sans-serif;font-size:.9rem;font-weight:600;
+    cursor:pointer;border-radius:2px;transition:background .25s;
+  }
+  .btn:hover{background:var(--accent-deep)}
+
+  footer{padding:1.2rem clamp(1.25rem,5vw,4.5rem);border-top:1px solid rgba(255,255,255,.04);text-align:center;font-size:.66rem;color:rgba(243,241,236,.15);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <b>Lic. Fabián Sierra</b>
+    <span>Psicología y Rendimiento</span>
+  </div>
+</header>
+
+<div class="main">
+  <div class="login-card">
+    <p class="login-eyebrow">Área de pacientes</p>
+    <h1 class="login-titulo">Acceso</h1>
+    <p class="login-sub">Ingresá la clave que te compartió Fabián para acceder a tus tareas.</p>
+
+    <div class="field">
+      <label for="claveInput">Clave de acceso</label>
+      <input type="password" id="claveInput" placeholder="••••••••••••" autocomplete="off" onkeydown="if(event.key==='Enter')verificar()">
+      <p class="error" id="errorMsg">Clave incorrecta. Revisá que esté bien escrita.</p>
+    </div>
+
+    <button class="btn" onclick="verificar()">Ingresar</button>
+  </div>
+</div>
+
+<footer>
+  <span>Acceso privado · No indexado · © <span id="year"></span> Lic. Fabián Sierra</span>
+</footer>
+
+<script>
+/* ── CLAVE DE ACCESO ── */
+var CLAVE = 'fs-pacientes-2025';
+/* ─────────────────── */
+
+function verificar() {
+  var input = document.getElementById('claveInput').value.trim();
+  var error = document.getElementById('errorMsg');
+  if (input === CLAVE) {
+    sessionStorage.setItem('fs_pacientes_auth', '1');
+    window.location.href = 'tareas/index.html';
+  } else {
+    error.style.display = 'block';
+    document.getElementById('claveInput').value = '';
+    document.getElementById('claveInput').focus();
+  }
+}
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>El titular de diario · Lic. Fabián Sierra</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+  :root{
+    --paper:#F6F3EE;--paper-deep:#EAE6DE;--paper-mid:#DDD8CF;
+    --ink:#252320;--ink-soft:#58544F;--muted:#9A9690;
+    --accent:#942322;--accent-light:#c47a78;--accent-bg:#FBF0EF;
+    --white:#FFFFFF;
+    --maxw:680px;--pad:clamp(1.25rem,5vw,3rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--paper);color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{background:rgba(246,243,238,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--paper-mid);position:sticky;top:0;z-index:50}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand b{font-weight:700;font-size:.95rem;color:var(--ink);display:block;letter-spacing:-.01em}
+  .brand span{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.14rem;display:block}
+  .nav-back{display:flex;align-items:center;gap:.4rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color .2s}
+  .nav-back:hover{color:var(--accent)}
+  .nav-back i{font-size:15px}
+
+  .hero{padding:clamp(2rem,4vw,3.5rem) 0 clamp(1.5rem,3vw,2.5rem);border-bottom:1px solid var(--paper-mid)}
+  .hero-top{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
+  .hero-icono{width:40px;height:40px;border-radius:8px;background:var(--accent-bg);border:1px solid #EAC8C7;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .hero-icono i{font-size:20px;color:var(--accent)}
+  .hero-tag{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-light);font-weight:600}
+  .hero h1{font-weight:800;letter-spacing:-.03em;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--ink);line-height:1.1;margin-bottom:.7rem}
+  .hero-sub{font-size:.92rem;color:var(--ink-soft);font-weight:300;line-height:1.75;max-width:48ch}
+
+  main{padding-top:clamp(1.8rem,3.5vw,2.5rem);padding-bottom:clamp(3rem,6vw,5rem)}
+
+  .instrucciones{background:var(--white);border:1px solid var(--paper-mid);border-left:3px solid var(--accent);border-radius:2px;padding:1rem 1.2rem;margin-bottom:2rem;font-size:.86rem;color:var(--ink-soft);line-height:1.7;font-weight:300}
+  .instrucciones strong{font-weight:600;color:var(--ink)}
+
+  .nombre-block{background:var(--white);border:1px solid var(--paper-mid);border-radius:2px;padding:1.1rem 1.3rem;margin-bottom:1.5rem}
+  .nombre-block label{display:block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.55rem}
+  .nombre-block input{width:100%;border:none;border-bottom:1.5px solid var(--paper-mid);background:transparent;font-family:"Archivo",sans-serif;font-size:1rem;font-weight:500;color:var(--ink);padding:.35rem 0;outline:none;transition:border-color .2s}
+  .nombre-block input:focus{border-bottom-color:var(--accent)}
+  .nombre-block input::placeholder{color:var(--muted);font-weight:300}
+  .nombre-block.field-error{border-left:3px solid var(--accent-light)}
+
+  .field-group{margin-bottom:1.5rem}
+  .field-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.35rem}
+  .field-icono{width:26px;height:26px;border-radius:5px;background:var(--paper-deep);border:1px solid var(--paper-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .field-icono i{font-size:13px;color:var(--muted)}
+  .field-label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .field-req{color:var(--accent);font-size:.6rem}
+  .field-hint{font-size:.8rem;color:var(--muted);font-weight:300;margin-bottom:.65rem;line-height:1.6;font-style:italic;padding-left:32px}
+  textarea,input[type=date]{width:100%;border:1px solid var(--paper-mid);border-radius:2px;background:var(--white);font-family:"Archivo",sans-serif;font-size:.93rem;color:var(--ink);padding:.75rem 1rem;outline:none;transition:border-color .2s;-webkit-appearance:none;line-height:1.65}
+  textarea{resize:vertical;min-height:90px}
+  textarea:focus,input[type=date]:focus{border-color:var(--accent)}
+  input[type=date]{color:var(--ink)}
+  .field-group.field-error textarea,.field-group.field-error input{border-color:var(--accent-light)}
+  .error-msg{font-size:.76rem;color:var(--accent-light);margin-top:.35rem;display:none;padding-left:32px}
+  .field-group.field-error .error-msg{display:block}
+
+  .sep{margin:2rem 0 1.5rem;display:flex;align-items:center;gap:.8rem}
+  .sep-line{flex:1;height:1px;background:var(--paper-mid)}
+  .sep-label{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:.4rem}
+  .sep-label i{font-size:13px}
+
+  /* TITULAR — tipografía especial */
+  .titular-hint{
+    background:#FFFDF5;border:1px solid #E8E0C8;border-radius:2px;
+    padding:.9rem 1rem;margin-bottom:.7rem;
+    font-size:.78rem;color:#7A7060;font-weight:300;line-height:1.65;
+  }
+  .titular-hint strong{font-weight:700;color:#4A4030;letter-spacing:.02em}
+  #titularInput{font-weight:700;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase;line-height:1.5}
+  #titularInput::placeholder{font-weight:300;text-transform:none;letter-spacing:0;font-size:.88rem}
+
+  /* TERCERA PARTE — aparece con JS */
+  .tercera-parte{display:none;animation:fadeUp .4s var(--ease)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  .btn{display:block;width:100%;padding:.9rem;margin-top:1.5rem;background:var(--accent);color:#fff;border:none;font-family:"Archivo",sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border-radius:2px;transition:background .25s;letter-spacing:.01em}
+  .btn:hover{background:#7a1c1c}
+  .btn:disabled{background:#C8C4BC;cursor:not-allowed}
+  .btn-continuar{background:var(--ink);margin-top:1.5rem}
+  .btn-continuar:hover{background:#3D3C39}
+  .envio-nota{text-align:center;font-size:.76rem;color:var(--muted);margin-top:.7rem;font-weight:300}
+
+  .confirmacion{display:none;text-align:center;padding:clamp(3rem,6vw,5rem) 0}
+  .conf-icono{width:56px;height:56px;border-radius:50%;background:#EEF5EE;border:1px solid #C8DFC8;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem}
+  .conf-icono i{font-size:28px;color:#3A7A3A}
+  .confirmacion h2{font-weight:700;font-size:1.3rem;letter-spacing:-.02em;margin-bottom:.6rem;color:var(--ink)}
+  .confirmacion p{font-size:.9rem;color:var(--ink-soft);font-weight:300;line-height:1.75;max-width:36ch;margin:0 auto 1.8rem}
+  .btn-otro{display:inline-block;padding:.65rem 1.4rem;border:1px solid var(--paper-mid);border-radius:2px;font-size:.84rem;font-weight:600;color:var(--ink);background:var(--white);cursor:pointer;font-family:"Archivo",sans-serif;transition:background .2s}
+  .btn-otro:hover{background:var(--paper-deep)}
+
+  footer{border-top:1px solid var(--paper-mid);padding:1.2rem var(--pad);text-align:center;font-size:.66rem;color:var(--muted);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </div>
+    <a class="nav-back" href="index.html">
+      <i class="ti ti-arrow-left"></i>
+      Tareas
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="hero-icono"><i class="ti ti-news"></i></div>
+      <span class="hero-tag">Defusión cognitiva</span>
+    </div>
+    <h1>El titular de diario</h1>
+    <p class="hero-sub">Hay pensamientos que se sienten como hechos. Este ejercicio los pone en otra pantalla para que los puedas ver desde afuera.</p>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <div id="formWrap">
+
+    <div class="instrucciones">
+      <strong>Cómo hacerlo:</strong> Anotá un pensamiento que te estuvo dando vueltas — uno de esos que aparecen seguido y a veces sentís que son la verdad. Después convertilo en el titular de un diario amarillista: exagerado, dramático, con mayúsculas. No para burlarte de vos — para verlo desde afuera por un momento.
+    </div>
+
+    <div class="nombre-block" id="nombreBlock">
+      <label for="nombreInput">Tu nombre <span style="color:var(--accent)">*</span></label>
+      <input type="text" id="nombreInput" placeholder="Cómo te llamás" autocomplete="given-name">
+    </div>
+
+    <div class="field-group" id="fg-fecha">
+      <div class="field-header">
+        <div class="field-icono"><i class="ti ti-calendar"></i></div>
+        <span class="field-label">Fecha <span class="field-req">*</span></span>
+      </div>
+      <input type="date" id="fechaInput">
+      <p class="error-msg">Por favor completá la fecha.</p>
+    </div>
+
+    <div class="sep">
+      <div class="sep-line"></div>
+      <span class="sep-label"><i class="ti ti-brain"></i> El pensamiento</span>
+      <div class="sep-line"></div>
+    </div>
+
+    <div class="field-group" id="fg-pensamiento">
+      <div class="field-header">
+        <div class="field-icono"><i class="ti ti-message-dots"></i></div>
+        <span class="field-label">El pensamiento <span class="field-req">*</span></span>
+      </div>
+      <p class="field-hint">Escribilo tal como aparece en tu cabeza. Ej: "Nunca hago nada bien", "Soy demasiado sensible", "No le importo a nadie".</p>
+      <textarea id="pensamientoInput" placeholder="El pensamiento que te da vueltas..." rows="3"></textarea>
+      <p class="error-msg">Por favor escribí el pensamiento.</p>
+    </div>
+
+    <div class="sep">
+      <div class="sep-line"></div>
+      <span class="sep-label"><i class="ti ti-news"></i> El titular</span>
+      <div class="sep-line"></div>
+    </div>
+
+    <div class="titular-hint">
+      Convertilo en la tapa de un diario que vende catástrofes. Cuanto más exagerado, mejor funciona.<br>
+      <strong>Ej:</strong> "EXPERTO LOCAL CONFIRMA: JAMÁS EN LA HISTORIA SE COMETIÓ ERROR TAN GARRAFAL" · "FUENTES CERCANAS REVELAN: INDIVIDUO COMPLETAMENTE INSOPORTABLE DESDE HACE AÑOS"
+    </div>
+
+    <div class="field-group" id="fg-titular">
+      <div class="field-header">
+        <div class="field-icono"><i class="ti ti-news"></i></div>
+        <span class="field-label">El titular <span class="field-req">*</span></span>
+      </div>
+      <textarea id="titularInput" placeholder="El titular de tapa..." rows="3"></textarea>
+      <p class="error-msg">Por favor escribí el titular.</p>
+    </div>
+
+    <button class="btn btn-continuar" id="btnContinuar" onclick="mostrarTercera()">Continuar</button>
+
+    <!-- TERCERA PARTE -->
+    <div class="tercera-parte" id="terceraParte">
+      <div class="sep" style="margin-top:2rem">
+        <div class="sep-line"></div>
+        <span class="sep-label"><i class="ti ti-ripple"></i> Lo que notás</span>
+        <div class="sep-line"></div>
+      </div>
+
+      <div class="field-group" id="fg-notas">
+        <div class="field-header">
+          <div class="field-icono"><i class="ti ti-eye"></i></div>
+          <span class="field-label">¿Qué notás?</span>
+        </div>
+        <p class="field-hint">Cuando lo ves así, ¿algo cambia? ¿Se siente igual de pesado? No tiene que cambiar nada — pero si algo se mueve, anotalo acá.</p>
+        <textarea id="notasInput" placeholder="Si algo se mueve, acá va. Si no, también podés dejarlo en blanco." rows="3"></textarea>
+      </div>
+
+      <button class="btn" id="btnEnviar" onclick="enviar()">Enviar registro</button>
+      <p class="envio-nota">Tu registro va directo a Fabián. No se guarda en este dispositivo.</p>
+    </div>
+
+  </div>
+
+  <div class="confirmacion" id="confirmacion">
+    <div class="conf-icono"><i class="ti ti-check"></i></div>
+    <h2>Registro enviado</h2>
+    <p>Fabián recibió tu entrada de hoy. Nos vemos en sesión.</p>
+    <button class="btn-otro" onclick="resetForm()">Hacer otra entrada</button>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <span>Área privada · © <span id="year"></span> Lic. Fabián Sierra</span>
+</footer>
+
+<script>
+/* ── CONFIGURACIÓN GOOGLE SHEETS ── */
+var SHEET_URL = 'REEMPLAZAR_CON_URL_DE_APPS_SCRIPT';
+/* ────────────────────────────────── */
+
+function verificarAcceso() {
+  if (!sessionStorage.getItem('fs_pacientes_auth')) {
+    window.location.href = '../index.html';
+  }
+}
+
+function setFechaHoy() {
+  var hoy = new Date();
+  var yyyy = hoy.getFullYear();
+  var mm = String(hoy.getMonth() + 1).padStart(2, '0');
+  var dd = String(hoy.getDate()).padStart(2, '0');
+  document.getElementById('fechaInput').value = yyyy + '-' + mm + '-' + dd;
+}
+
+function mostrarTercera() {
+  var ok = true;
+
+  var nb = document.getElementById('nombreBlock');
+  if (!document.getElementById('nombreInput').value.trim()) {
+    nb.classList.add('field-error'); ok = false;
+  } else { nb.classList.remove('field-error'); }
+
+  var campos = [
+    {fg:'fg-fecha', id:'fechaInput'},
+    {fg:'fg-pensamiento', id:'pensamientoInput'},
+    {fg:'fg-titular', id:'titularInput'}
+  ];
+  campos.forEach(function(c) {
+    var fg = document.getElementById(c.fg);
+    var val = document.getElementById(c.id).value.trim();
+    if (!val) { fg.classList.add('field-error'); ok = false; }
+    else { fg.classList.remove('field-error'); }
+  });
+
+  if (!ok) {
+    var primer = document.querySelector('.field-error');
+    if (primer) primer.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  document.getElementById('btnContinuar').style.display = 'none';
+  var tercera = document.getElementById('terceraParte');
+  tercera.style.display = 'block';
+  setTimeout(function() {
+    tercera.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 100);
+}
+
+function enviar() {
+  var btn = document.getElementById('btnEnviar');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  var datos = {
+    nombre: document.getElementById('nombreInput').value.trim(),
+    fecha: document.getElementById('fechaInput').value,
+    pensamiento: document.getElementById('pensamientoInput').value.trim(),
+    titular: document.getElementById('titularInput').value.trim(),
+    notas: document.getElementById('notasInput').value.trim(),
+    tarea: 'El titular de diario',
+    timestamp: new Date().toISOString()
+  };
+
+  fetch(SHEET_URL, { method:'POST', body:JSON.stringify(datos) })
+    .then(function(){ mostrarConfirmacion(); })
+    .catch(function(){ mostrarConfirmacion(); });
+}
+
+function mostrarConfirmacion() {
+  document.getElementById('formWrap').style.display = 'none';
+  document.getElementById('confirmacion').style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function resetForm() {
+  var ids = ['pensamientoInput','titularInput','notasInput'];
+  ids.forEach(function(id){ document.getElementById(id).value = ''; });
+  setFechaHoy();
+  document.getElementById('btnContinuar').style.display = 'block';
+  document.getElementById('terceraParte').style.display = 'none';
+  var btn = document.getElementById('btnEnviar');
+  btn.disabled = false;
+  btn.textContent = 'Enviar registro';
+  document.getElementById('formWrap').style.display = 'block';
+  document.getElementById('confirmacion').style.display = 'none';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+verificarAcceso();
+setFechaHoy();
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
