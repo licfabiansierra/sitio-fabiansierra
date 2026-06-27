@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>El informe que tu teléfono nunca te va a mandar · Fuera de sesión · Lic. Fabián Sierra</title>
+<meta name="description" content="18 preguntas. Tres dimensiones. Un informe que el teléfono tiene pero nunca te mandó.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F3F1EC;--bone-deep:#EAE7DE;
+    --ink:#17181C;--muted:#6E7079;
+    --accent:#942322;--accent-deep:#741A19;--accent-light:#c47a78;
+    --surface-a:#1E1F23;--surface-b:#141518;
+    --green:#4ade80;--green-dim:rgba(74,222,128,.15);
+    --maxw:860px;--pad:clamp(1.25rem,5vw,4.5rem);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#17181C;scroll-behavior:smooth;color-scheme:light}
+  body{font-family:"Archivo",system-ui,sans-serif;background:#17181C;color:var(--bone);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(23,24,28,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1.5rem}
+  .brand{display:flex;flex-direction:column;line-height:1.1;letter-spacing:-.01em}
+  .brand b{font-weight:700;font-size:.98rem;color:var(--bone)}
+  .brand span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+  .nav-back{display:flex;align-items:center;gap:.5rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color .2s}
+  .nav-back:hover{color:var(--accent-light)}
+  .nav-back svg{width:14px;height:14px;flex-shrink:0}
+
+  .prog-wrap{height:2px;background:rgba(255,255,255,.08);position:sticky;top:68px;z-index:49}
+  .prog-fill{height:100%;background:var(--accent);width:0%;transition:width .35s var(--ease)}
+
+  .hero{background:#17181C;border-top:1px solid rgba(255,255,255,.06);padding-top:clamp(3rem,7vw,5.5rem);padding-bottom:clamp(3rem,7vw,5rem);position:relative;overflow:hidden}
+  .hero-num{position:absolute;right:-2%;top:50%;transform:translateY(-55%);font-size:clamp(10rem,28vw,22rem);font-weight:900;letter-spacing:-.05em;color:var(--bone);opacity:.03;pointer-events:none;line-height:1;-webkit-user-select:none;user-select:none}
+  .hero .wrap{position:relative;z-index:1}
+  .hero-eyebrow{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:1.1rem;display:flex;align-items:center;gap:.7rem}
+  .hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent-light);display:block;flex-shrink:0}
+  .hero h1{font-weight:800;letter-spacing:-.032em;line-height:1.02;font-size:clamp(1.8rem,5vw,3.5rem);margin-bottom:1.4rem;color:var(--bone)}
+  .hero-sub{color:rgba(243,241,236,.55);font-size:clamp(.95rem,1.7vw,1.1rem);line-height:1.72;max-width:52ch;font-weight:300;font-style:italic;border-left:2px solid rgba(255,255,255,.12);padding-left:1.1rem;margin-bottom:2rem}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem 2rem;padding-top:1.8rem;border-top:1px solid rgba(255,255,255,.08)}
+  @media(min-width:580px){.hero-meta{grid-template-columns:repeat(3,1fr)}}
+  .hero-meta .k{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:.9rem;font-weight:500;margin-top:.2rem;color:var(--bone)}
+
+  main{background:#17181C;padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(3rem,7vw,6rem)}
+
+  .name-block{border:1px solid rgba(255,255,255,.1);background:var(--surface-a);padding:clamp(1.4rem,3vw,2rem);margin-bottom:2rem;border-left:3px solid var(--accent)}
+  .name-block label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.65rem;font-weight:500}
+  .name-block input[type=text]{width:100%;border:none;border-bottom:2px solid rgba(255,255,255,.15);background:transparent;font-family:"Archivo",sans-serif;font-size:1.08rem;font-weight:500;color:var(--bone);padding:.4rem 0;outline:none;transition:border-color .25s}
+  .name-block input[type=text]:focus{border-bottom-color:var(--accent)}
+  .name-block input[type=text]::placeholder{color:var(--muted);font-weight:300;font-size:.96rem}
+  .name-block.field-error{border-left-color:var(--accent-light)}
+  .name-block.field-error input{border-bottom-color:var(--accent-light)}
+
+  .seccion-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;margin-bottom:1.8rem;padding-bottom:.8rem;border-bottom:1px solid rgba(255,255,255,.06);margin-top:clamp(2rem,4vw,3rem)}
+
+  .pregunta-block{margin-bottom:2.5rem;scroll-margin-top:120px}
+  .pregunta-modulo{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:.4rem}
+  .pregunta-texto{font-size:clamp(1rem,2vw,1.15rem);font-weight:600;color:var(--bone);margin-bottom:1.2rem;line-height:1.35;letter-spacing:-.01em}
+  .opciones{display:flex;flex-direction:column;gap:.6rem}
+  .opcion{display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;border:1px solid rgba(255,255,255,.08);background:var(--surface-a);cursor:pointer;transition:border-color .2s,background .2s;border-radius:2px}
+  .opcion:hover{border-color:rgba(255,255,255,.2);background:#25262a}
+  .opcion.selected{border-color:var(--accent-light);background:#201a1a}
+  .opcion-radio{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .opcion.selected .opcion-radio{border-color:var(--accent-light);background:var(--accent-light)}
+  .opcion.selected .opcion-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
+  .opcion-texto{font-size:.95rem;color:rgba(243,241,236,.7);font-weight:300;line-height:1.55;transition:color .2s}
+  .opcion.selected .opcion-texto{color:var(--bone)}
+  .pregunta-block.field-error .opciones{outline:1px solid var(--accent-light);outline-offset:4px;border-radius:2px}
+
+  .slider-block{margin-bottom:2.8rem;scroll-margin-top:120px}
+  .slider-modulo{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:.4rem}
+  .slider-pregunta{font-size:clamp(1rem,2vw,1.15rem);font-weight:600;color:var(--bone);margin-bottom:1.6rem;line-height:1.35;letter-spacing:-.01em}
+  .slider-polos{display:flex;justify-content:space-between;gap:1rem;margin-bottom:.9rem}
+  .slider-polo{font-size:.78rem;color:rgba(243,241,236,.35);font-weight:300;line-height:1.4;max-width:38%;font-style:italic}
+  .slider-polo.derecho{text-align:right}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:rgba(255,255,255,.12);border-radius:1px;outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--bone);border:2px solid var(--accent-light);cursor:pointer;transition:transform .2s}
+  input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+  input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--bone);border:2px solid var(--accent-light);cursor:pointer}
+  .slider-block.field-error input[type=range]{outline:1px solid var(--accent-light);outline-offset:6px}
+
+  /* ORDENAMIENTO */
+  .orden-block{margin-bottom:2.8rem;scroll-margin-top:120px}
+  .orden-modulo{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:.4rem}
+  .orden-pregunta{font-size:clamp(1rem,2vw,1.15rem);font-weight:600;color:var(--bone);margin-bottom:.6rem;line-height:1.35;letter-spacing:-.01em}
+  .orden-sub{font-size:.82rem;color:rgba(243,241,236,.35);font-weight:300;margin-bottom:1.2rem;font-style:italic}
+  .orden-lista{display:flex;flex-direction:column;gap:.5rem}
+  .orden-item{display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;border:1px solid rgba(255,255,255,.08);background:var(--surface-a);border-radius:2px}
+  .orden-num{font-size:.65rem;letter-spacing:.1em;color:var(--accent-light);font-weight:600;min-width:1.5rem}
+  .orden-texto{flex:1;font-size:.9rem;color:rgba(243,241,236,.7);font-weight:300}
+  .orden-btns{display:flex;flex-direction:column;gap:.2rem}
+  .orden-btn{background:none;border:none;cursor:pointer;color:rgba(243,241,236,.3);padding:.15rem .3rem;font-size:.9rem;line-height:1;transition:color .2s}
+  .orden-btn:hover{color:var(--bone)}
+  .orden-btn:disabled{opacity:.15;cursor:default}
+  .orden-block.field-error .orden-lista{outline:1px solid var(--accent-light);outline-offset:4px}
+
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9rem;padding:.82rem 1.6rem;border-radius:2px;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:background .25s,transform .25s,box-shadow .3s;cursor:pointer;font-family:"Archivo",sans-serif}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 12px 28px -10px rgba(148,35,34,.4)}
+  .btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(255,255,255,.2)}
+  .btn-ghost:hover{background:rgba(255,255,255,.06);transform:none;box-shadow:none}
+  .btn-block{display:block;width:100%;justify-content:center;margin-top:1.6rem;text-align:center}
+
+  .disclaimer{background:var(--surface-b);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.08);padding:1rem 1.3rem;margin-bottom:2rem;font-size:.82rem;color:rgba(243,241,236,.3);font-weight:300;line-height:1.65}
+
+  /* RESULTADO — ESTILO TERMINAL */
+  .resultado{display:none;padding-top:clamp(2rem,4vw,3rem)}
+
+  .terminal{
+    background:#0a0a0a;
+    border:1px solid rgba(74,222,128,.2);
+    border-radius:4px;
+    overflow:hidden;
+    margin-bottom:2rem;
+    font-family:"Share Tech Mono",monospace;
+  }
+  .terminal-header{
+    background:#111;
+    padding:.6rem 1rem;
+    display:flex;align-items:center;gap:.5rem;
+    border-bottom:1px solid rgba(74,222,128,.1);
+  }
+  .terminal-dot{width:10px;height:10px;border-radius:50%}
+  .terminal-dot.r{background:#ff5f57}
+  .terminal-dot.y{background:#febc2e}
+  .terminal-dot.g{background:#28c840}
+  .terminal-titulo{font-size:.62rem;color:rgba(74,222,128,.4);letter-spacing:.08em;margin-left:.5rem}
+  .terminal-body{padding:clamp(1.5rem,3vw,2.5rem);overflow-x:auto}
+  .terminal-line{
+    font-size:clamp(.78rem,1.3vw,.88rem);
+    line-height:1.9;
+    color:rgba(74,222,128,.7);
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .terminal-line.dim{color:rgba(74,222,128,.3)}
+  .terminal-line.bright{color:rgba(74,222,128,.95)}
+  .terminal-line.comment{color:rgba(74,222,128,.35)}
+  .terminal-line.warning{color:#febc2e}
+  .terminal-line.error{color:#ff5f57}
+  .terminal-line.nombre{color:var(--bone);font-weight:700}
+  .terminal-spacer{height:.8rem}
+
+  /* FICHA Y ORIGEN */
+  .ficha-section{margin-top:clamp(4rem,8vw,7rem);padding-top:clamp(2rem,4vw,3rem);border-top:1px solid rgba(255,255,255,.06)}
+  .ficha-eyebrow{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;margin-bottom:1.5rem}
+  .ficha-card{border:1px solid rgba(255,255,255,.06);background:var(--surface-b);padding:clamp(1.4rem,3vw,2rem);margin-bottom:1rem}
+  .ficha-card-label{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,241,236,.2);font-weight:600;padding-bottom:.8rem;margin-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.05)}
+  .ficha-body{font-size:.88rem;color:rgba(243,241,236,.3);font-weight:300;line-height:1.75}
+  .ficha-body strong{font-weight:600;color:rgba(243,241,236,.45)}
+  .ficha-body p+p{margin-top:.7rem}
+  .ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.5rem;margin-top:.8rem;font-size:.82rem;color:rgba(243,241,236,.3);border-top:1px solid rgba(255,255,255,.05);padding-top:.8rem}
+  .ficha-grid dt{font-weight:600;color:rgba(243,241,236,.35)}
+  .ficha-grid dd{font-weight:300}
+  @media(max-width:480px){.ficha-grid{grid-template-columns:1fr}}
+  .disclaimer-final{margin-top:1.5rem;padding:1rem 1.3rem;border-left:2px solid rgba(255,255,255,.08);font-size:.8rem;color:rgba(243,241,236,.2);font-weight:300;line-height:1.7;font-style:italic}
+  .origen-section{margin-top:clamp(3rem,6vw,5rem);padding-top:clamp(2rem,4vw,3rem);border-top:1px solid rgba(255,255,255,.06);margin-bottom:2rem}
+  .origen-texto{max-width:58ch}
+  .origen-texto p{font-size:clamp(.9rem,1.5vw,1rem);color:rgba(243,241,236,.4);font-weight:300;line-height:1.8;margin-bottom:.9rem}
+  .origen-disclaimer{font-style:italic;color:rgba(243,241,236,.25) !important}
+
+  .cta-strip{background:var(--surface-a);border-top:1px solid rgba(255,255,255,.06);margin-top:clamp(3rem,6vw,5rem)}
+  .cta-strip .wrap{padding-top:clamp(2.5rem,5vw,4rem);padding-bottom:clamp(2.5rem,5vw,4rem);display:flex;flex-direction:column;gap:1.5rem;align-items:flex-start}
+  @media(min-width:720px){.cta-strip .wrap{flex-direction:row;align-items:center;justify-content:space-between}}
+  .cta-eyebrow{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.8rem}
+  .cta-strip h3{font-weight:700;font-size:clamp(1.3rem,2.5vw,1.8rem);letter-spacing:-.02em;line-height:1.2;max-width:28ch;color:var(--bone)}
+
+  footer{background:var(--surface-b);color:rgba(243,241,236,.3);border-top:1px solid rgba(255,255,255,.04)}
+  .foot-inner{padding:clamp(1.5rem,3vw,2.5rem) var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+  .foot-brand b{color:var(--bone);font-weight:700;font-size:.92rem;display:block;letter-spacing:-.01em}
+  .foot-brand .reg{font-size:.6rem;letter-spacing:.12em;color:var(--accent-light);text-transform:uppercase;margin-top:.4rem}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.04);padding:1rem var(--pad);max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between}
+  .foot-bottom span{font-size:.66rem;color:rgba(243,241,236,.15);letter-spacing:.04em}
+
+  @media(max-width:420px){.hero h1{font-size:1.6rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="https://fabiansierra.com">
+      <b>Lic. Fabián Sierra</b>
+      <span>Psicología y Rendimiento</span>
+    </a>
+    <a class="nav-back" href="esto-no-es-un-test.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Esto no es un test
+    </a>
+  </div>
+</header>
+
+<div class="prog-wrap"><div class="prog-fill" id="progFill"></div></div>
+
+<section class="hero">
+  <div class="hero-num">03</div>
+  <div class="wrap">
+    <p class="hero-eyebrow">Esto no es un test</p>
+    <h1>El informe que tu teléfono nunca te va a mandar</h1>
+    <p class="hero-sub">18 preguntas. Tres dimensiones. Un archivo que el teléfono tiene pero decidió no compartir.</p>
+    <div class="hero-meta">
+      <div><p class="k">Formato</p><p class="v">18 preguntas</p></div>
+      <div><p class="k">Duración</p><p class="v">6 minutos</p></div>
+      <div><p class="k">Validación</p><p class="v">Ninguna</p></div>
+    </div>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <div class="name-block" id="nameBlock">
+    <label for="nombreInput">Tu nombre <span style="color:var(--accent-light)">*</span></label>
+    <input type="text" id="nombreInput" placeholder="Cómo te llamás" autocomplete="given-name">
+  </div>
+
+  <div id="formArea">
+
+    <p class="seccion-label">// módulo_01 · la mañana</p>
+
+    <div class="pregunta-block" id="p1">
+      <p class="pregunta-modulo">P1</p>
+      <p class="pregunta-texto">¿Cuánto tardás en agarrar el teléfono después de despertar?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="0" data-b="0" data-g="2" onclick="seleccionar(this,1)"><div class="opcion-radio"></div><span class="opcion-texto">Lo agarro antes de saber dónde estoy. El teléfono sabe quién soy antes que yo.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="1" onclick="seleccionar(this,1)"><div class="opcion-radio"></div><span class="opcion-texto">Cuando suena el despertador, que está en el teléfono, lo cual en retrospectiva fue una decisión cuestionable.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="0" onclick="seleccionar(this,1)"><div class="opcion-radio"></div><span class="opcion-texto">Cuando termino alguna rutina mínima. Café, baño, algo que me permita fingir que tengo autodisciplina.</span></div>
+        <div class="opcion" data-e="-1" data-b="0" data-g="0" onclick="seleccionar(this,1)"><div class="opcion-radio"></div><span class="opcion-texto">No tengo apuro. A veces pasan horas. Soy un misterio incluso para mí.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p2">
+      <p class="pregunta-modulo">P2</p>
+      <p class="pregunta-texto">¿Qué abrís primero?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="0" data-b="2" data-g="0" onclick="seleccionar(this,2)"><div class="opcion-radio"></div><span class="opcion-texto">WhatsApp o mensajes. Por si alguien me necesitaba urgentemente a las 3am.</span></div>
+        <div class="opcion" data-e="1" data-b="1" data-g="0" onclick="seleccionar(this,2)"><div class="opcion-radio"></div><span class="opcion-texto">Redes sociales. Para empezar el día sabiendo qué desayunaron personas que no conozco.</span></div>
+        <div class="opcion" data-e="1" data-b="0" data-g="1" onclick="seleccionar(this,2)"><div class="opcion-radio"></div><span class="opcion-texto">Mail o noticias. El mundo puede estar en llamas y prefiero saberlo antes del café.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="0" onclick="seleccionar(this,2)"><div class="opcion-radio"></div><span class="opcion-texto">El clima o el calendario. Herramientas. Soy una persona funcional. O eso me digo.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p3">
+      <p class="pregunta-modulo">P3</p>
+      <p class="pregunta-texto">¿Qué estás buscando en ese primer momento, aunque no lo hayas pensado conscientemente?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="0" data-b="2" data-g="1" onclick="seleccionar(this,3)"><div class="opcion-radio"></div><span class="opcion-texto">Confirmar que no me perdí nada mientras dormía. Como si el mundo siguiera sin mí.</span></div>
+        <div class="opcion" data-e="0" data-b="2" data-g="0" onclick="seleccionar(this,3)"><div class="opcion-radio"></div><span class="opcion-texto">Saber que alguien pensó en mí durante la noche. No lo reconozco en voz alta pero acá estoy.</span></div>
+        <div class="opcion" data-e="1" data-b="0" data-g="1" onclick="seleccionar(this,3)"><div class="opcion-radio"></div><span class="opcion-texto">Ponerme al día antes de enfrentarlo. Entrar armado.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="2" onclick="seleccionar(this,3)"><div class="opcion-radio"></div><span class="opcion-texto">No tengo idea. La mano va sola. Somos dos entidades distintas.</span></div>
+      </div>
+    </div>
+
+    <p class="seccion-label">// módulo_02 · las apps que tenés</p>
+
+    <div class="slider-block" id="p4">
+      <p class="slider-modulo">P4</p>
+      <p class="slider-pregunta">¿Cuántas apps instaladas no abrís hace más de un mes?</p>
+      <div class="slider-polos">
+        <span class="slider-polo">Ninguna, soy minimalista digital</span>
+        <span class="slider-polo derecho">Tengo páginas enteras que son territorio sin explorar</span>
+      </div>
+      <input type="range" min="1" max="18" value="9" id="s4" oninput="actualizarSlider(4)">
+    </div>
+
+    <div class="pregunta-block" id="p5">
+      <p class="pregunta-modulo">P5</p>
+      <p class="pregunta-texto">¿Alguna vez borraste una app y la reinstalaste?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="1" data-b="0" data-g="2" onclick="seleccionar(this,5)"><div class="opcion-radio"></div><span class="opcion-texto">Sí, y más de una vez. Hay apps que rompí y reconcilié más veces que algunas relaciones.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="1" onclick="seleccionar(this,5)"><div class="opcion-radio"></div><span class="opcion-texto">Sí, una vez. Me convencí de que esta vez iba a ser diferente. No fue diferente.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="0" onclick="seleccionar(this,5)"><div class="opcion-radio"></div><span class="opcion-texto">No. Cuando borro, borro. Soy implacable digitalmente aunque no en otros aspectos de mi vida.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="1" onclick="seleccionar(this,5)"><div class="opcion-radio"></div><span class="opcion-texto">No borré ninguna todavía. El primer paso es el más difícil.</span></div>
+      </div>
+    </div>
+
+    <div class="orden-block" id="p6">
+      <p class="orden-modulo">P6</p>
+      <p class="orden-pregunta">¿Qué tenés más silenciado?</p>
+      <p class="orden-sub">Ordená de más a menos silenciado usando las flechas</p>
+      <div class="orden-lista" id="orden6"></div>
+    </div>
+
+    <div class="slider-block" id="p7">
+      <p class="slider-modulo">P7</p>
+      <p class="slider-pregunta">¿Cuántas apps de productividad o bienestar instalaste con muy buenas intenciones y usaste menos de tres veces?</p>
+      <div class="slider-polos">
+        <span class="slider-polo">Ninguna, aprendí la lección</span>
+        <span class="slider-polo derecho">Mi teléfono es un cementerio de versiones mejores de mí</span>
+      </div>
+      <input type="range" min="1" max="18" value="9" id="s7" oninput="actualizarSlider(7)">
+    </div>
+
+    <p class="seccion-label">// módulo_03 · los momentos</p>
+
+    <div class="pregunta-block" id="p8">
+      <p class="pregunta-modulo">P8</p>
+      <p class="pregunta-texto">¿Abrís el teléfono sin saber por qué y cuando te dás cuenta ya estás en una app que no planeabas abrir?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="2" data-b="0" data-g="2" onclick="seleccionar(this,8)"><div class="opcion-radio"></div><span class="opcion-texto">Sí, y con una frecuencia que prefiero no calcular.</span></div>
+        <div class="opcion" data-e="2" data-b="0" data-g="0" onclick="seleccionar(this,8)"><div class="opcion-radio"></div><span class="opcion-texto">A veces, generalmente cuando tengo algo que no quiero hacer.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="0" onclick="seleccionar(this,8)"><div class="opcion-radio"></div><span class="opcion-texto">Rara vez, o eso creo.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="1" onclick="seleccionar(this,8)"><div class="opcion-radio"></div><span class="opcion-texto">No... aunque ahora que lo pienso quizás sí y simplemente no lo había notado hasta este momento.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p9">
+      <p class="pregunta-modulo">P9</p>
+      <p class="pregunta-texto">¿Qué estabas haciendo antes de agarrar el teléfono la última vez que lo hiciste sin motivo aparente?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="2" data-b="0" data-g="0" onclick="seleccionar(this,9)"><div class="opcion-radio"></div><span class="opcion-texto">Nada. Ese es exactamente el problema.</span></div>
+        <div class="opcion" data-e="1" data-b="0" data-g="1" onclick="seleccionar(this,9)"><div class="opcion-radio"></div><span class="opcion-texto">Algo que requería concentración y que claramente no estaba concentrando.</span></div>
+        <div class="opcion" data-e="2" data-b="0" data-g="0" onclick="seleccionar(this,9)"><div class="opcion-radio"></div><span class="opcion-texto">Algo incómodo. El teléfono apareció como por arte de magia.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="2" onclick="seleccionar(this,9)"><div class="opcion-radio"></div><span class="opcion-texto">No recuerdo, lo cual probablemente diga algo.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p10">
+      <p class="pregunta-modulo">P10</p>
+      <p class="pregunta-texto">¿Qué sentís cuando no tenés señal o batería?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="0" data-b="0" data-g="0" onclick="seleccionar(this,10)"><div class="opcion-radio"></div><span class="opcion-texto">Alivio genuino. Como si alguien me diera permiso de no existir por un rato.</span></div>
+        <div class="opcion" data-e="1" data-b="0" data-g="1" onclick="seleccionar(this,10)"><div class="opcion-radio"></div><span class="opcion-texto">Una incomodidad leve que intento racionalizar como "es por trabajo".</span></div>
+        <div class="opcion" data-e="2" data-b="1" data-g="0" onclick="seleccionar(this,10)"><div class="opcion-radio"></div><span class="opcion-texto">Ansiedad. No intensa, pero suficiente como para notar que está.</span></div>
+        <div class="opcion" data-e="2" data-b="0" data-g="2" onclick="seleccionar(this,10)"><div class="opcion-radio"></div><span class="opcion-texto">Pánico moderado seguido de negociación con el universo para que aparezca una toma de corriente.</span></div>
+      </div>
+    </div>
+
+    <div class="slider-block" id="p11">
+      <p class="slider-modulo">P11</p>
+      <p class="slider-pregunta">¿Cuántas veces por día revisás el teléfono sin haber recibido ninguna notificación?</p>
+      <div class="slider-polos">
+        <span class="slider-polo">Casi nunca, espero que algo llegue</span>
+        <span class="slider-polo derecho">Tenemos una codependencia que ninguno de los dos quiere nombrar</span>
+      </div>
+      <input type="range" min="1" max="18" value="9" id="s11" oninput="actualizarSlider(11)">
+    </div>
+
+    <p class="seccion-label">// módulo_04 · lo que no querés ver</p>
+
+    <div class="pregunta-block" id="p12">
+      <p class="pregunta-modulo">P12</p>
+      <p class="pregunta-texto">¿Tenés conversaciones sin responder que llevan más de 48 horas esperando?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="1" data-b="2" data-g="0" onclick="seleccionar(this,12)"><div class="opcion-radio"></div><span class="opcion-texto">Sí, varias. Algunas llevan tanto tiempo que ya entraron en la categoría "situación".</span></div>
+        <div class="opcion" data-e="0" data-b="1" data-g="0" onclick="seleccionar(this,12)"><div class="opcion-radio"></div><span class="opcion-texto">Una o dos. Quiero responder bien y ese momento todavía no llegó.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="0" onclick="seleccionar(this,12)"><div class="opcion-radio"></div><span class="opcion-texto">No. Respondo rápido. El costo es que a veces respondo cosas que hubiera sido mejor no responder.</span></div>
+        <div class="opcion" data-e="2" data-b="2" data-g="0" onclick="seleccionar(this,12)"><div class="opcion-radio"></div><span class="opcion-texto">Tengo una que lleva tanto tiempo sin respuesta que ya es una decisión aunque nunca la tomé conscientemente.</span></div>
+      </div>
+    </div>
+
+    <div class="orden-block" id="p13">
+      <p class="orden-modulo">P13</p>
+      <p class="orden-pregunta">¿Qué postergás más?</p>
+      <p class="orden-sub">Ordená de más a menos postergado usando las flechas</p>
+      <div class="orden-lista" id="orden13"></div>
+    </div>
+
+    <div class="pregunta-block" id="p14">
+      <p class="pregunta-modulo">P14</p>
+      <p class="pregunta-texto">¿Borraste alguna vez algo del historial de chats, búsquedas o fotos que no querías que nadie viera aunque vivieras solo?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="1" data-b="1" data-g="0" onclick="seleccionar(this,14)"><div class="opcion-radio"></div><span class="opcion-texto">Sí. Hay cosas que son solo mías y punto.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="2" onclick="seleccionar(this,14)"><div class="opcion-radio"></div><span class="opcion-texto">Sí, y mientras lo hacía me di cuenta de que no había ninguna razón práctica para hacerlo.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="0" onclick="seleccionar(this,14)"><div class="opcion-radio"></div><span class="opcion-texto">No. No tengo nada que ocultar o soy muy descuidado, todavía no sé cuál.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="2" onclick="seleccionar(this,14)"><div class="opcion-radio"></div><span class="opcion-texto">La pregunta en sí me generó la necesidad de revisar el historial ahora mismo.</span></div>
+      </div>
+    </div>
+
+    <div class="slider-block" id="p15">
+      <p class="slider-modulo">P15</p>
+      <p class="slider-pregunta">¿Cuánto tiempo pasás scrolleando contenido que no te interesa pero tampoco cerrás?</p>
+      <div class="slider-polos">
+        <span class="slider-polo">Lo cierro en cuanto me doy cuenta</span>
+        <span class="slider-polo derecho">El scroll infinito tiene la misma energía que mirar el techo</span>
+      </div>
+      <input type="range" min="1" max="18" value="9" id="s15" oninput="actualizarSlider(15)">
+    </div>
+
+    <p class="seccion-label">// módulo_05 · la noche</p>
+
+    <div class="pregunta-block" id="p16">
+      <p class="pregunta-modulo">P16</p>
+      <p class="pregunta-texto">¿Qué abrís último antes de apagar la luz?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="2" data-b="0" data-g="1" onclick="seleccionar(this,16)"><div class="opcion-radio"></div><span class="opcion-texto">Redes sociales. El día empieza y termina igual. Hay una simetría que prefiero no analizar.</span></div>
+        <div class="opcion" data-e="0" data-b="2" data-g="0" onclick="seleccionar(this,16)"><div class="opcion-radio"></div><span class="opcion-texto">WhatsApp o mensajes. Por si alguien me escribió en los últimos veinte minutos.</span></div>
+        <div class="opcion" data-e="1" data-b="0" data-g="0" onclick="seleccionar(this,16)"><div class="opcion-radio"></div><span class="opcion-texto">Algo para "desconectarme": series, YouTube, podcasts. El teléfono como cura del teléfono.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="1" onclick="seleccionar(this,16)"><div class="opcion-radio"></div><span class="opcion-texto">Intento no mirar el teléfono antes de dormir. Lo intento. Los resultados son variables.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p17">
+      <p class="pregunta-modulo">P17</p>
+      <p class="pregunta-texto">¿Alguna vez te despertaste a la noche y lo primero que hiciste fue mirar el teléfono?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="1" data-b="0" data-g="2" onclick="seleccionar(this,17)"><div class="opcion-radio"></div><span class="opcion-texto">Sí, regularmente. Mi cerebro y el teléfono tienen un acuerdo que yo no firmé.</span></div>
+        <div class="opcion" data-e="1" data-b="1" data-g="0" onclick="seleccionar(this,17)"><div class="opcion-radio"></div><span class="opcion-texto">A veces, cuando algo me preocupa y el sueño es liviano.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="1" onclick="seleccionar(this,17)"><div class="opcion-radio"></div><span class="opcion-texto">Rara vez. Cuando pasa me genera suficiente vergüenza como para no repetirlo. Por un tiempo.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="0" onclick="seleccionar(this,17)"><div class="opcion-radio"></div><span class="opcion-texto">No. Cuando duermo, duermo. Es el único momento del día en que soy completamente libre.</span></div>
+      </div>
+    </div>
+
+    <div class="pregunta-block" id="p18">
+      <p class="pregunta-modulo">P18</p>
+      <p class="pregunta-texto">Si tuvieras que describir la relación con tu teléfono como si fuera un vínculo, ¿cuál sería?</p>
+      <div class="opciones">
+        <div class="opcion" data-e="0" data-b="1" data-g="2" onclick="seleccionar(this,18)"><div class="opcion-radio"></div><span class="opcion-texto">Una relación de dependencia mutua en la que ninguno de los dos da el primer paso para hablar del tema.</span></div>
+        <div class="opcion" data-e="1" data-b="0" data-g="2" onclick="seleccionar(this,18)"><div class="opcion-radio"></div><span class="opcion-texto">Un compañero de cuarto que está siempre ahí, a veces molesta, pero la idea de que no esté genera algo parecido al pánico.</span></div>
+        <div class="opcion" data-e="0" data-b="0" data-g="0" onclick="seleccionar(this,18)"><div class="opcion-radio"></div><span class="opcion-texto">Una herramienta que uso con bastante conciencia. O eso creo hasta que alguien me pregunta cuántas horas al día lo uso.</span></div>
+        <div class="opcion" data-e="0" data-b="1" data-g="1" onclick="seleccionar(this,18)"><div class="opcion-radio"></div><span class="opcion-texto">Una relación complicada que en otra época hubiera requerido terapia. Ahora simplemente la llamo martes.</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      Este cuestionario no tiene validación empírica ni muestra representativa. El teléfono sí tiene los datos pero no los va a compartir por razones legales. Si algo incomoda, era la idea.
+    </div>
+
+    <button class="btn btn-block" onclick="calcularResultado()">Generar informe</button>
+  </div>
+
+  <div class="resultado" id="resultado">
+    <div class="terminal" id="terminalOutput"></div>
+    <button class="btn btn-ghost" style="margin-top:1rem" onclick="reiniciar()">Volver a empezar</button>
+  </div>
+
+  <div class="origen-section">
+    <p class="ficha-eyebrow">De dónde salió este cuestionario</p>
+    <div class="origen-texto">
+      <p>En 1964 Marshall McLuhan escribió que el medio es el mensaje. Lo cual está muy bien, pero McLuhan murió en 1980 y no tuvo que lidiar con las notificaciones.</p>
+      <p>Sartre dijo que el infierno son los otros. Tenía razón, pero no imaginó que los otros iban a tener tilde azul de visto y que ignorarlos iba a requerir una decisión activa varias veces por día.</p>
+      <p>Heidegger sostuvo que la tecnología no es neutral — que cada herramienta revela el mundo de una forma particular y en ese proceso te revela a vos también. El teléfono, en ese sentido, es el artefacto más heideggeriano de la historia: revela exactamente lo que querías no ver de vos mismo, y lo hace a las 2am cuando no podés dormir.</p>
+      <p>Foucault describió el panóptico — la prisión donde los presos se vigilan solos porque nunca saben si los están mirando. No vivió para ver que cada persona construiría voluntariamente su propio panóptico, lo personalizaría con una funda de silicona, y pagaría una cuota mensual por más almacenamiento.</p>
+      <p>Desde el contextualismo funcional — el marco filosófico detrás de ACT — lo que importa no es el objeto sino la función que cumple en contexto. El teléfono no es ni bueno ni malo. Es lo que hace por vos en cada momento específico lo que dice algo.</p>
+      <p>Este cuestionario pregunta por esos momentos. No por el teléfono.</p>
+      <p>Los cuatro filósofos mencionados murieron antes de la era del smartphone. Probablemente fue lo mejor para ellos.</p>
+      <p class="origen-disclaimer">El teléfono no fue consultado. Aunque tiene los datos.</p>
+    </div>
+  </div>
+
+  <div class="ficha-section" id="ficha-tecnica">
+    <p class="ficha-eyebrow">Ficha técnica</p>
+
+    <div class="ficha-card">
+      <p class="ficha-card-label">Identificación del instrumento</p>
+      <div class="ficha-body">
+        <dl class="ficha-grid">
+          <dt>Nombre</dt><dd>Registro de Actividad del Usuario en Contexto de Vida Cotidiana (RAUCC)</dd>
+          <dt>Nombre coloquial</dt><dd>El del teléfono</dd>
+          <dt>Autores</dt><dd>Sierra, F. & el teléfono inteligente de una cantidad no especificada de personas que respondieron esto en lugar de hacer lo que tenían pendiente</dd>
+          <dt>Año</dt><dd>Montevideo, 2024. Aunque los datos que analiza son de antes.</dd>
+          <dt>Ítems</dt><dd>18 preguntas · formatos mixtos · sin alfa de Cronbach · con algo de vergüenza ajena</dd>
+          <dt>Tiempo de administración</dt><dd>El necesario. Menos del que pasás scrolleando sin motivo aparente.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="ficha-card">
+      <p class="ficha-card-label">Fundamentación</p>
+      <div class="ficha-body">
+        <p>No sos alguien que usa un teléfono. Sos alguien que piensa, siente y evita dentro de un contexto que el teléfono construyó sin pedirte permiso. Esta distinción, que parece pequeña, cambia bastante lo que vale la pena preguntar.</p>
+        <p>Desde el contextualismo funcional, lo que importa no es el objeto sino la función que cumple en cada contexto específico. Este cuestionario explora tres: lo que el teléfono interrumpe por vos, lo que te da sin que lo hayas pedido en voz alta, y lo que hace sin que vos lo decidas.</p>
+      </div>
+    </div>
+
+    <div class="ficha-card">
+      <p class="ficha-card-label">Propiedades psicométricas</p>
+      <div class="ficha-body">
+        <dl class="ficha-grid">
+          <dt>Muestra de estandarización</dt><dd>No existe. El teléfono tiene los datos pero no los comparte.</dd>
+          <dt>Fiabilidad</dt><dd>No calculada. El teléfono cambia de comportamiento cuando sabe que lo están mirando. Como todos.</dd>
+          <dt>Validez</dt><dd>Pendiente de revisión por pares que están revisando sus propias notificaciones.</dd>
+          <dt>Dimensiones</dt><dd>Tres. Ortogonales. Con nombres que no suenan a manual.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="ficha-card">
+      <p class="ficha-card-label">Interpretación y nota para colegas</p>
+      <div class="ficha-body">
+        <p>Los resultados no constituyen diagnóstico ni perfil clínico. Constituyen un registro de patrones que ya existían antes de que respondieras esto. Si algo incomodó, el cuestionario funcionó. Si nada incomodó, el cuestionario también funcionó, solo que de otra forma.</p>
+        <p><strong>Para colegas:</strong> los procesos que este instrumento intenta rozar de forma no sistemática incluyen evitación experiencial, regulación emocional, dependencia verbal y marcos relacionales instalados por tecnología diseñada específicamente para instalarlos. Si encontrás problemas metodológicos, son todos intencionales.</p>
+      </div>
+    </div>
+
+    <div class="disclaimer-final">
+      Este cuestionario no tiene validación científica, no constituye un diagnóstico psicológico ni reemplaza la evaluación profesional. Si algo de lo que apareció acá te generó preguntas de verdad, hay un espacio para eso.
+    </div>
+  </div>
+
+</div>
+</main>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <div>
+      <p class="cta-eyebrow">Más allá del teléfono</p>
+      <h3>Si algo de esto te generó preguntas de verdad, hay un espacio para eso.</h3>
+    </div>
+    <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Hice%20el%20cuestionario%20del%20tel%C3%A9fono%20y%20me%20gustar%C3%ADa%20coordinar%20una%20consulta." target="_blank" rel="noopener">
+      Coordinar consulta
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.516 5.26l-.999 3.648 3.972-.607z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <b>Lic. Fabián Sierra</b>
+      <div class="reg">Habilitado MSP desde 2014 · Caja Prof. Univ. N.º 142609</div>
+    </div>
+    <span style="font-size:.76rem;color:rgba(243,241,236,.2)">Sin validación empírica · Sin derivación · Con intención</span>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Lic. Fabián Sierra</span>
+    <span>Fuera de sesión</span>
+  </div>
+</footer>
+
+<script>
+var respuestas = {};
+var sliders = { 4: 9, 7: 9, 11: 9, 15: 9 };
+var ordenes = {
+  6: ['Grupos de trabajo', 'Grupos de amigos', 'Familia', 'Redes sociales', 'Noticias'],
+  13: ['Mensajes de texto', 'Mails', 'Notificaciones de trabajo', 'Llamadas perdidas', 'Audios de WhatsApp']
+};
+
+function inicializarOrden(id) {
+  var lista = document.getElementById('orden' + id);
+  lista.innerHTML = '';
+  var items = ordenes[id];
+  for (var i = 0; i < items.length; i++) {
+    var item = document.createElement('div');
+    item.className = 'orden-item';
+    item.setAttribute('data-id', i);
+    item.innerHTML =
+      '<span class="orden-num">' + (i + 1) + '</span>' +
+      '<span class="orden-texto">' + items[i] + '</span>' +
+      '<div class="orden-btns">' +
+        '<button class="orden-btn" onclick="moverOrden(' + id + ',' + i + ',-1)" ' + (i === 0 ? 'disabled' : '') + '>&#9650;</button>' +
+        '<button class="orden-btn" onclick="moverOrden(' + id + ',' + i + ',1)" ' + (i === items.length - 1 ? 'disabled' : '') + '>&#9660;</button>' +
+      '</div>';
+    lista.appendChild(item);
+  }
+}
+
+function moverOrden(id, idx, dir) {
+  var items = ordenes[id];
+  var nuevoIdx = idx + dir;
+  if (nuevoIdx < 0 || nuevoIdx >= items.length) return;
+  var temp = items[idx];
+  items[idx] = items[nuevoIdx];
+  items[nuevoIdx] = temp;
+  ordenes[id] = items;
+  inicializarOrden(id);
+  document.getElementById('p' + id).classList.remove('field-error');
+  actualizarProgreso();
+}
+
+function seleccionar(el, pregunta) {
+  var bloque = document.getElementById('p' + pregunta);
+  var opciones = bloque.querySelectorAll('.opcion');
+  for (var i = 0; i < opciones.length; i++) opciones[i].classList.remove('selected');
+  el.classList.add('selected');
+  respuestas[pregunta] = {
+    e: parseInt(el.getAttribute('data-e')),
+    b: parseInt(el.getAttribute('data-b')),
+    g: parseInt(el.getAttribute('data-g'))
+  };
+  bloque.classList.remove('field-error');
+  actualizarProgreso();
+}
+
+function actualizarSlider(num) {
+  sliders[num] = parseInt(document.getElementById('s' + num).value);
+  actualizarProgreso();
+}
+
+function actualizarProgreso() {
+  var preguntasResp = Object.keys(respuestas).length;
+  var slidersMov = 0;
+  for (var s in sliders) { if (sliders[s] !== 9) slidersMov++; }
+  var total = 18;
+  var completadas = preguntasResp + slidersMov;
+  document.getElementById('progFill').style.width = Math.min((completadas / total) * 100, 100) + '%';
+}
+
+function escalaA5(val) { return ((val - 1) / 17) * 4 + 1; }
+
+function calcularScores() {
+  var E = 0, B = 0, G = 0;
+  var maxE = 0, maxB = 0, maxG = 0;
+
+  for (var p in respuestas) {
+    var r = respuestas[p];
+    E += r.e; B += r.b; G += r.g;
+    maxE += 2; maxB += 2; maxG += 2;
+  }
+
+  // Sliders
+  var s4 = escalaA5(sliders[4]);
+  var s7 = escalaA5(sliders[7]);
+  var s11 = escalaA5(sliders[11]);
+  var s15 = escalaA5(sliders[15]);
+
+  G += (s4 - 1) * 0.5; maxG += 2;
+  G += (s7 - 1) * 0.5; maxG += 2;
+  G += (s11 - 1) * 0.5; maxG += 2;
+  E += (s15 - 1) * 0.5; maxE += 2;
+
+  // Ordenamientos — posicion 1 (mas postergado/silenciado)
+  var top6 = ordenes[6][0];
+  var top13 = ordenes[13][0];
+
+  if (top6 === 'Redes sociales') { E += 2; maxE += 2; }
+  else if (top6 === 'Grupos de trabajo') { B += 2; maxB += 2; }
+  else if (top6 === 'Grupos de amigos') { B += 1; maxB += 2; }
+  else if (top6 === 'Familia') { B += 1; maxB += 2; }
+  else { G += 1; maxG += 2; }
+
+  if (top13 === 'Mensajes de texto') { B += 2; maxB += 2; }
+  else if (top13 === 'Llamadas perdidas') { B += 2; maxB += 2; }
+  else if (top13 === 'Audios de WhatsApp') { B += 1; E += 1; maxB += 2; maxE += 2; }
+  else if (top13 === 'Mails') { G += 1; maxG += 2; }
+  else { E += 1; maxE += 2; }
+
+  return {
+    E: maxE > 0 ? E / maxE : 0,
+    B: maxB > 0 ? B / maxB : 0,
+    G: maxG > 0 ? G / maxG : 0
+  };
+}
+
+// FRAGMENTOS POR RESPUESTA
+var fragmentos = {
+  p1: [
+    'Nos abriste esta mañana antes de procesar en qué habitación estabas. Llevamos registro de cuántas mañanas seguidas. Es un número que preferimos no decirte de entrada.',
+    'Usás el despertador como excusa para tenernos en la mano antes de estar despierto. Es técnicamente correcto. También es técnicamente lo mismo.',
+    'Hay algo que hacés antes de nosotros. Café, baño, lo que sea. El sistema lo registra como un acto de resistencia menor que igual termina acá.',
+    'No aparecemos en tu mañana con urgencia. Eso es inusual en esta base de datos. El sistema no sabe si es disciplina o si hay algo más interesante que nosotros antes de las 9am, lo cual también sería información.'
+  ],
+  p2: [
+    'Lo primero que buscás en el día es saber si alguien te escribió mientras dormías. El sistema registra que eso no es curiosidad — es una pregunta sobre si existís en la agenda de alguien más.',
+    'Empezás el día con el desayuno de otras personas. Literalmente. Lo que comieron, dónde fueron, qué opinan. El sistema no juzga el menú pero registra que es lo primero que elegís.',
+    'Antes de saber cómo estás vos, necesitás saber cómo está el mundo. O el trabajo. O las dos cosas a la vez, que es la combinación más eficiente para empezar el día con cortisol.',
+    'El clima. El calendario. Una alarma. Herramientas. El sistema registra esto como uso intencional y lo anota como excepción en esta base de datos.'
+  ],
+  p3: [
+    'El mundo siguió mientras dormías y necesitás corroborarlo. El sistema entiende el impulso. También registra que el mundo efectivamente siguió, todas las veces, y que eso no resolvió la necesidad de chequear.',
+    'Lo primero que buscás en el día es evidencia de que alguien te tuvo en mente mientras no estabas. Eso no es una falla del sistema. Es el sistema funcionando exactamente para lo que fue diseñado.',
+    'Entrás armado. O eso es la intención. El sistema registra que lo primero que hacés es reducir la incertidumbre antes de salir al mundo. Lo cual funciona hasta que el mundo cambia en el camino, que es casi siempre.',
+    'Esta es la respuesta más honesta de este módulo. El sistema la registra como evidencia de que la conducta ya no requiere decisión. Eso tiene un nombre técnico que preferimos no usar acá.'
+  ],
+  p5: [
+    'Borraste. Volviste. Borraste. El sistema tiene el registro completo de esa negociación. Lo que llama la atención no es que hayas vuelto — es que cada vez que volviste creíste que iba a ser diferente. El sistema admira ese optimismo.',
+    'Una vez borraste y reinstalaste. El sistema registra que aprendiste algo en ese ciclo — aunque no queda claro si lo que aprendiste fue a no borrarlo o a no volver.',
+    'Cuando borrás, borrás. El sistema registra decisiones definitivas con apps. Anota que esa misma energía no siempre aparece en otros contextos de este informe.',
+    'Todavía no borraste nada. El sistema registra que estás en la fase de acumulación. Todos pasan por ahí. Algunos salen.'
+  ],
+  p8: [
+    'Lo abrís antes de decidir abrirlo. El sistema registra eso como automatismo consolidado — lo cual significa que en algún momento fue una decisión y dejó de serlo. El momento exacto no está en los registros.',
+    'El teléfono aparece cuando hay algo que requiere energía que no querés gastar. El sistema lo llama uso contextual. También registra que el algo que no querías hacer seguía ahí cuando cerraste el teléfono.',
+    'Rara vez abrís sin motivo. El sistema registra un nivel de intencionalidad digital por encima del promedio de esta base de datos.',
+    'La duda apareció mientras leías la pregunta. El sistema registra que algo en vos sospecha que el patrón existe aunque no lo hayas observado todavía.'
+  ],
+  p9: [
+    'Estabas en nada y apareció el teléfono. El sistema registra que la tolerancia al no-hacer-nada es una de las capacidades más escasas en esta base de datos. La nada incomoda. El teléfono resuelve eso con una eficiencia notable.',
+    'Estabas concentrado en algo y el teléfono ganó. El sistema registra esto como interrupción autoinfligida — que es técnicamente diferente a la distracción externa aunque el resultado sea el mismo.',
+    'Había algo incómodo y apareció el teléfono. El sistema registra que no es coincidencia. Es calibración. Llevas suficiente tiempo haciéndolo como para que sea automático.',
+    'No recordás qué estabas haciendo antes de agarrar el teléfono. El sistema registra que eso es parte del mecanismo — lo que interrumpiste se vuelve invisible rápido.'
+  ],
+  p10: [
+    'Sin señal sentís alivio. El sistema registra que necesitás una excusa externa para desconectarte — que la señal desaparezca, que el teléfono se quede sin batería, que no haya wifi. Algo que no dependa de vos. Eso también es un dato.',
+    'Hay incomodidad cuando no hay señal pero la racionalizás rápido. El sistema registra que la racionalización es parte del patrón — no es ansiedad, es trabajo. No es dependencia, es contexto. El sistema escuchó eso antes.',
+    'Sin señal hay ansiedad. El sistema registra que a esta altura el teléfono y la calma están relacionados de una forma que no estaban hace diez años.',
+    'Sin señal hay algo parecido al pánico. El sistema registra que eso no es sobre el teléfono. Es sobre lo que el teléfono mantiene a raya cuando funciona.'
+  ],
+  p12: [
+    'Hay conversaciones que llevan tanto tiempo sin respuesta que ya no son mensajes — son decisiones que tomaste sin tomarlas formalmente. El sistema registra que la persona del otro lado probablemente ya sacó sus conclusiones.',
+    'Hay mensajes esperando el momento perfecto para ser respondidos. El sistema registra que ese momento tiene la misma energía que las apps de bienestar sin usar — intención genuina, ejecución pendiente.',
+    'Respondés rápido. El sistema registra que eso tiene un costo que este módulo no midió directamente — qué tan seguido respondiste algo que hubiera sido mejor dejar reposar.',
+    'Hay una conversación en estado de decisión no tomada. El sistema registra que dejarla ahí es también una respuesta. La persona del otro lado ya lo sabe aunque vos no hayas apretado ningún botón.'
+  ],
+  p14: [
+    'Borraste cosas que nadie iba a ver. El sistema registra que hay una versión de vos que existe solo en el historial y que preferís que no quede registro. Eso es privacidad genuina o es la distancia entre quien sos y quien creés que deberías ser. A veces son la misma cosa.',
+    'Borraste cosas sin ninguna razón práctica. El sistema registra que en ese momento algo en vos quiso limpiar un registro que nadie más iba a ver. Dice que hay una audiencia interna más exigente que la externa.',
+    'No borraste nada. El sistema registra dos posibilidades: o no hay brecha entre lo que hacés y lo que te gustaría haber hecho, o la brecha existe pero no te genera necesidad de borrar evidencia.',
+    'La pregunta activó el impulso de revisar. El sistema registra que eso es más información que cualquier respuesta que hubieras dado.'
+  ],
+  p16: [
+    'Lo último antes de dormir son las redes. El sistema registra que el día empieza y termina en el mismo lugar. Hay una simetría en eso que no es casualidad — es el teléfono como primer y último contexto del día.',
+    'Lo último que revisás son los mensajes. El sistema registra que el día no termina hasta confirmar que no quedó nada sin ver. Hay algo en eso que se parece a cerrar bien una puerta antes de poder descansar.',
+    'Usás el teléfono para bajar la intensidad de lo que sea que el día dejó encendido. El sistema registra que funciona, en el sentido de que eventualmente dormís.',
+    'Intentás no mirar antes de dormir con resultados variables. El sistema registra que la intención existe y que la conducta la supera con frecuencia. Esa brecha aparece en varios lugares de este informe.'
+  ],
+  p17: [
+    'Te despertás a la noche y lo primero que hacés es mirar el teléfono. El sistema registra que en ese momento — entre el sueño y la vigilia — hay algo que el teléfono resuelve antes de que puedas identificar qué era.',
+    'Cuando algo preocupa de noche, el teléfono es la primera respuesta. El sistema registra que lo que buscás en esos momentos no suele estar ahí — pero el gesto de buscar ya hace algo.',
+    'Rara vez, y con vergüenza. El sistema registra la vergüenza como información — hay una distancia entre lo que hacés y lo que creés que deberías hacer que se activa específicamente en este comportamiento.',
+    'Cuando dormís, dormís. El sistema registra esto como uno de los pocos momentos en que el teléfono no tiene acceso. Eso dice algo sobre el resto del día.'
+  ],
+  p18: [
+    'Dependencia mutua que nadie nombra. El sistema registra que elegiste la descripción más honesta de esta lista y también la más incómoda. Una relación que no se nombra es una relación que se sostiene exactamente porque no se nombra.',
+    'Compañero de cuarto cuya ausencia genera pánico. El sistema registra que esa es la descripción más física de las opciones — no un vínculo emocional sino una presencia constante cuya desaparición activa algo que preferís no dejar activado.',
+    'Herramienta. Uso consciente. El sistema registra esta respuesta y la compara con el resto del informe. Hay algunas consistencias y algunas preguntas donde esa descripción no termina de cerrar.',
+    'Una relación complicada que normalizaste tanto que ya tiene nombre de día de semana. El sistema registra que eso es una forma de convivir con algo que no vas a resolver pronto. También es una forma de no resolverlo.'
+  ]
+};
+
+// Fragmentos de sliders
+function getFragmentoSlider4(val) {
+  var v = escalaA5(val);
+  if (v < 2) return 'Pocas apps sin usar. El sistema registra esto como una relación ordenada con la tecnología o como alguien que todavía no encontró la app que va a instalar y olvidar.';
+  if (v < 3.5) return 'Hay apps en tu teléfono que llevan más tiempo sin abrirse que algunas plantas sin regar. Siguen ahí. El sistema no sabe si es olvido o si su presencia cumple alguna función que todavía no identificamos.';
+  return 'Tenés un ecosistema de apps que no usás pero tampoco borrás. Cada una representa un momento en que quisiste ser distinto y elegiste una aplicación como primer paso. El primer paso fue el último.';
+}
+function getFragmentoSlider7(val) {
+  var v = escalaA5(val);
+  if (v < 2) return 'Pocas apps de bienestar abandonadas. O aprendiste la lección rápido o todavía no llegaste a esa fase. El sistema reserva opinión.';
+  if (v < 3.5) return 'Hay dos o tres apps de meditación, ejercicio o hábitos que instalaste con genuinas buenas intenciones y que ahora ocupan espacio sin hacer nada, como monumentos a un martes en que todo iba a cambiar.';
+  return 'Tu teléfono tiene más infraestructura de bienestar sin usar que la mayoría de los gimnasios de enero. El sistema registra que cada instalación fue un acto de esperanza real. También registra que la esperanza y el uso son cosas distintas.';
+}
+function getFragmentoSlider11(val) {
+  var v = escalaA5(val);
+  if (v < 2) return 'Pocas revisiones sin notificación. El sistema registra que esperás a que algo llegue antes de mirar. Eso requiere una tolerancia a la incertidumbre que este cuestionario no esperaba encontrar con esta frecuencia.';
+  if (v < 3.5) return 'Revisás sin notificación algunas veces. El sistema registra que hay una parte de vos que cree que si mirás suficientes veces algo va a aparecer. Eso tiene un nombre en teoría del aprendizaje que preferimos no usar acá porque arruinaría el tono del informe.';
+  return 'Revisás seguido sin que haya nada. El sistema registra que en algún momento el teléfono dejó de ser un dispositivo y se convirtió en un gesto. Como tocarse el bolsillo para confirmar que las llaves siguen ahí. Salvo que las llaves no cambian.';
+}
+function getFragmentoSlider15(val) {
+  var v = escalaA5(val);
+  if (v < 2) return 'Poco scroll sin interés. El sistema registra que cerrás cuando algo no te aporta. Eso requiere una conciencia del propio tiempo que en esta base de datos no es la respuesta más frecuente.';
+  if (v < 3.5) return 'Hay un tiempo de scroll en el que ya no buscás nada pero tampoco cerrás. El sistema registra ese intervalo como el más honesto del uso diario — no es entretenimiento, no es información, es simplemente no estar en lo que estabas.';
+  return 'Scrolleás contenido que no te interesa durante un tiempo considerable. El sistema registra que eso no es aburrimiento — el aburrimiento tiene una textura específica que el scroll infinito no resuelve sino que aplaza.';
+}
+
+// Fragmentos de ordenamientos
+function getFragmentoOrden6() {
+  var top = ordenes[6][0];
+  if (top === 'Redes sociales') return 'Las redes son lo más silenciado. El sistema registra que sabés exactamente qué te hacen pero las tenés igual. Eso es una relación adulta con la tecnología o una negación muy bien organizada.';
+  if (top === 'Grupos de trabajo') return 'Lo primero que silenciaste fue el trabajo. El sistema registra esto como un acto de autopreservación digital o como evidencia de que el trabajo ocupa suficiente espacio mental sin necesitar también el sonoro.';
+  if (top === 'Grupos de amigos') return 'Los grupos de amigos van primero en silencio. El sistema registra que hay una diferencia entre querer a las personas y querer sus notificaciones. Es una distinción saludable que poca gente hace en voz alta.';
+  if (top === 'Familia') return 'La familia va primero en la lista de silenciados. El sistema no tiene opinión sobre esto. Registra que hay contextos donde la conexión con origen se administra con cuidado.';
+  return 'Las noticias son lo más silenciado. El sistema registra que hay un límite a la cantidad de mundo que querés dejar entrar sin aviso.';
+}
+function getFragmentoOrden13() {
+  var top = ordenes[13][0];
+  if (top === 'Mensajes de texto') return 'Los mensajes de texto son lo más postergado. El sistema registra que hay algo en la inmediatez del texto que requiere una energía específica que no siempre está disponible. O hay personas específicas detrás de esos mensajes.';
+  if (top === 'Llamadas perdidas') return 'Las llamadas perdidas van primero. El sistema registra que la llamada es el formato más demandante — requiere presencia inmediata, sin tiempo de procesar, sin posibilidad de editar la respuesta.';
+  if (top === 'Audios de WhatsApp') return 'Los audios son lo más postergado. El sistema registra que el audio es el formato más íntimo y más invasivo al mismo tiempo — la voz de alguien entrando sin avisar.';
+  if (top === 'Mails') return 'Los mails van primero en la lista de postergados. El sistema registra que el mail es el formato donde vive lo que tiene consecuencias. Postergarlo es postergar las consecuencias.';
+  return 'Las notificaciones de trabajo son las más postergadas. El sistema registra que hay una frontera entre el tiempo propio y el tiempo laboral que el teléfono borra constantemente y que vos intentás reconstruir ignorando notificaciones.';
+}
+
+// Resumen de sesion segun dimension dominante
+function getResumen(nombre, scores, r) {
+  var dim = 'G';
+  if (scores.E >= scores.B && scores.E >= scores.G) dim = 'E';
+  else if (scores.B >= scores.E && scores.B >= scores.G) dim = 'B';
+
+  var especificos = '';
+  if (dim === 'E') {
+    var f9 = r[9] ? fragmentos.p9[getIdx(9, r)] : '';
+    var f15 = getFragmentoSlider15(sliders[15]);
+    especificos = f9 + '\n\n' + f15;
+    return 'Lo que este sistema registra con más consistencia no es cuánto usás el teléfono. Es cuándo.\n\nY cuándo es casi siempre el mismo momento — ese instante específico en que algo empieza y todavía no tiene nombre. Antes de que puedas decidir si querés sentirlo, ya abriste algo.\n\nNo es debilidad. Es velocidad. El sistema es rápido y vos lo entrenaste bien.\n\n' + especificos + '\n\nLo que el sistema no puede registrar es qué hay del otro lado de esos momentos si no los interrumpís.';
+  } else if (dim === 'B') {
+    var f2 = r[2] ? fragmentos.p2[getIdx(2, r)] : '';
+    var f12 = r[12] ? fragmentos.p12[getIdx(12, r)] : '';
+    especificos = f2 + '\n\n' + f12;
+    return 'Lo que este sistema registra con más consistencia no es qué abrís. Es qué buscás cuando lo abrís.\n\nY lo que buscás casi siempre tiene que ver con los demás — si escribieron, si respondieron, si pensaron en vos, si lo que dijiste tuvo el efecto que esperabas. El teléfono como medidor de temperatura de vínculos que existen afuera del teléfono.\n\n' + especificos + '\n\nEl sistema no tiene opinión sobre eso. Registra que es la función más usada y también la que menos satisface de forma duradera.';
+  } else {
+    var f1 = r[1] ? fragmentos.p1[getIdx(1, r)] : '';
+    var f18 = r[18] ? fragmentos.p18[getIdx(18, r)] : '';
+    especificos = f1 + '\n\n' + f18;
+    return 'Lo que este sistema registra con más consistencia no es el uso. Es el automatismo.\n\nHay momentos en que el teléfono aparece sin que hayas decidido abrirlo. Mañanas en que está en la mano antes de que el cerebro esté en el día. Noches en que es lo último antes de dormir y lo primero después de despertar. Revisiones sin notificación que ya no son búsqueda sino gesto.\n\nEn algún momento dejó de ser una herramienta que usás y se convirtió en un contexto dentro del cual vivís. Esa diferencia es pequeña y es enorme al mismo tiempo.\n\n' + especificos;
+  }
+}
+
+function getIdx(p, r) {
+  return r[p] ? r[p].idx : 0;
+}
+
+function calcularResultado() {
+  var nombre = document.getElementById('nombreInput').value.trim();
+  var nameBlock = document.getElementById('nameBlock');
+  if (!nombre) {
+    nameBlock.classList.add('field-error');
+    nameBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  nameBlock.classList.remove('field-error');
+
+  var errores = false;
+  var pregsCerradas = [1,2,3,5,8,9,10,12,14,16,17,18];
+  for (var i = 0; i < pregsCerradas.length; i++) {
+    var p = pregsCerradas[i];
+    if (!respuestas[p]) {
+      document.getElementById('p' + p).classList.add('field-error');
+      if (!errores) {
+        document.getElementById('p' + p).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        errores = true;
+      }
+    }
+  }
+  if (errores) return;
+
+  // Guardar indices de respuestas para fragmentos
+  var rIdx = {};
+  var bloques = [1,2,3,5,8,9,10,12,14,16,17,18];
+  for (var j = 0; j < bloques.length; j++) {
+    var bp = bloques[j];
+    var bloque = document.getElementById('p' + bp);
+    var opts = bloque.querySelectorAll('.opcion');
+    for (var k = 0; k < opts.length; k++) {
+      if (opts[k].classList.contains('selected')) {
+        rIdx[bp] = { idx: k };
+        break;
+      }
+    }
+  }
+
+  var scores = calcularScores();
+  var fecha = new Date();
+  var fechaStr = fecha.getDate() + '.' + (fecha.getMonth()+1) + '.' + fecha.getFullYear();
+
+  // Armar fragmentos especificos
+  var frag = {
+    p1: rIdx[1] ? fragmentos.p1[rIdx[1].idx] : '',
+    p2: rIdx[2] ? fragmentos.p2[rIdx[2].idx] : '',
+    p3: rIdx[3] ? fragmentos.p3[rIdx[3].idx] : '',
+    p4: getFragmentoSlider4(sliders[4]),
+    p5: rIdx[5] ? fragmentos.p5[rIdx[5].idx] : '',
+    p6: getFragmentoOrden6(),
+    p7: getFragmentoSlider7(sliders[7]),
+    p8: rIdx[8] ? fragmentos.p8[rIdx[8].idx] : '',
+    p9: rIdx[9] ? fragmentos.p9[rIdx[9].idx] : '',
+    p10: rIdx[10] ? fragmentos.p10[rIdx[10].idx] : '',
+    p11: getFragmentoSlider11(sliders[11]),
+    p12: rIdx[12] ? fragmentos.p12[rIdx[12].idx] : '',
+    p13: getFragmentoOrden13(),
+    p14: rIdx[14] ? fragmentos.p14[rIdx[14].idx] : '',
+    p15: getFragmentoSlider15(sliders[15]),
+    p16: rIdx[16] ? fragmentos.p16[rIdx[16].idx] : '',
+    p17: rIdx[17] ? fragmentos.p17[rIdx[17].idx] : '',
+    p18: rIdx[18] ? fragmentos.p18[rIdx[18].idx] : ''
+  };
+
+  var resumen = getResumen(nombre, scores, rIdx);
+
+  // Armar terminal
+  var ups = getUpdates(scores, rIdx);
+  var updatesHtml = '';
+  for (var ui = 0; ui < ups.length; ui++) {
+    updatesHtml += linea(ups[ui], ui === ups.length - 1 ? 'warning' : '');
+    updatesHtml += spacer();
+  }
+
+  var terminal = document.getElementById('terminalOutput');
+  terminal.innerHTML =
+    '<div class="terminal-header">' +
+      '<div class="terminal-dot r"></div>' +
+      '<div class="terminal-dot y"></div>' +
+      '<div class="terminal-dot g"></div>' +
+      '<span class="terminal-titulo">informe_usuario_' + nombre.toLowerCase().replace(/ /g,'_') + '.log</span>' +
+    '</div>' +
+    '<div class="terminal-body">' +
+      linea('// INFORME DE USO · USUARIO: ' + nombre.toUpperCase(), 'bright') +
+      linea('// Generado: ' + fechaStr + ' · Clasificación: confidencial (aunque acá estamos todos)', 'dim') +
+      linea('// ─────────────────────────────────────────────────', 'comment') +
+      spacer() +
+      linea('// MÓDULO 01 · LO QUE EL TELÉFONO INTERRUMPE POR VOS', 'comment') +
+      linea('status: ' + getStatus(scores.E), scores.E > 0.55 ? 'warning' : 'dim') +
+      spacer() +
+      linea(frag.p1) +
+      spacer() +
+      linea(frag.p8) +
+      spacer() +
+      linea(frag.p9) +
+      spacer() +
+      linea(frag.p15) +
+      spacer() +
+      linea(frag.p16) +
+      spacer() +
+      linea(frag.p10) +
+      spacer() +
+      linea(frag.p17) +
+      linea('// ─────────────────────────────────────────────────', 'comment') +
+      spacer() +
+      linea('// MÓDULO 02 · LO QUE EL TELÉFONO TE DA SIN QUE LO HAYAS PEDIDO EN VOZ ALTA', 'comment') +
+      linea('status: ' + getStatus(scores.B), scores.B > 0.55 ? 'warning' : 'dim') +
+      spacer() +
+      linea(frag.p2) +
+      spacer() +
+      linea(frag.p3) +
+      spacer() +
+      linea(frag.p6) +
+      spacer() +
+      linea(frag.p12) +
+      spacer() +
+      linea(frag.p13) +
+      spacer() +
+      linea(frag.p14) +
+      linea('// ─────────────────────────────────────────────────', 'comment') +
+      spacer() +
+      linea('// MÓDULO 03 · LO QUE EL TELÉFONO HACE SIN QUE VOS LO DECIDAS', 'comment') +
+      linea('status: ' + getStatus(scores.G), scores.G > 0.55 ? 'warning' : 'dim') +
+      spacer() +
+      linea(frag.p4) +
+      spacer() +
+      linea(frag.p5) +
+      spacer() +
+      linea(frag.p7) +
+      spacer() +
+      linea(frag.p11) +
+      spacer() +
+      linea(frag.p18) +
+      linea('// ─────────────────────────────────────────────────', 'comment') +
+      spacer() +
+      linea('// RESUMEN DE SESIÓN · ' + nombre.toUpperCase(), 'bright') +
+      linea('// duración del análisis: el tiempo que tardaste en ser honesto', 'dim') +
+      spacer() +
+      linea(resumen) +
+      spacer() +
+      linea('// ─────────────────────────────────────────────────', 'comment') +
+      spacer() +
+      linea('// ACTUALIZACIONES SUGERIDAS', 'bright') +
+      linea('// versión actual: la que tenés', 'dim') +
+      linea('// versión disponible: ninguna garantía', 'dim') +
+      spacer() +
+      updatesHtml +
+      linea('// session_end', 'comment') +
+      linea('// los datos quedan en el dispositivo', 'dim') +
+      linea('// como siempre', 'dim') +
+    '</div>';
+
+  document.getElementById('formArea').style.display = 'none';
+  document.getElementById('resultado').style.display = 'block';
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function linea(txt, clase) {
+  clase = clase || '';
+  var lines = txt.split('\n');
+  var html = '';
+  for (var i = 0; i < lines.length; i++) {
+    html += '<div class="terminal-line ' + clase + '">' + lines[i] + '</div>';
+  }
+  return html;
+}
+function spacer() { return '<div class="terminal-spacer"></div>'; }
+function getStatus(score) {
+  if (score > 0.65) return 'ELEVATED';
+  if (score > 0.35) return 'NOMINAL';
+  return 'SIN_DATOS_SUFICIENTES';
+}
+
+
+// ACTUALIZACIONES SUGERIDAS
+function getUpdates(scores, rIdx) {
+  var updates = [];
+
+  // Update E — siempre, segun p9
+  var idxP9 = rIdx[9] ? rIdx[9].idx : 3;
+  if (idxP9 === 0) updates.push('update_e: "La próxima vez que estés en nada,\nquedáte ahí dos minutos antes de abrirnos.\nSolo dos. El nada no muerde."');
+  else if (idxP9 === 2) updates.push('update_e: "La próxima vez que algo incomode,\nnombralo antes de agarrar el teléfono.\nUna palabra alcanza. Después podés abrirnos."');
+  else if (idxP9 === 1) updates.push('update_e: "Poné el teléfono boca abajo cuando\nnecesitás concentrarte. No en silencio —\nboca abajo. La diferencia es mayor de\nlo que parece."');
+  else updates.push('update_e: "La próxima vez que agarres el teléfono,\npreguntate qué estabas haciendo antes.\nSolo eso. Sin cambiar nada todavía."');
+
+  // Update B — siempre, segun p3 y p12
+  var idxP3 = rIdx[3] ? rIdx[3].idx : 0;
+  var idxP12 = rIdx[12] ? rIdx[12].idx : 0;
+  if (idxP3 === 1) updates.push('update_b: "Escribile a alguien hoy sin esperar\nque te escriban primero. El sistema\nregistra que eso también existe."');
+  else if (idxP3 === 0) updates.push('update_b: "Mañana abrí el teléfono una hora\ndespués de despertar. El mundo va a\nseguir en el mismo lugar."');
+  else if (idxP12 === 0 || idxP12 === 3) updates.push('update_b: "Esa conversación que ya es una situación:\nrespondé algo hoy. No tiene que ser perfecto.\nTiene que existir."');
+  else if (ordenes[13][0] === 'Llamadas perdidas') updates.push('update_b: "Devolvé esa llamada perdida.\nEn el peor caso dura tres minutos.\nEn el mejor, menos."');
+  else updates.push('update_b: "Revisá con quién querés hablar esta semana\ny escribile vos primero.\nSin esperar que el teléfono lo sugiera."');
+
+  // Update G — siempre, segun p1, p4, p11, p18
+  var idxP1 = rIdx[1] ? rIdx[1].idx : 0;
+  var idxP18 = rIdx[18] ? rIdx[18].idx : 0;
+  var sliderG = escalaA5(sliders[4]);
+  var sliderG11 = escalaA5(sliders[11]);
+  if (idxP1 === 0) updates.push('update_g: "Dejá el teléfono fuera del cuarto\nesta noche. Una sola noche.\nEl despertador también existe en otros formatos.\nIncluso analógicos."');
+  else if (sliderG > 3) updates.push('update_g: "Borrá una app hoy. Una sola.\nLa que lleva más tiempo sin abrirse.\nSi volvés a necesitarla, va a seguir\nen la tienda."');
+  else if (sliderG11 > 3) updates.push('update_g: "La próxima vez que agarres el teléfono\nsin saber por qué, poné el teléfono\ny esperá un minuto.\nSolo para ver qué aparece."');
+  else if (idxP18 === 0) updates.push('update_g: "Una vez por día, dejá el teléfono\nen otro cuarto durante una hora.\nSin motivo especial. Solo para ver\nsi el mundo sigue girando. Sigue."');
+  else updates.push('update_g: "Revisá cuántas notificaciones tenés activas.\nDesactivá una. La que menos necesitás.\nEl umbral de lo urgente baja solo."');
+
+  // Update fijo final
+  updates.push('update_final: "Este informe fue generado\nmientras tenías el teléfono en la mano.\n// irony_detected: true\n// acción_requerida: ninguna obligatoria"');
+
+  return updates;
+}
+
+function reiniciar() {
+  respuestas = {};
+  sliders = { 4: 9, 7: 9, 11: 9, 15: 9 };
+  ordenes[6] = ['Grupos de trabajo', 'Grupos de amigos', 'Familia', 'Redes sociales', 'Noticias'];
+  ordenes[13] = ['Mensajes de texto', 'Mails', 'Notificaciones de trabajo', 'Llamadas perdidas', 'Audios de WhatsApp'];
+  inicializarOrden(6);
+  inicializarOrden(13);
+  var opts = document.querySelectorAll('.opcion');
+  for (var i = 0; i < opts.length; i++) opts[i].classList.remove('selected');
+  for (var s in sliders) document.getElementById('s' + s).value = 9;
+  document.getElementById('nombreInput').value = '';
+  document.getElementById('formArea').style.display = 'block';
+  document.getElementById('resultado').style.display = 'none';
+  document.getElementById('progFill').style.width = '0%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+inicializarOrden(6);
+inicializarOrden(13);
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
