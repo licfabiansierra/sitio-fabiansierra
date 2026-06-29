@@ -155,17 +155,7 @@
 <body>
 
 <!-- GATE -->
-<div id="gate">
-  <div class="gate-box">
-    <div class="gate-eyebrow">Acceso restringido</div>
-    <h2>Formulario de trabajo</h2>
-    <p>Este espacio es de uso exclusivo para personas que trabajan con Lic. Fabián Sierra. Ingresá la clave que te fue compartida para continuar.</p>
-    <label class="gate-label" for="clave">Clave de acceso</label>
-    <input class="gate-input" type="password" id="clave" autocomplete="off" placeholder="........">
-    <div class="gate-err" id="gate-err">Clave incorrecta. Volvé a intentarlo.</div>
-    <button class="btn" style="margin-top:1.6rem;width:100%;justify-content:center" onclick="verificarClave()">Ingresar</button>
-  </div>
-</div>
+
 
 <!-- SELECTOR DE MODO -->
 <div id="modo-selector">
@@ -638,7 +628,6 @@
 </div><!-- /app -->
 
 <script>
-
 function verificarAcceso(){
   if(!sessionStorage.getItem('fs_pacientes_auth')){
     sessionStorage.setItem('fs_redirect', window.location.href);
@@ -646,7 +635,6 @@ function verificarAcceso(){
   }
 }
 verificarAcceso();
-
 
 // SCRIPT DE GOOGLE APPS — pegá acá la URL que genera tu Apps Script
 // Instrucciones paso a paso al final de este archivo en comentarios
