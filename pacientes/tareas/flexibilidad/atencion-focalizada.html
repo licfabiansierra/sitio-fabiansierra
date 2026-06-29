@@ -21,7 +21,7 @@
     color-scheme:light;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{background:var(--paper);color-scheme:light}
+  html,body{background:#F6F3EE;color-scheme:light}
   body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
@@ -90,7 +90,7 @@
 <header>
   <div class="wrap nav">
     <div class="brand"><b>Lic. Fabián Sierra</b><span>Psicología y Rendimiento</span></div>
-    <a class="nav-back" href="index.html"><i class="ti ti-arrow-left"></i> Tareas</a>
+    <a class="nav-back" href="../index.html"><i class="ti ti-arrow-left"></i> Tareas</a>
   </div>
 </header>
 <section class="hero">
@@ -172,7 +172,7 @@
 <footer><span>Área privada · © <span id="year"></span> Lic. Fabián Sierra</span></footer>
 <script>
 var SHEET_URL = 'REEMPLAZAR_CON_URL_DE_APPS_SCRIPT';
-function verificarAcceso(){if(!sessionStorage.getItem('fs_pacientes_auth')){window.location.href='../index.html';}}
+function verificarAcceso(){if(!sessionStorage.getItem('fs_pacientes_auth')){sessionStorage.setItem('fs_redirect',window.location.href);window.location.href='../../index.html';}}
 function setFechaHoy(){var h=new Date();document.getElementById('fechaInput').value=h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0');}
 function enviar(){
   var ok=true;

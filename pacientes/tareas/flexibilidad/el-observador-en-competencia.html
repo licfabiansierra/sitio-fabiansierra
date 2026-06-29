@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
   :root{--paper:#F6F3EE;--paper-deep:#EAE6DE;--paper-mid:#DDD8CF;--ink:#252320;--ink-soft:#58544F;--muted:#9A9690;--accent:#942322;--accent-light:#c47a78;--accent-bg:#FBF0EF;--white:#FFFFFF;--maxw:680px;--pad:clamp(1.25rem,5vw,3rem);--ease:cubic-bezier(.22,.61,.36,1);color-scheme:light;}
-  *{margin:0;padding:0;box-sizing:border-box}html,body{background:var(--paper);color-scheme:light}body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+  *{margin:0;padding:0;box-sizing:border-box}html,body{background:#F6F3EE;color-scheme:light}body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
   header{background:rgba(246,243,238,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--paper-mid);position:sticky;top:0;z-index:50}.nav{display:flex;align-items:center;justify-content:space-between;height:60px}.brand b{font-weight:700;font-size:.95rem;color:var(--ink);display:block;letter-spacing:-.01em}.brand span{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.14rem;display:block}.nav-back{display:flex;align-items:center;gap:.4rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color .2s}.nav-back:hover{color:var(--accent)}.nav-back i{font-size:15px}
   .hero{padding:clamp(2rem,4vw,3.5rem) 0 clamp(1.5rem,3vw,2.5rem);border-bottom:1px solid var(--paper-mid)}.hero-top{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}.hero-icono{width:40px;height:40px;border-radius:8px;background:var(--accent-bg);border:1px solid #EAC8C7;display:flex;align-items:center;justify-content:center;flex-shrink:0}.hero-icono i{font-size:20px;color:var(--accent)}.hero-tag{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-light);font-weight:600}.hero h1{font-weight:800;letter-spacing:-.03em;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--ink);line-height:1.1;margin-bottom:.7rem}.hero-sub{font-size:.92rem;color:var(--ink-soft);font-weight:300;line-height:1.75;max-width:48ch}
   main{padding-top:clamp(1.8rem,3.5vw,2.5rem);padding-bottom:clamp(3rem,6vw,5rem)}
@@ -30,7 +30,7 @@
 </style>
 </head>
 <body>
-<header><div class="wrap nav"><div class="brand"><b>Lic. Fabián Sierra</b><span>Psicología y Rendimiento</span></div><a class="nav-back" href="index.html"><i class="ti ti-arrow-left"></i> Tareas</a></div></header>
+<header><div class="wrap nav"><div class="brand"><b>Lic. Fabián Sierra</b><span>Psicología y Rendimiento</span></div><a class="nav-back" href="../index.html"><i class="ti ti-arrow-left"></i> Tareas</a></div></header>
 <section class="hero">
   <div class="wrap">
     <div class="hero-top"><div class="hero-icono"><i class="ti ti-camera"></i></div><span class="hero-tag">Yo como contexto · Rendimiento</span></div>
@@ -41,10 +41,6 @@
 <main><div class="wrap"><div id="formWrap">
   <div class="instrucciones"><strong>Cómo hacerlo:</strong> Inmediatamente después de una situación de presión, hacés el primer registro — lo que el observador ve en tiempo real. 24 horas después, volvés acá y hacés el segundo registro desde la distancia temporal. En los dos casos la consigna es la misma: no cómo te sentiste, sino qué viste.</div>
   <div class="nombre-block" id="nombreBlock"><label for="nombreInput">Tu nombre <span style="color:var(--accent)">*</span></label><input type="text" id="nombreInput" placeholder="Cómo te llamás" autocomplete="given-name"></div>
-  <div class="field-group" id="fg-fecha"><div class="field-header"><div class="field-icono"><i class="ti ti-calendar"></i></div><span class="field-label">Fecha <span class="field-req">*</span></span></div><input type="date" id="fechaInput"><p class="error-msg">Por favor completá la fecha.</p></div>
-  <div class="field-group" id="fg-situacion"><div class="field-header"><div class="field-icono"><i class="ti ti-map-pin"></i></div><span class="field-label">¿Qué situación fue? <span class="field-req">*</span></span></div><p class="field-hint">Describí brevemente la situación de presión.</p><textarea id="situacionInput" rows="2" placeholder="Ej: Partido de vuelta, presentación importante, examen final..."></textarea><p class="error-msg">Por favor describí la situación.</p></div>
-
-  <div class="sep"><div class="sep-line"></div><span class="sep-label"><i class="ti ti-clock"></i> Yo aquí · ahora</span><div class="sep-line"></div></div>
 
   <div class="field-group" id="fg-ahora"><div class="field-header"><div class="field-icono"><i class="ti ti-eye"></i></div><span class="field-label">¿Qué viste mientras ocurría? <span class="field-req">*</span></span></div><p class="field-hint">No cómo te sentiste — qué observaste. Cómo te movías, qué decidías, cómo respondías. Como si fuera otro el que estaba ahí.</p><textarea id="ahoraInput" rows="5" placeholder="Vi que yo..."></textarea><p class="error-msg">Por favor completá este campo.</p></div>
 
@@ -64,13 +60,12 @@
 <footer><span>Área privada · © <span id="year"></span> Lic. Fabián Sierra</span></footer>
 <script>
 var SHEET_URL='REEMPLAZAR_CON_URL_DE_APPS_SCRIPT';
-function verificarAcceso(){if(!sessionStorage.getItem('fs_pacientes_auth')){window.location.href='../index.html';}}
-function setFechaHoy(){var h=new Date();document.getElementById('fechaInput').value=h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0');}
+function verificarAcceso(){if(!sessionStorage.getItem('fs_pacientes_auth')){sessionStorage.setItem('fs_redirect',window.location.href);window.location.href='../../index.html';}}
 function mostrarSegunda(){
   var ok=true;
   var nb=document.getElementById('nombreBlock');
   if(!document.getElementById('nombreInput').value.trim()){nb.classList.add('field-error');ok=false;}else{nb.classList.remove('field-error');}
-  var campos=[{fg:'fg-fecha',id:'fechaInput'},{fg:'fg-situacion',id:'situacionInput'},{fg:'fg-ahora',id:'ahoraInput'}];
+  var campos=[{fg:'fg-situacion',id:'situacionInput'},{fg:'fg-ahora',id:'ahoraInput'}];
   campos.forEach(function(c){var fg=document.getElementById(c.fg);var val=document.getElementById(c.id).value.trim();if(!val){fg.classList.add('field-error');ok=false;}else{fg.classList.remove('field-error');}});
   if(!ok){var p=document.querySelector('.field-error');if(p)p.scrollIntoView({behavior:'smooth',block:'center'});return;}
   document.getElementById('btnContinuar').style.display='none';
@@ -82,12 +77,12 @@ function enviar(){
   if(!document.getElementById('entoncesInput').value.trim()){fg.classList.add('field-error');fg.scrollIntoView({behavior:'smooth',block:'center'});return;}
   fg.classList.remove('field-error');
   var btn=document.getElementById('btnEnviar');btn.disabled=true;btn.textContent='Enviando...';
-  var datos={nombre:document.getElementById('nombreInput').value.trim(),fecha:document.getElementById('fechaInput').value,situacion:document.getElementById('situacionInput').value.trim(),ahora:document.getElementById('ahoraInput').value.trim(),entonces:document.getElementById('entoncesInput').value.trim(),diferencia:document.getElementById('diferenciaInput').value.trim(),tarea:'El observador en competencia',timestamp:new Date().toISOString()};
+  var datos={nombre:document.getElementById('nombreInput').value.trim(),situacion:document.getElementById('situacionInput').value.trim(),ahora:document.getElementById('ahoraInput').value.trim(),entonces:document.getElementById('entoncesInput').value.trim(),diferencia:document.getElementById('diferenciaInput').value.trim(),tarea:'El observador en competencia',timestamp:new Date().toISOString()};
   fetch(SHEET_URL,{method:'POST',body:JSON.stringify(datos)}).then(function(){mostrarConf();}).catch(function(){mostrarConf();});
 }
 function mostrarConf(){document.getElementById('formWrap').style.display='none';document.getElementById('confirmacion').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
-function resetForm(){['situacionInput','ahoraInput','entoncesInput','diferenciaInput'].forEach(function(id){document.getElementById(id).value='';});setFechaHoy();document.getElementById('btnContinuar').style.display='block';document.getElementById('segundaParte').style.display='none';var btn=document.getElementById('btnEnviar');btn.disabled=false;btn.textContent='Enviar registro';document.getElementById('formWrap').style.display='block';document.getElementById('confirmacion').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
-verificarAcceso();setFechaHoy();document.getElementById('year').textContent=new Date().getFullYear();
+function resetForm(){['situacionInput','ahoraInput','entoncesInput','diferenciaInput'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('btnContinuar').style.display='block';document.getElementById('segundaParte').style.display='none';var btn=document.getElementById('btnEnviar');btn.disabled=false;btn.textContent='Enviar registro';document.getElementById('formWrap').style.display='block';document.getElementById('confirmacion').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
+verificarAcceso();document.getElementById('year').textContent=new Date().getFullYear();
 </script>
 </body>
 </html>

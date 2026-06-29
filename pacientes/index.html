@@ -4,112 +4,173 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
-<title>Pacientes · Lic. Fabián Sierra</title>
+<title>Área de pacientes · Lic. Fabián Sierra</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
-  :root{
-    --bone:#F3F1EC;--ink:#17181C;--muted:#6E7079;
-    --accent:#942322;--accent-deep:#741A19;--accent-light:#c47a78;
-    --surface-a:#1E1F23;--surface-b:#141518;
-    color-scheme:light;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%;background:#17181C;color-scheme:light}
-  body{font-family:"Archivo",system-ui,sans-serif;background:#17181C;color:var(--bone);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100vh}
+:root{--paper:#F6F3EE;--paper-mid:#DDD8CF;--ink:#252320;--ink-soft:#58544F;--muted:#9A9690;--accent:#942322;--accent-light:#c47a78;--accent-bg:#FBF0EF;--white:#FFFFFF;color-scheme:light}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#F6F3EE;color-scheme:light;min-height:100vh;font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
 
-  header{padding:1.5rem clamp(1.25rem,5vw,4.5rem);border-bottom:1px solid rgba(255,255,255,.06)}
-  .brand{display:flex;flex-direction:column;line-height:1.1}
-  .brand b{font-weight:700;font-size:.98rem;color:var(--bone)}
-  .brand span{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.18rem}
+/* LAYOUT CENTRADO */
+.pantalla{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem}
 
-  .main{flex:1;display:flex;align-items:center;justify-content:center;padding:clamp(2rem,5vw,4rem) clamp(1.25rem,5vw,4.5rem)}
+/* MARCA */
+.marca{text-align:center;margin-bottom:3rem}
+.marca b{display:block;font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink)}
+.marca span{display:block;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
 
-  .login-card{
-    width:100%;max-width:420px;
-    background:var(--surface-a);
-    border:1px solid rgba(255,255,255,.08);
-    border-top:3px solid var(--accent);
-    padding:clamp(2rem,5vw,3rem);
-  }
+/* CARD LOGIN */
+.card{background:#FFFFFF;border:1px solid var(--paper-mid);border-radius:2px;padding:clamp(1.8rem,5vw,2.5rem);width:100%;max-width:360px}
+.card-saludo{font-weight:700;font-size:1.2rem;letter-spacing:-.02em;color:var(--ink);margin-bottom:.4rem}
+.card-sub{font-size:.88rem;color:var(--ink-soft);font-weight:300;line-height:1.7;margin-bottom:2rem}
 
-  .login-eyebrow{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:1rem}
-  .login-titulo{font-size:1.4rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.5rem;color:var(--bone)}
-  .login-sub{font-size:.88rem;color:rgba(243,241,236,.4);font-weight:300;line-height:1.6;margin-bottom:2rem}
+/* INPUT CLAVE */
+.clave-wrap{position:relative;margin-bottom:.6rem}
+.clave-wrap input{width:100%;border:1.5px solid var(--paper-mid);border-radius:2px;background:#F6F3EE;font-family:"Archivo",sans-serif;font-size:1.1rem;font-weight:500;color:var(--ink);padding:.75rem 3rem .75rem 1rem;outline:none;transition:border-color .2s;letter-spacing:.15em;-webkit-appearance:none}
+.clave-wrap input:focus{border-color:var(--accent);background:#FFFFFF}
+.clave-wrap input::placeholder{letter-spacing:.05em;font-size:.9rem;font-weight:300;color:var(--muted)}
+.toggle-ver{position:absolute;right:.8rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);padding:.2rem;transition:color .2s}
+.toggle-ver:hover{color:var(--ink)}
+.toggle-ver i{font-size:18px}
+.error-clave{font-size:.78rem;color:var(--accent-light);margin-bottom:.8rem;display:none;padding-left:.2rem}
+.error-clave.visible{display:block}
 
-  .field{margin-bottom:1.2rem}
-  .field label{display:block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;font-weight:500}
-  .field input{
-    width:100%;border:none;border-bottom:2px solid rgba(255,255,255,.15);
-    background:transparent;font-family:"Archivo",sans-serif;
-    font-size:1rem;font-weight:400;color:var(--bone);
-    padding:.5rem 0;outline:none;transition:border-color .25s;
-    letter-spacing:.08em;
-  }
-  .field input:focus{border-bottom-color:var(--accent)}
-  .field input::placeholder{color:var(--muted);font-weight:300;letter-spacing:0}
-  .field input[type=password]{font-family:monospace;font-size:1.1rem}
+.btn-ingresar{display:block;width:100%;padding:.85rem;background:var(--accent);color:#fff;border:none;font-family:"Archivo",sans-serif;font-size:.92rem;font-weight:600;cursor:pointer;border-radius:2px;transition:background .25s;letter-spacing:.01em}
+.btn-ingresar:hover{background:#7a1c1c}
 
-  .error{font-size:.82rem;color:var(--accent-light);margin-top:.5rem;display:none}
+/* DESTINOS — aparecen tras login */
+.destinos{display:none;width:100%;max-width:360px}
+.destinos-saludo{text-align:center;margin-bottom:1.8rem}
+.destinos-saludo p:first-child{font-weight:700;font-size:1.15rem;letter-spacing:-.02em;color:var(--ink);margin-bottom:.3rem}
+.destinos-saludo p:last-child{font-size:.86rem;color:var(--ink-soft);font-weight:300;line-height:1.65}
 
-  .btn{
-    width:100%;padding:.9rem;margin-top:1.5rem;
-    background:var(--accent);color:#fff;border:none;
-    font-family:"Archivo",sans-serif;font-size:.9rem;font-weight:600;
-    cursor:pointer;border-radius:2px;transition:background .25s;
-  }
-  .btn:hover{background:var(--accent-deep)}
+.destino{display:flex;align-items:center;gap:1.1rem;background:#FFFFFF;border:1px solid var(--paper-mid);border-radius:2px;padding:1.2rem 1.3rem;margin-bottom:.6rem;cursor:pointer;transition:border-color .2s,box-shadow .2s;text-decoration:none}
+.destino:hover{border-color:#C5C0B5;box-shadow:0 2px 12px rgba(37,35,32,.07)}
+.destino-icono{width:44px;height:44px;border-radius:8px;background:var(--accent-bg);border:1px solid #EAC8C7;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.destino-icono i{font-size:22px;color:var(--accent)}
+.destino-info{flex:1;min-width:0}
+.destino-titulo{font-weight:700;font-size:.97rem;color:var(--ink);letter-spacing:-.01em;margin-bottom:.2rem}
+.destino-desc{font-size:.78rem;color:var(--muted);font-weight:300;line-height:1.5}
+.destino-arrow{color:var(--muted);flex-shrink:0;transition:transform .2s}
+.destino:hover .destino-arrow{transform:translateX(3px);color:var(--accent)}
 
-  footer{padding:1.2rem clamp(1.25rem,5vw,4.5rem);border-top:1px solid rgba(255,255,255,.04);text-align:center;font-size:.66rem;color:rgba(243,241,236,.15);letter-spacing:.06em}
+.btn-salir{display:block;width:100%;margin-top:1.2rem;padding:.65rem;background:transparent;border:1px solid var(--paper-mid);border-radius:2px;font-family:"Archivo",sans-serif;font-size:.8rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .2s;text-align:center}
+.btn-salir:hover{background:#EAE6DE;color:var(--ink)}
+
+footer{position:fixed;bottom:0;width:100%;text-align:center;padding:.9rem;font-size:.62rem;color:var(--muted);letter-spacing:.06em;background:#F6F3EE}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="brand">
+<!-- PANTALLA LOGIN -->
+<div class="pantalla" id="pantallaLogin">
+  <div class="marca">
     <b>Lic. Fabián Sierra</b>
     <span>Psicología y Rendimiento</span>
   </div>
-</header>
 
-<div class="main">
-  <div class="login-card">
-    <p class="login-eyebrow">Área de pacientes</p>
-    <h1 class="login-titulo">Acceso</h1>
-    <p class="login-sub">Ingresá la clave que te compartió Fabián para acceder a tus tareas.</p>
-
-    <div class="field">
-      <label for="claveInput">Clave de acceso</label>
-      <input type="password" id="claveInput" placeholder="••••••••••••" autocomplete="off" onkeydown="if(event.key==='Enter')verificar()">
-      <p class="error" id="errorMsg">Clave incorrecta. Revisá que esté bien escrita.</p>
+  <div class="card">
+    <p class="card-saludo">Buenas.</p>
+    <p class="card-sub">Ingresá el código que te di para acceder a tu área.</p>
+    <div class="clave-wrap">
+      <input type="password" id="claveInput" placeholder="Código de acceso" autocomplete="off" onkeydown="if(event.key==='Enter')ingresar()">
+      <button class="toggle-ver" onclick="toggleVer()" tabindex="-1" type="button">
+        <i class="ti ti-eye" id="iconoVer"></i>
+      </button>
     </div>
-
-    <button class="btn" onclick="verificar()">Ingresar</button>
+    <p class="error-clave" id="errorClave">Código incorrecto. Pedile el tuyo a Fabián.</p>
+    <button class="btn-ingresar" onclick="ingresar()">Ingresar</button>
   </div>
 </div>
 
-<footer>
-  <span>Acceso privado · No indexado · © <span id="year"></span> Lic. Fabián Sierra</span>
-</footer>
+<!-- PANTALLA DESTINOS -->
+<div class="pantalla" id="pantallaDestinos" style="display:none">
+  <div class="marca">
+    <b>Lic. Fabián Sierra</b>
+    <span>Psicología y Rendimiento</span>
+  </div>
+
+  <div class="destinos">
+    <div class="destinos-saludo">
+      <p>Tu área</p>
+      <p>¿Adónde vas hoy?</p>
+    </div>
+
+    <a class="destino" href="tareas/index.html">
+      <div class="destino-icono"><i class="ti ti-checklist"></i></div>
+      <div class="destino-info">
+        <p class="destino-titulo">Tareas</p>
+        <p class="destino-desc">Ejercicios y registros entre sesiones</p>
+      </div>
+      <i class="ti ti-arrow-right destino-arrow"></i>
+    </a>
+
+    <a class="destino" href="evaluacion/proceso.html">
+      <div class="destino-icono"><i class="ti ti-clipboard-heart"></i></div>
+      <div class="destino-info">
+        <p class="destino-titulo">Mi proceso</p>
+        <p class="destino-desc">Registro de inicio, progreso o cierre</p>
+      </div>
+      <i class="ti ti-arrow-right destino-arrow"></i>
+    </a>
+
+    <button class="btn-salir" onclick="salir()">Salir</button>
+  </div>
+</div>
+
+<footer>Área privada · © <span id="year"></span> Lic. Fabián Sierra</footer>
 
 <script>
-/* ── CLAVE DE ACCESO ── */
-var CLAVE = 'fs-pacientes-2025';
-/* ─────────────────── */
+var CLAVE = 'fs2025';
 
-function verificar() {
+function ingresar(){
   var input = document.getElementById('claveInput').value.trim();
-  var error = document.getElementById('errorMsg');
-  if (input === CLAVE) {
-    sessionStorage.setItem('fs_pacientes_auth', '1');
-    window.location.href = 'tareas/index.html';
+  var error = document.getElementById('errorClave');
+  if(input === CLAVE){
+    sessionStorage.setItem('fs_pacientes_auth','1');
+    var dest = sessionStorage.getItem('fs_redirect');
+    sessionStorage.removeItem('fs_redirect');
+    if(dest){
+      window.location.href = dest;
+    } else {
+      document.getElementById('pantallaLogin').style.display = 'none';
+      document.getElementById('pantallaDestinos').style.display = 'flex';
+    }
   } else {
-    error.style.display = 'block';
+    error.classList.add('visible');
     document.getElementById('claveInput').value = '';
     document.getElementById('claveInput').focus();
   }
+}
+
+function toggleVer(){
+  var input = document.getElementById('claveInput');
+  var icono = document.getElementById('iconoVer');
+  if(input.type === 'password'){
+    input.type = 'text';
+    icono.className = 'ti ti-eye-off';
+  } else {
+    input.type = 'password';
+    icono.className = 'ti ti-eye';
+  }
+}
+
+function salir(){
+  sessionStorage.removeItem('fs_pacientes_auth');
+  document.getElementById('pantallaDestinos').style.display = 'none';
+  document.getElementById('pantallaLogin').style.display = 'flex';
+  document.getElementById('claveInput').value = '';
+}
+
+// Si ya tiene sesion, mostrar destinos directamente
+if(sessionStorage.getItem('fs_pacientes_auth')){
+  document.getElementById('pantallaLogin').style.display = 'none';
+  document.getElementById('pantallaDestinos').style.display = 'flex';
 }
 
 document.getElementById('year').textContent = new Date().getFullYear();

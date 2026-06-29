@@ -318,6 +318,53 @@
   .reveal.in{opacity:1;transform:none}
   [data-d="1"]{transition-delay:.08s}[data-d="2"]{transition-delay:.16s}[data-d="3"]{transition-delay:.24s}[data-d="4"]{transition-delay:.32s}
 
+
+  /* NAV FUERA DE SESION */
+  .nav-fds{
+    font-size:.82rem !important;
+    color:var(--muted) !important;
+    font-style:italic;
+    transition:color .2s !important;
+  }
+  .nav-fds:hover{color:var(--ink) !important}
+  .nav-fds::after{display:none !important}
+
+  /* NAV PACIENTES */
+  .nav-pacientes{
+    font-size:.88rem;
+    color:var(--accent) !important;
+    font-weight:600;
+    border:1px solid currentColor;
+    padding:.28rem .75rem;
+    border-radius:2px;
+    transition:background .2s,color .2s !important;
+  }
+  .nav-pacientes:hover{background:var(--accent);color:#fff !important}
+  .nav-pacientes::after{display:none !important}
+
+  /* BANDA PACIENTES */
+  .pacientes-band{
+    background:var(--bone-deep);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .pacientes-band-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:1.5rem;flex-wrap:wrap;
+    padding-top:.85rem;padding-bottom:.85rem;
+  }
+  .pacientes-band-texto{
+    font-size:.9rem;color:var(--ink-soft);font-weight:300;line-height:1.5;
+  }
+  .pacientes-band-btn{
+    display:inline-flex;align-items:center;gap:.45rem;
+    font-size:.84rem;font-weight:600;color:var(--accent);
+    white-space:nowrap;flex-shrink:0;
+    transition:gap .2s;
+  }
+  .pacientes-band-btn:hover{gap:.7rem}
+  .pacientes-band-btn svg{width:13px;height:13px}
+
   @media(max-width:860px){
     .menu{position:fixed;inset:74px 0 auto 0;background:var(--bone);flex-direction:column;align-items:flex-start;gap:0;padding:0 var(--pad);max-height:0;overflow:hidden;transition:max-height .4s var(--ease);border-bottom:1px solid transparent}
     .menu.open{max-height:480px;border-bottom:1px solid var(--line);padding-bottom:1.5rem}
@@ -360,9 +407,9 @@
       <a href="#enfoque">El Enfoque</a>
       <a href="#servicios">Servicios</a>
       <a href="/evaluaciones/">Evaluaciones</a>
-      <a href="#modalidades">Modalidades</a>
-      <a href="#trayectoria">Trayectoria</a>
-      <a href="#faq">Preguntas frecuentes</a>
+      <a href="#faq">Preguntas</a>
+      <a href="/fuera-de-sesion/" class="nav-fds">Fuera de sesión</a>
+      <a href="/pacientes/" class="nav-pacientes">Pacientes</a>
       <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Me%20contacto%20desde%20la%20web%20para%20hacerle%20una%20consulta%20sobre%20los%20procesos%20de%20atenci%C3%B3n." target="_blank" rel="noopener">
         Coordinar Sesión
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -383,8 +430,7 @@
       Un lugar donde<br>lo que te pasa<br>tiene <span class="em">sentido.</span>
     </h1>
     <h2 class="reveal" data-d="2">
-      No para eliminarlo. Para entender qué hace, por qué lo hace, y cuánto te cuesta seguirle el juego.
-      La mente humana es extraordinariamente buena resolviendo problemas. El problema es cuando intenta resolver el malestar como si fuera uno. Cuanto más se le pelea, más espacio ocupa.
+      No para eliminarlo. Para entender qué hace, por qué lo hace, y cuánto te cuesta seguirle el juego. La mente intenta resolver el malestar como si fuera un problema más. Cuanto más se le pelea, más espacio ocupa.
     </h2>
     <div class="hero-cta reveal" data-d="3">
       <a class="btn" href="https://wa.me/59898769714?text=Hola%2C%20Lic.%20Fabi%C3%A1n%20Sierra.%20Me%20contacto%20desde%20la%20web%20para%20hacerle%20una%20consulta%20sobre%20los%20procesos%20de%20atenci%C3%B3n." target="_blank" rel="noopener">
@@ -411,6 +457,14 @@
     </div>
   </div>
 </section>
+
+<!-- PACIENTES -->
+<div class="pacientes-band">
+  <div class="wrap pacientes-band-inner">
+    <p class="pacientes-band-texto">¿Ya sos paciente? Accedé a tus tareas y al registro de tu proceso.</p>
+    <a class="pacientes-band-btn" href="/pacientes/">Ingresar al área <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</div>
 
 <!-- BIFURCACION -->
 <section class="bifurca" id="bifurca">
@@ -536,6 +590,7 @@
     <p class="modos-nota reveal" style="margin-top:2rem">¿Preferís explorar antes de dar el paso? <a href="/evaluaciones/" style="color:var(--accent);font-weight:600">Las evaluaciones gratuitas son un buen lugar para empezar →</a></p>
   </div>
 </section>
+
 
 <!-- MODALIDADES -->
 <section class="block" id="modalidades">
@@ -680,6 +735,7 @@
       <p style="margin-top:.4rem;font-size:.84rem">14 instrumentos validados · Resultado inmediato</p>
       <a href="/fuera-de-sesion/" style="margin-top:1rem">Fuera de sesión</a>
       <p style="margin-top:.4rem;font-size:.84rem">Cuestionarios sin validación · Prescripciones</p>
+      <a href="/pacientes/" style="margin-top:1rem">Área de pacientes</a>
     </div>
   </div>
   <div class="wrap foot-bottom">

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
-<title>El titular de diario · Lic. Fabián Sierra</title>
+<title>Toma de perspectiva · Lic. Fabián Sierra</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
     color-scheme:light;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{background:var(--paper);color-scheme:light}
+  html,body{background:#F6F3EE;color-scheme:light}
   body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
@@ -53,6 +53,7 @@
   .nombre-block input:focus{border-bottom-color:var(--accent)}
   .nombre-block input::placeholder{color:var(--muted);font-weight:300}
   .nombre-block.field-error{border-left:3px solid var(--accent-light)}
+  .nombre-block.field-error input{border-bottom-color:var(--accent-light)}
 
   .field-group{margin-bottom:1.5rem}
   .field-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.35rem}
@@ -69,30 +70,33 @@
   .error-msg{font-size:.76rem;color:var(--accent-light);margin-top:.35rem;display:none;padding-left:32px}
   .field-group.field-error .error-msg{display:block}
 
-  .sep{margin:2rem 0 1.5rem;display:flex;align-items:center;gap:.8rem}
-  .sep-line{flex:1;height:1px;background:var(--paper-mid)}
-  .sep-label{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:.4rem}
-  .sep-label i{font-size:13px}
-
-  /* TITULAR — tipografía especial */
-  .titular-hint{
-    background:#FFFDF5;border:1px solid #E8E0C8;border-radius:2px;
-    padding:.9rem 1rem;margin-bottom:.7rem;
-    font-size:.78rem;color:#7A7060;font-weight:300;line-height:1.65;
+  /* SEPARADOR DE PERSPECTIVA */
+  .perspectiva-sep{
+    margin:2rem 0 1.5rem;
+    display:flex;align-items:center;gap:.8rem;
   }
-  .titular-hint strong{font-weight:700;color:#4A4030;letter-spacing:.02em}
-  #titularInput{font-weight:700;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase;line-height:1.5}
-  #titularInput::placeholder{font-weight:300;text-transform:none;letter-spacing:0;font-size:.88rem}
+  .perspectiva-sep-line{flex:1;height:1px;background:var(--paper-mid)}
+  .perspectiva-sep-label{
+    font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;white-space:nowrap;
+    display:flex;align-items:center;gap:.4rem;
+  }
+  .perspectiva-sep-label i{font-size:13px}
 
-  /* TERCERA PARTE — aparece con JS */
-  .tercera-parte{display:none;animation:fadeUp .4s var(--ease)}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  /* BLOQUE DE PERSPECTIVA — fondo levemente distinto */
+  .perspectiva-bloque{
+    background:var(--white);
+    border:1px solid var(--paper-mid);
+    border-radius:2px;
+    padding:1.3rem;
+    margin-bottom:1rem;
+  }
+  .perspectiva-bloque .field-group{margin-bottom:0}
+  .perspectiva-bloque .field-group:not(:last-child){margin-bottom:1.2rem}
 
-  .btn{display:block;width:100%;padding:.9rem;margin-top:1.5rem;background:var(--accent);color:#fff;border:none;font-family:"Archivo",sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border-radius:2px;transition:background .25s;letter-spacing:.01em}
+  .btn{display:block;width:100%;padding:.9rem;margin-top:2rem;background:var(--accent);color:#fff;border:none;font-family:"Archivo",sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border-radius:2px;transition:background .25s;letter-spacing:.01em}
   .btn:hover{background:#7a1c1c}
   .btn:disabled{background:#C8C4BC;cursor:not-allowed}
-  .btn-continuar{background:var(--ink);margin-top:1.5rem}
-  .btn-continuar:hover{background:#3D3C39}
   .envio-nota{text-align:center;font-size:.76rem;color:var(--muted);margin-top:.7rem;font-weight:300}
 
   .confirmacion{display:none;text-align:center;padding:clamp(3rem,6vw,5rem) 0}
@@ -124,11 +128,11 @@
 <section class="hero">
   <div class="wrap">
     <div class="hero-top">
-      <div class="hero-icono"><i class="ti ti-news"></i></div>
-      <span class="hero-tag">Defusión cognitiva</span>
+      <div class="hero-icono"><i class="ti ti-users"></i></div>
+      <span class="hero-tag">Yo como contexto</span>
     </div>
-    <h1>El titular de diario</h1>
-    <p class="hero-sub">Hay pensamientos que se sienten como hechos. Este ejercicio los pone en otra pantalla para que los puedas ver desde afuera.</p>
+    <h1>Toma de perspectiva</h1>
+    <p class="hero-sub">Describí una situación desde tu punto de vista. Después, desde el de alguien que te conoce bien. Lo que cambia entre los dos es el ejercicio.</p>
   </div>
 </section>
 
@@ -138,7 +142,7 @@
   <div id="formWrap">
 
     <div class="instrucciones">
-      <strong>Cómo hacerlo:</strong> Anotá un pensamiento que te estuvo dando vueltas — uno de esos que aparecen seguido y a veces sentís que son la verdad. Después convertilo en el titular de un diario amarillista: exagerado, dramático, con mayúsculas. No para burlarte de vos — para verlo desde afuera por un momento.
+      <strong>Cómo hacerlo:</strong> Primero anotá lo que pasó y cómo lo viviste. Después, pensá en alguien que te conoce de verdad — no para que te defienda ni para que te juzgue — y describí cómo lo vería esa persona. Al final, si algo se movió, anotalo. Si no se movió nada, eso también vale.
     </div>
 
     <div class="nombre-block" id="nombreBlock">
@@ -146,68 +150,66 @@
       <input type="text" id="nombreInput" placeholder="Cómo te llamás" autocomplete="given-name">
     </div>
 
-    <div class="field-group" id="fg-fecha">
-      <div class="field-header">
-        <div class="field-icono"><i class="ti ti-calendar"></i></div>
-        <span class="field-label">Fecha <span class="field-req">*</span></span>
-      </div>
-      <input type="date" id="fechaInput">
-      <p class="error-msg">Por favor completá la fecha.</p>
-    </div>
-
-    <div class="sep">
-      <div class="sep-line"></div>
-      <span class="sep-label"><i class="ti ti-brain"></i> El pensamiento</span>
-      <div class="sep-line"></div>
-    </div>
-
-    <div class="field-group" id="fg-pensamiento">
-      <div class="field-header">
-        <div class="field-icono"><i class="ti ti-message-dots"></i></div>
-        <span class="field-label">El pensamiento <span class="field-req">*</span></span>
-      </div>
-      <p class="field-hint">Escribilo tal como aparece en tu cabeza. Ej: "Nunca hago nada bien", "Soy demasiado sensible", "No le importo a nadie".</p>
-      <textarea id="pensamientoInput" placeholder="El pensamiento que te da vueltas..." rows="3"></textarea>
-      <p class="error-msg">Por favor escribí el pensamiento.</p>
-    </div>
-
-    <div class="sep">
-      <div class="sep-line"></div>
-      <span class="sep-label"><i class="ti ti-news"></i> El titular</span>
-      <div class="sep-line"></div>
-    </div>
-
-    <div class="titular-hint">
-      Convertilo en la tapa de un diario que vende catástrofes. Cuanto más exagerado, mejor funciona.<br>
-      <strong>Ej:</strong> "EXPERTO LOCAL CONFIRMA: JAMÁS EN LA HISTORIA SE COMETIÓ ERROR TAN GARRAFAL" · "FUENTES CERCANAS REVELAN: INDIVIDUO COMPLETAMENTE INSOPORTABLE DESDE HACE AÑOS"
-    </div>
-
-    <div class="field-group" id="fg-titular">
-      <div class="field-header">
-        <div class="field-icono"><i class="ti ti-news"></i></div>
-        <span class="field-label">El titular <span class="field-req">*</span></span>
-      </div>
-      <textarea id="titularInput" placeholder="El titular de tapa..." rows="3"></textarea>
-      <p class="error-msg">Por favor escribí el titular.</p>
-    </div>
-
-    <button class="btn btn-continuar" id="btnContinuar" onclick="mostrarTercera()">Continuar</button>
-
-    <!-- TERCERA PARTE -->
-    <div class="tercera-parte" id="terceraParte">
-      <div class="sep" style="margin-top:2rem">
-        <div class="sep-line"></div>
-        <span class="sep-label"><i class="ti ti-ripple"></i> Lo que notás</span>
-        <div class="sep-line"></div>
-      </div>
-
-      <div class="field-group" id="fg-notas">
+    <div class="perspectiva-bloque">
+      <div class="field-group" id="fg-situacion">
         <div class="field-header">
-          <div class="field-icono"><i class="ti ti-eye"></i></div>
-          <span class="field-label">¿Qué notás?</span>
+          <div class="field-icono"><i class="ti ti-map-pin"></i></div>
+          <span class="field-label">¿Qué pasó? <span class="field-req">*</span></span>
         </div>
-        <p class="field-hint">Cuando lo ves así, ¿algo cambia? ¿Se siente igual de pesado? No tiene que cambiar nada — pero si algo se mueve, anotalo acá.</p>
-        <textarea id="notasInput" placeholder="Si algo se mueve, acá va. Si no, también podés dejarlo en blanco." rows="3"></textarea>
+        <p class="field-hint">Describí la situación tal como la viviste. Sin filtro.</p>
+        <textarea id="situacionInput" placeholder="Lo que pasó, cómo lo sentiste, cómo lo procesaste..." rows="4"></textarea>
+        <p class="error-msg">Por favor describí la situación.</p>
+      </div>
+    </div>
+
+    <!-- PARTE 2 -->
+    <div class="perspectiva-sep">
+      <div class="perspectiva-sep-line"></div>
+      <span class="perspectiva-sep-label"><i class="ti ti-eye"></i> La otra mirada</span>
+      <div class="perspectiva-sep-line"></div>
+    </div>
+
+    <div class="perspectiva-bloque">
+      <div class="field-group" id="fg-quien">
+        <div class="field-header">
+          <div class="field-icono"><i class="ti ti-user-heart"></i></div>
+          <span class="field-label">¿En quién pensás? <span class="field-req">*</span></span>
+        </div>
+        <p class="field-hint">No hace falta que sea un nombre. Puede ser "mi mejor amigo", "mi hermana", "alguien que me conoce hace años".</p>
+        <textarea id="quienInput" placeholder="Ej: mi amiga de toda la vida, mi terapeuta, mi hermano mayor..." rows="2"></textarea>
+        <p class="error-msg">Por favor indicá en quién pensás.</p>
+      </div>
+
+      <div class="field-group" id="fg-perspectiva">
+        <div class="field-header">
+          <div class="field-icono"><i class="ti ti-arrows-left-right"></i></div>
+          <span class="field-label">¿Qué vería esa persona? <span class="field-req">*</span></span>
+        </div>
+        <p class="field-hint">¿Qué partes de la situación vería que vos no estás viendo? ¿Qué contexto tuyo traería que vos no te estás dando?</p>
+        <textarea id="perspectivaInput" placeholder="Desde afuera, esa persona vería..." rows="4"></textarea>
+        <p class="error-msg">Por favor completá este campo.</p>
+      </div>
+    </div>
+
+    <button class="btn" id="btnContinuar" style="background:var(--ink);margin-top:1.5rem" onclick="mostrarTercera()">Continuar</button>
+
+    <!-- PARTE 3 -->
+    <div id="terceraParte" style="display:none">
+      <div class="perspectiva-sep" style="margin-top:2rem">
+        <div class="perspectiva-sep-line"></div>
+        <span class="perspectiva-sep-label"><i class="ti ti-ripple"></i> Lo que se abre</span>
+        <div class="perspectiva-sep-line"></div>
+      </div>
+
+      <div class="perspectiva-bloque">
+        <div class="field-group" id="fg-apertura">
+          <div class="field-header">
+            <div class="field-icono"><i class="ti ti-door-enter"></i></div>
+            <span class="field-label">¿Algo cambió al mirar desde ahí?</span>
+          </div>
+          <p class="field-hint">No tiene que cambiar nada — pero si algo se movió, anotalo. Una palabra alcanza.</p>
+          <textarea id="aberturaInput" placeholder="Si algo se mueve, acá va. Si no, también podés dejarlo en blanco." rows="3"></textarea>
+        </div>
       </div>
 
       <button class="btn" id="btnEnviar" onclick="enviar()">Enviar registro</button>
@@ -237,30 +239,44 @@ var SHEET_URL = 'REEMPLAZAR_CON_URL_DE_APPS_SCRIPT';
 
 function verificarAcceso() {
   if (!sessionStorage.getItem('fs_pacientes_auth')) {
-    window.location.href = '../index.html';
+    sessionStorage.setItem('fs_redirect', window.location.href);
+    window.location.href = '../../index.html';
   }
 }
 
-function setFechaHoy() {
-  var hoy = new Date();
-  var yyyy = hoy.getFullYear();
-  var mm = String(hoy.getMonth() + 1).padStart(2, '0');
-  var dd = String(hoy.getDate()).padStart(2, '0');
-  document.getElementById('fechaInput').value = yyyy + '-' + mm + '-' + dd;
-}
 
-function mostrarTercera() {
+function validar() {
   var ok = true;
-
   var nb = document.getElementById('nombreBlock');
   if (!document.getElementById('nombreInput').value.trim()) {
     nb.classList.add('field-error'); ok = false;
   } else { nb.classList.remove('field-error'); }
 
   var campos = [
-    {fg:'fg-fecha', id:'fechaInput'},
-    {fg:'fg-pensamiento', id:'pensamientoInput'},
-    {fg:'fg-titular', id:'titularInput'}
+    {fg:'fg-situacion', id:'situacionInput'},
+    {fg:'fg-quien', id:'quienInput'},
+    {fg:'fg-perspectiva', id:'perspectivaInput'}
+  ];
+  campos.forEach(function(c) {
+    var fg = document.getElementById(c.fg);
+    var val = document.getElementById(c.id).value.trim();
+    if (!val) { fg.classList.add('field-error'); ok = false; }
+    else { fg.classList.remove('field-error'); }
+  });
+  return ok;
+}
+
+function mostrarTercera() {
+  var ok = true;
+  var nb = document.getElementById('nombreBlock');
+  if (!document.getElementById('nombreInput').value.trim()) {
+    nb.classList.add('field-error'); ok = false;
+  } else { nb.classList.remove('field-error'); }
+
+  var campos = [
+    {fg:'fg-situacion', id:'situacionInput'},
+    {fg:'fg-quien', id:'quienInput'},
+    {fg:'fg-perspectiva', id:'perspectivaInput'}
   ];
   campos.forEach(function(c) {
     var fg = document.getElementById(c.fg);
@@ -284,17 +300,21 @@ function mostrarTercera() {
 }
 
 function enviar() {
+  if (!validar()) {
+    var primer = document.querySelector('.field-error');
+    if (primer) primer.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
   var btn = document.getElementById('btnEnviar');
   btn.disabled = true;
   btn.textContent = 'Enviando...';
 
   var datos = {
-    nombre: document.getElementById('nombreInput').value.trim(),
-    fecha: document.getElementById('fechaInput').value,
-    pensamiento: document.getElementById('pensamientoInput').value.trim(),
-    titular: document.getElementById('titularInput').value.trim(),
-    notas: document.getElementById('notasInput').value.trim(),
-    tarea: 'El titular de diario',
+    nombre: document.getElementById('nombreInput').value.trim(),    situacion: document.getElementById('situacionInput').value.trim(),
+    quien: document.getElementById('quienInput').value.trim(),
+    perspectiva: document.getElementById('perspectivaInput').value.trim(),
+    apertura: document.getElementById('aberturaInput').value.trim(),
+    tarea: 'Toma de perspectiva',
     timestamp: new Date().toISOString()
   };
 
@@ -310,12 +330,11 @@ function mostrarConfirmacion() {
 }
 
 function resetForm() {
-  var ids = ['pensamientoInput','titularInput','notasInput'];
+  var ids = ['situacionInput','quienInput','perspectivaInput','aberturaInput'];
   ids.forEach(function(id){ document.getElementById(id).value = ''; });
-  setFechaHoy();
   document.getElementById('btnContinuar').style.display = 'block';
   document.getElementById('terceraParte').style.display = 'none';
-  var btn = document.getElementById('btnEnviar');
+    var btn = document.getElementById('btnEnviar');
   btn.disabled = false;
   btn.textContent = 'Enviar registro';
   document.getElementById('formWrap').style.display = 'block';
@@ -324,7 +343,6 @@ function resetForm() {
 }
 
 verificarAcceso();
-setFechaHoy();
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>

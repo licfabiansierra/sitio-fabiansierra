@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
-<title>La decisión alineada · Lic. Fabián Sierra</title>
+<title>El observador en el tiempo · Lic. Fabián Sierra</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
   :root{--paper:#F6F3EE;--paper-deep:#EAE6DE;--paper-mid:#DDD8CF;--ink:#252320;--ink-soft:#58544F;--muted:#9A9690;--accent:#942322;--accent-light:#c47a78;--accent-bg:#FBF0EF;--white:#FFFFFF;--maxw:680px;--pad:clamp(1.25rem,5vw,3rem);--ease:cubic-bezier(.22,.61,.36,1);color-scheme:light;}
-  *{margin:0;padding:0;box-sizing:border-box}html,body{background:var(--paper);color-scheme:light}body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+  *{margin:0;padding:0;box-sizing:border-box}html,body{background:#F6F3EE;color-scheme:light}body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
   header{background:rgba(246,243,238,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--paper-mid);position:sticky;top:0;z-index:50}.nav{display:flex;align-items:center;justify-content:space-between;height:60px}.brand b{font-weight:700;font-size:.95rem;color:var(--ink);display:block;letter-spacing:-.01em}.brand span{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.14rem;display:block}.nav-back{display:flex;align-items:center;gap:.4rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color .2s}.nav-back:hover{color:var(--accent)}.nav-back i{font-size:15px}
   .hero{padding:clamp(2rem,4vw,3.5rem) 0 clamp(1.5rem,3vw,2.5rem);border-bottom:1px solid var(--paper-mid)}.hero-top{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}.hero-icono{width:40px;height:40px;border-radius:8px;background:var(--accent-bg);border:1px solid #EAC8C7;display:flex;align-items:center;justify-content:center;flex-shrink:0}.hero-icono i{font-size:20px;color:var(--accent)}.hero-tag{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-light);font-weight:600}.hero h1{font-weight:800;letter-spacing:-.03em;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--ink);line-height:1.1;margin-bottom:.7rem}.hero-sub{font-size:.92rem;color:var(--ink-soft);font-weight:300;line-height:1.75;max-width:48ch}
   main{padding-top:clamp(1.8rem,3.5vw,2.5rem);padding-bottom:clamp(3rem,6vw,5rem)}
@@ -21,16 +21,8 @@
   .field-group{margin-bottom:1.5rem}.field-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.35rem}.field-icono{width:26px;height:26px;border-radius:5px;background:var(--paper-deep);border:1px solid var(--paper-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0}.field-icono i{font-size:13px;color:var(--muted)}.field-label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}.field-req{color:var(--accent);font-size:.6rem}.field-hint{font-size:.8rem;color:var(--muted);font-weight:300;margin-bottom:.65rem;line-height:1.6;font-style:italic;padding-left:32px}
   textarea,input[type=date],input[type=text]{width:100%;border:1px solid var(--paper-mid);border-radius:2px;background:var(--white);font-family:"Archivo",sans-serif;font-size:.93rem;color:var(--ink);padding:.75rem 1rem;outline:none;transition:border-color .2s;-webkit-appearance:none;line-height:1.65}textarea{resize:vertical;min-height:80px}textarea:focus,input[type=date]:focus,input[type=text]:focus{border-color:var(--accent)}input[type=date]{color:var(--ink)}.field-group.field-error textarea,.field-group.field-error input{border-color:var(--accent-light)}.error-msg{font-size:.76rem;color:var(--accent-light);margin-top:.35rem;display:none;padding-left:32px}.field-group.field-error .error-msg{display:block}
   .sep{margin:2rem 0 1.5rem;display:flex;align-items:center;gap:.8rem}.sep-line{flex:1;height:1px;background:var(--paper-mid)}.sep-label{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:.4rem}.sep-label i{font-size:13px}
-  .slider-wrap{padding:0 .2rem;margin-bottom:.5rem}.slider-polos{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);font-weight:300;margin-bottom:.5rem;font-style:italic}
-  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:var(--paper-mid);border-radius:1px;outline:none;cursor:pointer}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--white);border:2px solid var(--accent-light);cursor:pointer}input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--white);border:2px solid var(--accent-light);cursor:pointer}
-  .slider-val{text-align:center;font-size:.8rem;font-weight:600;color:var(--accent);margin-top:.4rem}
-  .decision-bloque{background:var(--white);border:1px solid var(--paper-mid);border-radius:2px;padding:1.2rem 1.3rem;margin-bottom:.6rem}
-  .dec-titulo{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem}.dec-titulo i{font-size:13px}
-  .alineacion-btns{display:flex;gap:.5rem;margin-bottom:1rem}
-  .alin-btn{flex:1;padding:.55rem;border:1px solid var(--paper-mid);border-radius:2px;background:var(--paper);font-family:"Archivo",sans-serif;font-size:.78rem;font-weight:500;color:var(--muted);cursor:pointer;text-align:center;transition:all .2s}
-  .alin-btn.sel-si{background:#EEF5EE;border-color:#C8DFC8;color:#2A6A2A}
-  .alin-btn.sel-no{background:var(--accent-bg);border-color:#EAC8C7;color:var(--accent)}
-  .alin-btn.sel-parcial{background:#FFF8EC;border-color:#E8D8B0;color:#7A5A20}
+  .momento-bloque{background:var(--white);border:1px solid var(--paper-mid);border-radius:2px;padding:1.2rem 1.3rem;margin-bottom:.6rem}
+  .mom-titulo{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem}.mom-titulo i{font-size:13px}
   .btn{display:block;width:100%;padding:.9rem;margin-top:1.5rem;background:var(--accent);color:#fff;border:none;font-family:"Archivo",sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border-radius:2px;transition:background .25s;letter-spacing:.01em}.btn:hover{background:#7a1c1c}.btn:disabled{background:#C8C4BC;cursor:not-allowed}
   .envio-nota{text-align:center;font-size:.76rem;color:var(--muted);margin-top:.7rem;font-weight:300}
   .confirmacion{display:none;text-align:center;padding:clamp(3rem,6vw,5rem) 0}.conf-icono{width:56px;height:56px;border-radius:50%;background:#EEF5EE;border:1px solid #C8DFC8;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem}.conf-icono i{font-size:28px;color:#3A7A3A}.confirmacion h2{font-weight:700;font-size:1.3rem;letter-spacing:-.02em;margin-bottom:.6rem;color:var(--ink)}.confirmacion p{font-size:.9rem;color:var(--ink-soft);font-weight:300;line-height:1.75;max-width:36ch;margin:0 auto 1.8rem}.btn-otro{display:inline-block;padding:.65rem 1.4rem;border:1px solid var(--paper-mid);border-radius:2px;font-size:.84rem;font-weight:600;color:var(--ink);background:var(--white);cursor:pointer;font-family:"Archivo",sans-serif;transition:background .2s}.btn-otro:hover{background:var(--paper-deep)}
@@ -38,24 +30,36 @@
 </style>
 </head>
 <body>
-<header><div class="wrap nav"><div class="brand"><b>Lic. Fabián Sierra</b><span>Psicología y Rendimiento</span></div><a class="nav-back" href="index.html"><i class="ti ti-arrow-left"></i> Tareas</a></div></header>
+<header><div class="wrap nav"><div class="brand"><b>Lic. Fabián Sierra</b><span>Psicología y Rendimiento</span></div><a class="nav-back" href="../index.html"><i class="ti ti-arrow-left"></i> Tareas</a></div></header>
 <section class="hero">
   <div class="wrap">
-    <div class="hero-top"><div class="hero-icono"><i class="ti ti-scale"></i></div><span class="hero-tag">Valores · Rendimiento</span></div>
-    <h1>La decisión alineada</h1>
-    <p class="hero-sub">Tres decisiones de esta semana. Para cada una: ¿cuánto creías que iba en la dirección de lo que valorás, antes y después de tomarla?</p>
+    <div class="hero-top"><div class="hero-icono"><i class="ti ti-timeline"></i></div><span class="hero-tag">Yo como contexto</span></div>
+    <h1>El observador en el tiempo</h1>
+    <p class="hero-sub">Tres momentos de tu vida, distintos entre sí. En cada uno había algo diferente. Pero había algo que siempre observó.</p>
   </div>
 </section>
 <main><div class="wrap"><div id="formWrap">
-  <div class="instrucciones"><strong>Cómo hacerlo:</strong> Elegí tres decisiones que tomaste esta semana — de cualquier tamaño. Para cada una: antes de tomarla, indicá cuánto convencido estabas de que iba en la dirección de lo que valorás (0–100%). Después de tomarla, indicá cuánto convencido quedaste. La brecha entre los dos números dice algo.</div>
+  <div class="instrucciones"><strong>Cómo hacerlo:</strong> Elegí tres momentos de tu vida — uno de la infancia o adolescencia, uno de hace pocos años, uno reciente. Para cada uno describís quién eras, qué pensabas, qué sentías. Después respondés una sola pregunta sobre los tres juntos.</div>
   <div class="nombre-block" id="nombreBlock"><label for="nombreInput">Tu nombre <span style="color:var(--accent)">*</span></label><input type="text" id="nombreInput" placeholder="Cómo te llamás" autocomplete="given-name"></div>
-  <div class="field-group" id="fg-fecha"><div class="field-header"><div class="field-icono"><i class="ti ti-calendar"></i></div><span class="field-label">Semana <span class="field-req">*</span></span></div><input type="date" id="fechaInput"><p class="error-msg">Por favor completá la fecha.</p></div>
 
-  <div class="sep"><div class="sep-line"></div><span class="sep-label"><i class="ti ti-list-check"></i> Las tres decisiones</span><div class="sep-line"></div></div>
+  <div class="momento-bloque">
+    <p class="mom-titulo"><i class="ti ti-arrow-back-up"></i> Momento 1 — infancia o adolescencia</p>
+    <div class="field-group" id="fg-m1"><p class="field-hint" style="padding-left:0">¿Qué edad tenías? ¿Dónde estabas? ¿Qué pensabas de vos mismo, del mundo, de lo que querías?</p><textarea id="m1Input" rows="4" placeholder="En ese momento yo..."></textarea><p class="error-msg" style="padding-left:0">Por favor completá este campo.</p></div>
+  </div>
 
-  <div id="decisiones"></div>
+  <div class="momento-bloque">
+    <p class="mom-titulo"><i class="ti ti-arrow-left"></i> Momento 2 — hace pocos años</p>
+    <div class="field-group" id="fg-m2"><p class="field-hint" style="padding-left:0">¿Qué edad tenías? ¿Qué era importante para vos? ¿Qué te preocupaba, qué te movía?</p><textarea id="m2Input" rows="4" placeholder="En ese momento yo..."></textarea><p class="error-msg" style="padding-left:0">Por favor completá este campo.</p></div>
+  </div>
 
-  <div class="field-group" id="fg-patron"><div class="field-header"><div class="field-icono"><i class="ti ti-trending-up"></i></div><span class="field-label">¿Qué notás en el conjunto? <span class="field-req">*</span></span></div><p class="field-hint">Mirando las tres juntas, ¿qué dice este registro sobre cómo tomás decisiones cuando tus valores están en juego?</p><textarea id="patronInput" rows="3" placeholder="Lo que noto es..."></textarea><p class="error-msg">Por favor completá este campo.</p></div>
+  <div class="momento-bloque">
+    <p class="mom-titulo"><i class="ti ti-circle-dot"></i> Momento 3 — ahora</p>
+    <div class="field-group" id="fg-m3"><p class="field-hint" style="padding-left:0">¿Qué pensás de vos mismo hoy? ¿Qué te preocupa, qué te mueve, qué querés?</p><textarea id="m3Input" rows="4" placeholder="Ahora yo..."></textarea><p class="error-msg" style="padding-left:0">Por favor completá este campo.</p></div>
+  </div>
+
+  <div class="sep"><div class="sep-line"></div><span class="sep-label"><i class="ti ti-eye"></i> El que siempre estuvo</span><div class="sep-line"></div></div>
+
+  <div class="field-group" id="fg-observador"><div class="field-header"><div class="field-icono"><i class="ti ti-user-circle"></i></div><span class="field-label">¿Qué había en los tres momentos que seguía siendo lo mismo? <span class="field-req">*</span></span></div><p class="field-hint">No lo que pensabas o sentías — eso cambió. Sino lo que observaba todo eso. ¿Podés nombrarlo?</p><textarea id="observadorInput" rows="4" placeholder="Lo que siempre estuvo ahí fue..."></textarea><p class="error-msg">Por favor completá este campo.</p></div>
 
   <button class="btn" id="btnEnviar" onclick="enviar()">Enviar registro</button>
   <p class="envio-nota">Tu registro va directo a Fabián. No se guarda en este dispositivo.</p>
@@ -65,57 +69,21 @@
 <footer><span>Área privada · © <span id="year"></span> Lic. Fabián Sierra</span></footer>
 <script>
 var SHEET_URL='REEMPLAZAR_CON_URL_DE_APPS_SCRIPT';
-function verificarAcceso(){if(!sessionStorage.getItem('fs_pacientes_auth')){window.location.href='../index.html';}}
-function setFechaHoy(){var h=new Date();document.getElementById('fechaInput').value=h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0');}
-
-function buildDecisiones(){
-  var cont=document.getElementById('decisiones');cont.innerHTML='';
-  for(var i=1;i<=3;i++){
-    var div=document.createElement('div');div.className='decision-bloque';
-    div.innerHTML='<p class="dec-titulo"><i class="ti ti-circle-number-'+i+'"></i> Decisión '+i+'</p>'+
-      '<div class="field-group" style="margin-bottom:1rem"><textarea id="dec'+i+'-desc" rows="2" placeholder="¿Qué decisión fue?"></textarea></div>'+
-      '<div class="field-group" style="margin-bottom:1rem"><p style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.4rem">¿Va en la dirección de lo que valorás?</p>'+
-      '<div class="alineacion-btns" id="alin'+i+'">'+
-        '<button class="alin-btn" onclick="setAlin('+i+',\'si\',this)">Sí</button>'+
-        '<button class="alin-btn" onclick="setAlin('+i+',\'parcial\',this)">En parte</button>'+
-        '<button class="alin-btn" onclick="setAlin('+i+',\'no\',this)">No</button>'+
-      '</div></div>'+
-      '<p style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.5rem">Convicción antes (0–100%)</p>'+
-      '<div class="slider-wrap"><div class="slider-polos"><span>Ninguna</span><span>Total</span></div>'+
-      '<input type="range" min="0" max="100" value="50" id="dec'+i+'-antes" oninput="document.getElementById(\'da'+i+'\').textContent=this.value+\'%\'">'+
-      '<p class="slider-val" id="da'+i+'">50%</p></div>'+
-      '<p style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.5rem;margin-top:1rem">Convicción después (0–100%)</p>'+
-      '<div class="slider-wrap"><div class="slider-polos"><span>Ninguna</span><span>Total</span></div>'+
-      '<input type="range" min="0" max="100" value="50" id="dec'+i+'-despues" oninput="document.getElementById(\'dd'+i+'\').textContent=this.value+\'%\'">'+
-      '<p class="slider-val" id="dd'+i+'">50%</p></div>';
-    cont.appendChild(div);
-  }
-}
-
-var alineaciones={};
-function setAlin(i,val,btn){
-  var btns=document.getElementById('alin'+i).querySelectorAll('.alin-btn');
-  for(var j=0;j<btns.length;j++){btns[j].className='alin-btn';}
-  btn.classList.add('sel-'+val);
-  alineaciones[i]=val;
-}
-
+function verificarAcceso(){if(!sessionStorage.getItem('fs_pacientes_auth')){sessionStorage.setItem('fs_redirect',window.location.href);window.location.href='../../index.html';}}
 function enviar(){
   var ok=true;
   var nb=document.getElementById('nombreBlock');
   if(!document.getElementById('nombreInput').value.trim()){nb.classList.add('field-error');ok=false;}else{nb.classList.remove('field-error');}
-  var fg=document.getElementById('fg-fecha');if(!document.getElementById('fechaInput').value){fg.classList.add('field-error');ok=false;}else{fg.classList.remove('field-error');}
-  var fp=document.getElementById('fg-patron');if(!document.getElementById('patronInput').value.trim()){fp.classList.add('field-error');ok=false;}else{fp.classList.remove('field-error');}
+  var campos=[{fg:'fg-m1',id:'m1Input'},{fg:'fg-m2',id:'m2Input'},{fg:'fg-m3',id:'m3Input'},{fg:'fg-observador',id:'observadorInput'}];
+  campos.forEach(function(c){var fg=document.getElementById(c.fg);var val=document.getElementById(c.id).value.trim();if(!val){fg.classList.add('field-error');ok=false;}else{fg.classList.remove('field-error');}});
   if(!ok){var p=document.querySelector('.field-error');if(p)p.scrollIntoView({behavior:'smooth',block:'center'});return;}
   var btn=document.getElementById('btnEnviar');btn.disabled=true;btn.textContent='Enviando...';
-  var decs={};
-  for(var i=1;i<=3;i++){decs['dec'+i]={desc:document.getElementById('dec'+i+'-desc').value.trim(),alineacion:alineaciones[i]||'',antes:document.getElementById('dec'+i+'-antes').value+'%',despues:document.getElementById('dec'+i+'-despues').value+'%'};}
-  var datos={nombre:document.getElementById('nombreInput').value.trim(),fecha:document.getElementById('fechaInput').value,decisiones:JSON.stringify(decs),patron:document.getElementById('patronInput').value.trim(),tarea:'La decisión alineada',timestamp:new Date().toISOString()};
+  var datos={nombre:document.getElementById('nombreInput').value.trim(),momento1:document.getElementById('m1Input').value.trim(),momento2:document.getElementById('m2Input').value.trim(),momento3:document.getElementById('m3Input').value.trim(),observador:document.getElementById('observadorInput').value.trim(),tarea:'El observador en el tiempo',timestamp:new Date().toISOString()};
   fetch(SHEET_URL,{method:'POST',body:JSON.stringify(datos)}).then(function(){mostrarConf();}).catch(function(){mostrarConf();});
 }
 function mostrarConf(){document.getElementById('formWrap').style.display='none';document.getElementById('confirmacion').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
-function resetForm(){buildDecisiones();alineaciones={};document.getElementById('patronInput').value='';setFechaHoy();var btn=document.getElementById('btnEnviar');btn.disabled=false;btn.textContent='Enviar registro';document.getElementById('formWrap').style.display='block';document.getElementById('confirmacion').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
-verificarAcceso();setFechaHoy();buildDecisiones();document.getElementById('year').textContent=new Date().getFullYear();
+function resetForm(){['m1Input','m2Input','m3Input','observadorInput'].forEach(function(id){document.getElementById(id).value='';});var btn=document.getElementById('btnEnviar');btn.disabled=false;btn.textContent='Enviar registro';document.getElementById('formWrap').style.display='block';document.getElementById('confirmacion').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
+verificarAcceso();document.getElementById('year').textContent=new Date().getFullYear();
 </script>
 </body>
 </html>

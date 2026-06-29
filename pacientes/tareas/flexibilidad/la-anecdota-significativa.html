@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
-<title>La forma de la experiencia · Lic. Fabián Sierra</title>
+<title>La anécdota significativa · Lic. Fabián Sierra</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
     color-scheme:light;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{background:var(--paper);color-scheme:light}
+  html,body{background:#F6F3EE;color-scheme:light}
   body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
@@ -44,6 +44,9 @@
 
   main{padding-top:clamp(1.8rem,3.5vw,2.5rem);padding-bottom:clamp(3rem,6vw,5rem)}
 
+  .instrucciones{background:var(--white);border:1px solid var(--paper-mid);border-left:3px solid var(--accent);border-radius:2px;padding:1rem 1.2rem;margin-bottom:2rem;font-size:.86rem;color:var(--ink-soft);line-height:1.7;font-weight:300}
+  .instrucciones strong{font-weight:600;color:var(--ink)}
+
   .nombre-block{background:var(--white);border:1px solid var(--paper-mid);border-radius:2px;padding:1.1rem 1.3rem;margin-bottom:1.5rem}
   .nombre-block label{display:block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.55rem}
   .nombre-block input{width:100%;border:none;border-bottom:1.5px solid var(--paper-mid);background:transparent;font-family:"Archivo",sans-serif;font-size:1rem;font-weight:500;color:var(--ink);padding:.35rem 0;outline:none;transition:border-color .2s}
@@ -62,55 +65,19 @@
   textarea{resize:vertical;min-height:90px}
   textarea:focus,input[type=date]:focus{border-color:var(--accent)}
   input[type=date]{color:var(--ink)}
-  .field-group.field-error textarea{border-color:var(--accent-light)}
+  .field-group.field-error textarea,.field-group.field-error input{border-color:var(--accent-light)}
   .error-msg{font-size:.76rem;color:var(--accent-light);margin-top:.35rem;display:none;padding-left:32px}
   .field-group.field-error .error-msg{display:block}
-
-  /* INSTRUCTIVO */
-  .instructivo{
-    background:var(--white);
-    border:1px solid var(--paper-mid);
-    border-radius:2px;
-    padding:clamp(1.5rem,3vw,2rem) clamp(1.2rem,3vw,1.8rem);
-    margin-bottom:1.5rem;
-  }
-  .instructivo-eyebrow{
-    font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--accent-light);font-weight:600;margin-bottom:1.2rem;
-    display:flex;align-items:center;gap:.5rem;
-  }
-  .instructivo-eyebrow i{font-size:14px}
-  .instructivo-paso{
-    display:flex;gap:.9rem;margin-bottom:1.1rem;
-  }
-  .instructivo-paso:last-child{margin-bottom:0}
-  .instructivo-num{
-    width:22px;height:22px;border-radius:50%;
-    background:var(--paper-deep);border:1px solid var(--paper-mid);
-    display:flex;align-items:center;justify-content:center;
-    font-size:.6rem;font-weight:700;color:var(--muted);flex-shrink:0;margin-top:.1rem;
-  }
-  .instructivo-texto{font-size:.9rem;color:var(--ink-soft);font-weight:300;line-height:1.75}
-  .instructivo-texto em{font-style:italic;color:var(--muted)}
-
-  /* TRANSICION */
-  .transicion{
-    background:var(--paper-deep);
-    border:1px solid var(--paper-mid);
-    border-radius:2px;
-    padding:1.1rem 1.3rem;
-    margin-bottom:1.5rem;
-    font-size:.92rem;color:var(--ink-soft);font-weight:300;line-height:1.75;
-    font-style:italic;
-  }
 
   .sep{margin:2rem 0 1.5rem;display:flex;align-items:center;gap:.8rem}
   .sep-line{flex:1;height:1px;background:var(--paper-mid)}
   .sep-label{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:.4rem}
   .sep-label i{font-size:13px}
 
-  .preguntas{display:none;animation:fadeUp .4s var(--ease)}
+  .segunda-parte{display:none;animation:fadeUp .4s var(--ease)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  .transicion{background:var(--paper-deep);border:1px solid var(--paper-mid);border-radius:2px;padding:1.1rem 1.3rem;margin-bottom:1.5rem;font-size:.92rem;color:var(--ink-soft);font-weight:300;line-height:1.75;font-style:italic}
 
   .btn{display:block;width:100%;padding:.9rem;margin-top:1.5rem;background:var(--accent);color:#fff;border:none;font-family:"Archivo",sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border-radius:2px;transition:background .25s;letter-spacing:.01em}
   .btn:hover{background:#7a1c1c}
@@ -148,11 +115,11 @@
 <section class="hero">
   <div class="wrap">
     <div class="hero-top">
-      <div class="hero-icono"><i class="ti ti-wave-sine"></i></div>
-      <span class="hero-tag">Aceptación</span>
+      <div class="hero-icono"><i class="ti ti-bookmark"></i></div>
+      <span class="hero-tag">Valores</span>
     </div>
-    <h1>La forma de la experiencia</h1>
-    <p class="hero-sub">Antes de escribir, hay un momento de pausa. Seguí los pasos con calma. No hay apuro.</p>
+    <h1>La anécdota significativa</h1>
+    <p class="hero-sub">Un momento que todavía te importa. No tiene que ser grande ni feliz — solo algo que se quedó.</p>
   </div>
 </section>
 
@@ -161,82 +128,48 @@
 
   <div id="formWrap">
 
+    <div class="instrucciones">
+      <strong>Cómo hacerlo:</strong> Pensá en un momento de tu vida que todavía te importa. Puede ser reciente o de hace años, grande o pequeño. Algo que cuando lo recordás, sentís que dice algo de vos. Contalo con detalle — como si se lo estuvieras contando a alguien que no estuvo ahí.
+    </div>
+
     <div class="nombre-block" id="nombreBlock">
       <label for="nombreInput">Tu nombre <span style="color:var(--accent)">*</span></label>
       <input type="text" id="nombreInput" placeholder="Cómo te llamás" autocomplete="given-name">
     </div>
 
-    <div class="field-group" id="fg-fecha">
+    <div class="field-group" id="fg-anecdota">
       <div class="field-header">
-        <div class="field-icono"><i class="ti ti-calendar"></i></div>
-        <span class="field-label">Fecha <span class="field-req">*</span></span>
+        <div class="field-icono"><i class="ti ti-writing"></i></div>
+        <span class="field-label">Contá lo que pasó <span class="field-req">*</span></span>
       </div>
-      <input type="date" id="fechaInput">
-      <p class="error-msg">Por favor completá la fecha.</p>
+      <p class="field-hint">Con detalle, con lo que sentiste, con lo que había alrededor. Como si se lo estuvieras contando a alguien que no estuvo ahí.</p>
+      <textarea id="anecdotaInput" placeholder="Fue en..." rows="7"></textarea>
+      <p class="error-msg">Por favor contá la anécdota.</p>
     </div>
 
-    <!-- INSTRUCTIVO -->
-    <div class="instructivo">
-      <p class="instructivo-eyebrow"><i class="ti ti-lungs"></i> Antes de escribir</p>
+    <button class="btn btn-ink" id="btnContinuar" onclick="mostrarSegunda()">Continuar</button>
 
-      <div class="instructivo-paso">
-        <div class="instructivo-num">1</div>
-        <p class="instructivo-texto">Cerrá los ojos si podés. Respirá despacio tres veces — no forzado, solo un poco más lento de lo habitual. En la tercera, quedate un momento con el aire adentro antes de soltar.</p>
-      </div>
-
-      <div class="instructivo-paso">
-        <div class="instructivo-num">2</div>
-        <p class="instructivo-texto">Hacé un recorrido por tu cuerpo de arriba hacia abajo. Sin juzgar, sin cambiar nada. Solo notá qué hay — tensión, calor, peso, vacío, cosquilleo. Lo que sea que esté ahí.</p>
-      </div>
-
-      <div class="instructivo-paso">
-        <div class="instructivo-num">3</div>
-        <p class="instructivo-texto">Cuando termines, abrí los ojos y tocá <em>Continuar</em>.</p>
-      </div>
-    </div>
-
-    <button class="btn btn-ink" id="btnContinuar" onclick="mostrarPreguntas()">Continuar</button>
-
-    <!-- PREGUNTAS — aparecen después -->
-    <div class="preguntas" id="preguntas">
+    <!-- SEGUNDA PARTE -->
+    <div class="segunda-parte" id="segundaParte">
 
       <div class="transicion">
-        Eso que sentís, a veces lo llamamos miedo, alegría, ansiedad... a veces no tiene nombre. No importa. Lo que importa es dónde lo sentís.
+        Eso que contaste ya dice algo. Ahora una sola pregunta.
       </div>
 
       <div class="sep">
         <div class="sep-line"></div>
-        <span class="sep-label"><i class="ti ti-body-scan"></i> El registro</span>
+        <span class="sep-label"><i class="ti ti-compass"></i> Lo que muestra</span>
         <div class="sep-line"></div>
       </div>
 
-      <div class="field-group" id="fg-donde">
+      <div class="field-group" id="fg-valores">
         <div class="field-header">
-          <div class="field-icono"><i class="ti ti-map-pin"></i></div>
-          <span class="field-label">¿Dónde lo sentís en el cuerpo? <span class="field-req">*</span></span>
+          <div class="field-icono"><i class="ti ti-compass"></i></div>
+          <span class="field-label">¿Qué dice esa historia sobre lo que importa para vos? <span class="field-req">*</span></span>
         </div>
-        <p class="field-hint">Pecho, garganta, estómago, cabeza — cualquier lugar donde lo notés. Puede ser más de uno.</p>
-        <textarea id="dondeInput" placeholder="Lo noto en..." rows="3"></textarea>
-        <p class="error-msg">Por favor describí dónde lo sentís.</p>
-      </div>
-
-      <div class="field-group" id="fg-forma">
-        <div class="field-header">
-          <div class="field-icono"><i class="ti ti-geometry"></i></div>
-          <span class="field-label">¿Qué forma tiene? <span class="field-req">*</span></span>
-        </div>
-        <p class="field-hint">Si esa experiencia fuera algo físico — un objeto, una textura, un peso, una temperatura — ¿qué sería?</p>
-        <textarea id="formaInput" placeholder="Se parece a..." rows="3"></textarea>
-        <p class="error-msg">Por favor describí la forma.</p>
-      </div>
-
-      <div class="field-group" id="fg-quedarse">
-        <div class="field-header">
-          <div class="field-icono"><i class="ti ti-hand-stop"></i></div>
-          <span class="field-label">¿Qué pasa cuando lo dejás estar?</span>
-        </div>
-        <p class="field-hint">Sin hacer nada al respecto. Sin cambiarlo. Solo describí lo que ocurre cuando no lo evitás.</p>
-        <textarea id="quedarseInput" placeholder="Cuando lo dejo estar..." rows="3"></textarea>
+        <p class="field-hint">No lo que debería importar. Lo que claramente ya importa — porque sino no te habría quedado.</p>
+        <textarea id="valoresInput" placeholder="Creo que dice que para mí importa..." rows="4"></textarea>
+        <p class="error-msg">Por favor respondé esta pregunta.</p>
       </div>
 
       <button class="btn" id="btnEnviar" onclick="enviar()">Enviar registro</button>
@@ -249,7 +182,7 @@
   <div class="confirmacion" id="confirmacion">
     <div class="conf-icono"><i class="ti ti-check"></i></div>
     <h2>Registro enviado</h2>
-    <p>Fabián recibió tu entrada de hoy. Nos vemos en sesión.</p>
+    <p>Fabián recibió tu entrada. Nos vemos en sesión.</p>
     <button class="btn-otro" onclick="resetForm()">Hacer otra entrada</button>
   </div>
 
@@ -267,49 +200,21 @@ var SHEET_URL = 'REEMPLAZAR_CON_URL_DE_APPS_SCRIPT';
 
 function verificarAcceso() {
   if (!sessionStorage.getItem('fs_pacientes_auth')) {
-    window.location.href = '../index.html';
+    sessionStorage.setItem('fs_redirect', window.location.href);
+    window.location.href = '../../index.html';
   }
 }
 
-function setFechaHoy() {
-  var hoy = new Date();
-  var yyyy = hoy.getFullYear();
-  var mm = String(hoy.getMonth() + 1).padStart(2, '0');
-  var dd = String(hoy.getDate()).padStart(2, '0');
-  document.getElementById('fechaInput').value = yyyy + '-' + mm + '-' + dd;
-}
 
-function mostrarPreguntas() {
+function mostrarSegunda() {
   var ok = true;
   var nb = document.getElementById('nombreBlock');
   if (!document.getElementById('nombreInput').value.trim()) {
     nb.classList.add('field-error'); ok = false;
   } else { nb.classList.remove('field-error'); }
 
-  var fg = document.getElementById('fg-fecha');
-  if (!document.getElementById('fechaInput').value) {
-    fg.classList.add('field-error'); ok = false;
-  } else { fg.classList.remove('field-error'); }
-
-  if (!ok) {
-    var primer = document.querySelector('.field-error');
-    if (primer) primer.scrollIntoView({behavior:'smooth', block:'center'});
-    return;
-  }
-
-  document.getElementById('btnContinuar').style.display = 'none';
-  var preguntas = document.getElementById('preguntas');
-  preguntas.style.display = 'block';
-  setTimeout(function() {
-    preguntas.scrollIntoView({behavior:'smooth', block:'start'});
-  }, 100);
-}
-
-function enviar() {
-  var ok = true;
   var campos = [
-    {fg:'fg-donde', id:'dondeInput'},
-    {fg:'fg-forma', id:'formaInput'}
+    {fg:'fg-anecdota', id:'anecdotaInput'}
   ];
   campos.forEach(function(c) {
     var fg = document.getElementById(c.fg);
@@ -324,17 +229,32 @@ function enviar() {
     return;
   }
 
+  document.getElementById('btnContinuar').style.display = 'none';
+  var segunda = document.getElementById('segundaParte');
+  segunda.style.display = 'block';
+  setTimeout(function() {
+    segunda.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 100);
+}
+
+function enviar() {
+  var fg = document.getElementById('fg-valores');
+  var val = document.getElementById('valoresInput').value.trim();
+  if (!val) {
+    fg.classList.add('field-error');
+    fg.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  fg.classList.remove('field-error');
+
   var btn = document.getElementById('btnEnviar');
   btn.disabled = true;
   btn.textContent = 'Enviando...';
 
   var datos = {
-    nombre: document.getElementById('nombreInput').value.trim(),
-    fecha: document.getElementById('fechaInput').value,
-    donde: document.getElementById('dondeInput').value.trim(),
-    forma: document.getElementById('formaInput').value.trim(),
-    quedarse: document.getElementById('quedarseInput').value.trim(),
-    tarea: 'La forma de la experiencia',
+    nombre: document.getElementById('nombreInput').value.trim(),    anecdota: document.getElementById('anecdotaInput').value.trim(),
+    valores: document.getElementById('valoresInput').value.trim(),
+    tarea: 'La anécdota significativa',
     timestamp: new Date().toISOString()
   };
 
@@ -350,11 +270,10 @@ function mostrarConfirmacion() {
 }
 
 function resetForm() {
-  var ids = ['dondeInput','formaInput','quedarseInput'];
+  var ids = ['anecdotaInput','valoresInput'];
   ids.forEach(function(id){ document.getElementById(id).value = ''; });
-  setFechaHoy();
-  document.getElementById('btnContinuar').style.display = 'block';
-  document.getElementById('preguntas').style.display = 'none';
+    document.getElementById('btnContinuar').style.display = 'block';
+  document.getElementById('segundaParte').style.display = 'none';
   var btn = document.getElementById('btnEnviar');
   btn.disabled = false;
   btn.textContent = 'Enviar registro';
@@ -364,7 +283,6 @@ function resetForm() {
 }
 
 verificarAcceso();
-setFechaHoy();
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
-<title>La anécdota significativa · Lic. Fabián Sierra</title>
+<title>El paso más pequeño · Lic. Fabián Sierra</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
     color-scheme:light;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{background:var(--paper);color-scheme:light}
+  html,body{background:#F6F3EE;color-scheme:light}
   body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
@@ -115,11 +115,11 @@
 <section class="hero">
   <div class="wrap">
     <div class="hero-top">
-      <div class="hero-icono"><i class="ti ti-bookmark"></i></div>
-      <span class="hero-tag">Valores</span>
+      <div class="hero-icono"><i class="ti ti-shoe"></i></div>
+      <span class="hero-tag">Acción comprometida</span>
     </div>
-    <h1>La anécdota significativa</h1>
-    <p class="hero-sub">Un momento que todavía te importa. No tiene que ser grande ni feliz — solo algo que se quedó.</p>
+    <h1>El paso más pequeño</h1>
+    <p class="hero-sub">No el plan completo. No el segundo paso. Solo el próximo movimiento — tan pequeño que casi parezca ridículo.</p>
   </div>
 </section>
 
@@ -129,7 +129,7 @@
   <div id="formWrap">
 
     <div class="instrucciones">
-      <strong>Cómo hacerlo:</strong> Pensá en un momento de tu vida que todavía te importa. Puede ser reciente o de hace años, grande o pequeño. Algo que cuando lo recordás, sentís que dice algo de vos. Contalo con detalle — como si se lo estuvieras contando a alguien que no estuvo ahí.
+      <strong>Cómo hacerlo:</strong> Hay cosas que queremos hacer y que postergamos. No siempre por pereza — a veces porque el primer paso se siente demasiado grande, demasiado vago, o demasiado cargado de todo lo que viene después. Este ejercicio no pide que lo resuelvas. Pide que encuentres el movimiento más pequeño posible en esa dirección.
     </div>
 
     <div class="nombre-block" id="nombreBlock">
@@ -137,29 +137,24 @@
       <input type="text" id="nombreInput" placeholder="Cómo te llamás" autocomplete="given-name">
     </div>
 
-    <div class="field-group" id="fg-fecha">
+    <div class="field-group" id="fg-que">
       <div class="field-header">
-        <div class="field-icono"><i class="ti ti-calendar"></i></div>
-        <span class="field-label">Fecha <span class="field-req">*</span></span>
+        <div class="field-icono"><i class="ti ti-hourglass"></i></div>
+        <span class="field-label">¿Qué es lo que querés hacer y estás postergando? <span class="field-req">*</span></span>
       </div>
-      <input type="date" id="fechaInput">
-      <p class="error-msg">Por favor completá la fecha.</p>
+      <p class="field-hint">No tiene que ser algo importante. Puede ser cualquier cosa que lleva tiempo esperando.</p>
+      <textarea id="queInput" placeholder="Lo que estoy postergando es..." rows="3"></textarea>
+      <p class="error-msg">Por favor describí qué estás postergando.</p>
     </div>
 
-    <div class="sep">
-      <div class="sep-line"></div>
-      <span class="sep-label"><i class="ti ti-writing"></i> La anécdota</span>
-      <div class="sep-line"></div>
-    </div>
-
-    <div class="field-group" id="fg-anecdota">
+    <div class="field-group" id="fg-paso">
       <div class="field-header">
-        <div class="field-icono"><i class="ti ti-writing"></i></div>
-        <span class="field-label">Contá lo que pasó <span class="field-req">*</span></span>
+        <div class="field-icono"><i class="ti ti-arrow-right"></i></div>
+        <span class="field-label">¿Cuál sería el paso más pequeño imaginable? <span class="field-req">*</span></span>
       </div>
-      <p class="field-hint">Con detalle, con lo que sentiste, con lo que había alrededor. Como si se lo estuvieras contando a alguien que no estuvo ahí.</p>
-      <textarea id="anecdotaInput" placeholder="Fue en..." rows="7"></textarea>
-      <p class="error-msg">Por favor contá la anécdota.</p>
+      <p class="field-hint">No el plan completo. No el segundo paso. Solo el próximo movimiento — tan pequeño que casi parezca ridículo.</p>
+      <textarea id="pasoInput" placeholder="El paso más pequeño sería..." rows="3"></textarea>
+      <p class="error-msg">Por favor describí el paso más pequeño.</p>
     </div>
 
     <button class="btn btn-ink" id="btnContinuar" onclick="mostrarSegunda()">Continuar</button>
@@ -168,23 +163,23 @@
     <div class="segunda-parte" id="segundaParte">
 
       <div class="transicion">
-        Eso que contaste ya dice algo. Ahora una sola pregunta.
+        Bien. Ahora una sola pregunta más — la más concreta de todas.
       </div>
 
       <div class="sep">
         <div class="sep-line"></div>
-        <span class="sep-label"><i class="ti ti-compass"></i> Lo que muestra</span>
+        <span class="sep-label"><i class="ti ti-calendar-event"></i> Esta semana</span>
         <div class="sep-line"></div>
       </div>
 
-      <div class="field-group" id="fg-valores">
+      <div class="field-group" id="fg-semana">
         <div class="field-header">
-          <div class="field-icono"><i class="ti ti-compass"></i></div>
-          <span class="field-label">¿Qué dice esa historia sobre lo que importa para vos? <span class="field-req">*</span></span>
+          <div class="field-icono"><i class="ti ti-bolt"></i></div>
+          <span class="field-label">¿Qué es lo más pequeño que podrías hacer esta misma semana? <span class="field-req">*</span></span>
         </div>
-        <p class="field-hint">No lo que debería importar. Lo que claramente ya importa — porque sino no te habría quedado.</p>
-        <textarea id="valoresInput" placeholder="Creo que dice que para mí importa..." rows="4"></textarea>
-        <p class="error-msg">Por favor respondé esta pregunta.</p>
+        <p class="field-hint">Algo concreto. Con día si podés.</p>
+        <textarea id="semanaInput" placeholder="Esta semana podría... el [día]..." rows="3"></textarea>
+        <p class="error-msg">Por favor completá este campo.</p>
       </div>
 
       <button class="btn" id="btnEnviar" onclick="enviar()">Enviar registro</button>
@@ -215,17 +210,11 @@ var SHEET_URL = 'REEMPLAZAR_CON_URL_DE_APPS_SCRIPT';
 
 function verificarAcceso() {
   if (!sessionStorage.getItem('fs_pacientes_auth')) {
-    window.location.href = '../index.html';
+    sessionStorage.setItem('fs_redirect', window.location.href);
+    window.location.href = '../../index.html';
   }
 }
 
-function setFechaHoy() {
-  var hoy = new Date();
-  var yyyy = hoy.getFullYear();
-  var mm = String(hoy.getMonth() + 1).padStart(2, '0');
-  var dd = String(hoy.getDate()).padStart(2, '0');
-  document.getElementById('fechaInput').value = yyyy + '-' + mm + '-' + dd;
-}
 
 function mostrarSegunda() {
   var ok = true;
@@ -235,8 +224,8 @@ function mostrarSegunda() {
   } else { nb.classList.remove('field-error'); }
 
   var campos = [
-    {fg:'fg-fecha', id:'fechaInput'},
-    {fg:'fg-anecdota', id:'anecdotaInput'}
+    {fg:'fg-que', id:'queInput'},
+    {fg:'fg-paso', id:'pasoInput'}
   ];
   campos.forEach(function(c) {
     var fg = document.getElementById(c.fg);
@@ -260,8 +249,8 @@ function mostrarSegunda() {
 }
 
 function enviar() {
-  var fg = document.getElementById('fg-valores');
-  var val = document.getElementById('valoresInput').value.trim();
+  var fg = document.getElementById('fg-semana');
+  var val = document.getElementById('semanaInput').value.trim();
   if (!val) {
     fg.classList.add('field-error');
     fg.scrollIntoView({behavior:'smooth', block:'center'});
@@ -274,11 +263,10 @@ function enviar() {
   btn.textContent = 'Enviando...';
 
   var datos = {
-    nombre: document.getElementById('nombreInput').value.trim(),
-    fecha: document.getElementById('fechaInput').value,
-    anecdota: document.getElementById('anecdotaInput').value.trim(),
-    valores: document.getElementById('valoresInput').value.trim(),
-    tarea: 'La anécdota significativa',
+    nombre: document.getElementById('nombreInput').value.trim(),    que: document.getElementById('queInput').value.trim(),
+    paso: document.getElementById('pasoInput').value.trim(),
+    semana: document.getElementById('semanaInput').value.trim(),
+    tarea: 'El paso más pequeño',
     timestamp: new Date().toISOString()
   };
 
@@ -294,10 +282,9 @@ function mostrarConfirmacion() {
 }
 
 function resetForm() {
-  var ids = ['anecdotaInput','valoresInput'];
+  var ids = ['queInput','pasoInput','semanaInput'];
   ids.forEach(function(id){ document.getElementById(id).value = ''; });
-  setFechaHoy();
-  document.getElementById('btnContinuar').style.display = 'block';
+    document.getElementById('btnContinuar').style.display = 'block';
   document.getElementById('segundaParte').style.display = 'none';
   var btn = document.getElementById('btnEnviar');
   btn.disabled = false;
@@ -308,7 +295,6 @@ function resetForm() {
 }
 
 verificarAcceso();
-setFechaHoy();
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>¿Por dónde empezar? · Lic. Fabián Sierra</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+:root{--paper:#F6F3EE;--paper-deep:#EAE6DE;--paper-mid:#DDD8CF;--ink:#252320;--ink-soft:#58544F;--muted:#9A9690;--accent:#942322;--accent-light:#c47a78;--accent-bg:#FBF0EF;--white:#FFFFFF;--maxw:680px;--pad:clamp(1.25rem,5vw,3rem);color-scheme:light}
+*{margin:0;padding:0;box-sizing:border-box}html,body{background:#F6F3EE;color-scheme:light}body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+header{background:rgba(246,243,238,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--paper-mid);position:sticky;top:0;z-index:50}.nav{display:flex;align-items:center;justify-content:space-between;height:60px}.brand b{font-weight:700;font-size:.95rem;color:var(--ink);display:block;letter-spacing:-.01em}.brand span{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.14rem;display:block}.nav-back{display:flex;align-items:center;gap:.4rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color .2s}.nav-back:hover{color:var(--accent)}.nav-back i{font-size:15px}
+.hero{background:#F6F3EE;padding:clamp(2rem,4vw,3.5rem) 0 clamp(1.5rem,3vw,2.5rem);border-bottom:1px solid var(--paper-mid)}.hero-top{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}.hero-icono{width:40px;height:40px;border-radius:8px;background:var(--accent-bg);border:1px solid #EAC8C7;display:flex;align-items:center;justify-content:center;flex-shrink:0}.hero-icono i{font-size:20px;color:var(--accent)}.hero h1{font-weight:800;letter-spacing:-.03em;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--ink);line-height:1.1;margin-bottom:.7rem}.hero-sub{font-size:.92rem;color:var(--ink-soft);font-weight:300;line-height:1.75;max-width:52ch}
+main{background:#F6F3EE;padding-top:clamp(1.8rem,3.5vw,2.5rem);padding-bottom:clamp(3rem,6vw,5rem)}
+
+/* DISCLAIMER INICIAL */
+.disclaimer{background:#FFFFFF;border:1px solid var(--paper-mid);border-left:3px solid var(--accent-light);border-radius:2px;padding:1.1rem 1.3rem;margin-bottom:2rem;font-size:.84rem;color:var(--ink-soft);line-height:1.75;font-weight:300}
+.disclaimer strong{font-weight:600;color:var(--ink)}
+
+/* NOMBRE */
+.nombre-block{background:#FFFFFF;border:1px solid var(--paper-mid);border-radius:2px;padding:1.1rem 1.3rem;margin-bottom:2rem}.nombre-block label{display:block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.55rem}.nombre-block input{width:100%;border:none;border-bottom:1.5px solid var(--paper-mid);background:transparent;font-family:"Archivo",sans-serif;font-size:1rem;font-weight:500;color:var(--ink);padding:.35rem 0;outline:none;transition:border-color .2s}.nombre-block input:focus{border-bottom-color:var(--accent)}.nombre-block input::placeholder{color:var(--muted);font-weight:300}.nombre-block.field-error{border-left:3px solid var(--accent-light)}
+
+/* PREGUNTAS */
+.pregunta{background:#FFFFFF;border:1px solid var(--paper-mid);border-radius:2px;padding:1.3rem 1.4rem;margin-bottom:1.2rem}
+.preg-num{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.5rem}
+.preg-texto{font-size:.95rem;font-weight:500;color:var(--ink);line-height:1.5;margin-bottom:1.2rem}
+.slider-wrap{padding:0 .2rem}
+.polos{display:flex;justify-content:space-between;margin-bottom:.5rem;gap:1rem}
+.polo{font-size:.78rem;color:var(--ink-soft);font-weight:300;line-height:1.4;max-width:42%;flex-shrink:0}
+.polo.derecho{text-align:right}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;background:var(--paper-mid);border-radius:2px;outline:none;margin:.3rem 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #FFFFFF;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #FFFFFF}
+.slider-valor{text-align:center;font-size:.72rem;color:var(--muted);margin-top:.3rem;font-weight:300;min-height:1.2em}
+
+/* BOTÓN ENVIAR */
+.btn{display:block;width:100%;padding:.9rem;margin-top:2rem;background:var(--accent);color:#fff;border:none;font-family:"Archivo",sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border-radius:2px;transition:background .25s;letter-spacing:.01em}.btn:hover{background:#7a1c1c}.btn:disabled{background:#C8C4BC;cursor:not-allowed}
+
+/* RESULTADOS */
+.resultados{display:none}
+.res-disclaimer{background:#FFFFFF;border:1px solid var(--paper-mid);border-left:3px solid var(--accent-light);border-radius:2px;padding:1.1rem 1.3rem;margin-bottom:2rem;font-size:.84rem;color:var(--ink-soft);line-height:1.75;font-weight:300}
+.res-intro{font-size:.95rem;color:var(--ink-soft);font-weight:300;line-height:1.75;margin-bottom:2rem}
+.res-intro strong{font-weight:600;color:var(--ink)}
+.sep{margin:2rem 0 1.5rem;display:flex;align-items:center;gap:.8rem}.sep-line{flex:1;height:1px;background:#DDD8CF}.sep-label{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap}
+
+.tarjeta{background:#FFFFFF;border:1px solid var(--paper-mid);border-radius:2px;padding:1.3rem 1.4rem;margin-bottom:1rem}
+.tarjeta-top{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem}
+.tarjeta-num{width:24px;height:24px;border-radius:50%;background:var(--accent-bg);border:1px solid #EAC8C7;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--accent);flex-shrink:0}
+.tarjeta-nombre{font-weight:700;font-size:1rem;color:var(--ink);letter-spacing:-.01em}
+.tarjeta-razon{font-size:.85rem;color:var(--ink-soft);font-weight:300;line-height:1.65;margin-bottom:1rem}
+.tarjeta-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;font-weight:600;color:var(--accent);border:1px solid #EAC8C7;border-radius:2px;padding:.45rem .9rem;transition:background .2s;background:var(--accent-bg)}.tarjeta-link:hover{background:#f5e0df}
+.tarjeta-link i{font-size:14px}
+.tarjeta-pronto{display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;font-weight:400;color:var(--muted);border:1px solid var(--paper-mid);border-radius:2px;padding:.45rem .9rem;background:var(--paper-deep);font-style:italic}
+
+.btn-reiniciar{display:block;width:100%;padding:.75rem;margin-top:2rem;background:transparent;color:var(--muted);border:1px solid var(--paper-mid);font-family:"Archivo",sans-serif;font-size:.84rem;font-weight:500;cursor:pointer;border-radius:2px;transition:all .2s}.btn-reiniciar:hover{background:var(--paper-deep);color:var(--ink)}
+
+footer{background:#F6F3EE;border-top:1px solid var(--paper-mid);padding:1.2rem var(--pad);text-align:center;font-size:.66rem;color:var(--muted);letter-spacing:.06em}
+</style>
+</head>
+<body>
+<header><div class="wrap nav"><div class="brand"><b>Lic. Fabián Sierra</b><span>Psicología y Rendimiento</span></div><a class="nav-back" href="index.html"><i class="ti ti-arrow-left"></i> Tareas</a></div></header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top"><div class="hero-icono"><i class="ti ti-compass"></i></div></div>
+    <h1>¿Por dónde empezar?</h1>
+    <p class="hero-sub">Ocho preguntas sobre cómo estás ahora. Al final te sugiero tres ejercicios que pueden tener sentido para este momento.</p>
+  </div>
+</section>
+
+<main><div class="wrap">
+
+  <div id="pantallaForm">
+    <div class="disclaimer">
+      <strong>Antes de empezar.</strong> Esto no es un diagnóstico ni una evaluación clínica. Es una brújula — una forma de orientarte entre los ejercicios disponibles según cómo te sentís hoy. Las sugerencias son un punto de partida, no una prescripción. Si algo de lo que aparece te genera dudas o incomodidad, traelo a nuestra próxima sesión.
+    </div>
+
+    <!-- PREGUNTA 1 -->
+    <div class="pregunta">
+      <p class="preg-num">Pregunta 1 de 8</p>
+      <p class="preg-texto">¿Dónde vive tu cabeza la mayor parte del tiempo?</p>
+      <div class="slider-wrap">
+        <div class="polos">
+          <span class="polo">La cabeza me lleva seguido al pasado o al futuro — lo que pasó, lo que puede pasar</span>
+          <span class="polo derecho">Estoy bastante metido en lo que está pasando ahora mismo</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s1" oninput="actualizarSlider(1)">
+        <div class="slider-valor" id="v1"></div>
+      </div>
+    </div>
+
+    <!-- PREGUNTA 2 -->
+    <div class="pregunta">
+      <p class="preg-num">Pregunta 2 de 8</p>
+      <p class="preg-texto">Cuando te aparece un pensamiento difícil, ¿qué pasa?</p>
+      <div class="slider-wrap">
+        <div class="polos">
+          <span class="polo">Me lo creo — siento que es la realidad, no un pensamiento</span>
+          <span class="polo derecho">Puedo ver que es un pensamiento, aunque me moleste</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s2" oninput="actualizarSlider(2)">
+        <div class="slider-valor" id="v2"></div>
+      </div>
+    </div>
+
+    <!-- PREGUNTA 3 -->
+    <div class="pregunta">
+      <p class="preg-num">Pregunta 3 de 8</p>
+      <p class="preg-texto">¿Qué hacés cuando aparece algo que no querés sentir?</p>
+      <div class="slider-wrap">
+        <div class="polos">
+          <span class="polo">Hago lo que sea para no sentirlo — evito, me distraigo, me ocupo</span>
+          <span class="polo derecho">Puedo quedarme con lo que siento aunque sea incómodo</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s3" oninput="actualizarSlider(3)">
+        <div class="slider-valor" id="v3"></div>
+      </div>
+    </div>
+
+    <!-- PREGUNTA 4 -->
+    <div class="pregunta">
+      <p class="preg-num">Pregunta 4 de 8</p>
+      <p class="preg-texto">Cuando estás mal, ¿cómo es la relación con ese estado?</p>
+      <div class="slider-wrap">
+        <div class="polos">
+          <span class="polo">Soy ese estado — no hay diferencia entre lo que siento y lo que soy</span>
+          <span class="polo derecho">Puedo notar lo que me pasa sin confundirme con eso</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s4" oninput="actualizarSlider(4)">
+        <div class="slider-valor" id="v4"></div>
+      </div>
+    </div>
+
+    <!-- PREGUNTA 5 -->
+    <div class="pregunta">
+      <p class="preg-num">Pregunta 5 de 8</p>
+      <p class="preg-texto">¿Qué tan claro tenés lo que realmente importa para vos?</p>
+      <div class="slider-wrap">
+        <div class="polos">
+          <span class="polo">Ando un poco sin brújula — no tengo del todo claro qué es lo que realmente importa</span>
+          <span class="polo derecho">Sé bien qué importa, tengo dirección aunque no siempre la siga</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s5" oninput="actualizarSlider(5)">
+        <div class="slider-valor" id="v5"></div>
+      </div>
+    </div>
+
+    <!-- PREGUNTA 6 -->
+    <div class="pregunta">
+      <p class="preg-num">Pregunta 6 de 8</p>
+      <p class="preg-texto">¿Estás haciendo cosas en línea con lo que te importa?</p>
+      <div class="slider-wrap">
+        <div class="polos">
+          <span class="polo">Hay cosas que importan y las postergo, las evito, o directamente no las hago</span>
+          <span class="polo derecho">Estoy haciendo cosas en línea con lo que me importa, aunque cueste</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s6" oninput="actualizarSlider(6)">
+        <div class="slider-valor" id="v6"></div>
+      </div>
+    </div>
+
+    <!-- PREGUNTA 7 -->
+    <div class="pregunta">
+      <p class="preg-num">Pregunta 7 de 8</p>
+      <p class="preg-texto">¿Qué tanto mandan tus pensamientos y emociones en lo que hacés?</p>
+      <div class="slider-wrap">
+        <div class="polos">
+          <span class="polo">Lo que pienso o siento termina decidiendo lo que hago o dejo de hacer</span>
+          <span class="polo derecho">Puedo moverme aunque tenga pensamientos o emociones que me frenan</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s7" oninput="actualizarSlider(7)">
+        <div class="slider-valor" id="v7"></div>
+      </div>
+    </div>
+
+    <!-- PREGUNTA 8 -->
+    <div class="pregunta">
+      <p class="preg-num">Pregunta 8 de 8</p>
+      <p class="preg-texto">¿Qué preferís hacer ahora mismo?</p>
+      <div class="slider-wrap">
+        <div class="polos">
+          <span class="polo">Prefiero entender primero — que algo tenga sentido antes de hacer</span>
+          <span class="polo derecho">Prefiero hacer algo concreto ahora, aunque no lo entienda del todo</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" id="s8" oninput="actualizarSlider(8)">
+        <div class="slider-valor" id="v8"></div>
+      </div>
+    </div>
+
+    <button class="btn" id="btnCalcular" onclick="calcular()">Ver sugerencias</button>
+  </div>
+
+  <!-- RESULTADOS -->
+  <div class="resultados" id="pantallaResultados">
+    <div class="res-disclaimer">
+      Estas sugerencias se basan en cómo describiste tu semana ahora mismo. Pueden cambiar mañana — y eso está bien. <strong>Si algo de lo que apareció te generó incomodidad o preguntas, traelas a nuestra próxima sesión.</strong>
+    </div>
+    <p class="res-intro" id="resIntro"></p>
+    <div class="sep"><div class="sep-line"></div><span class="sep-label">Ejercicios sugeridos</span><div class="sep-line"></div></div>
+    <div id="resTarjetas"></div>
+    <button class="btn-reiniciar" onclick="reiniciar()">Volver a empezar</button>
+  </div>
+
+</div></main>
+<footer><span>Área privada · © <span id="year"></span> Lic. Fabián Sierra</span></footer>
+
+<script>
+// ============================================================
+// DATOS — ÚNICA SECCIÓN QUE SE EDITA AL AGREGAR EJERCICIOS
+// Para agregar un ejercicio nuevo:
+// 1. Copiar un objeto del array
+// 2. Completar: id, nombre, archivo, procesos (array), tipo, disponible
+// Procesos válidos: 'momento-presente','defusion','aceptacion','yo-contexto','valores','accion'
+// Tipos válidos: 'comprender','hacer','jugar'
+// disponible: true si el archivo existe, false si es próximamente
+// ============================================================
+var EJERCICIOS = [
+  // MOMENTO PRESENTE
+  {id:'registro-diario',nombre:'Registro diario',archivo:'flexibilidad/registro-diario.html',procesos:['momento-presente'],tipo:'hacer',disponible:true},
+  {id:'atencion-focalizada',nombre:'Atención focalizada',archivo:'flexibilidad/atencion-focalizada.html',procesos:['momento-presente'],tipo:'hacer',disponible:true},
+  {id:'las-hojas-en-el-rio',nombre:'Las hojas en el río',archivo:'ver/las-hojas-en-el-rio.html',procesos:['momento-presente'],tipo:'comprender',disponible:true},
+  {id:'ancla-al-suelo',nombre:'Ancla al suelo',archivo:'hacer/ancla-al-suelo.html',procesos:['momento-presente','aceptacion'],tipo:'hacer',disponible:false},
+  {id:'mindfulness-informal',nombre:'Mindfulness informal',archivo:'hacer/mindfulness-informal.html',procesos:['momento-presente'],tipo:'hacer',disponible:false},
+  {id:'mindfulness-respiracion',nombre:'Mindfulness de la respiración',archivo:'hacer/mindfulness-respiracion.html',procesos:['momento-presente','aceptacion'],tipo:'hacer',disponible:false},
+  {id:'momento-tiempo-detuvo',nombre:'El momento en que el tiempo se detuvo',archivo:'jugar/el-momento-tiempo-detuvo.html',procesos:['momento-presente','valores'],tipo:'jugar',disponible:false},
+  // DEFUSION
+  {id:'titular-de-diario',nombre:'El titular de diario',archivo:'flexibilidad/titular-de-diario.html',procesos:['defusion'],tipo:'hacer',disponible:true},
+  {id:'el-nombre-de-la-historia',nombre:'El nombre de la historia',archivo:'flexibilidad/el-nombre-de-la-historia.html',procesos:['defusion'],tipo:'hacer',disponible:true},
+  {id:'fusion-en-escena',nombre:'Fusión en escena',archivo:'flexibilidad/fusion-en-escena.html',procesos:['defusion'],tipo:'hacer',disponible:true},
+  {id:'el-mapa-y-el-territorio',nombre:'El mapa y el territorio',archivo:'ver/el-mapa-y-el-territorio.html',procesos:['defusion'],tipo:'comprender',disponible:true},
+  {id:'los-pasajeros-del-colectivo',nombre:'Los pasajeros del colectivo',archivo:'ver/los-pasajeros-del-colectivo.html',procesos:['defusion','accion'],tipo:'comprender',disponible:true},
+  {id:'saciacion-semantica',nombre:'Saciación semántica',archivo:'jugar/la-palabra-rota.html',procesos:['defusion'],tipo:'jugar',disponible:false},
+  // ACEPTACION
+  {id:'la-forma-de-la-experiencia',nombre:'La forma de la experiencia',archivo:'flexibilidad/la-forma-de-la-experiencia.html',procesos:['aceptacion'],tipo:'hacer',disponible:true},
+  {id:'expansion',nombre:'Expansión',archivo:'flexibilidad/expansion.html',procesos:['aceptacion'],tipo:'hacer',disponible:true},
+  {id:'escala-de-malestar',nombre:'La escala de malestar',archivo:'flexibilidad/escala-de-malestar.html',procesos:['aceptacion'],tipo:'hacer',disponible:true},
+  {id:'el-control-es-el-problema',nombre:'El control es el problema',archivo:'ver/el-control-es-el-problema.html',procesos:['aceptacion'],tipo:'comprender',disponible:true},
+  {id:'la-trampa-china',nombre:'La trampa china',archivo:'ver/la-trampa-china.html',procesos:['aceptacion'],tipo:'comprender',disponible:true},
+  {id:'para-que-sirve-el-malestar',nombre:'¿Para qué sirve el malestar?',archivo:'ver/para-que-sirve-el-malestar.html',procesos:['aceptacion','accion'],tipo:'comprender',disponible:true},
+  {id:'el-obituario-del-habito',nombre:'El obituario del hábito',archivo:'jugar/el-obituario-del-habito.html',procesos:['aceptacion','accion'],tipo:'jugar',disponible:false},
+  // YO COMO CONTEXTO
+  {id:'toma-de-perspectiva',nombre:'Toma de perspectiva',archivo:'flexibilidad/toma-de-perspectiva.html',procesos:['yo-contexto'],tipo:'hacer',disponible:true},
+  {id:'el-observador-en-competencia',nombre:'El observador en competencia',archivo:'flexibilidad/el-observador-en-competencia.html',procesos:['yo-contexto'],tipo:'hacer',disponible:true},
+  {id:'el-observador-en-el-tiempo',nombre:'El observador en el tiempo',archivo:'flexibilidad/el-observador-en-el-tiempo.html',procesos:['yo-contexto'],tipo:'hacer',disponible:true},
+  {id:'el-tablero-de-ajedrez',nombre:'El tablero de ajedrez',archivo:'ver/el-tablero-de-ajedrez.html',procesos:['yo-contexto'],tipo:'comprender',disponible:true},
+  {id:'nino-que-fuiste',nombre:'Qué le enseñarías al niño que fuiste',archivo:'jugar/que-le-enseniarias-al-nino.html',procesos:['yo-contexto','valores'],tipo:'jugar',disponible:false},
+  // VALORES
+  {id:'el-velero',nombre:'El velero',archivo:'ver/el-velero.html',procesos:['valores'],tipo:'comprender',disponible:true},
+  {id:'la-anecdota-significativa',nombre:'La anécdota significativa',archivo:'flexibilidad/la-anecdota-significativa.html',procesos:['valores'],tipo:'hacer',disponible:true},
+  {id:'la-diana',nombre:'La diana',archivo:'flexibilidad/la-diana.html',procesos:['valores'],tipo:'hacer',disponible:true},
+  {id:'decision-alineada',nombre:'La decisión alineada',archivo:'flexibilidad/decision-alineada.html',procesos:['valores','accion'],tipo:'hacer',disponible:true},
+  {id:'personajes-infancia',nombre:'Los personajes de tu infancia',archivo:'jugar/personajes-de-tu-infancia.html',procesos:['valores'],tipo:'jugar',disponible:false},
+  {id:'playlist-de-vida',nombre:'La playlist de tu vida',archivo:'jugar/playlist-de-tu-vida.html',procesos:['valores'],tipo:'jugar',disponible:false},
+  {id:'objeto-que-no-tirarias',nombre:'El objeto que no tirarías nunca',archivo:'jugar/el-objeto-que-no-tirarias.html',procesos:['valores'],tipo:'jugar',disponible:false},
+  {id:'escena-de-pelicula',nombre:'La escena de película que te quedó grabada',archivo:'jugar/la-escena-de-pelicula.html',procesos:['valores'],tipo:'jugar',disponible:false},
+  {id:'discurso-de-los-80',nombre:'El discurso de los 80',archivo:'jugar/el-discurso-de-los-80.html',procesos:['valores','yo-contexto'],tipo:'jugar',disponible:false},
+  // ACCION COMPROMETIDA
+  {id:'el-paso-mas-pequeno',nombre:'El paso más pequeño',archivo:'flexibilidad/el-paso-mas-pequeno.html',procesos:['accion'],tipo:'hacer',disponible:true},
+  {id:'registro-de-consistencia',nombre:'Registro de consistencia',archivo:'flexibilidad/registro-de-consistencia.html',procesos:['accion'],tipo:'hacer',disponible:true},
+  {id:'el-punto-de-eleccion',nombre:'El punto de elección',archivo:'flexibilidad/el-punto-de-eleccion.html',procesos:['accion'],tipo:'hacer',disponible:true},
+  {id:'tres-agradecimientos',nombre:'Tres agradecimientos',archivo:'hacer/tres-agradecimientos.html',procesos:['accion','momento-presente'],tipo:'hacer',disponible:true},
+  {id:'cuando-entonces',nombre:'Cuando... entonces',archivo:'hacer/cuando-entonces.html',procesos:['accion'],tipo:'hacer',disponible:false},
+  {id:'smart-desde-valores',nombre:'SMART desde valores',archivo:'hacer/smart-desde-valores.html',procesos:['accion','valores'],tipo:'hacer',disponible:false},
+  {id:'el-hombre-muerto',nombre:'El hombre muerto',archivo:'hacer/el-hombre-muerto.html',procesos:['accion'],tipo:'hacer',disponible:false}
+];
+
+// ============================================================
+// TEXTOS DE RAZÓN POR PROCESO — editar para ajustar el tono
+// ============================================================
+var RAZONES = {
+  'momento-presente': {
+    comprender: 'Lo que describís sugiere que la mente viaja bastante fuera del presente. Este ejercicio ayuda a anclar la atención en lo que está pasando ahora.',
+    hacer: 'Parece que la atención se va seguido al pasado o al futuro. Esta práctica entrena volver al momento actual, de a poco.',
+    jugar: 'La cabeza parece estar en otro lado bastante seguido. Este ejercicio invita a encontrar momentos donde el tiempo desapareció.'
+  },
+  'defusion': {
+    comprender: 'Los pensamientos parecen pesar bastante ahora. Este ejercicio ayuda a verlos desde un poco más lejos, sin que pierdan su peso de golpe.',
+    hacer: 'Cuando los pensamientos se sienten como hechos, es útil practicar notarlos como lo que son. Este ejercicio entrena eso.',
+    jugar: 'Hay algo de fusión con los pensamientos. Este ejercicio usa el humor para aflojarlo un poco.'
+  },
+  'aceptacion': {
+    comprender: 'Parece que hay bastante energía puesta en evitar lo que no querés sentir. Este ejercicio pone eso en perspectiva.',
+    hacer: 'Lo que describís sugiere que el malestar se convierte en obstáculo. Esta práctica entrena estar con ello sin que gobierne.',
+    jugar: 'Hay algo que querés dejar atrás pero que cuesta soltar. Este ejercicio trabaja eso de una forma distinta.'
+  },
+  'yo-contexto': {
+    comprender: 'Lo que describís sugiere que te confundís con lo que sentís. Este ejercicio ayuda a encontrar esa parte que observa sin ser arrastrada.',
+    hacer: 'Cuando el estado emocional se convierte en identidad, es útil practicar la distancia del observador. Esto entrena eso.',
+    jugar: 'Hay algo de fusión con tu historia o tus estados. Este ejercicio invita a verlo desde otro ángulo.'
+  },
+  'valores': {
+    comprender: 'Algo de lo que describís apunta a falta de dirección. Este ejercicio ayuda a encontrar hacia dónde apunta la brújula.',
+    hacer: 'Lo que describís sugiere desconexión entre lo que importa y lo que hacés. Esta práctica trabaja eso directamente.',
+    jugar: 'La dirección no siempre está clara. Este ejercicio busca lo que importa por una puerta inesperada.'
+  },
+  'accion': {
+    comprender: 'Parece que hay cosas importantes que no están pasando. Este ejercicio ayuda a entender qué está en el medio.',
+    hacer: 'Lo que describís apunta a distancia entre lo que importa y lo que se hace. Esta práctica trabaja la acción concreta.',
+    jugar: 'Hay algo que querés pero que postergás. Este ejercicio lo trabaja de una forma diferente.'
+  }
+};
+
+// ============================================================
+// LÓGICA DEL ALGORITMO — no editar salvo cambios de arquitectura
+// ============================================================
+function verificarAcceso(){
+  if(!sessionStorage.getItem('fs_pacientes_auth')){sessionStorage.setItem('fs_redirect',window.location.href);window.location.href='../index.html';}
+}
+
+function actualizarSlider(n){
+  // sin etiqueta de valor — la posición del thumb es suficiente
+}
+
+function calcular(){
+  var s = [];
+  for(var i=1;i<=8;i++){
+    s.push(parseInt(document.getElementById('s'+i).value));
+  }
+
+  // PASO 1 — Rigidez por pregunta
+  var r = [];
+  for(var i=0;i<7;i++) r.push(100 - s[i]); // r[0..6] = rigidez preguntas 1-7
+  // Pregunta 5 (r[4]): curva cuadrática — óptimo en 70
+  r[4] = Math.round(Math.pow(s[4]-70,2)/4900*100);
+
+  // PASO 2 — Score de necesidad por proceso
+  var necesidad = {
+    'momento-presente': r[0],
+    'defusion':         Math.round(r[1]*0.6 + r[6]*0.4),
+    'aceptacion':       Math.round(r[2]*0.7 + r[6]*0.3),
+    'yo-contexto':      Math.round(r[3]*0.7 + r[1]*0.3),
+    'valores':          r[4],
+    'accion':           Math.round(r[5]*0.6 + r[6]*0.4)
+  };
+
+  // PASO 3 — Ranking de procesos
+  var ranking = [];
+  for(var proc in necesidad) ranking.push({proceso:proc, score:necesidad[proc]});
+  ranking.sort(function(a,b){return b.score - a.score;});
+  var top3 = ranking.slice(0,3);
+
+  // PASO 4 — Preferencia de tipo (pregunta 8)
+  var pref8 = s[7];
+  var tipoPref;
+  if(pref8 < 35) tipoPref = 'comprender';
+  else if(pref8 > 65) tipoPref = 'hacer';
+  else tipoPref = 'mixto';
+
+  // PASO 5 — Selección de ejercicios
+  var seleccionados = [];
+  var usados = {};
+  var tiposAsignados = [];
+
+  // Para tipo mixto: comprender, hacer, jugar en rotación
+  var tiposRotacion = ['comprender','hacer','jugar'];
+
+  for(var i=0;i<top3.length;i++){
+    var proc = top3[i].proceso;
+    var tipo;
+    if(tipoPref === 'mixto') tipo = tiposRotacion[i % tiposRotacion.length];
+    else tipo = tipoPref;
+
+    var candidatos = EJERCICIOS.filter(function(e){
+      return e.procesos.indexOf(proc) >= 0 && e.tipo === tipo && !usados[e.id];
+    });
+
+    // Si no hay candidatos del tipo preferido, buscar en otros tipos
+    if(candidatos.length === 0){
+      var otrosTipos = ['comprender','hacer','jugar'].filter(function(t){return t!==tipo;});
+      for(var j=0;j<otrosTipos.length;j++){
+        candidatos = EJERCICIOS.filter(function(e){
+          return e.procesos.indexOf(proc) >= 0 && e.tipo === otrosTipos[j] && !usados[e.id];
+        });
+        if(candidatos.length>0) break;
+      }
+    }
+
+    if(candidatos.length > 0){
+      // Preferir disponibles, pero incluir próximamente si no hay
+      var disponibles = candidatos.filter(function(e){return e.disponible;});
+      var elegido = disponibles.length > 0 ? disponibles[0] : candidatos[0];
+      elegido._proceso = proc;
+      seleccionados.push(elegido);
+      usados[elegido.id] = true;
+    }
+  }
+
+  // PASO 6 — Renderizar resultados
+  mostrarResultados(seleccionados, tipoPref);
+}
+
+function mostrarResultados(ejercicios, tipoPref){
+  var intro = 'Basándome en lo que describiste, estos son los tres ejercicios que más sentido tienen para este momento.';
+  document.getElementById('resIntro').innerHTML = intro;
+
+  var html = '';
+  for(var i=0;i<ejercicios.length;i++){
+    var ej = ejercicios[i];
+    var proc = ej._proceso;
+    var tipoTexto = ej.tipo;
+    var razon = RAZONES[proc] && RAZONES[proc][tipoTexto] ? RAZONES[proc][tipoTexto] : '';
+
+    var boton = ej.disponible
+      ? '<a class="tarjeta-link" href="' + ej.archivo + '"><i class="ti ti-arrow-right"></i> Ir al ejercicio</a>'
+      : '<span class="tarjeta-pronto"><i class="ti ti-clock"></i> Próximamente</span>';
+
+    html += '<div class="tarjeta">';
+    html += '<div class="tarjeta-top"><div class="tarjeta-num">' + (i+1) + '</div><span class="tarjeta-nombre">' + ej.nombre + '</span></div>';
+    html += '<p class="tarjeta-razon">' + razon + '</p>';
+    html += boton;
+    html += '</div>';
+  }
+
+  document.getElementById('resTarjetas').innerHTML = html;
+  document.getElementById('pantallaForm').style.display = 'none';
+  document.getElementById('pantallaResultados').style.display = 'block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function reiniciar(){
+  for(var i=1;i<=8;i++){
+    document.getElementById('s'+i).value = 50;
+    actualizarSlider(i);
+  }
+  document.getElementById('pantallaForm').style.display = 'block';
+  document.getElementById('pantallaResultados').style.display = 'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+verificarAcceso();
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
