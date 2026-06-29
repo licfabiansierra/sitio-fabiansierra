@@ -638,6 +638,16 @@
 </div><!-- /app -->
 
 <script>
+
+function verificarAcceso(){
+  if(!sessionStorage.getItem('fs_pacientes_auth')){
+    sessionStorage.setItem('fs_redirect', window.location.href);
+    window.location.href = '../index.html';
+  }
+}
+verificarAcceso();
+
+
 // SCRIPT DE GOOGLE APPS — pegá acá la URL que genera tu Apps Script
 // Instrucciones paso a paso al final de este archivo en comentarios
 var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxh_P55FcHvaUc76Ju589EK3AUqW3gpYQE9OJEyLnWe2Jz-ltLJUVJR-Zc1wIUHaYR-XQ/exec";
