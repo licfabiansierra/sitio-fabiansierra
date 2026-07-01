@@ -71,13 +71,8 @@
 </div></main>
 <footer><span>Área privada · © <span id="year"></span> Lic. Fabián Sierra</span></footer>
 <script>
-var SHEET_URL='https://script.google.com/macros/s/AKfycbzl3LRTXiTK0k8JZ3jZHYrBjO9he-w4mIo2QeHj1NjqkETlJcEoR5j4bGXXDGcgEZNU/exec';
-function verificarAcceso(){
-  if(!sessionStorage.getItem('fs_pacientes_auth')){
-    var url=encodeURIComponent(window.location.href);
-    window.location.href='../../index.html?redirect='+url;
-  }
-}}}
+var SHEET_URL='REEMPLAZAR_CON_URL_DE_APPS_SCRIPT';
+function verificarAcceso(){if(!sessionStorage.getItem('fs_pacientes_auth')){sessionStorage.setItem('fs_redirect',window.location.href);window.location.href='../../index.html';}}
 function setFechaHoy(){var h=new Date();document.getElementById('fechaInput').value=h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0');}
 
 var areasConfig=[

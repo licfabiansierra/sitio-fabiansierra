@@ -480,12 +480,7 @@ footer{background:#F6F3EE;border-top:1px solid var(--paper-mid);padding:1.2rem v
 <footer><span>Área privada · © <span id="year"></span> Lic. Fabián Sierra</span></footer>
 
 <script>
-function verificarAcceso(){
-  if(!sessionStorage.getItem('fs_pacientes_auth')){
-    var url=encodeURIComponent(window.location.href);
-    window.location.href='../index.html?redirect='+url;
-  }
-}}}
+function verificarAcceso(){if(!sessionStorage.getItem('fs_pacientes_auth')){sessionStorage.setItem('fs_redirect',window.location.href);window.location.href='../index.html';}}
 function salir(){sessionStorage.removeItem('fs_pacientes_auth');window.location.href='../index.html';}
 function toggleSec(id){document.getElementById(id).classList.toggle('abierta');}
 function toggleSub(id){document.getElementById(id).classList.toggle('abierta');}

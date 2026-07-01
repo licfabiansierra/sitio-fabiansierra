@@ -128,21 +128,13 @@ footer{position:fixed;bottom:0;width:100%;text-align:center;padding:.9rem;font-s
 <script>
 var CLAVE = 'fs2025';
 
-function getRedirectUrl(){
-  // Primero intentar desde sessionStorage
-  var dest = sessionStorage.getItem('fs_redirect');
-  if(dest){ sessionStorage.removeItem('fs_redirect'); return dest; }
-  // Si no, desde parámetro de URL
-  var params = new URLSearchParams(window.location.search);
-  return params.get('redirect') || null;
-}
-
 function ingresar(){
   var input = document.getElementById('claveInput').value.trim();
   var error = document.getElementById('errorClave');
   if(input === CLAVE){
     sessionStorage.setItem('fs_pacientes_auth','1');
-    var dest = getRedirectUrl();
+    var dest = sessionStorage.getItem('fs_redirect');
+    sessionStorage.removeItem('fs_redirect');
     if(dest){
       window.location.href = dest;
     } else {
