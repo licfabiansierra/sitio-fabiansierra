@@ -308,7 +308,11 @@ var RAZONES = {
 // LÓGICA DEL ALGORITMO — no editar salvo cambios de arquitectura
 // ============================================================
 function verificarAcceso(){
-  if(!sessionStorage.getItem('fs_pacientes_auth')){sessionStorage.setItem('fs_redirect',window.location.href);window.location.href='../index.html';}
+  if(!sessionStorage.getItem('fs_pacientes_auth')){
+    var url=encodeURIComponent(window.location.href);
+    window.location.href='../index.html?redirect='+url;
+  }
+}}
 }
 
 function actualizarSlider(n){
